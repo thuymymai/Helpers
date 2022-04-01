@@ -2,7 +2,7 @@
 //  HelperUITestsLaunchTests.swift
 //  HelperUITests
 //
-//  Created by Dang Son on 1.4.2022.
+//  Created by SonDang, MyMai, AnHuynh on 1.4.2022.
 //
 
 import XCTest
