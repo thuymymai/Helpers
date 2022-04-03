@@ -11,7 +11,7 @@ struct VolunteerView: View {
     var body: some View {
         Text("Home")
         Button(action:{
-            NavigationLink(des)
+            //NavigationLink(des)
         }) {
             Image(systemName: "forward.fill")
         }
