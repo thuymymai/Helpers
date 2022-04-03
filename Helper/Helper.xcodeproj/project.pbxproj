@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		20DCAE1327FA2E9F00CBD253 /* VolunteerDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DCAE1227FA2E9F00CBD253 /* VolunteerDashboard.swift */; };
 		66072C6F27F66EFB006EB723 /* VolunteerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66072C6E27F66EFB006EB723 /* VolunteerView.swift */; };
 		66E4DA2F27F65FD600538B74 /* HelperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E4DA2E27F65FD600538B74 /* HelperApp.swift */; };
 		66E4DA3127F65FD600538B74 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E4DA3027F65FD600538B74 /* ContentView.swift */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		20DCAE1127FA1C0600CBD253 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		20DCAE1227FA2E9F00CBD253 /* VolunteerDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerDashboard.swift; sourceTree = "<group>"; };
 		66072C6E27F66EFB006EB723 /* VolunteerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerView.swift; sourceTree = "<group>"; };
 		66E4DA2B27F65FD600538B74 /* Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Helper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66E4DA2E27F65FD600538B74 /* HelperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperApp.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				66E4DA3227F65FD700538B74 /* Assets.xcassets */,
 				66E4DA3427F65FD700538B74 /* Preview Content */,
 				66072C6E27F66EFB006EB723 /* VolunteerView.swift */,
+				20DCAE1227FA2E9F00CBD253 /* VolunteerDashboard.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 				66E4DA3127F65FD600538B74 /* ContentView.swift in Sources */,
 				66072C6F27F66EFB006EB723 /* VolunteerView.swift in Sources */,
 				66E4DA2F27F65FD600538B74 /* HelperApp.swift in Sources */,
+				20DCAE1327FA2E9F00CBD253 /* VolunteerDashboard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
