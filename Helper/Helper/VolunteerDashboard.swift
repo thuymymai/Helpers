@@ -73,7 +73,7 @@ struct AppBarView: View {
 
 struct TagLineView: View {
     var body: some View {
-        Text("Manage Your Task")
+        Text("Hi User\nManage Your Task")
             .font(.system(size: 28))
             .fontWeight(.semibold)
             .foregroundColor(Color("Primary"))
