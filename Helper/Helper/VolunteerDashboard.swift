@@ -9,34 +9,38 @@ import SwiftUI
 
 struct VolunteerDashboard: View {
     var body: some View {
-        ZStack{
-            Color("Background")
-                .edgesIgnoringSafeArea(.all)
-            ScrollView{
-                
-                
-                VStack (alignment: .leading){
-                    AppBarView()
-                    TagLineView()
-                        .padding()
-                    SearchAndFilter()
-                    Text("Available Tasks")
-                        .font(.system(size: 24))
-                        .padding(.horizontal)
-                    Text("10 tasks waiting to be accepted")
-                        .font(.system(size: 16))
-                        .foregroundColor(Color("Primary"))
-                        .fontWeight(.medium)
-                        .padding(.horizontal)
-                    
-                    
-                    CategoriesView()
-                    Text("Ongoing Tasks")
-                        .font(.system(size: 24))
-                        .padding(.horizontal)
-                    OngoingTaskCard()
+        NavigationView{
+            ZStack{
+                Color("Background")
+                    .edgesIgnoringSafeArea(.all)
+                ScrollView{
+                    VStack (alignment: .leading){
+                        AppBarView()
+                        TagLineView()
+                            .padding()
+                        SearchAndFilter()
+                        Text("Available Tasks")
+                            .font(.system(size: 24))
+                            .padding(.horizontal, 30)
+                        Text("10 tasks waiting to be accepted")
+                            .font(.system(size: 16))
+                            .foregroundColor(Color("Primary"))
+                            .fontWeight(.medium)
+                            .padding(.horizontal,30)
+                        
+                        NavigationLink(destination: AvailableTasksView(), label: {
+                            CategoriesView()
+                            
+                        })
+                        Text("Ongoing Tasks")
+                            .font(.system(size: 24))
+                            .padding(.horizontal, 30)
+                        OngoingTaskCard()
+                    }
                 }
+                
             }
+            .navigationBarHidden(true)
         }
     }
 }
@@ -67,7 +71,7 @@ struct AppBarView: View {
                     .cornerRadius(10)
             }
         }
-        .padding(.horizontal)
+        .padding(.horizontal, 30)
     }
 }
 
@@ -77,6 +81,7 @@ struct TagLineView: View {
             .font(.system(size: 28))
             .fontWeight(.semibold)
             .foregroundColor(Color("Primary"))
+            .padding(.horizontal,15)
     }
 }
 
@@ -107,33 +112,40 @@ struct SearchAndFilter: View {
             
             
         }
-        .padding(.horizontal)
+        .padding(.horizontal, 30)
     }
 }
 
 struct CategoriesView: View {
     var body: some View {
+        
         HStack{
+            
             ZStack{
+                
+                
                 RoundedRectangle(cornerRadius: 10)
                     .fill(.white)
                     .frame(width: 120, height: 150)
                 VStack(alignment: .leading){
+                    
                     Text("Grocery")
                         .font(.headline)
                         .fontWeight(.medium)
+                        .foregroundColor(.primary)
                         .padding(.top,20)
                     Text("3 tasks")
                         .font(.subheadline)
-                    
+                        .foregroundColor(.primary)
                     Image("groceries image")
                         .resizable()
                         .frame(width: 110, height: 90)
                         .padding(.bottom)
                 }
                 
-                
             }
+            
+            
             ZStack{
                 RoundedRectangle(cornerRadius: 10)
                     .fill(.white)
@@ -142,9 +154,11 @@ struct CategoriesView: View {
                     Text("Grocery")
                         .font(.headline)
                         .fontWeight(.medium)
+                        .foregroundColor(.primary)
                         .padding(.top,20)
                     Text("3 tasks")
                         .font(.subheadline)
+                        .foregroundColor(.primary)
                     Image("delivery image")
                         .resizable()
                         .frame(width: 110, height: 90)
@@ -160,9 +174,11 @@ struct CategoriesView: View {
                     Text("Others")
                         .font(.headline)
                         .fontWeight(.medium)
+                        .foregroundColor(.primary)
                         .padding(.top,20)
                     Text("4 tasks")
                         .font(.subheadline)
+                        .foregroundColor(.primary)
                     Image("helping image")
                         .resizable()
                         .frame(width: 110, height: 90)
@@ -173,7 +189,7 @@ struct CategoriesView: View {
             
             
         }
-        .padding()
+        .padding(.horizontal)
     }
 }
 
