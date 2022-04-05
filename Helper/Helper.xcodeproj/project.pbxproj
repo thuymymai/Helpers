@@ -104,11 +104,8 @@
 				66E4DA3027F65FD600538B74 /* ContentView.swift */,
 				66E4DA3227F65FD700538B74 /* Assets.xcassets */,
 				66E4DA3427F65FD700538B74 /* Preview Content */,
-<<<<<<< HEAD
 				66072C6E27F66EFB006EB723 /* VolunteerView.swift */,
 				205CB54627FC5AF3004DBA8B /* AvailableTasksView.swift */,
-=======
->>>>>>> 0e3c20f4dd694c7b3791057a24f729a3a5e6dd6c
 				20DCAE1227FA2E9F00CBD253 /* VolunteerDashboard.swift */,
 			);
 			path = Helper;
@@ -270,11 +267,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				66E4DA3127F65FD600538B74 /* ContentView.swift in Sources */,
-<<<<<<< HEAD
 				205CB54727FC5AF3004DBA8B /* AvailableTasksView.swift in Sources */,
 				66072C6F27F66EFB006EB723 /* VolunteerView.swift in Sources */,
-=======
->>>>>>> 0e3c20f4dd694c7b3791057a24f729a3a5e6dd6c
 				66E4DA2F27F65FD600538B74 /* HelperApp.swift in Sources */,
 				20DCAE1327FA2E9F00CBD253 /* VolunteerDashboard.swift in Sources */,
 			);
