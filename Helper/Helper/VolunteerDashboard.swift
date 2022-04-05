@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct VolunteerDashboard: View {
+    //    let categories: [TaskCategories]
     var body: some View {
         NavigationView{
             ZStack{
@@ -27,11 +28,15 @@ struct VolunteerDashboard: View {
                             .foregroundColor(Color("Primary"))
                             .fontWeight(.medium)
                             .padding(.horizontal,30)
-                        
-                        NavigationLink(destination: AvailableTasksView(), label: {
+                        //ForEach(categories) {category in
+                        //                        NavigationLink(destination: AvailableTasksView(category: category)) {
+                        //                            CategoriesView(category: category)
+                        //
+                        //                        }
+                        NavigationLink(destination: AvailableTasksView()) {
                             CategoriesView()
                             
-                        })
+                        }
                         Text("Ongoing Tasks")
                             .font(.system(size: 24))
                             .padding(.horizontal, 30)
