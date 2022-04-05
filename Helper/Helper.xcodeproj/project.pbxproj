@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		205CB54727FC5AF3004DBA8B /* AvailableTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205CB54627FC5AF3004DBA8B /* AvailableTasksView.swift */; };
 		20DCAE1327FA2E9F00CBD253 /* VolunteerDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DCAE1227FA2E9F00CBD253 /* VolunteerDashboard.swift */; };
 		66072C6F27F66EFB006EB723 /* VolunteerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66072C6E27F66EFB006EB723 /* VolunteerView.swift */; };
 		66E4DA2F27F65FD600538B74 /* HelperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E4DA2E27F65FD600538B74 /* HelperApp.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		205CB54627FC5AF3004DBA8B /* AvailableTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableTasksView.swift; sourceTree = "<group>"; };
 		20DCAE1127FA1C0600CBD253 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		20DCAE1227FA2E9F00CBD253 /* VolunteerDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerDashboard.swift; sourceTree = "<group>"; };
 		66072C6E27F66EFB006EB723 /* VolunteerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerView.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				66E4DA3227F65FD700538B74 /* Assets.xcassets */,
 				66E4DA3427F65FD700538B74 /* Preview Content */,
 				66072C6E27F66EFB006EB723 /* VolunteerView.swift */,
+				205CB54627FC5AF3004DBA8B /* AvailableTasksView.swift */,
 				20DCAE1227FA2E9F00CBD253 /* VolunteerDashboard.swift */,
 			);
 			path = Helper;
@@ -266,6 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				66E4DA3127F65FD600538B74 /* ContentView.swift in Sources */,
+				205CB54727FC5AF3004DBA8B /* AvailableTasksView.swift in Sources */,
 				66072C6F27F66EFB006EB723 /* VolunteerView.swift in Sources */,
 				66E4DA2F27F65FD600538B74 /* HelperApp.swift in Sources */,
 				20DCAE1327FA2E9F00CBD253 /* VolunteerDashboard.swift in Sources */,
