@@ -9,13 +9,18 @@
 import SwiftUI
 
 struct Location: View {
+    
     var body: some View {
+        
         NavigationView {
-            VStack {
+            ZStack{
+                Color("Background")
+                    .edgesIgnoringSafeArea(.all)
+                VStack {
                     Image("location")
                         .resizable()
                         .scaledToFit()
-                    Text("Hi, nice to meet you !")
+                    Text("Locate on map")
                         .font(.title)
                         .bold()
                     Text("Choose your location to find \nhelp seekers around you. ")
@@ -26,32 +31,28 @@ struct Location: View {
                         .padding(.all, 20)
                     
                     NavigationLink(
-                        destination: VolunteerDashboard().navigationBarBackButtonHidden(true).navigationBarHidden(true),
+                        destination: MapView().navigationBarBackButtonHidden(true),
                         label: {
                             HStack {
                                 Image(systemName: "location.fill")
-                                    .foregroundColor(Color("Secondary"))
-                                
-                                Text("Use current location")
+                                    .foregroundColor(.white)
+
+                                Text("Go To Map")
                                     .bold()
-                                    .foregroundColor(Color("Secondary"))
-                                
+                                    .foregroundColor(.white)
+
                             }
-                            .frame(width: 300, height: 60, alignment: .center)
-                            .border(Color("Secondary"), width: 3)
+                            .frame(width: 280, height: 60, alignment: .center)
+                            .background(Color("Primary"))
                             .cornerRadius(5)
-                        })
+                        }).padding(.top, 30)
                     
-                    Text("Select Manually")
-                        .bold()
-                        .underline()
-                        .foregroundColor(.gray)
-                        .padding(.top, 80)
-                    Spacer()
+                 
                     
+                }
             }
         }
-
+        
     }
     
 }
