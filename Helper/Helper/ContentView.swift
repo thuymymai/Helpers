@@ -20,7 +20,7 @@ struct ContentView: View {
                     Image(systemName: "list.bullet.rectangle.portrait")
                     Text("Available Tasks")
                 }
-            VolunteerProfile()
+            Location()
                 .tabItem(){
                     Image(systemName: "map")
                     Text("Location")
