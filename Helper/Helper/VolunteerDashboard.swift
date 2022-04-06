@@ -72,8 +72,9 @@ struct AppBarView: View {
                 Image("Avatar-1")
                     .resizable()
                     .padding()
-                    .frame(width: 90, height: 90)
-                    .cornerRadius(10)
+                    .frame(width: 85, height: 85)
+                    .shadow(radius: 5)
+                
             }
         }
         .padding(.horizontal, 30)
@@ -132,6 +133,7 @@ struct CategoriesView: View {
                 RoundedRectangle(cornerRadius: 10)
                     .fill(.white)
                     .frame(width: 120, height: 150)
+                    .shadow(radius: 5)
                 VStack(alignment: .leading){
                     
                     Text("Grocery")
@@ -155,6 +157,7 @@ struct CategoriesView: View {
                 RoundedRectangle(cornerRadius: 10)
                     .fill(.white)
                     .frame(width: 120, height: 150)
+                    .shadow(radius: 5)
                 VStack(alignment: .leading){
                     Text("Grocery")
                         .font(.headline)
@@ -175,6 +178,7 @@ struct CategoriesView: View {
                 RoundedRectangle(cornerRadius: 10)
                     .fill(.white)
                     .frame(width: 120, height: 150)
+                    .shadow(radius: 5)
                 VStack(alignment: .leading){
                     Text("Others")
                         .font(.headline)
@@ -205,6 +209,7 @@ struct OngoingTaskCard: View {
                 RoundedRectangle(cornerRadius: 10)
                     .fill(.white)
                     .frame(width: 330, height: 150)
+                    .shadow(radius: 5)
                 VStack(alignment: .leading, spacing: 10){
                     HStack(spacing: 130){
                         Text("Grocery Shopping")

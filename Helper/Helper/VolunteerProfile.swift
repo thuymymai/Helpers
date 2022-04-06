@@ -18,36 +18,36 @@ struct VolunteerProfile: View {
                     Image("BG Mask").edgesIgnoringSafeArea(.all)
                     VStack{
                         Image("Avatar-1")
+                            .resizable()
                             .frame(width: 80, height: 80)
-                        
+                            .shadow(color: .black, radius: 3)
                         
                         Label("Settings", systemImage: "gearshape")
                             .font(.title)
                             .foregroundColor(.white)
-                    }.padding(.top, -50)
+                            .padding(.leading,-170)
+                            
+                    }.padding(.top,-50)
                     
                 }
-                
                 List {
                     Section(header: Text("Account")) {
-                        
+
                         SettingsView(name: "Edit Profile")
                         SettingsView(name:"Change Passwords")
                         SettingsView(name:"Task History")
-                        
-                        
+
+
                     }.font(.system(size: 16))
                     Section(header: Text("Preference")) {
                         SettingsView(name:"Change language")
                         SettingsView(name:"Update availability")
                     }.font(.system(size: 16))
-                    
+
                 }
-                //                .background(Color("Primary"))
-                //                .navigationTitle("Settings")
-                //                .navigationBarHidden(true)
                 
             }
+            
             
         }
         
@@ -77,6 +77,7 @@ struct SettingsView: View {
             }.padding()
                 .font(.headline)
                 .foregroundColor(Color.black.opacity(0.6))
+            
         }
     }
 }

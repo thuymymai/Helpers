@@ -18,7 +18,7 @@ struct AvailableTasksView: View {
         .overlay(
             RoundedRectangle(cornerRadius: 10)
                 .stroke(Color(.sRGB, red: 150/255, green: 150/255, blue: 150/255, opacity: 0.3), lineWidth: 1)
-                .shadow(color: Color(.sRGB, red: 150/255, green: 150/255, blue: 150/255, opacity: 0.3), radius: 3, x: 0, y: 3)
+                .shadow(radius: 5)
                 
                 
         )
