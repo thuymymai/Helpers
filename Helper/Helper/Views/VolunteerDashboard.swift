@@ -214,49 +214,7 @@ struct OngoingTaskCard: View {
                 }
                 
             }.padding(.horizontal, 20)
-            
-            ZStack{
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(.white)
-                    .frame(width: 330, height: 150)
-                VStack(alignment: .leading, spacing: 10){
-                    HStack(spacing: 130){
-                        Text("Grocery Shopping")
-                            .font(.headline)
-                            .fontWeight(.medium)
-                        
-                        Text("Today")
-                            .font(.subheadline)
-                            .fontWeight(.semibold)
-                            .foregroundColor(Color("Primary"))
-                        
-                    }
-                    HStack(spacing: 100){
-                        Label("Mr. John Doe", systemImage: "person")
-                        
-                        Label("Helsinki", systemImage: "mappin")
-                        
-                    }
-                    Text("Instructions: leave at door")
-                        .font(.system(size: 16))
-                        .fontWeight(.semibold)
-                    HStack(spacing:80){
-                        Label("2:30PM - 3:00PM", systemImage: "clock")
-                            .font(.system(size: 14))
-                            .foregroundColor(.secondary)
-                        Button(action: {}) {
-                            Text("View Task")
-                                .font(.subheadline)
-                                .frame(width: 90, height: 30)
-                                .background(Color("Primary"))
-                                .foregroundColor(.white)
-                                .cornerRadius(6)
-                        }
-                    }
-                    
-                }
-            }
-            .padding()
+    
         }
         .padding()
     }
