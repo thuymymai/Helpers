@@ -40,12 +40,12 @@ struct VolunteerDashboard: View {
                                
                             }
                             NavigationLink(destination: AvailableTasksView()) {
-                                CategoriesView(categoryName: "Grocery", numberOfTasks: "3 Tasks", ImageName: "groceries image")
+                                CategoriesView(categoryName: "Delivery", numberOfTasks: "3 Tasks", ImageName: "delivery image")
                                    
                                
                             }
                             NavigationLink(destination: AvailableTasksView()) {
-                                CategoriesView(categoryName: "Grocery", numberOfTasks: "3 Tasks", ImageName: "groceries image")
+                                CategoriesView(categoryName: "Others", numberOfTasks: "4 Tasks", ImageName: "helping image")
                                    
                                
                             }
