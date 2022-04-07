@@ -33,10 +33,23 @@ struct VolunteerDashboard: View {
                         //                            CategoriesView(category: category)
                         //
                         //                        }
-                        NavigationLink(destination: AvailableTasksView()) {
-                            CategoriesView().padding()
-                            
-                        }
+                        HStack(alignment:.center) {
+                            NavigationLink(destination: AvailableTasksView()) {
+                                CategoriesView(categoryName: "Grocery", numberOfTasks: "3 Tasks", ImageName: "groceries image")
+                                   
+                               
+                            }
+                            NavigationLink(destination: AvailableTasksView()) {
+                                CategoriesView(categoryName: "Grocery", numberOfTasks: "3 Tasks", ImageName: "groceries image")
+                                   
+                               
+                            }
+                            NavigationLink(destination: AvailableTasksView()) {
+                                CategoriesView(categoryName: "Grocery", numberOfTasks: "3 Tasks", ImageName: "groceries image")
+                                   
+                               
+                            }
+                        }.padding(.leading,30)
                         Text("Ongoing Tasks")
                             .font(.system(size: 24))
                             .padding(.horizontal, 30)
@@ -123,12 +136,12 @@ struct SearchAndFilter: View {
 }
 
 struct CategoriesView: View {
+    var categoryName: String
+    var numberOfTasks: String
+    var ImageName: String
     var body: some View {
-        ScrollView{
-            
-            
-            HStack{
-                
+       
+
                 ZStack{
                     RoundedRectangle(cornerRadius: 10)
                         .fill(.white)
@@ -136,74 +149,22 @@ struct CategoriesView: View {
                         .shadow(radius: 5)
                     
                     VStack(alignment: .leading){
-                        Text("Grocery")
+                        Text(categoryName)
                             .font(.headline)
                             .fontWeight(.medium)
                             .foregroundColor(.primary)
                             .padding(.top,25)
-                        Text("3 tasks")
+                        Text(numberOfTasks)
                             .font(.subheadline)
                             .foregroundColor(.primary)
-                        Image("groceries image")
+                        Image(ImageName)
                             .resizable()
-                            .frame(width: 100, height: 80,alignment: .center)
+                            .frame(width: 100, height: 75,alignment: .center)
                             .padding(.bottom,20)
                     }
-                    
                 }
-                
-                
-                ZStack{
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(.white)
-                        .frame(width: 110, height: 140)
-                        .shadow(radius: 5)
-                    
-                    VStack(alignment: .leading){
-                        Text("Delivery")
-                            .font(.headline)
-                            .fontWeight(.medium)
-                            .foregroundColor(.primary)
-                            .padding(.top,25)
-                        Text("4 tasks")
-                            .font(.subheadline)
-                            .foregroundColor(.primary)
-                        Image("delivery image")
-                            .resizable()
-                            .frame(width: 100, height: 80,alignment: .center)
-                            .padding(.bottom,20)
-                    }
-                    
-                }
-                ZStack{
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(.white)
-                        .frame(width: 110, height: 140)
-                        .shadow(radius: 5)
-                    
-                    VStack(alignment: .leading){
-                        
-                        Text("Others")
-                            .font(.headline)
-                            .fontWeight(.medium)
-                            .foregroundColor(.primary)
-                            .padding(.top,25)
-                        Text("4 tasks")
-                            .font(.subheadline)
-                            .foregroundColor(.primary)
-                        
-                        Image("helping image")
-                            .resizable()
-                            .frame(width: 100, height: 80,alignment: .center)
-                            .padding(.bottom,20)
-                    }
-                    
-                }
-                
-                
-            }
-            .padding(.horizontal)
-        }
+          
+        
     }
 }
 
