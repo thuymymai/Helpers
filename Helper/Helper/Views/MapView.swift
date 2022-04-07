@@ -51,11 +51,11 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate{
         locationManager.requestLocation()
     }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let latestLocation = locations.first else {
+        guard let latestLocation = locations.last else {
             return
         }
         DispatchQueue.main.async {
-            self.region = MKCoordinateRegion(center: latestLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
+            self.region = MKCoordinateRegion(center: latestLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         }
     }
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

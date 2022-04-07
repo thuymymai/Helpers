@@ -34,7 +34,7 @@ struct VolunteerDashboard: View {
                         //
                         //                        }
                         NavigationLink(destination: AvailableTasksView()) {
-                            CategoriesView()
+                            CategoriesView().padding()
                             
                         }
                         Text("Ongoing Tasks")
@@ -42,7 +42,7 @@ struct VolunteerDashboard: View {
                             .padding(.horizontal, 30)
                         OngoingTaskCard()
                     }
-                }
+                } .padding()
                 
             }
             .navigationBarHidden(true)
@@ -124,81 +124,86 @@ struct SearchAndFilter: View {
 
 struct CategoriesView: View {
     var body: some View {
-        
-        HStack{
+        ScrollView{
             
-            ZStack{
+            
+            HStack{
                 
-                
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(.white)
-                    .frame(width: 120, height: 150)
-                    .shadow(radius: 5)
-                VStack(alignment: .leading){
+                ZStack{
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(.white)
+                        .frame(width: 110, height: 140)
+                        .shadow(radius: 5)
                     
-                    Text("Grocery")
-                        .font(.headline)
-                        .fontWeight(.medium)
-                        .foregroundColor(.primary)
-                        .padding(.top,20)
-                    Text("3 tasks")
-                        .font(.subheadline)
-                        .foregroundColor(.primary)
-                    Image("groceries image")
-                        .resizable()
-                        .frame(width: 110, height: 90)
-                        .padding(.bottom)
+                    VStack(alignment: .leading){
+                        Text("Grocery")
+                            .font(.headline)
+                            .fontWeight(.medium)
+                            .foregroundColor(.primary)
+                            .padding(.top,25)
+                        Text("3 tasks")
+                            .font(.subheadline)
+                            .foregroundColor(.primary)
+                        Image("groceries image")
+                            .resizable()
+                            .frame(width: 100, height: 80,alignment: .center)
+                            .padding(.bottom,20)
+                    }
+                    
                 }
                 
-            }
-            
-            
-            ZStack{
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(.white)
-                    .frame(width: 120, height: 150)
-                    .shadow(radius: 5)
-                VStack(alignment: .leading){
-                    Text("Grocery")
-                        .font(.headline)
-                        .fontWeight(.medium)
-                        .foregroundColor(.primary)
-                        .padding(.top,20)
-                    Text("3 tasks")
-                        .font(.subheadline)
-                        .foregroundColor(.primary)
-                    Image("delivery image")
-                        .resizable()
-                        .frame(width: 110, height: 90)
-                        .padding(.bottom)
+                
+                ZStack{
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(.white)
+                        .frame(width: 110, height: 140)
+                        .shadow(radius: 5)
+                    
+                    VStack(alignment: .leading){
+                        Text("Delivery")
+                            .font(.headline)
+                            .fontWeight(.medium)
+                            .foregroundColor(.primary)
+                            .padding(.top,25)
+                        Text("4 tasks")
+                            .font(.subheadline)
+                            .foregroundColor(.primary)
+                        Image("delivery image")
+                            .resizable()
+                            .frame(width: 100, height: 80,alignment: .center)
+                            .padding(.bottom,20)
+                    }
+                    
+                }
+                ZStack{
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(.white)
+                        .frame(width: 110, height: 140)
+                        .shadow(radius: 5)
+                    
+                    VStack(alignment: .leading){
+                        
+                        Text("Others")
+                            .font(.headline)
+                            .fontWeight(.medium)
+                            .foregroundColor(.primary)
+                            .padding(.top,25)
+                        Text("4 tasks")
+                            .font(.subheadline)
+                            .foregroundColor(.primary)
+                        
+                        Image("helping image")
+                            .resizable()
+                            .frame(width: 100, height: 80,alignment: .center)
+                            .padding(.bottom,20)
+                    }
+                    
                 }
                 
-            }
-            ZStack{
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(.white)
-                    .frame(width: 120, height: 150)
-                    .shadow(radius: 5)
-                VStack(alignment: .leading){
-                    Text("Others")
-                        .font(.headline)
-                        .fontWeight(.medium)
-                        .foregroundColor(.primary)
-                        .padding(.top,20)
-                    Text("4 tasks")
-                        .font(.subheadline)
-                        .foregroundColor(.primary)
-                    Image("helping image")
-                        .resizable()
-                        .frame(width: 110, height: 90)
-                        .padding(.bottom)
-                }
                 
             }
-            
-            
+            .padding(.horizontal)
         }
-        .padding(.horizontal)
     }
 }
 
@@ -247,7 +252,7 @@ struct OngoingTaskCard: View {
                     
                 }
                 
-            }
+            }.padding(.horizontal, 20)
             
             ZStack{
                 RoundedRectangle(cornerRadius: 10)
