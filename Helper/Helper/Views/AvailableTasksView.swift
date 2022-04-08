@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AvailableTasksView: View {
+    
     var body: some View {
         VStack {
             
@@ -18,9 +19,9 @@ struct AvailableTasksView: View {
         .overlay(
             RoundedRectangle(cornerRadius: 10)
                 .stroke(Color(.sRGB, red: 150/255, green: 150/255, blue: 150/255, opacity: 0.3), lineWidth: 1)
-                .shadow(color: Color(.sRGB, red: 150/255, green: 150/255, blue: 150/255, opacity: 0.3), radius: 3, x: 0, y: 3)
-                
-                
+                .shadow(radius: 5)
+            
+            
         )
         
         .padding([.top, .horizontal])
@@ -36,6 +37,8 @@ struct AvailableTasksView_Previews: PreviewProvider {
 }
 
 struct TaskCard: View {
+    @State var showAlert: Bool = false
+
     var body: some View {
         HStack {
             
@@ -64,7 +67,7 @@ struct TaskCard: View {
                     .foregroundColor(.primary)
             }
             .layoutPriority(100)
-   
+            
             VStack(alignment: .center) {
                 
                 Text("Time")
@@ -73,7 +76,10 @@ struct TaskCard: View {
                     .fontWeight(.semibold)
                 
                 
-                Button(action: {}) {
+                Button(action: {
+                    showAlert.toggle()
+                })
+                {
                     Text("Accept Task")
                         .font(.subheadline)
                         .fontWeight(.semibold)
@@ -83,10 +89,15 @@ struct TaskCard: View {
                     
                         .cornerRadius(6)
                 }
+                .alert(isPresented: $showAlert, content: {
+                    Alert(title: Text("Accept Task"), message: Text("Confirm accepting this task"), primaryButton: .default(Text("OK"), action: {
+                        print("Confirmed")
+                    }), secondaryButton: .cancel())
+                })
             }
         }
         .padding()
-       
+        
     }
 }
 
