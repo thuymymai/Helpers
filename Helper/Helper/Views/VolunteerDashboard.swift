@@ -33,16 +33,25 @@ struct VolunteerDashboard: View {
                         //                            CategoriesView(category: category)
                         //
                         //                        }
-                        NavigationLink(destination: AvailableTasksView()) {
-                            CategoriesView()
-                            
-                        }
+                        HStack(alignment:.center) {
+                            NavigationLink(destination: AvailableTasksView()) {
+                                CategoriesView(categoryName: "Grocery", numberOfTasks: "3 Tasks", ImageName: "groceries image")
+                                
+                                
+                            }
+                            NavigationLink(destination: AvailableTasksView()) {
+                                CategoriesView(categoryName: "Delivery", numberOfTasks: "3 Tasks", ImageName: "delivery image")
+                            }
+                            NavigationLink(destination: AvailableTasksView()) {
+                                CategoriesView(categoryName: "Others", numberOfTasks: "4 Tasks", ImageName: "helping image")
+                            }
+                        }.padding(.leading,30)
                         Text("Ongoing Tasks")
                             .font(.system(size: 24))
                             .padding(.horizontal, 30)
                         OngoingTaskCard()
                     }
-                }
+                } .padding()
                 
             }
             .navigationBarHidden(true)
@@ -74,7 +83,6 @@ struct AppBarView: View {
                     .padding()
                     .frame(width: 85, height: 85)
                     .shadow(radius: 5)
-                
             }
         }
         .padding(.horizontal, 30)
@@ -123,82 +131,35 @@ struct SearchAndFilter: View {
 }
 
 struct CategoriesView: View {
+    var categoryName: String
+    var numberOfTasks: String
+    var ImageName: String
     var body: some View {
         
-        HStack{
+        
+        ZStack{
+            RoundedRectangle(cornerRadius: 10)
+                .fill(.white)
+                .frame(width: 110, height: 140)
+                .shadow(radius: 5)
             
-            ZStack{
-                
-                
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(.white)
-                    .frame(width: 120, height: 150)
-                    .shadow(radius: 5)
-                VStack(alignment: .leading){
-                    
-                    Text("Grocery")
-                        .font(.headline)
-                        .fontWeight(.medium)
-                        .foregroundColor(.primary)
-                        .padding(.top,20)
-                    Text("3 tasks")
-                        .font(.subheadline)
-                        .foregroundColor(.primary)
-                    Image("groceries image")
-                        .resizable()
-                        .frame(width: 110, height: 90)
-                        .padding(.bottom)
-                }
-                
+            VStack(alignment: .leading){
+                Text(categoryName)
+                    .font(.headline)
+                    .fontWeight(.medium)
+                    .foregroundColor(.primary)
+                    .padding(.top,25)
+                Text(numberOfTasks)
+                    .font(.subheadline)
+                    .foregroundColor(.primary)
+                Image(ImageName)
+                    .resizable()
+                    .frame(width: 100, height: 75,alignment: .center)
+                    .padding(.bottom,20)
             }
-            
-            
-            ZStack{
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(.white)
-                    .frame(width: 120, height: 150)
-                    .shadow(radius: 5)
-                VStack(alignment: .leading){
-                    Text("Grocery")
-                        .font(.headline)
-                        .fontWeight(.medium)
-                        .foregroundColor(.primary)
-                        .padding(.top,20)
-                    Text("3 tasks")
-                        .font(.subheadline)
-                        .foregroundColor(.primary)
-                    Image("delivery image")
-                        .resizable()
-                        .frame(width: 110, height: 90)
-                        .padding(.bottom)
-                }
-                
-            }
-            ZStack{
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(.white)
-                    .frame(width: 120, height: 150)
-                    .shadow(radius: 5)
-                VStack(alignment: .leading){
-                    Text("Others")
-                        .font(.headline)
-                        .fontWeight(.medium)
-                        .foregroundColor(.primary)
-                        .padding(.top,20)
-                    Text("4 tasks")
-                        .font(.subheadline)
-                        .foregroundColor(.primary)
-                    Image("helping image")
-                        .resizable()
-                        .frame(width: 110, height: 90)
-                        .padding(.bottom)
-                }
-                
-            }
-            
-            
         }
-        .padding(.horizontal)
+        
+        
     }
 }
 
@@ -244,53 +205,9 @@ struct OngoingTaskCard: View {
                                 .cornerRadius(6)
                         }
                     }
-                    
                 }
                 
-            }
-            
-            ZStack{
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(.white)
-                    .frame(width: 330, height: 150)
-                VStack(alignment: .leading, spacing: 10){
-                    HStack(spacing: 130){
-                        Text("Grocery Shopping")
-                            .font(.headline)
-                            .fontWeight(.medium)
-                        
-                        Text("Today")
-                            .font(.subheadline)
-                            .fontWeight(.semibold)
-                            .foregroundColor(Color("Primary"))
-                        
-                    }
-                    HStack(spacing: 100){
-                        Label("Mr. John Doe", systemImage: "person")
-                        
-                        Label("Helsinki", systemImage: "mappin")
-                        
-                    }
-                    Text("Instructions: leave at door")
-                        .font(.system(size: 16))
-                        .fontWeight(.semibold)
-                    HStack(spacing:80){
-                        Label("2:30PM - 3:00PM", systemImage: "clock")
-                            .font(.system(size: 14))
-                            .foregroundColor(.secondary)
-                        Button(action: {}) {
-                            Text("View Task")
-                                .font(.subheadline)
-                                .frame(width: 90, height: 30)
-                                .background(Color("Primary"))
-                                .foregroundColor(.white)
-                                .cornerRadius(6)
-                        }
-                    }
-                    
-                }
-            }
-            .padding()
+            }.padding(.horizontal, 20)         
         }
         .padding()
     }

@@ -11,9 +11,7 @@ struct VolunteerProfile: View {
     var body: some View {
         ZStack{
             Color("Background").edgesIgnoringSafeArea(.all)
-            
             VStack{
-                
                 ZStack{
                     Image("BG Mask").edgesIgnoringSafeArea(.all)
                     VStack{
@@ -26,29 +24,22 @@ struct VolunteerProfile: View {
                             .font(.title)
                             .foregroundColor(.white)
                             .padding(.leading,-170)
-                            
+                        
                     }.padding(.top,-50)
-                    
                 }
                 List {
                     Section(header: Text("Account")) {
-
+                        
                         SettingsView(name: "Edit Profile")
                         SettingsView(name:"Change Passwords")
                         SettingsView(name:"Task History")
-
-
                     }.font(.system(size: 16))
                     Section(header: Text("Preference")) {
                         SettingsView(name:"Change language")
                         SettingsView(name:"Update availability")
                     }.font(.system(size: 16))
-
                 }
-                
             }
-            
-            
         }
         
     }
