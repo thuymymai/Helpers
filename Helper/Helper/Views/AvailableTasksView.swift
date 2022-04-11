@@ -41,7 +41,6 @@ struct TaskCard: View {
 
     var body: some View {
         HStack {
-            
             VStack(alignment: .leading, spacing: 20) {
                 
                 HStack {
@@ -50,7 +49,6 @@ struct TaskCard: View {
                         .foregroundColor(.black)
                         .multilineTextAlignment(.leading)
                 }
-                
                 Text("John Doe")
                     .font(.subheadline)
                     .fontWeight(.regular)
@@ -69,13 +67,10 @@ struct TaskCard: View {
             .layoutPriority(100)
             
             VStack(alignment: .center) {
-                
                 Text("Time")
                     .font(.headline)
                     .foregroundColor(Color("Primary"))
                     .fontWeight(.semibold)
-                
-                
                 Button(action: {
                     showAlert.toggle()
                 })
@@ -86,7 +81,6 @@ struct TaskCard: View {
                         .frame(width: 100, height: 30)
                         .background(.green)
                         .foregroundColor(.white)
-                    
                         .cornerRadius(6)
                 }
                 .alert(isPresented: $showAlert, content: {
@@ -96,8 +90,7 @@ struct TaskCard: View {
                 })
             }
         }
-        .padding()
-        
+        .padding() 
     }
 }
 

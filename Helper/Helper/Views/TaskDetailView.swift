@@ -99,7 +99,7 @@ struct ContactInfo: View {
             
             Text("Help seeker name")
                 .bold()
-                .padding(.all, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)            
+                .padding(.all, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
             HStack(spacing:30) {
                 VStack(spacing:15) {
                     Image(systemName: "phone.fill")
@@ -174,6 +174,7 @@ struct Attachment: View {
             .foregroundColor(Color("Primary"))
         Label("1 attached file", systemImage: "paperclip")
         Text("See image or file sent by help seeker")
+            .bold()
             .foregroundColor(Color("Primary"))
     }
 }
