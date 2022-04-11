@@ -36,18 +36,14 @@ struct VolunteerDashboard: View {
                         HStack(alignment:.center) {
                             NavigationLink(destination: AvailableTasksView()) {
                                 CategoriesView(categoryName: "Grocery", numberOfTasks: "3 Tasks", ImageName: "groceries image")
-                                   
-                               
+                                
+                                
                             }
                             NavigationLink(destination: AvailableTasksView()) {
                                 CategoriesView(categoryName: "Delivery", numberOfTasks: "3 Tasks", ImageName: "delivery image")
-                                   
-                               
                             }
                             NavigationLink(destination: AvailableTasksView()) {
                                 CategoriesView(categoryName: "Others", numberOfTasks: "4 Tasks", ImageName: "helping image")
-                                   
-                               
                             }
                         }.padding(.leading,30)
                         Text("Ongoing Tasks")
@@ -87,7 +83,6 @@ struct AppBarView: View {
                     .padding()
                     .frame(width: 85, height: 85)
                     .shadow(radius: 5)
-                
             }
         }
         .padding(.horizontal, 30)
@@ -140,30 +135,30 @@ struct CategoriesView: View {
     var numberOfTasks: String
     var ImageName: String
     var body: some View {
-       
-
-                ZStack{
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(.white)
-                        .frame(width: 110, height: 140)
-                        .shadow(radius: 5)
-                    
-                    VStack(alignment: .leading){
-                        Text(categoryName)
-                            .font(.headline)
-                            .fontWeight(.medium)
-                            .foregroundColor(.primary)
-                            .padding(.top,25)
-                        Text(numberOfTasks)
-                            .font(.subheadline)
-                            .foregroundColor(.primary)
-                        Image(ImageName)
-                            .resizable()
-                            .frame(width: 100, height: 75,alignment: .center)
-                            .padding(.bottom,20)
-                    }
-                }
-          
+        
+        
+        ZStack{
+            RoundedRectangle(cornerRadius: 10)
+                .fill(.white)
+                .frame(width: 110, height: 140)
+                .shadow(radius: 5)
+            
+            VStack(alignment: .leading){
+                Text(categoryName)
+                    .font(.headline)
+                    .fontWeight(.medium)
+                    .foregroundColor(.primary)
+                    .padding(.top,25)
+                Text(numberOfTasks)
+                    .font(.subheadline)
+                    .foregroundColor(.primary)
+                Image(ImageName)
+                    .resizable()
+                    .frame(width: 100, height: 75,alignment: .center)
+                    .padding(.bottom,20)
+            }
+        }
+        
         
     }
 }
@@ -210,11 +205,9 @@ struct OngoingTaskCard: View {
                                 .cornerRadius(6)
                         }
                     }
-                    
                 }
                 
-            }.padding(.horizontal, 20)
-    
+            }.padding(.horizontal, 20)         
         }
         .padding()
     }
