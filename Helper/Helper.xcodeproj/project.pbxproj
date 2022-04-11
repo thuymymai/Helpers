@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		110C5D7F280484320056EEFC /* MedicalInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110C5D7E280484320056EEFC /* MedicalInfo.swift */; };
 		1157C5CA28008DD200EDAC8D /* LandingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1157C5C928008DD200EDAC8D /* LandingPage.swift */; };
 		1157C5CC28009D0D00EDAC8D /* Signup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1157C5CB28009D0D00EDAC8D /* Signup.swift */; };
 		1157C5CE2800B82500EDAC8D /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1157C5CD2800B82500EDAC8D /* Login.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		110C5D7E280484320056EEFC /* MedicalInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalInfo.swift; sourceTree = "<group>"; };
 		1157C5C928008DD200EDAC8D /* LandingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPage.swift; sourceTree = "<group>"; };
 		1157C5CB28009D0D00EDAC8D /* Signup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signup.swift; sourceTree = "<group>"; };
 		1157C5CD2800B82500EDAC8D /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				66E4DA3227F65FD700538B74 /* Assets.xcassets */,
 				66E4DA3427F65FD700538B74 /* Preview Content */,
 				205CB54627FC5AF3004DBA8B /* AvailableTasksView.swift */,
+				110C5D7E280484320056EEFC /* MedicalInfo.swift */,
 				1157C5CB28009D0D00EDAC8D /* Signup.swift */,
 				20DCAE1227FA2E9F00CBD253 /* VolunteerDashboard.swift */,
 				1157C5CD2800B82500EDAC8D /* Login.swift */,
@@ -275,6 +278,7 @@
 				66E4DA2F27F65FD600538B74 /* HelperApp.swift in Sources */,
 				1157C5CA28008DD200EDAC8D /* LandingPage.swift in Sources */,
 				1157C5CE2800B82500EDAC8D /* Login.swift in Sources */,
+				110C5D7F280484320056EEFC /* MedicalInfo.swift in Sources */,
 				20DCAE1327FA2E9F00CBD253 /* VolunteerDashboard.swift in Sources */,
 				1157C5CC28009D0D00EDAC8D /* Signup.swift in Sources */,
 			);
