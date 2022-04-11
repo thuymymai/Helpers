@@ -6,8 +6,17 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ContentView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \User.user_id, ascending: true)], animation: .default)
+    
+    private var users: FetchedResults<User>
+    
+//    print("user: \(users)")
     var body: some View {
         TabView{
             VolunteerDashboard()
