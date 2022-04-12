@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct VolunteerProfile: View {
+    @State private var pushNoti = true
     var body: some View {
         ZStack{
             Color("Background").edgesIgnoringSafeArea(.all)
@@ -34,14 +35,17 @@ struct VolunteerProfile: View {
                         SettingsView(name:"Change Passwords")
                         SettingsView(name:"Task History")
                     }.font(.system(size: 16))
-                    Section(header: Text("Preference")) {
+                    Section(header: Text("Preferences")) {
+                        Toggle("Push Notification", isOn: $pushNoti)
+                            .font(.headline)
+                            .foregroundColor(Color.black.opacity(0.6))
+                            .padding()
                         SettingsView(name:"Change language")
                         SettingsView(name:"Update availability")
                     }.font(.system(size: 16))
                 }
             }
         }
-        
     }
 }
 
@@ -51,17 +55,12 @@ struct VolunteerProfile_Previews: PreviewProvider {
     }
 }
 
-
-
 struct SettingsView: View {
     var name: String
     var body: some View {
         Button(action: {
-            
         }){
-            
             HStack {
-                //                Label("Length", systemImage: "clock")
                 Text(name)
                 Spacer(minLength: 15)
                 Image(systemName: "chevron.right")
