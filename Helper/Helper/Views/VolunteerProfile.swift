@@ -10,42 +10,48 @@ import SwiftUI
 struct VolunteerProfile: View {
     @State private var pushNoti = true
     var body: some View {
-        ZStack{
-            Color("Background").edgesIgnoringSafeArea(.all)
-            VStack{
-                ZStack{
-                    Image("BG Mask").edgesIgnoringSafeArea(.all)
-                    VStack{
-                        Image("Avatar-1")
-                            .resizable()
-                            .frame(width: 80, height: 80)
-                            .shadow(color: .black, radius: 3)
-                        
-                        Label("Settings", systemImage: "gearshape")
-                            .font(.title)
-                            .foregroundColor(.white)
-                            .padding(.leading,-170)
-                        
-                    }.padding(.top,-50)
-                }
-                List {
-                    Section(header: Text("Account")) {
-                        
-                        SettingsView(name: "Edit Profile")
-                        SettingsView(name:"Change Passwords")
-                        SettingsView(name:"Task History")
-                    }.font(.system(size: 16))
-                    Section(header: Text("Preferences")) {
-                        Toggle("Push Notification", isOn: $pushNoti)
-                            .font(.headline)
-                            .foregroundColor(Color.black.opacity(0.6))
-                            .padding()
-                        SettingsView(name:"Change language")
-                        SettingsView(name:"Update availability")
-                    }.font(.system(size: 16))
+        ScrollView{
+            ZStack{
+                Color("Background").edgesIgnoringSafeArea(.all)
+                VStack(spacing:35){
+                    ZStack{
+                        Image("BG Mask").edgesIgnoringSafeArea(.all)
+                        VStack{
+                            Image("Avatar-1")
+                                .resizable()
+                                .frame(width: 80, height: 80)
+                                .shadow(color: .black, radius: 3)
+                            Label("Settings", systemImage: "gearshape")
+                                .font(.title)
+                                .foregroundColor(.white)
+                                .padding(.leading,-170)
+                            
+                        }
+                    }
+                    
+                    VStack(alignment:.leading){
+                        List{
+                            Section(header: Text("Account")
+                            ) {
+                                SettingsView(name: "Edit Profile")
+                                SettingsView(name:"Change Passwords")
+                                SettingsView(name:"Task History")
+                            }.font(.system(size: 16))
+                            Section(header: Text("Preferences")) {
+                                Toggle("Push Notification", isOn: $pushNoti)
+                                    .font(.headline)
+                                    .foregroundColor(Color.black.opacity(0.6))
+                                    .padding()
+                                SettingsView(name:"Change language")
+                                SettingsView(name:"Update availability")
+                            }.font(.system(size: 16))
+                        }.padding(.bottom,50)
+                            .background(.white)
+                            .frame( height: 500, alignment: .center)
+                    }
                 }
             }
-        }
+        }.edgesIgnoringSafeArea(.all)
     }
 }
 

@@ -36,8 +36,6 @@ struct VolunteerDashboard: View {
                         HStack(alignment:.center) {
                             NavigationLink(destination: AvailableTasksView()) {
                                 CategoriesView(categoryName: "Grocery", numberOfTasks: "3 Tasks", ImageName: "groceries image")
-                                
-                                
                             }
                             NavigationLink(destination: AvailableTasksView()) {
                                 CategoriesView(categoryName: "Delivery", numberOfTasks: "3 Tasks", ImageName: "delivery image")
@@ -52,7 +50,6 @@ struct VolunteerDashboard: View {
                         OngoingTaskCard()
                     }
                 } .padding()
-                
             }
             .navigationBarHidden(true)
         }
@@ -66,6 +63,7 @@ struct VolunteerDashboard_Previews: PreviewProvider {
 }
 
 struct AppBarView: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
         HStack{
             Button(action: {}){
@@ -75,17 +73,31 @@ struct AppBarView: View {
                     .background(.white)
                     .frame(width: 50, height: 50)
                     .cornerRadius(10)
-            }
+            }.padding(.horizontal, 30)
             Spacer()
-            Button(action: {}) {
+            
+            NavigationLink(destination: VolunteerProfile()
+                .navigationBarBackButtonHidden(true)
+                .navigationBarItems(leading:
+                                        Button(action: {
+                self.presentationMode.wrappedValue.dismiss()
+            }) {
+                HStack {
+                    Image(systemName: "arrow.left.circle")
+                        .foregroundColor(.white)
+                    Text("Back")
+                        .foregroundColor(.white)
+                }
+            })
+            ) {
                 Image("Avatar-1")
                     .resizable()
                     .padding()
                     .frame(width: 85, height: 85)
                     .shadow(radius: 5)
-            }
+            }.padding(.horizontal, 30)
+            
         }
-        .padding(.horizontal, 30)
     }
 }
 
@@ -123,8 +135,6 @@ struct SearchAndFilter: View {
                     .background(.white)
                     .cornerRadius(10)
             }
-            
-            
         }
         .padding(.horizontal, 30)
     }
@@ -135,7 +145,6 @@ struct CategoriesView: View {
     var numberOfTasks: String
     var ImageName: String
     var body: some View {
-        
         
         ZStack{
             RoundedRectangle(cornerRadius: 10)
@@ -158,8 +167,6 @@ struct CategoriesView: View {
                     .padding(.bottom,20)
             }
         }
-        
-        
     }
 }
 
@@ -187,7 +194,6 @@ struct OngoingTaskCard: View {
                         Label("Mr. John Doe", systemImage: "person")
                         
                         Label("Helsinki", systemImage: "mappin")
-                        
                     }
                     Text("Instructions: leave at door")
                         .font(.system(size: 16))
@@ -207,7 +213,7 @@ struct OngoingTaskCard: View {
                     }
                 }
                 
-            }.padding(.horizontal, 20)         
+            }.padding(.horizontal, 20)
         }
         .padding()
     }
