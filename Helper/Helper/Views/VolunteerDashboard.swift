@@ -53,13 +53,17 @@ struct VolunteerDashboard: View {
             }
             .navigationBarTitle("")
             .navigationBarTitleDisplayMode(.inline)
-            
             .toolbar{
                 ToolbarItem(placement: .navigationBarTrailing){
-                    
                     Menu{
                         Button(action: {}, label: {
-                            Label(title: {Text("Add")}, icon: {Image(systemName: "doc")})
+                            Label(title: {Text("Update Locations")}, icon: {Image(systemName: "location")})
+                        })
+                        Button(action: {}, label: {
+                            Label(title: {Text("First Aid Manual")}, icon: {Image(systemName: "info")})
+                        })
+                        Button(action: {}, label: {
+                            Label(title: {Text("Log Out")}, icon: {Image(systemName: "rectangle.portrait.and.arrow.right")})
                         })
                     } label: {
                         Label(title: {Text("Menu")}, icon: {Image("menu")
@@ -84,17 +88,20 @@ struct VolunteerDashboard_Previews: PreviewProvider {
 struct TagLineView: View {
     var body: some View {
         HStack {
-            Text("Hi User\nManage Your Task")
+            Text("Hi User\nManage Your Tasks")
                 .font(.system(size: 28))
                 .fontWeight(.semibold)
                 .foregroundColor(Color("Primary"))
                 .padding(.horizontal,15)
             Spacer()
-            Image("Avatar-1")
-                .resizable()
-                .padding()
-                .frame(width: 85, height: 85)
-                .shadow(radius: 5)
+            NavigationLink(destination: VolunteerProfile()) {
+                Image("Avatar-1")
+                    .resizable()
+                    .padding()
+                    .frame(width: 85, height: 85)
+                    .shadow(radius: 5)
+            }
+            
         }
     }
 }
@@ -171,16 +178,13 @@ struct OngoingTaskCard: View {
                         Text("Grocery Shopping")
                             .font(.headline)
                             .fontWeight(.medium)
-                        
                         Text("Today")
                             .font(.subheadline)
                             .fontWeight(.semibold)
                             .foregroundColor(Color("Primary"))
-                        
                     }
                     HStack(spacing: 100){
                         Label("Mr. John Doe", systemImage: "person")
-                        
                         Label("Helsinki", systemImage: "mappin")
                     }
                     Text("Instructions: leave at door")
