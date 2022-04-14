@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct VolunteerDashboard: View {
     //    let categories: [TaskCategories]
     var body: some View {
@@ -16,7 +17,6 @@ struct VolunteerDashboard: View {
                     .edgesIgnoringSafeArea(.all)
                 ScrollView{
                     VStack (alignment: .leading){
-                        AppBarView()
                         TagLineView()
                             .padding()
                         SearchAndFilter()
@@ -51,10 +51,28 @@ struct VolunteerDashboard: View {
                     }
                 } .padding()
             }
-            .navigationBarHidden(true)
+            .navigationBarTitle("")
+            .navigationBarTitleDisplayMode(.inline)
+            
+            .toolbar{
+                ToolbarItem(placement: .navigationBarTrailing){
+                    
+                    Menu{
+                        Button(action: {}, label: {
+                            Label(title: {Text("Add")}, icon: {Image(systemName: "doc")})
+                        })
+                    } label: {
+                        Label(title: {Text("Menu")}, icon: {Image("menu")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                            .padding()})
+                    }
+                }
+            }
         }
     }
 }
+
 
 struct VolunteerDashboard_Previews: PreviewProvider {
     static var previews: some View {
@@ -62,52 +80,22 @@ struct VolunteerDashboard_Previews: PreviewProvider {
     }
 }
 
-struct AppBarView: View {
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    var body: some View {
-        HStack{
-            Button(action: {}){
-                Image("menu")
-                    .resizable()
-                    .padding()
-                    .background(.white)
-                    .frame(width: 50, height: 50)
-                    .cornerRadius(10)
-            }.padding(.horizontal, 30)
-            Spacer()
-            
-            NavigationLink(destination: VolunteerProfile()
-                .navigationBarBackButtonHidden(true)
-                .navigationBarItems(leading:
-                                        Button(action: {
-                self.presentationMode.wrappedValue.dismiss()
-            }) {
-                HStack {
-                    Image(systemName: "arrow.left.circle")
-                        .foregroundColor(.white)
-                    Text("Back")
-                        .foregroundColor(.white)
-                }
-            })
-            ) {
-                Image("Avatar-1")
-                    .resizable()
-                    .padding()
-                    .frame(width: 85, height: 85)
-                    .shadow(radius: 5)
-            }.padding(.horizontal, 30)
-            
-        }
-    }
-}
 
 struct TagLineView: View {
     var body: some View {
-        Text("Hi User\nManage Your Task")
-            .font(.system(size: 28))
-            .fontWeight(.semibold)
-            .foregroundColor(Color("Primary"))
-            .padding(.horizontal,15)
+        HStack {
+            Text("Hi User\nManage Your Task")
+                .font(.system(size: 28))
+                .fontWeight(.semibold)
+                .foregroundColor(Color("Primary"))
+                .padding(.horizontal,15)
+            Spacer()
+            Image("Avatar-1")
+                .resizable()
+                .padding()
+                .frame(width: 85, height: 85)
+                .shadow(radius: 5)
+        }
     }
 }
 
