@@ -13,22 +13,22 @@ struct MedicalInfo: View {
             Color("Background").edgesIgnoringSafeArea(.all)
             
             VStack{
-                ZStack{
+                ZStack(alignment: .top) {
                     Image("BG Mask").edgesIgnoringSafeArea(.all)
                     Text("Medical information")
                         .fontWeight(.medium)
-                        .padding()
-                        .padding(.top, -50)
+                        .padding(.top, 50)
                         .frame(maxWidth: 300, alignment: .center)
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
-                }.padding(.top, -80)
+                        .font(.system(size: 18))
+                }
                 Spacer()
                 Text("By signup and login, I confirm I am at least  17 years old, and I agree to and accept  Helpers Terms & Privacy Policy")
                     .frame(maxWidth: 280)
                     .multilineTextAlignment(.center)
-                    .font(.system(size: 12))
-                    .padding(.top, -80)
+                    .font(.system(size: 14))
+                    .padding(.bottom, 30)
             }
             ZStack{
                 RoundedRectangle(cornerRadius: 10)
@@ -101,49 +101,49 @@ struct FormMedical: View {
     @State var info: String = ""
     var body: some View {
         ZStack{
-            VStack {
-                Text("Special needs")
-                    .fontWeight(.medium)
-                    .frame(maxWidth: 300, alignment: .leading)
-                    .font(.system(size: 14))
-                SpecialNeed()
-                Text("Chronic diseases")
-                    .fontWeight(.medium)
-                    .frame(maxWidth: 300, alignment: .leading)
-                    .font(.system(size: 14))
-                    .padding(.top, 10)
-                ChronicDiseases()
-                Text("Allergies")
-                    .fontWeight(.medium)
-                    .frame(maxWidth: 300, alignment: .leading)
-                    .font(.system(size: 14))
-                    .padding(.top, 10)
-                Allergies()
-                Text("Others")
-                    .fontWeight(.medium)
-                    .frame(maxWidth: 300, alignment: .leading)
-                    .font(.system(size: 14))
-                    .padding(.top, 10)
-                TextField("", text: $info)
-                    .padding(.bottom, 40)
-                    .background(Color("Background"))
-                    .cornerRadius(5)
-                
-                
+            VStack{
+                VStack {
+                    Text("Special needs")
+                        .fontWeight(.medium)
+                        .frame(maxWidth: 300, alignment: .leading)
+                        .font(.system(size: 16))
+                    SpecialNeed()
+                    Text("Chronic diseases")
+                        .fontWeight(.medium)
+                        .frame(maxWidth: 300, alignment: .leading)
+                        .font(.system(size: 16))
+                        .padding(.top, 10)
+                    ChronicDiseases()
+                    Text("Allergies")
+                        .fontWeight(.medium)
+                        .frame(maxWidth: 300, alignment: .leading)
+                        .font(.system(size: 16))
+                        .padding(.top, 10)
+                    Allergies()
+                    Text("Others")
+                        .fontWeight(.medium)
+                        .frame(maxWidth: 300, alignment: .leading)
+                        .font(.system(size: 16))
+                        .padding(.top, 10)
+                    TextField("", text: $info)
+                        .padding(.bottom, 40)
+                        .background(Color("Background"))
+                        .cornerRadius(5)
+                }
+                .frame(width: 250)
+                Button(action: {}) {
+                    Text("SIGN UP")
+                        .fontWeight(.bold)
+                        .font(.system(size: 14))
+                        .frame(width: 100, height: 35)
+                        .background(Color("Primary"))
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                .padding(.top, 20)
             }
-            .frame(width: 250)
-            Button(action: {}) {
-                Text("SIGN UP")
-                    .fontWeight(.bold)
-                    .font(.system(size: 14))
-                    .frame(width: 100, height: 35)
-                    .background(Color("Primary"))
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
-            .padding(.top, 430)
+            
         }
         
     }
 }
-

@@ -9,31 +9,29 @@ import SwiftUI
 
 struct Signup: View {
     var body: some View {
-        ZStack{
-            Color("Background").edgesIgnoringSafeArea(.all)
-            
-            VStack{
-                ZStack{
+        NavigationView{
+            ZStack(alignment: .top){
+                Color("Background").edgesIgnoringSafeArea(.all)
+                ZStack(alignment: .top){
                     Image("BG Mask").edgesIgnoringSafeArea(.all)
                     Text("Join Helpers and receive assistance to all your needs.")
                         .fontWeight(.medium)
-                        .padding()
-                        .padding(.top, -50)
-                        .frame(maxWidth: 300, alignment: .center)
+                        .frame(maxWidth: 280, alignment: .center)
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
-                }.padding(.top, -80)
+                }
                 Spacer()
-            }
-            ZStack{
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(.white)
-                    .frame(width: 300, height: 570)
-                    .shadow(radius: 5)
-                    .padding(.top, 70)
-                FormView()
+                ZStack{
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(.white)
+                        .frame(width: 300, height: 550)
+                        .shadow(radius: 5)
+                        .padding(.top, 100)
+                    FormView()
+                }
             }
         }
+        
     }
 }
 
@@ -49,7 +47,7 @@ struct FormView: View {
     @State var email: String = ""
     @State var password: String = ""
     @State var confirm: String = ""
-    
+    @State var isLinkActive = false
     var body: some View {
         ZStack{
             VStack {
@@ -100,22 +98,27 @@ struct FormView: View {
                 
             }
             .frame(width: 250)
-            .padding()
-            Button(action: {}) {
-                Text("NEXT")
-                    .font(.system(size: 16))
-                    .foregroundColor(Color("Primary"))
-                    .fontWeight(.bold)
-                Text(">")
-                    .fontWeight(.bold)
-                    .font(.system(size: 14))
-                    .frame(width: 30, height: 30)
-                    .background(Color("Background"))
-                    .foregroundColor(Color("Primary"))
-                    .cornerRadius(50)
-            }
-            .padding(.top, 550)
-            .frame(alignment: .trailing)
+            .padding(.top, 50)
+            NavigationLink(
+                destination: MedicalInfo().navigationBarHidden(true), isActive: $isLinkActive) {
+                    Button(action: {
+                        self.isLinkActive = true
+                    }) {
+                        Text("NEXT")
+                            .font(.system(size: 16))
+                            .foregroundColor(Color("Primary"))
+                            .fontWeight(.bold)
+                        Text(">")
+                            .fontWeight(.bold)
+                            .font(.system(size: 14))
+                            .frame(width: 30, height: 30)
+                            .background(Color("Background"))
+                            .foregroundColor(Color("Primary"))
+                            .cornerRadius(50)
+                    }
+                    .padding(.top, 550)
+                    .frame(alignment: .trailing)
+                }
         }
         
     }
