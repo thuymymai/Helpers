@@ -20,6 +20,15 @@
 		66E4DA4027F65FD700538B74 /* HelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E4DA3F27F65FD700538B74 /* HelperTests.swift */; };
 		66E4DA4A27F65FD800538B74 /* HelperUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E4DA4927F65FD800538B74 /* HelperUITests.swift */; };
 		66E4DA4C27F65FD800538B74 /* HelperUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E4DA4B27F65FD800538B74 /* HelperUITestsLaunchTests.swift */; };
+		66E89E15280CABF200A82085 /* UserData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 66E89E13280CABF200A82085 /* UserData.xcdatamodeld */; };
+		66E89E16280CABF200A82085 /* UserData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 66E89E13280CABF200A82085 /* UserData.xcdatamodeld */; };
+		66E89E17280CABF200A82085 /* UserData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 66E89E13280CABF200A82085 /* UserData.xcdatamodeld */; };
+		66E89E1A280CAC9B00A82085 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E89E19280CAC9B00A82085 /* UserModel.swift */; };
+		66E89E1B280CAC9B00A82085 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E89E19280CAC9B00A82085 /* UserModel.swift */; };
+		66E89E1C280CAC9B00A82085 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E89E19280CAC9B00A82085 /* UserModel.swift */; };
+		66E89E1F280CAD1B00A82085 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E89E1E280CAD1B00A82085 /* UserViewModel.swift */; };
+		66E89E20280CAD1B00A82085 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E89E1E280CAD1B00A82085 /* UserViewModel.swift */; };
+		66E89E21280CAD1B00A82085 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E89E1E280CAD1B00A82085 /* UserViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +66,9 @@
 		66E4DA4527F65FD800538B74 /* HelperUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HelperUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		66E4DA4927F65FD800538B74 /* HelperUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperUITests.swift; sourceTree = "<group>"; };
 		66E4DA4B27F65FD800538B74 /* HelperUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		66E89E14280CABF200A82085 /* UserData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserData.xcdatamodel; sourceTree = "<group>"; };
+		66E89E19280CAC9B00A82085 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		66E89E1E280CAD1B00A82085 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +132,7 @@
 		66E4DA2D27F65FD600538B74 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				66E89E0C280CAB7000A82085 /* Data */,
 				20DCAE1127FA1C0600CBD253 /* Info.plist */,
 				66E4DA2E27F65FD600538B74 /* HelperApp.swift */,
 				20D2459B27FDC7D1006FA73B /* ContentView.swift */,
@@ -153,6 +166,32 @@
 				66E4DA4B27F65FD800538B74 /* HelperUITestsLaunchTests.swift */,
 			);
 			path = HelperUITests;
+			sourceTree = "<group>";
+		};
+		66E89E0C280CAB7000A82085 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				66E89E1D280CAD0000A82085 /* ViewModel */,
+				66E89E18280CAC7D00A82085 /* Model */,
+				66E89E13280CABF200A82085 /* UserData.xcdatamodeld */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		66E89E18280CAC7D00A82085 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				66E89E19280CAC9B00A82085 /* UserModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		66E89E1D280CAD0000A82085 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				66E89E1E280CAD1B00A82085 /* UserViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -285,6 +324,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66E89E15280CABF200A82085 /* UserData.xcdatamodeld in Sources */,
+				66E89E1F280CAD1B00A82085 /* UserViewModel.swift in Sources */,
 				20F5572627FF643A00B0B638 /* TaskDetailView.swift in Sources */,
 				205CB54727FC5AF3004DBA8B /* AvailableTasksView.swift in Sources */,
 				20D2459C27FDC7D1006FA73B /* ContentView.swift in Sources */,
@@ -292,6 +333,7 @@
 				20EA35A127FC91FE00E1995B /* VolunteerProfile.swift in Sources */,
 				20D2459E27FDD4D5006FA73B /* Location.swift in Sources */,
 				20DCAE1327FA2E9F00CBD253 /* VolunteerDashboard.swift in Sources */,
+				66E89E1A280CAC9B00A82085 /* UserModel.swift in Sources */,
 				20D245C527FE08BB006FA73B /* MapView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -300,6 +342,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66E89E16280CABF200A82085 /* UserData.xcdatamodeld in Sources */,
+				66E89E20280CAD1B00A82085 /* UserViewModel.swift in Sources */,
+				66E89E1B280CAC9B00A82085 /* UserModel.swift in Sources */,
 				66E4DA4027F65FD700538B74 /* HelperTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -308,7 +353,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66E89E17280CABF200A82085 /* UserData.xcdatamodeld in Sources */,
 				66E4DA4C27F65FD800538B74 /* HelperUITestsLaunchTests.swift in Sources */,
+				66E89E1C280CAC9B00A82085 /* UserModel.swift in Sources */,
+				66E89E21280CAD1B00A82085 /* UserViewModel.swift in Sources */,
 				66E4DA4A27F65FD800538B74 /* HelperUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -613,6 +661,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		66E89E13280CABF200A82085 /* UserData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				66E89E14280CABF200A82085 /* UserData.xcdatamodel */,
+			);
+			currentVersion = 66E89E14280CABF200A82085 /* UserData.xcdatamodel */;
+			path = UserData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 66E4DA2327F65FD600538B74 /* Project object */;
 }
