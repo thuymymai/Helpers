@@ -29,6 +29,7 @@
 		66E89E1F280CAD1B00A82085 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E89E1E280CAD1B00A82085 /* UserViewModel.swift */; };
 		66E89E20280CAD1B00A82085 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E89E1E280CAD1B00A82085 /* UserViewModel.swift */; };
 		66E89E21280CAD1B00A82085 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E89E1E280CAD1B00A82085 /* UserViewModel.swift */; };
+		66E89E23280CC40A00A82085 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E89E22280CC40A00A82085 /* Persistence.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		66E89E14280CABF200A82085 /* UserData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserData.xcdatamodel; sourceTree = "<group>"; };
 		66E89E19280CAC9B00A82085 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		66E89E1E280CAD1B00A82085 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		66E89E22280CC40A00A82085 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +176,7 @@
 				66E89E1D280CAD0000A82085 /* ViewModel */,
 				66E89E18280CAC7D00A82085 /* Model */,
 				66E89E13280CABF200A82085 /* UserData.xcdatamodeld */,
+				66E89E22280CC40A00A82085 /* Persistence.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -333,6 +336,7 @@
 				20EA35A127FC91FE00E1995B /* VolunteerProfile.swift in Sources */,
 				20D2459E27FDD4D5006FA73B /* Location.swift in Sources */,
 				20DCAE1327FA2E9F00CBD253 /* VolunteerDashboard.swift in Sources */,
+				66E89E23280CC40A00A82085 /* Persistence.swift in Sources */,
 				66E89E1A280CAC9B00A82085 /* UserModel.swift in Sources */,
 				20D245C527FE08BB006FA73B /* MapView.swift in Sources */,
 			);

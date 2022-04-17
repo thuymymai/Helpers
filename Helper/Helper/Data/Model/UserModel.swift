@@ -12,7 +12,7 @@ struct UserModel: Decodable, Hashable {
     // define variables
     let user_id: Int?
     let username: String?
-    let pass: String?
+    let password: String?
     let email: String?
     let phone: String?
     let type: String?
@@ -32,7 +32,7 @@ struct UserModel: Decodable, Hashable {
     enum CodingKeys: String, CodingKey {
         case user_id = "user_id"
         case username = "username"
-        case pass = "password"
+        case password = "password"
         case email = "email"
         case phone = "phone"
         case type = "type"
@@ -57,7 +57,7 @@ struct UserModel: Decodable, Hashable {
         // get the values
         user_id = try container.decodeIfPresent(Int.self, forKey: .user_id)
         username = try container.decodeIfPresent(String.self, forKey: .username)
-        pass = try container.decodeIfPresent(String.self, forKey: .pass)
+        password = try container.decodeIfPresent(String.self, forKey: .password)
         email = try container.decodeIfPresent(String.self, forKey: .email)
         phone = try container.decodeIfPresent(String.self, forKey: .phone)
         type = try container.decodeIfPresent(String.self, forKey: .type)

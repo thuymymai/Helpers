@@ -9,16 +9,29 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var userModel = UserViewModel()
+    @Environment(\.managedObjectContext) var context
+    
+    // fetching data from core data
+    @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.user_id, ascending: true)]) var results: FetchedResults<User>
     
     var body: some View {
         VStack{
-            if userModel.users.isEmpty {
-                ProgressView().onAppear(perform: {userModel.fetchData()})
+            // checking if core data exists
+            if results.isEmpty {
+                if userModel.users.isEmpty {
+                    ProgressView().onAppear(perform: {userModel.fetchData(context: context)})
+                } else {
+                    List(userModel.users, id: \.self) {user in
+                        Text(user.username!)
+                    }
+                }
             } else {
-                List(userModel.users, id: \.self) {user in
-                    Text(user.username!)
-                }
-                }
+//                List(results, id: \.self) {user in
+//                    Text(user.password!)
+                let _ = print("read from core \(results[1].username)")
+            }
+            
+            
         }
 //        TabView{
 //            VolunteerDashboard()
