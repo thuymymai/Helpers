@@ -20,7 +20,12 @@
 		11B24F11280532D50029786D /* FirstAid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B24F10280532D50029786D /* FirstAid.swift */; };
 		11B24F13280B1BE50029786D /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B24F12280B1BE50029786D /* TaskList.swift */; };
 		205CB54727FC5AF3004DBA8B /* AvailableTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205CB54627FC5AF3004DBA8B /* AvailableTasksView.swift */; };
+		20D2459C27FDC7D1006FA73B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D2459B27FDC7D1006FA73B /* ContentView.swift */; };
+		20D2459E27FDD4D5006FA73B /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D2459D27FDD4D5006FA73B /* Location.swift */; };
+		20D245C527FE08BB006FA73B /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D245C427FE08BB006FA73B /* MapView.swift */; };
 		20DCAE1327FA2E9F00CBD253 /* VolunteerDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DCAE1227FA2E9F00CBD253 /* VolunteerDashboard.swift */; };
+		20EA35A127FC91FE00E1995B /* VolunteerProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EA35A027FC91FE00E1995B /* VolunteerProfile.swift */; };
+		20F5572627FF643A00B0B638 /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F5572527FF643A00B0B638 /* TaskDetailView.swift */; };
 		66E4DA2F27F65FD600538B74 /* HelperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E4DA2E27F65FD600538B74 /* HelperApp.swift */; };
 		66E4DA3327F65FD700538B74 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66E4DA3227F65FD700538B74 /* Assets.xcassets */; };
 		66E4DA3627F65FD700538B74 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66E4DA3527F65FD700538B74 /* Preview Assets.xcassets */; };
@@ -60,8 +65,13 @@
 		11B24F10280532D50029786D /* FirstAid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstAid.swift; sourceTree = "<group>"; };
 		11B24F12280B1BE50029786D /* TaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
 		205CB54627FC5AF3004DBA8B /* AvailableTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableTasksView.swift; sourceTree = "<group>"; };
+		20D2459B27FDC7D1006FA73B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		20D2459D27FDD4D5006FA73B /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		20D245C427FE08BB006FA73B /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		20DCAE1127FA1C0600CBD253 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		20DCAE1227FA2E9F00CBD253 /* VolunteerDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerDashboard.swift; sourceTree = "<group>"; };
+		20EA35A027FC91FE00E1995B /* VolunteerProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerProfile.swift; sourceTree = "<group>"; };
+		20F5572527FF643A00B0B638 /* TaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
 		66E4DA2B27F65FD600538B74 /* Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Helper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66E4DA2E27F65FD600538B74 /* HelperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperApp.swift; sourceTree = "<group>"; };
 		66E4DA3227F65FD700538B74 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -110,6 +120,12 @@
 				11B24F10280532D50029786D /* FirstAid.swift */,
 				11B24F12280B1BE50029786D /* TaskList.swift */,
 				1114DF79280D4D3800A2BED8 /* HelpSeekerNavBar.swift */,
+				20EA35A027FC91FE00E1995B /* VolunteerProfile.swift */,
+				20F5572527FF643A00B0B638 /* TaskDetailView.swift */,
+				205CB54627FC5AF3004DBA8B /* AvailableTasksView.swift */,
+				20DCAE1227FA2E9F00CBD253 /* VolunteerDashboard.swift */,
+				20D2459D27FDD4D5006FA73B /* Location.swift */,
+				20D245C427FE08BB006FA73B /* MapView.swift */,
 			);
 			path = HelpSeekerViews;
 			sourceTree = "<group>";
@@ -139,6 +155,7 @@
 			children = (
 				20DCAE1127FA1C0600CBD253 /* Info.plist */,
 				66E4DA2E27F65FD600538B74 /* HelperApp.swift */,
+				20D2459B27FDC7D1006FA73B /* ContentView.swift */,
 				66E4DA3227F65FD700538B74 /* Assets.xcassets */,
 				66E4DA3427F65FD700538B74 /* Preview Content */,
 				205CB54627FC5AF3004DBA8B /* AvailableTasksView.swift */,
@@ -147,6 +164,7 @@
 				1157C5C928008DD200EDAC8D /* LandingPage.swift */,
 				115E8DB52805143900C1995D /* HelpSeekerViews */,
 				115E8DAD2805135900C1995D /* ContentView.swift */,
+				20D2459F27FDD5E9006FA73B /* Views */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -307,7 +325,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				11B24F13280B1BE50029786D /* TaskList.swift in Sources */,
+				20F5572627FF643A00B0B638 /* TaskDetailView.swift in Sources */,
 				205CB54727FC5AF3004DBA8B /* AvailableTasksView.swift in Sources */,
+				20D2459C27FDC7D1006FA73B /* ContentView.swift in Sources */,
 				66E4DA2F27F65FD600538B74 /* HelperApp.swift in Sources */,
 				115E8DB0280513B400C1995D /* FrontScreen.swift in Sources */,
 				115E8DAE2805135900C1995D /* ContentView.swift in Sources */,
@@ -321,6 +341,10 @@
 				115E8DB4280513D700C1995D /* Profile.swift in Sources */,
 				20DCAE1327FA2E9F00CBD253 /* VolunteerDashboard.swift in Sources */,
 				1157C5CC28009D0D00EDAC8D /* Signup.swift in Sources */,
+				20EA35A127FC91FE00E1995B /* VolunteerProfile.swift in Sources */,
+				20D2459E27FDD4D5006FA73B /* Location.swift in Sources */,
+				20DCAE1327FA2E9F00CBD253 /* VolunteerDashboard.swift in Sources */,
+				20D245C527FE08BB006FA73B /* MapView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
