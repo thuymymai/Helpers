@@ -49,6 +49,7 @@ struct Profile: View {
             }
             .navigationBarTitle("")
             .navigationBarHidden(true)
+            .navigationBarBackButtonHidden(true)
         }
     }
 }
@@ -65,11 +66,9 @@ struct SettingsView1: View {
         Button(action: {
         
         }){
-            
             HStack {
                 Text(name)
                 Spacer(minLength: 15)
-                Image(systemName: "chevron.right")
             }.padding()
                 .font(.headline)
                 .foregroundColor(Color.black.opacity(0.6))

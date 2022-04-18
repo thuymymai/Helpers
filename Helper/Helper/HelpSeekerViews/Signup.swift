@@ -34,6 +34,7 @@ struct Signup: View {
             }
             .navigationBarTitle("")
             .navigationBarHidden(true)
+            .navigationBarBackButtonHidden(true)
         }
         
     }

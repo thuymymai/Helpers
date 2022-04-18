@@ -42,6 +42,7 @@ struct UploadForm: View {
             }
             .navigationBarTitle("")
             .navigationBarHidden(true)
+            .navigationBarBackButtonHidden(true)
         }
     }
 }
@@ -149,7 +150,7 @@ struct FormTask: View {
                             .cornerRadius(10)
                     }
                     Button(action: {}) {
-                        Text("SIGN UP")
+                        Text("SUBMIT")
                             .fontWeight(.bold)
                             .font(.system(size: 14))
                             .frame(width: 100, height: 35)

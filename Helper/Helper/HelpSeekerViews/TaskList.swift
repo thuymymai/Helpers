@@ -9,25 +9,30 @@ import SwiftUI
 
 struct TaskList: View {
     var body: some View {
-        ZStack {
-            Color("Primary").edgesIgnoringSafeArea(.all)
-            VStack {
-                Text("Your tasks")
-                    .font(.system(size: 24))
-                    .fontWeight(.medium)
-                    .foregroundColor(.white)
-                    .multilineTextAlignment(.center)
-                TaskCard1()
-                    .frame(width: 330)
-                    .background()
-                    .cornerRadius(10)
-                    .shadow(radius: 10)
-                TaskCard2()
-                    .frame(width: 330)
-                    .background()
-                    .cornerRadius(10)
-                    .shadow(radius: 10)
-            }.frame(maxHeight: .infinity, alignment: .leading)
+        NavigationView {
+            ZStack {
+                Color("Primary").edgesIgnoringSafeArea(.all)
+                VStack {
+                    Text("Your tasks")
+                        .font(.system(size: 24))
+                        .fontWeight(.medium)
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.center)
+                    TaskCard1()
+                        .frame(width: 330)
+                        .background()
+                        .cornerRadius(10)
+                        .shadow(radius: 10)
+                    TaskCard2()
+                        .frame(width: 330)
+                        .background()
+                        .cornerRadius(10)
+                        .shadow(radius: 10)
+                }.frame(maxHeight: .infinity, alignment: .leading)
+            }
+            .navigationBarTitle("")
+            .navigationBarHidden(true)
+            .navigationBarBackButtonHidden(true)
         }
     }
 }

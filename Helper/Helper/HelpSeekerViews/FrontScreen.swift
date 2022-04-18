@@ -58,6 +58,7 @@ struct FrontScreen: View {
             }
             .navigationBarTitle("")
             .navigationBarHidden(true)
+            .navigationBarBackButtonHidden(true)
         }
     }
 }

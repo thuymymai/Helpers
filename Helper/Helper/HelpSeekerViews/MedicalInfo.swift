@@ -40,6 +40,7 @@ struct MedicalInfo: View {
             }
             .navigationBarTitle("")
             .navigationBarHidden(true)
+            .navigationBarBackButtonHidden(true)
         }
     }
 }
