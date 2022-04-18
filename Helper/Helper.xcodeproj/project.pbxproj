@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		110C5D7F280484320056EEFC /* MedicalInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110C5D7E280484320056EEFC /* MedicalInfo.swift */; };
+		1114DF7A280D4D3800A2BED8 /* HelpSeekerNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1114DF79280D4D3800A2BED8 /* HelpSeekerNavBar.swift */; };
 		1157C5CA28008DD200EDAC8D /* LandingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1157C5C928008DD200EDAC8D /* LandingPage.swift */; };
 		1157C5CC28009D0D00EDAC8D /* Signup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1157C5CB28009D0D00EDAC8D /* Signup.swift */; };
 		1157C5CE2800B82500EDAC8D /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1157C5CD2800B82500EDAC8D /* Login.swift */; };
@@ -47,6 +48,7 @@
 
 /* Begin PBXFileReference section */
 		110C5D7E280484320056EEFC /* MedicalInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalInfo.swift; sourceTree = "<group>"; };
+		1114DF79280D4D3800A2BED8 /* HelpSeekerNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpSeekerNavBar.swift; sourceTree = "<group>"; };
 		1157C5C928008DD200EDAC8D /* LandingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPage.swift; sourceTree = "<group>"; };
 		1157C5CB28009D0D00EDAC8D /* Signup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signup.swift; sourceTree = "<group>"; };
 		1157C5CD2800B82500EDAC8D /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
@@ -100,15 +102,14 @@
 			isa = PBXGroup;
 			children = (
 				115E8DB1280513C900C1995D /* MapView.swift */,
-				110C5D7E280484320056EEFC /* MedicalInfo.swift */,
 				1157C5CB28009D0D00EDAC8D /* Signup.swift */,
-				1157C5CD2800B82500EDAC8D /* Login.swift */,
-				1157C5C928008DD200EDAC8D /* LandingPage.swift */,
+				110C5D7E280484320056EEFC /* MedicalInfo.swift */,
 				115E8DB3280513D700C1995D /* Profile.swift */,
 				115E8DAF280513B400C1995D /* FrontScreen.swift */,
 				115E8DB62805148800C1995D /* UploadForm.swift */,
 				11B24F10280532D50029786D /* FirstAid.swift */,
 				11B24F12280B1BE50029786D /* TaskList.swift */,
+				1114DF79280D4D3800A2BED8 /* HelpSeekerNavBar.swift */,
 			);
 			path = HelpSeekerViews;
 			sourceTree = "<group>";
@@ -142,6 +143,8 @@
 				66E4DA3427F65FD700538B74 /* Preview Content */,
 				205CB54627FC5AF3004DBA8B /* AvailableTasksView.swift */,
 				20DCAE1227FA2E9F00CBD253 /* VolunteerDashboard.swift */,
+				1157C5CD2800B82500EDAC8D /* Login.swift */,
+				1157C5C928008DD200EDAC8D /* LandingPage.swift */,
 				115E8DB52805143900C1995D /* HelpSeekerViews */,
 				115E8DAD2805135900C1995D /* ContentView.swift */,
 			);
@@ -313,6 +316,7 @@
 				1157C5CE2800B82500EDAC8D /* Login.swift in Sources */,
 				110C5D7F280484320056EEFC /* MedicalInfo.swift in Sources */,
 				115E8DB2280513C900C1995D /* MapView.swift in Sources */,
+				1114DF7A280D4D3800A2BED8 /* HelpSeekerNavBar.swift in Sources */,
 				11B24F11280532D50029786D /* FirstAid.swift in Sources */,
 				115E8DB4280513D700C1995D /* Profile.swift in Sources */,
 				20DCAE1327FA2E9F00CBD253 /* VolunteerDashboard.swift in Sources */,

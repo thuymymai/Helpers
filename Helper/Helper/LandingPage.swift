@@ -39,7 +39,15 @@ struct LandingPage: View {
                     }.padding(.bottom, 100)
                     Spacer()
                     ButtonView()
-                    DropDownMenu()
+                    HStack{
+                        DropDownMenu()
+                        Spacer()
+                        NavigationLink(destination: Login().navigationBarHidden(true), label: {
+                            Text("Login")
+                        }).padding(.bottom, 20)
+                                       
+                    }.padding(.horizontal, 50)
+                   
                 }
 
             }

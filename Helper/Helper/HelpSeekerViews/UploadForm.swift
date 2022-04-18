@@ -38,7 +38,7 @@ struct UploadForm: View {
                 }
                 
             }
-        }
+        }.navigationBarHidden(true)
     }
 }
 
