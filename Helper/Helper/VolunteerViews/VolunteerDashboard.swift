@@ -11,7 +11,7 @@ import SwiftUI
 struct VolunteerDashboard: View {
     //    let categories: [TaskCategories]
     var body: some View {
-      
+        
         GeometryReader { geometry in
             NavigationView{
                 ZStack{
@@ -45,14 +45,13 @@ struct VolunteerDashboard: View {
                                 NavigationLink(destination: AvailableTasksView()) {
                                     CategoriesView(categoryName: "Others", numberOfTasks: "4 Tasks", ImageName: "helping image")
                                 }
-                            }.position( x:180, y: 60)
+                            }.position( x:179, y: 60)
                             
                             Text("Ongoing Tasks")
                                 .font(.system(size: 24))
                                 .position( x:80, y: 240)
                             OngoingTaskCard().position( x:180, y: 240)
                                 .padding(.bottom, 50)
-                            
                         }
                         
                     } .padding(.horizontal)
@@ -166,7 +165,7 @@ struct CategoriesView: View {
                         .foregroundColor(.primary)
                     Image(ImageName)
                         .resizable()
-                        .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 9,alignment: .center)
+                        .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 8,alignment: .center)
                         .padding(.bottom,20)
                 }
             }
@@ -206,14 +205,17 @@ struct OngoingTaskCard: View {
                             Label("2:30PM - 3:00PM", systemImage: "clock")
                                 .font(.system(size: 14))
                                 .foregroundColor(.secondary)
-                            Button(action: {}) {
-                                Text("View Task")
-                                    .font(.subheadline)
-                                    .frame(width: geometry.size.width * 0.3, height: geometry.size.height * 3)
-                                    .background(Color("Primary"))
-                                    .foregroundColor(.white)
-                                    .cornerRadius(6)
+                            NavigationLink(destination: TaskDetailView().navigationBarHidden(true)){
+//                                Button(action: {}) {
+                                    Text("View Task")
+                                        .font(.subheadline)
+                                        .frame(width: geometry.size.width * 0.3, height: geometry.size.height * 3)
+                                        .background(Color("Primary"))
+                                        .foregroundColor(.white)
+                                        .cornerRadius(6)
+                                //}
                             }
+                          
                         }
                     }
                     

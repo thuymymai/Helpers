@@ -15,24 +15,28 @@ struct TaskDetailView: View {
             ZStack{
                 Color("Background")
                     .edgesIgnoringSafeArea(.all)
-                ZStack {
+                ScrollView{
                     VStack{
-                        ContactInfo()
-                        Divider()
-                        DisabilityInformation()
-                    }.frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.4)
-                        .background(.white)
-                        .cornerRadius(10)
-                        .shadow(radius: 5)
-                }.position(x: 195, y: 180)
-                VStack(alignment: .leading, spacing: 8){
-                    TaskTitle()
-                    Address()
-                    TimeNeeded()
-                    TaskDescription()
-                    Attachment()
-                }.padding(.horizontal)
-                    .position(x: 200, y: 560)
+                        ZStack {
+                            VStack{
+                                ContactInfo()
+                                Divider()
+                                DisabilityInformation()
+                            }.frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.45)
+                                .background(.white)
+                                .cornerRadius(10)
+                                .shadow(radius: 5)
+                        }
+                        VStack(alignment: .leading, spacing: 8){
+                            TaskTitle()
+                            Address()
+                            TimeNeeded()
+                            TaskDescription()
+                            Attachment()
+                        }.padding(.horizontal)
+                    }
+                }
+                    
             }
         }
         
