@@ -22,7 +22,7 @@ struct TaskDetailView: View {
                                 ContactInfo()
                                 Divider()
                                 DisabilityInformation()
-                            }.frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.45)
+                            }.frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.5)
                                 .background(.white)
                                 .cornerRadius(10)
                                 .shadow(radius: 5)

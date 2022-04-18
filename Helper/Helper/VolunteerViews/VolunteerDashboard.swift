@@ -199,7 +199,7 @@ struct OngoingTaskCard: View {
                             Label("2:30PM - 3:00PM", systemImage: "clock")
                                 .font(.system(size: 14))
                                 .foregroundColor(.secondary)
-                            NavigationLink(destination: TaskDetailView().navigationBarHidden(true)){
+                            NavigationLink(destination: TaskDetailView()){
                                 //                                Button(action: {}) {
                                 Text("View Task")
                                     .font(.subheadline)
