@@ -184,7 +184,7 @@ struct OngoingTaskCard: View {
                     RoundedRectangle(cornerRadius: 10)
                         .fill(.white)
                         .shadow(radius: 5)
-                        .frame(width: geometry.size.width * 1, height: geometry.size.height * 15)
+                        .frame(width: geometry.size.width * 1.02, height: geometry.size.height * 15, alignment: .center)
                     VStack(alignment: .leading, spacing: 10){
                         HStack(spacing: 130){
                             Text("Grocery Shopping")
