@@ -26,7 +26,7 @@ struct UploadForm: View {
                                 .fontWeight(.medium)
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.center)
-                        }.padding(.top, 20)
+                        }.padding(.top, 30)
                     }
                     Spacer()
                 }
@@ -37,7 +37,7 @@ struct UploadForm: View {
                         .shadow(radius: 5)
                         .padding(.top, 50)
                     FormTask()
-                }
+                }.padding(.top, 30)
                 
             }
             .navigationBarTitle("")
