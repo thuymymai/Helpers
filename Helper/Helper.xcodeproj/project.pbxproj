@@ -111,6 +111,19 @@
 		115E8DB52805143900C1995D /* HelpSeekerViews */ = {
 			isa = PBXGroup;
 			children = (
+				20EA35A027FC91FE00E1995B /* VolunteerProfile.swift */,
+				20F5572527FF643A00B0B638 /* TaskDetailView.swift */,
+				205CB54627FC5AF3004DBA8B /* AvailableTasksView.swift */,
+				20DCAE1227FA2E9F00CBD253 /* VolunteerDashboard.swift */,
+				20D2459D27FDD4D5006FA73B /* Location.swift */,
+				20D245C427FE08BB006FA73B /* MapView.swift */,
+			);
+			path = VolunteerViews;
+			sourceTree = "<group>";
+		};	
+		20D2459F27FDD5E9006FA73B /* VolunteerViews */ = {
+			isa = PBXGroup;
+			children = (
 				115E8DB1280513C900C1995D /* MapView.swift */,
 				1157C5CB28009D0D00EDAC8D /* Signup.swift */,
 				110C5D7E280484320056EEFC /* MedicalInfo.swift */,
@@ -120,12 +133,6 @@
 				11B24F10280532D50029786D /* FirstAid.swift */,
 				11B24F12280B1BE50029786D /* TaskList.swift */,
 				1114DF79280D4D3800A2BED8 /* HelpSeekerNavBar.swift */,
-				20EA35A027FC91FE00E1995B /* VolunteerProfile.swift */,
-				20F5572527FF643A00B0B638 /* TaskDetailView.swift */,
-				205CB54627FC5AF3004DBA8B /* AvailableTasksView.swift */,
-				20DCAE1227FA2E9F00CBD253 /* VolunteerDashboard.swift */,
-				20D2459D27FDD4D5006FA73B /* Location.swift */,
-				20D245C427FE08BB006FA73B /* MapView.swift */,
 			);
 			path = HelpSeekerViews;
 			sourceTree = "<group>";
@@ -155,16 +162,14 @@
 			children = (
 				20DCAE1127FA1C0600CBD253 /* Info.plist */,
 				66E4DA2E27F65FD600538B74 /* HelperApp.swift */,
-				20D2459B27FDC7D1006FA73B /* ContentView.swift */,
 				66E4DA3227F65FD700538B74 /* Assets.xcassets */,
 				66E4DA3427F65FD700538B74 /* Preview Content */,
-				205CB54627FC5AF3004DBA8B /* AvailableTasksView.swift */,
-				20DCAE1227FA2E9F00CBD253 /* VolunteerDashboard.swift */,
 				1157C5CD2800B82500EDAC8D /* Login.swift */,
 				1157C5C928008DD200EDAC8D /* LandingPage.swift */,
 				115E8DB52805143900C1995D /* HelpSeekerViews */,
 				115E8DAD2805135900C1995D /* ContentView.swift */,
-				20D2459F27FDD5E9006FA73B /* Views */,
+				20D2459F27FDD5E9006FA73B /* VolunteerViews */,
+>>>>>>> 66fc536 (Rename Views group)
 			);
 			path = Helper;
 			sourceTree = "<group>";
