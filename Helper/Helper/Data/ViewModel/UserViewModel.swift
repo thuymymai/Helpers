@@ -26,9 +26,9 @@ class UserViewModel: ObservableObject {
             entity.coaching = data.coaching
             entity.programing = data.programing
             entity.often = data.often
-            entity.age = (Int16) (data.age!) ?? 0
-            entity.weight = (Int16) (data.weight!) ?? 0
-            entity.height = (Int16) (data.height!) ?? 0
+            entity.age = (Int16) (data.age!)
+            entity.weight = (Int16) (data.weight!)
+            entity.height = (Int16) (data.height!)
             entity.need = data.need
             entity.cronic = data.cronic
             entity.allergies = data.allergies
@@ -75,4 +75,5 @@ class UserViewModel: ObservableObject {
         }
         .resume()
     }
+    
 }

@@ -21,9 +21,9 @@ struct UserModel: Decodable, Hashable {
     let coaching: String?
     let programing: String?
     let often: String?
-    let age: String?
-    let weight: String?
-    let height: String?
+    let age: Int?
+    let weight: Int?
+    let height: Int?
     let need: String?
     let cronic: String?
     let allergies: String?
@@ -66,9 +66,9 @@ struct UserModel: Decodable, Hashable {
         coaching = try container.decodeIfPresent(String.self, forKey: .coaching)
         programing = try container.decodeIfPresent(String.self, forKey: .programing)
         often = try container.decodeIfPresent(String.self, forKey: .often)
-        age = try container.decodeIfPresent(String.self, forKey: .age)
-        weight = try container.decodeIfPresent(String.self, forKey: .weight)
-        height = try container.decodeIfPresent(String.self, forKey: .height)
+        age = try container.decodeIfPresent(Int.self, forKey: .age)
+        weight = try container.decodeIfPresent(Int.self, forKey: .weight)
+        height = try container.decodeIfPresent(Int.self, forKey: .height)
         need = try container.decodeIfPresent(String.self, forKey: .need)
         cronic = try container.decodeIfPresent(String.self, forKey: .cronic)
         allergies = try container.decodeIfPresent(String.self, forKey: .allergies)
