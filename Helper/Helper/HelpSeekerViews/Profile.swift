@@ -30,19 +30,19 @@ struct Profile: View {
                     }
                     List {
                         Section(header: Text("Account Settings")) {
-                            SettingsView1(name: "Update Basic Information")
-                            SettingsView1(name: "Update Medical Information")
+                            SettingsView(name: "Update Basic Information")
+                            SettingsView(name: "Update Medical Information")
                             NavigationLink(destination: TaskList()) {
-                                SettingsView1(name:"Your Tasks")
+                                SettingsView(name:"Your Tasks")
                             }
-                            SettingsView1(name:"Change Passwords")
+                            SettingsView(name:"Change Passwords")
                         }.font(.system(size: 16))
                         Section(header: Text("Preferences")) {
                             Toggle("Push Notification", isOn: $pushNoti)
                                 .font(.headline)
                                 .foregroundColor(Color.black.opacity(0.6))
                                 .padding()
-                            SettingsView1(name:"Change language")
+                            SettingsView(name:"Change language")
                         }.font(.system(size: 16))
                     }
                 }
@@ -60,7 +60,7 @@ struct Profile_Previews: PreviewProvider {
     }
 }
 
-struct SettingsView1: View {
+struct SettingsView: View {
     var name: String
     var body: some View {
         Button(action: {
