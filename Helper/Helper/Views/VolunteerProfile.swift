@@ -28,27 +28,29 @@ struct VolunteerProfile: View {
                             
                         }
                     }
-                    
-                    VStack(alignment:.leading){
-                        List{
-                            Section(header: Text("Account")
-                            ) {
-                                SettingsView(name: "Edit Profile")
-                                SettingsView(name:"Change Passwords")
-                                SettingsView(name:"Task History")
-                            }.font(.system(size: 16))
-                            Section(header: Text("Preferences")) {
-                                Toggle("Push Notification", isOn: $pushNoti)
-                                    .font(.headline)
-                                    .foregroundColor(Color.black.opacity(0.6))
-                                    .padding()
-                                SettingsView(name:"Change language")
-                                SettingsView(name:"Update availability")
-                            }.font(.system(size: 16))
-                        }.padding(.bottom,50)
-                            .background(.white)
-                            .frame( height: 500, alignment: .center)
+                    GeometryReader { geometry in
+                        VStack(alignment:.leading){
+                            List{
+                                Section(header: Text("Account")
+                                ) {
+                                    SettingsView(name: "Edit Profile")
+                                    SettingsView(name:"Change Passwords")
+                                    SettingsView(name:"Task History")
+                                }.font(.system(size: 16))
+                                Section(header: Text("Preferences")) {
+                                    Toggle("Push Notification", isOn: $pushNoti)
+                                        .font(.headline)
+                                        .foregroundColor(Color.black.opacity(0.6))
+                                        .padding()
+                                    SettingsView(name:"Change language")
+                                    SettingsView(name:"Update availability")
+                                }.font(.system(size: 16))
+                            }.padding(.bottom,50)
+                                .background(.white)
+                                .frame( height: geometry.size.height * 60, alignment: .center)
+                        }
                     }
+                    
                 }
             }
         }.edgesIgnoringSafeArea(.all)
