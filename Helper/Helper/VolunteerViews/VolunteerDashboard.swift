@@ -16,7 +16,7 @@ struct VolunteerDashboard: View {
             NavigationView{
                 ZStack{
                     Color("Background")
-                        .edgesIgnoringSafeArea(.all)
+                        .edgesIgnoringSafeArea(.top)
                     ScrollView{
                         VStack (alignment: .leading){
                             TagLineView()
@@ -41,9 +41,9 @@ struct VolunteerDashboard: View {
                                 }
                             }
                             
-                                Text("Ongoing Tasks")
-                                    .font(.system(size: 24))
-                            OngoingTaskCard().padding(.top,-10)
+                            Text("Ongoing Tasks")
+                                .font(.system(size: 24))
+                            OngoingTaskCard().padding(.top,-20)
                         }.padding(.horizontal)
                         
                     } .padding(.horizontal)
@@ -171,6 +171,7 @@ struct CategoriesView: View {
 struct OngoingTaskCard: View {
     var body: some View {
         GeometryReader { geometry in
+            
             VStack{
                 ZStack{
                     RoundedRectangle(cornerRadius: 10)
@@ -217,7 +218,6 @@ struct OngoingTaskCard: View {
             }
             
         }.padding()
-        
     }
 }
 

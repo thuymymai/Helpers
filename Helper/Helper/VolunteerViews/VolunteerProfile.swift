@@ -33,7 +33,7 @@ struct VolunteerProfile: View {
                             
                             SettingsView(name: "Edit Profile")
                             SettingsView(name:"Change Passwords")
-                            NavigationLink(destination: TaskList()) {
+                            NavigationLink(destination: AvailableTasksView()) {
                                 SettingsView(name:"Task History")
                             }
                             
