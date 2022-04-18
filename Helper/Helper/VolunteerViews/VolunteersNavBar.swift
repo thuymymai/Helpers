@@ -9,29 +9,30 @@ import SwiftUI
 
 struct VolunteersNavBar: View {
     var body: some View {
-        TabView{
-            VolunteerDashboard()
-                .tabItem(){
-                    Image(systemName: "house")
-                    Text("Home")
-                }
-            Location()
-                .tabItem(){
-                    Image(systemName: "map")
-                    Text("Location")
-                }
-            AvailableTasksView()
-                .tabItem(){
-                    Image(systemName: "list.bullet.rectangle.portrait")
-                    Text("Available Tasks")
-                }
-            VolunteerProfile()
-                .tabItem(){
-                    Image(systemName: "person")
-                    Text("Profile")
-                }
-            
-        }
+        NavigationView{
+            TabView{
+                VolunteerDashboard()
+                    .tabItem(){
+                        Image(systemName: "house")
+                        Text("Home")
+                    }
+                Location()
+                    .tabItem(){
+                        Image(systemName: "map")
+                        Text("Location")
+                    }
+                AvailableTasksView()
+                    .tabItem(){
+                        Image(systemName: "list.bullet.rectangle.portrait")
+                        Text("Available Tasks")
+                    }
+                VolunteerProfile()
+                    .tabItem(){
+                        Image(systemName: "person")
+                        Text("Profile")
+                    }
+            }
+        }.navigationBarHidden(true)
     }
 }
 

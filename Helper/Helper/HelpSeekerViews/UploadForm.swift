@@ -10,35 +10,40 @@ import SwiftUI
 struct UploadForm: View {
     var body: some View {
         NavigationView{
-            ZStack(alignment: .top) {
-                Color("Background").edgesIgnoringSafeArea(.all)
+            ZStack {
+                Color("Background").edgesIgnoringSafeArea(.top)
                 VStack{
                     ZStack(alignment: .top) {
                         Image("BG Mask").edgesIgnoringSafeArea(.all)
                         VStack{
                             Text("Need help?")
+                                .font(.system(size: 20))
                                 .fontWeight(.medium)
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.center)
                             Text("Fill in the form to find volunteer")
+                                .font(.system(size: 20))
                                 .fontWeight(.medium)
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.center)
-                        }.padding(.top, -50)
+                        }.padding(.top, 30)
                     }
                     Spacer()
                 }
                 ZStack{
                     RoundedRectangle(cornerRadius: 10)
                         .fill(.white)
-                        .frame(width: 300, height: 600)
+                        .frame(width: 300, height: 580)
                         .shadow(radius: 5)
                         .padding(.top, 50)
                     FormTask()
-                }
+                }.padding(.top, 30)
                 
             }
-        }.navigationBarHidden(true)
+            .navigationBarTitle("")
+            .navigationBarHidden(true)
+            .navigationBarBackButtonHidden(true)
+        }
     }
 }
 
@@ -51,7 +56,7 @@ struct UploadForm_Previews: PreviewProvider {
 struct LocationForm: View {
     var body: some View{
         NavigationLink(
-            destination: MapView(),
+            destination: HelpSeekerMapView(),
             label: {
                 HStack {
                     Text("Choose on map")
@@ -145,7 +150,7 @@ struct FormTask: View {
                             .cornerRadius(10)
                     }
                     Button(action: {}) {
-                        Text("SIGN UP")
+                        Text("SUBMIT")
                             .fontWeight(.bold)
                             .font(.system(size: 14))
                             .frame(width: 100, height: 35)

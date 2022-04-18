@@ -9,36 +9,38 @@ import SwiftUI
 
 struct MedicalInfo: View {
     var body: some View {
-        ZStack{
-            Color("Background").edgesIgnoringSafeArea(.all)
-            
-            VStack{
-                ZStack(alignment: .top) {
-                    Image("BG Mask").edgesIgnoringSafeArea(.all)
-                    Text("Medical information")
-                        .fontWeight(.medium)
-                        .padding(.top, 50)
-                        .frame(maxWidth: 300, alignment: .center)
-                        .foregroundColor(.white)
-                        .multilineTextAlignment(.center)
-                        .font(.system(size: 18))
-                }
-                Spacer()
-                Text("By signup and login, I confirm I am at least  17 years old, and I agree to and accept  Helpers Terms & Privacy Policy")
-                    .frame(maxWidth: 280)
-                    .multilineTextAlignment(.center)
-                    .font(.system(size: 14))
-                    .padding(.bottom, 30)
-            }
+        NavigationView {
             ZStack{
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(.white)
-                    .frame(width: 300, height: 500)
-                    .shadow(radius: 5)
-                    .padding(.top, 20)
-                FormMedical()
+                Color("Background").edgesIgnoringSafeArea(.all)
+                VStack{
+                    ZStack(alignment: .top) {
+                        Image("BG Mask").edgesIgnoringSafeArea(.all)
+                        Text("Medical information")
+                            .fontWeight(.medium)
+                            .frame(maxWidth: 300, alignment: .center)
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
+                            .font(.system(size: 20))
+                            .padding(.top, 50)
+                    }
+                    Spacer()
+                    Text("By signup and login, I confirm I am at least  17 years old, and I agree to and accept  Helpers Terms & Privacy Policy")
+                        .frame(maxWidth: 280)
+                        .multilineTextAlignment(.center)
+                        .font(.system(size: 15))
+                        .padding(.bottom, 30)
+                }
+                ZStack{
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(.white)
+                        .frame(width: 300, height: 500)
+                        .shadow(radius: 5)
+                    FormMedical()
+                }
             }
-            
+            .navigationBarTitle("")
+            .navigationBarHidden(true)
+            .navigationBarBackButtonHidden(true)
         }
     }
 }
@@ -54,14 +56,14 @@ struct SpecialNeed: View {
     let specialNeeds = ["Autism", "Down syndrome", "Blindness", "Deafness", "Immobilized", "ADHD"]
     
     var body: some View {
-            Picker("Select need", selection: $selection) {
-                ForEach(specialNeeds, id: \.self) {
-                    Text($0)
-                        .frame(width: 110, height: 110)
-                        .background(.blue)
-                }
+        Picker("Select need", selection: $selection) {
+            ForEach(specialNeeds, id: \.self) {
+                Text($0)
+                    .frame(width: 110, height: 110)
+                    .background(.blue)
             }
-            .pickerStyle(.menu)
+        }
+        .pickerStyle(.menu)
     }
 }
 
@@ -70,13 +72,13 @@ struct ChronicDiseases: View {
     let diseases = ["Heart disease", "Stroke", "Cancer", "Depression", "Diabetes", "Arthritis", "Asthma", "Oral disease"]
     
     var body: some View {
-            Picker("Select disease", selection: $selection) {
-                ForEach(diseases, id: \.self) {
-                    Text($0)
-                        .frame(width: 110, height: 110)
-                        .background(.blue)
-                }
-            }.pickerStyle(.menu)
+        Picker("Select disease", selection: $selection) {
+            ForEach(diseases, id: \.self) {
+                Text($0)
+                    .frame(width: 110, height: 110)
+                    .background(.blue)
+            }
+        }.pickerStyle(.menu)
     }
 }
 
@@ -85,20 +87,23 @@ struct Allergies: View {
     let diseases = ["Grass", "Pollen", "Dust mites", "Animal dander", "Nuts", "Gluten", "Lactose", "Mould"]
     
     var body: some View {
-            Picker("Select disease", selection: $selection) {
-                ForEach(diseases, id: \.self) {
-                    Text($0)
-                        .frame(width: 110, height: 110)
-                        .background(.blue)
-                }
+        Picker("Select disease", selection: $selection) {
+            ForEach(diseases, id: \.self) {
+                Text($0)
+                    .frame(width: 110, height: 110)
+                    .background(.blue)
             }
-            .pickerStyle(.menu)
-            .frame(alignment: .leading)
+        }
+        .pickerStyle(.menu)
+        .frame(alignment: .leading)
     }
 }
 
 struct FormMedical: View {
     @State var info: String = ""
+    @State var isLinkActive = false
+    @State var showAlert: Bool = false
+    
     var body: some View {
         ZStack{
             VStack{
@@ -131,16 +136,21 @@ struct FormMedical: View {
                         .cornerRadius(5)
                 }
                 .frame(width: 250)
-                Button(action: {}) {
-                    Text("SIGN UP")
+                NavigationLink(destination: HelpSeekerNavBar().navigationBarHidden(true), isActive: self.$isLinkActive) { }
+                Button(action: {
+                    showAlert.toggle()
+                }) {
+                    Text("REGISTER")
                         .fontWeight(.bold)
                         .font(.system(size: 14))
                         .frame(width: 100, height: 35)
                         .background(Color("Primary"))
                         .foregroundColor(.white)
                         .cornerRadius(10)
-                }
-                .padding(.top, 20)
+                }.alert(isPresented: $showAlert, content: {
+                    Alert(title: Text("Register successfully!"),  dismissButton: .default(Text("Got it!"), action: {self.isLinkActive = true}))
+                })
+                .padding(.top, 40)
             }
             
         }

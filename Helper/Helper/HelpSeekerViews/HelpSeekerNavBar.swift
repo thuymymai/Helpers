@@ -9,27 +9,32 @@ import SwiftUI
 
 struct HelpSeekerNavBar: View {
     var body: some View {
-        TabView{
-            FrontScreen()
-                .tabItem(){
-                    Image(systemName: "house")
-                    Text("Home")
-                }
-            MapView()
-                .tabItem(){
-                    Image(systemName: "map")
-                    Text("Map")
-                }
-            UploadForm()
-                .tabItem(){
-                    Image(systemName: "list.bullet.rectangle.portrait")
-                    Text("New Task")
-                }
-            Profile()
-                .tabItem(){
-                    Image(systemName: "person")
-                    Text("Profile")
-                }
+        NavigationView {
+            TabView{
+                FrontScreen()
+                    .tabItem(){
+                        Image(systemName: "house")
+                        Text("Home")
+                    }
+                MapView()
+                    .tabItem(){
+                        Image(systemName: "map")
+                        Text("Map")
+                    }
+                UploadForm()
+                    .tabItem(){
+                        Image(systemName: "list.bullet.rectangle.portrait")
+                        Text("New Task")
+                    }
+                Profile()
+                    .tabItem(){
+                        Image(systemName: "person")
+                        Text("Profile")
+                    }
+            }
+            .navigationBarTitle("")
+            .navigationBarHidden(true)
+            .navigationBarBackButtonHidden(true)
         }
     }
 }

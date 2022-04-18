@@ -15,7 +15,7 @@ struct LandingPage: View {
                     VStack{
                         Text("Join the community.")
                             .fontWeight(.semibold)
-                            .font(.system(size: 18))
+                            .font(.system(size: 20))
                         Text("See the world together.")
                             .fontWeight(.semibold)
                             .font(.system(size: 18))
@@ -44,13 +44,20 @@ struct LandingPage: View {
                         Spacer()
                         NavigationLink(destination: Login().navigationBarHidden(true), label: {
                             Text("Login")
+                                .bold()
+                                .padding(12)
+                                .background(Color("Background"))
+                                .foregroundColor(Color("Primary"))
+                                .cornerRadius(10)
                         }).padding(.bottom, 20)
-                                       
-                    }.padding(.horizontal, 50)
-                   
+                        
+                    }.padding(.horizontal, 40)
+                    
                 }
-
+                
             }
+            .navigationBarTitle("")
+            .navigationBarHidden(true)
         }
     }
 }
@@ -70,32 +77,35 @@ struct ImageView: View {
 }
 
 struct ButtonView: View {
-    @State var isLinkActive = false
-    
+    @State var isHelpSeekerActive = false
+    @State var isVolunteerActive = false
     var body: some View {
         VStack{
             NavigationLink(
-                destination: Signup().navigationBarHidden(true), isActive: $isLinkActive) {
-                    Button(action: {self.isLinkActive = true}) {
+                destination: Signup().navigationBarHidden(true), isActive: $isHelpSeekerActive) {
+                    Button(action: {self.isHelpSeekerActive = true}) {
                         Text("I need assistant")
                             .fontWeight(.bold)
-                            .font(.system(size: 16))
+                            .font(.system(size: 18))
                             .frame(width: 250, height: 50)
                             .background(Color("Primary"))
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }.padding(.bottom, 10)
                 }
+            NavigationLink(
+                destination: VolunteerSignUp().navigationBarHidden(true), isActive: $isVolunteerActive) {
+                    Button(action: {self.isVolunteerActive = true}) {
+                        Text("I'd like to volunteer")
+                            .fontWeight(.bold)
+                            .font(.system(size: 18))
+                            .frame(width: 250, height: 50)
+                            .background(Color("Background"))
+                            .foregroundColor(Color("Primary"))
+                            .cornerRadius(10)
+                    }
+                }
             
-            Button(action: {}) {
-                Text("I'd like to volunteer")
-                    .fontWeight(.bold)
-                    .font(.system(size: 16))
-                    .frame(width: 250, height: 50)
-                    .background(Color("Background"))
-                    .foregroundColor(Color("Primary"))
-                    .cornerRadius(10)
-            }
         }.padding(.bottom, 50)
         
     }
@@ -113,6 +123,6 @@ struct DropDownMenu: View {
                     .background(.blue)
             }
         }.padding(.bottom, 20)
-        .pickerStyle(.menu)
+            .pickerStyle(.menu)
     }
 }
