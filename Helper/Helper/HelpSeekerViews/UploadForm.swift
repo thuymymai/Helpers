@@ -48,7 +48,7 @@ struct UploadForm_Previews: PreviewProvider {
     }
 }
 
-struct Location: View {
+struct LocationForm: View {
     var body: some View{
         NavigationLink(
             destination: MapView(),
@@ -108,7 +108,7 @@ struct FormTask: View {
                         .frame(maxWidth: 300, alignment: .leading)
                         .font(.system(size: 16))
                         .padding(.top, 10)
-                    Location()
+                    LocationForm()
                     Text("Time")
                         .fontWeight(.medium)
                         .frame(maxWidth: 300, alignment: .leading)
