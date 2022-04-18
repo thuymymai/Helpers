@@ -30,7 +30,6 @@ struct VolunteersNavBar: View {
                     Image(systemName: "person")
                     Text("Profile")
                 }
-            
         }
     }
 }

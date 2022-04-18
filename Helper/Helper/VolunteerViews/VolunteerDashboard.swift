@@ -43,7 +43,7 @@ struct VolunteerDashboard: View {
                             
                                 Text("Ongoing Tasks")
                                     .font(.system(size: 24))
-                                OngoingTaskCard()
+                            OngoingTaskCard().padding(.top,-10)
                         }.padding(.horizontal)
                         
                     } .padding(.horizontal)
