@@ -54,7 +54,7 @@ struct RegisterAvailability_Previews: PreviewProvider {
 }
 
 struct AvailabilityForm: View {
-    @State var toLogIn: Bool = false
+    @State var toDashboard: Bool = false
     @State var showAlert: Bool = false
     @State var isManyTimesChecked: Bool = false
     @State var isDailyChecked: Bool = false
@@ -134,7 +134,7 @@ struct AvailabilityForm: View {
                 
                 
             }
-            NavigationLink(destination: Login().navigationBarHidden(true), isActive: self.$toLogIn) { EmptyView() }
+            NavigationLink(destination: VolunteersNavBar().navigationBarBackButtonHidden(true), isActive: self.$toDashboard) { EmptyView() }
             Button(action: {
                 showAlert.toggle()
             }) {
@@ -146,7 +146,7 @@ struct AvailabilityForm: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }.alert(isPresented: $showAlert, content: {
-                Alert(title: Text("Register successfully"), message: Text("Register successfully. Go to Login"), dismissButton: .default(Text("Got it!"), action: {self.toLogIn = true}))
+                Alert(title: Text("Register successfully"), message: Text("Register successfully. Go to Dashboard"), dismissButton: .default(Text("Got it!"), action: {self.toDashboard = true}))
             })
             .padding(.top, 20)
             .padding(.leading, 70)

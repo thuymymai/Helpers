@@ -12,8 +12,8 @@ struct AvailableTasksView: View {
     var body: some View {
         VStack {
             TaskCard()
+            
         }
-        
         .cornerRadius(10)
         .overlay(
             RoundedRectangle(cornerRadius: 10)
@@ -21,7 +21,6 @@ struct AvailableTasksView: View {
                 .shadow(radius: 5)
         )
         .padding([.top, .horizontal])
-        
     }
 }
 

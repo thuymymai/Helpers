@@ -11,6 +11,7 @@ import SwiftUI
 struct VolunteerDashboard: View {
     //    let categories: [TaskCategories]
     var body: some View {
+      
         GeometryReader { geometry in
             NavigationView{
                 ZStack{
@@ -19,7 +20,6 @@ struct VolunteerDashboard: View {
                     ScrollView{
                         VStack (alignment: .leading){
                             TagLineView()
-                            
                             SearchAndFilter()
                             Text("Available Tasks")
                                 .font(.system(size: 24))
@@ -49,10 +49,13 @@ struct VolunteerDashboard: View {
                             
                             Text("Ongoing Tasks")
                                 .font(.system(size: 24))
-                                .position( x:80, y: 250)
-                            OngoingTaskCard().position( x:180, y: 250)
+                                .position( x:80, y: 240)
+                            OngoingTaskCard().position( x:180, y: 240)
+                                .padding(.bottom, 50)
+                            
                         }
-                    } .padding()
+                        
+                    } .padding(.horizontal)
                 }
                 .navigationBarTitle("")
                 .navigationBarTitleDisplayMode(.inline)
@@ -77,9 +80,7 @@ struct VolunteerDashboard: View {
                     }
                 }
             }
-            
         }
-        
     }
 }
 
@@ -108,8 +109,6 @@ struct TagLineView: View {
             }
             
         }
-        
-        
     }
 }
 
