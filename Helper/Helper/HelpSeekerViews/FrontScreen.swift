@@ -12,7 +12,7 @@ struct FrontScreen: View {
         NavigationView {
             ZStack(alignment: .top){
                 Color("White")
-                    .edgesIgnoringSafeArea(.all)
+                    .edgesIgnoringSafeArea(.top)
                 VStack{
                     HStack(alignment: .top){
                         Spacer()

@@ -26,7 +26,7 @@ struct VolunteerProfile: View {
                             Label("Profile", systemImage: "person")
                                 .font(.title)
                                 .foregroundColor(.white)
-                        }
+                        }.padding(.top, -100)
                     }
                     List {
                         Section(header: Text("Account Settings")) {

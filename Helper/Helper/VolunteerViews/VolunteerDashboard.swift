@@ -85,6 +85,7 @@ struct VolunteerDashboard_Previews: PreviewProvider {
 
 struct TagLineView: View {
     var body: some View {
+        
         HStack {
             Text("Hi User\nManage Your Tasks")
                 .font(.system(size: 28))
@@ -97,8 +98,7 @@ struct TagLineView: View {
                     .padding()
                     .frame(width: 85, height: 85)
                     .shadow(radius: 5)
-            }
-            
+            }         
         }
     }
 }

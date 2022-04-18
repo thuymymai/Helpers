@@ -11,7 +11,7 @@ struct UploadForm: View {
     var body: some View {
         NavigationView{
             ZStack {
-                Color("Background").edgesIgnoringSafeArea(.all)
+                Color("Background").edgesIgnoringSafeArea(.top)
                 VStack{
                     ZStack(alignment: .top) {
                         Image("BG Mask").edgesIgnoringSafeArea(.all)
@@ -26,18 +26,18 @@ struct UploadForm: View {
                                 .fontWeight(.medium)
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.center)
-                        }.padding(.top, 30)
+                        }.padding(.top, 20)
                     }
                     Spacer()
                 }
                 ZStack{
                     RoundedRectangle(cornerRadius: 10)
                         .fill(.white)
-                        .frame(width: 300, height: 600)
+                        .frame(width: 300, height: 580)
                         .shadow(radius: 5)
                         .padding(.top, 50)
                     FormTask()
-                }.padding(.top, 30)
+                }
                 
             }
             .navigationBarTitle("")

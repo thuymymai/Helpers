@@ -13,7 +13,7 @@ struct Profile: View {
     var body: some View {
         NavigationView {
             ZStack{
-                Color("Background").edgesIgnoringSafeArea(.all)
+                Color("Background").edgesIgnoringSafeArea(.top)
                 VStack{
                     ZStack{
                         Image("BG Mask").edgesIgnoringSafeArea(.all)
