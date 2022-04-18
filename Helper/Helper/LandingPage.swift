@@ -45,11 +45,11 @@ struct LandingPage: View {
                         NavigationLink(destination: Login().navigationBarHidden(true), label: {
                             Text("Login")
                         }).padding(.bottom, 20)
-                                       
+                        
                     }.padding(.horizontal, 50)
-                   
+                    
                 }
-
+                
             }
         }
     }
@@ -86,16 +86,19 @@ struct ButtonView: View {
                             .cornerRadius(10)
                     }.padding(.bottom, 10)
                 }
+            NavigationLink(
+                destination: VolunteerSignUp().navigationBarHidden(true), isActive: $isLinkActive) {
+                    Button(action: {self.isLinkActive = true}) {
+                        Text("I'd like to volunteer")
+                            .fontWeight(.bold)
+                            .font(.system(size: 16))
+                            .frame(width: 250, height: 50)
+                            .background(Color("Background"))
+                            .foregroundColor(Color("Primary"))
+                            .cornerRadius(10)
+                    }
+                }
             
-            Button(action: {}) {
-                Text("I'd like to volunteer")
-                    .fontWeight(.bold)
-                    .font(.system(size: 16))
-                    .frame(width: 250, height: 50)
-                    .background(Color("Background"))
-                    .foregroundColor(Color("Primary"))
-                    .cornerRadius(10)
-            }
         }.padding(.bottom, 50)
         
     }
@@ -113,6 +116,6 @@ struct DropDownMenu: View {
                     .background(.blue)
             }
         }.padding(.bottom, 20)
-        .pickerStyle(.menu)
+            .pickerStyle(.menu)
     }
 }

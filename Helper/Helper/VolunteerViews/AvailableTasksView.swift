@@ -19,9 +19,7 @@ struct AvailableTasksView: View {
             RoundedRectangle(cornerRadius: 10)
                 .stroke(Color(.sRGB, red: 150/255, green: 150/255, blue: 150/255, opacity: 0.3), lineWidth: 1)
                 .shadow(radius: 5)
-         
         )
-        
         .padding([.top, .horizontal])
         
     }

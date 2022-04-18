@@ -19,6 +19,8 @@
 		11B24F11280532D50029786D /* FirstAid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B24F10280532D50029786D /* FirstAid.swift */; };
 		11B24F13280B1BE50029786D /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B24F12280B1BE50029786D /* TaskList.swift */; };
 		205CB54727FC5AF3004DBA8B /* AvailableTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205CB54627FC5AF3004DBA8B /* AvailableTasksView.swift */; };
+		20926D81280D68C5000186E3 /* VolunteerSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20926D80280D68C5000186E3 /* VolunteerSignUp.swift */; };
+		20926D83280D6FC6000186E3 /* RegisterAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20926D82280D6FC6000186E3 /* RegisterAvailability.swift */; };
 		20B435D8280D557400B9D5D0 /* VolunteersNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B435D7280D557400B9D5D0 /* VolunteersNavBar.swift */; };
 		20D2459E27FDD4D5006FA73B /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D2459D27FDD4D5006FA73B /* Location.swift */; };
 		20D245C527FE08BB006FA73B /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D245C427FE08BB006FA73B /* MapView.swift */; };
@@ -63,6 +65,8 @@
 		11B24F10280532D50029786D /* FirstAid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstAid.swift; sourceTree = "<group>"; };
 		11B24F12280B1BE50029786D /* TaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
 		205CB54627FC5AF3004DBA8B /* AvailableTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableTasksView.swift; sourceTree = "<group>"; };
+		20926D80280D68C5000186E3 /* VolunteerSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerSignUp.swift; sourceTree = "<group>"; };
+		20926D82280D6FC6000186E3 /* RegisterAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterAvailability.swift; sourceTree = "<group>"; };
 		20B435D7280D557400B9D5D0 /* VolunteersNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteersNavBar.swift; sourceTree = "<group>"; };
 		20D2459D27FDD4D5006FA73B /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		20D245C427FE08BB006FA73B /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
@@ -110,12 +114,14 @@
 			isa = PBXGroup;
 			children = (
 				20EA35A027FC91FE00E1995B /* VolunteerProfile.swift */,
+				20926D82280D6FC6000186E3 /* RegisterAvailability.swift */,
 				20F5572527FF643A00B0B638 /* TaskDetailView.swift */,
 				205CB54627FC5AF3004DBA8B /* AvailableTasksView.swift */,
 				20DCAE1227FA2E9F00CBD253 /* VolunteerDashboard.swift */,
 				20D2459D27FDD4D5006FA73B /* Location.swift */,
 				20D245C427FE08BB006FA73B /* MapView.swift */,
 				20B435D7280D557400B9D5D0 /* VolunteersNavBar.swift */,
+				20926D80280D68C5000186E3 /* VolunteerSignUp.swift */,
 			);
 			path = VolunteerViews;
 			sourceTree = "<group>";
@@ -339,8 +345,10 @@
 				1114DF7A280D4D3800A2BED8 /* HelpSeekerNavBar.swift in Sources */,
 				11B24F11280532D50029786D /* FirstAid.swift in Sources */,
 				115E8DB4280513D700C1995D /* Profile.swift in Sources */,
+				20926D83280D6FC6000186E3 /* RegisterAvailability.swift in Sources */,
 				20DCAE1327FA2E9F00CBD253 /* VolunteerDashboard.swift in Sources */,
 				1157C5CC28009D0D00EDAC8D /* Signup.swift in Sources */,
+				20926D81280D68C5000186E3 /* VolunteerSignUp.swift in Sources */,
 				20EA35A127FC91FE00E1995B /* VolunteerProfile.swift in Sources */,
 				20B435D8280D557400B9D5D0 /* VolunteersNavBar.swift in Sources */,
 				20D2459E27FDD4D5006FA73B /* Location.swift in Sources */,
