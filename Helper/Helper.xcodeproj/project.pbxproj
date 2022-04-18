@@ -16,6 +16,7 @@
 		115E8DB0280513B400C1995D /* FrontScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115E8DAF280513B400C1995D /* FrontScreen.swift */; };
 		115E8DB4280513D700C1995D /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115E8DB3280513D700C1995D /* Profile.swift */; };
 		115E8DB72805148800C1995D /* UploadForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115E8DB62805148800C1995D /* UploadForm.swift */; };
+		117419DD280DA2D7001B9739 /* HelpSeekerMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117419DC280DA2D7001B9739 /* HelpSeekerMapView.swift */; };
 		11B24F11280532D50029786D /* FirstAid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B24F10280532D50029786D /* FirstAid.swift */; };
 		11B24F13280B1BE50029786D /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B24F12280B1BE50029786D /* TaskList.swift */; };
 		205CB54727FC5AF3004DBA8B /* AvailableTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205CB54627FC5AF3004DBA8B /* AvailableTasksView.swift */; };
@@ -62,6 +63,7 @@
 		115E8DAF280513B400C1995D /* FrontScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontScreen.swift; sourceTree = "<group>"; };
 		115E8DB3280513D700C1995D /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		115E8DB62805148800C1995D /* UploadForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadForm.swift; sourceTree = "<group>"; };
+		117419DC280DA2D7001B9739 /* HelpSeekerMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpSeekerMapView.swift; sourceTree = "<group>"; };
 		11B24F10280532D50029786D /* FirstAid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstAid.swift; sourceTree = "<group>"; };
 		11B24F12280B1BE50029786D /* TaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
 		205CB54627FC5AF3004DBA8B /* AvailableTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableTasksView.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				11B24F10280532D50029786D /* FirstAid.swift */,
 				11B24F12280B1BE50029786D /* TaskList.swift */,
 				1114DF79280D4D3800A2BED8 /* HelpSeekerNavBar.swift */,
+				117419DC280DA2D7001B9739 /* HelpSeekerMapView.swift */,
 			);
 			path = HelpSeekerViews;
 			sourceTree = "<group>";
@@ -341,6 +344,7 @@
 				115E8DB72805148800C1995D /* UploadForm.swift in Sources */,
 				1157C5CA28008DD200EDAC8D /* LandingPage.swift in Sources */,
 				1157C5CE2800B82500EDAC8D /* Login.swift in Sources */,
+				117419DD280DA2D7001B9739 /* HelpSeekerMapView.swift in Sources */,
 				110C5D7F280484320056EEFC /* MedicalInfo.swift in Sources */,
 				1114DF7A280D4D3800A2BED8 /* HelpSeekerNavBar.swift in Sources */,
 				11B24F11280532D50029786D /* FirstAid.swift in Sources */,

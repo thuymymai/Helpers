@@ -15,7 +15,7 @@ struct LandingPage: View {
                     VStack{
                         Text("Join the community.")
                             .fontWeight(.semibold)
-                            .font(.system(size: 18))
+                            .font(.system(size: 20))
                         Text("See the world together.")
                             .fontWeight(.semibold)
                             .font(.system(size: 18))
@@ -44,13 +44,20 @@ struct LandingPage: View {
                         Spacer()
                         NavigationLink(destination: Login().navigationBarHidden(true), label: {
                             Text("Login")
+                                .bold()
+                                .padding(12)
+                                .background(Color("Background"))
+                                .foregroundColor(Color("Primary"))
+                                .cornerRadius(10)
                         }).padding(.bottom, 20)
                         
-                    }.padding(.horizontal, 50)
+                    }.padding(.horizontal, 40)
                     
                 }
                 
             }
+            .navigationBarTitle("")
+            .navigationBarHidden(true)
         }
     }
 }
@@ -79,7 +86,7 @@ struct ButtonView: View {
                     Button(action: {self.isHelpSeekerActive = true}) {
                         Text("I need assistant")
                             .fontWeight(.bold)
-                            .font(.system(size: 16))
+                            .font(.system(size: 18))
                             .frame(width: 250, height: 50)
                             .background(Color("Primary"))
                             .foregroundColor(.white)
@@ -91,7 +98,7 @@ struct ButtonView: View {
                     Button(action: {self.isVolunteerActive = true}) {
                         Text("I'd like to volunteer")
                             .fontWeight(.bold)
-                            .font(.system(size: 16))
+                            .font(.system(size: 18))
                             .frame(width: 250, height: 50)
                             .background(Color("Background"))
                             .foregroundColor(Color("Primary"))

@@ -15,10 +15,12 @@ struct Signup: View {
                 ZStack(alignment: .top){
                     Image("BG Mask").edgesIgnoringSafeArea(.all)
                     Text("Join Helpers and receive assistance to all your needs.")
+                        .font(.system(size: 20))
                         .fontWeight(.medium)
                         .frame(maxWidth: 280, alignment: .center)
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
+                        .padding(.top, 50)
                 }
                 Spacer()
                 ZStack{
@@ -28,8 +30,10 @@ struct Signup: View {
                         .shadow(radius: 5)
                         .padding(.top, 100)
                     FormView()
-                }
+                }.padding(.top, 50)
             }
+            .navigationBarTitle("")
+            .navigationBarHidden(true)
         }
         
     }
@@ -108,13 +112,11 @@ struct FormView: View {
                             .font(.system(size: 16))
                             .foregroundColor(Color("Primary"))
                             .fontWeight(.bold)
-                        Text(">")
-                            .fontWeight(.bold)
-                            .font(.system(size: 14))
-                            .frame(width: 30, height: 30)
-                            .background(Color("Background"))
+                        Image(systemName: "arrow.forward.circle.fill")
+                            .resizable()
+                            .frame(width: 25, height: 25)
                             .foregroundColor(Color("Primary"))
-                            .cornerRadius(50)
+
                     }
                     .padding(.top, 550)
                     .frame(alignment: .trailing)

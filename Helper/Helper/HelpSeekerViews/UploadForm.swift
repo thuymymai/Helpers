@@ -10,21 +10,23 @@ import SwiftUI
 struct UploadForm: View {
     var body: some View {
         NavigationView{
-            ZStack(alignment: .top) {
+            ZStack {
                 Color("Background").edgesIgnoringSafeArea(.all)
                 VStack{
                     ZStack(alignment: .top) {
                         Image("BG Mask").edgesIgnoringSafeArea(.all)
                         VStack{
                             Text("Need help?")
+                                .font(.system(size: 20))
                                 .fontWeight(.medium)
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.center)
                             Text("Fill in the form to find volunteer")
+                                .font(.system(size: 20))
                                 .fontWeight(.medium)
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.center)
-                        }.padding(.top, -50)
+                        }.padding(.top, 30)
                     }
                     Spacer()
                 }
@@ -35,10 +37,12 @@ struct UploadForm: View {
                         .shadow(radius: 5)
                         .padding(.top, 50)
                     FormTask()
-                }
+                }.padding(.top, 30)
                 
             }
-        }.navigationBarHidden(true)
+            .navigationBarTitle("")
+            .navigationBarHidden(true)
+        }
     }
 }
 
@@ -51,7 +55,7 @@ struct UploadForm_Previews: PreviewProvider {
 struct LocationForm: View {
     var body: some View{
         NavigationLink(
-            destination: MapView(),
+            destination: HelpSeekerMapView(),
             label: {
                 HStack {
                     Text("Choose on map")

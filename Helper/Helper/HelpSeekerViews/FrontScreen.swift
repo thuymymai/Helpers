@@ -18,44 +18,46 @@ struct FrontScreen: View {
                         Spacer()
                         VStack{
                             Text("Karaportti 2, Espoo")
-                                .font(.system(size: 14))
+                                .font(.system(size: 16))
                                 .padding(.bottom, 2)
                             NavigationLink(
-                                destination: MapView(),
+                                destination: HelpSeekerMapView(),
                                 label: {
                                     HStack {
                                         Text("See your location")
                                             .bold()
-                                            .font(.system(size: 14))
+                                            .font(.system(size: 16))
                                             .foregroundColor(Color("Primary"))
                                         Image(systemName: "location.fill")
                                             .foregroundColor(.red)
                                     }
                                 })
-                        }
+                        }.padding(.top, 30)
                     }
                     .padding(.bottom, 50)
                     .padding(.trailing, 10)
                     
                     Text("Emergency help needed?")
                         .bold()
-                        .font(.system(size: 22))
-                        .padding(.bottom, 2)
+                        .font(.system(size: 24))
+                        .padding(.bottom, 5)
                     Text("Press button to call the nearest volunteer")
                         .padding(.bottom, 20)
-                        .font(.system(size: 15))
+                        .font(.system(size: 18))
                     EmergencyButton()
                     Text("First-aid manual")
                         .bold()
                         .padding(.top, 100)
-                        .font(.system(size: 18))
+                        .font(.system(size: 20))
                     TabView{
                         FirstAidManual()
                         FirstAidManual()
                         FirstAidManual()
                     }.tabViewStyle(.page(indexDisplayMode: .never))
                 }
-            }.padding(.top, -50)
+            }
+            .navigationBarTitle("")
+            .navigationBarHidden(true)
         }
     }
 }
@@ -94,7 +96,7 @@ struct FirstAidManual: View {
                             .foregroundColor(.black)
                             .fontWeight(.semibold)
                             .frame(maxWidth: 120, alignment: .leading)
-                            .font(.system(size: 15))
+                            .font(.system(size: 16))
                         HStack{
                             Image(systemName: "arrow.right.circle.fill")
                                 .frame(maxWidth: 60, alignment: .leading)
@@ -116,7 +118,7 @@ struct FirstAidManual: View {
                     Text("Broken bone")
                         .fontWeight(.semibold)
                         .frame(maxWidth: 120, alignment: .leading)
-                        .font(.system(size: 15))
+                        .font(.system(size: 16))
                     HStack{
                         Image(systemName: "arrow.right.circle.fill")
                             .frame(maxWidth: 60, alignment: .leading)
