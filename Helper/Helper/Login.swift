@@ -13,29 +13,31 @@ struct Login: View {
     let persistenceController = PersistenceController.shared
     
     var body: some View {
-        NavigationView{
-            ZStack{
-                Color("Background").edgesIgnoringSafeArea(.all)
-                VStack{
-                    Image("Image-login")
-                        .resizable()
-                        .frame(width: 300, height: 200)
-                        .padding(.top,-20)
-                    Spacer()
-                }
-                VStack{
-                    ZStack{
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(.white)
-                            .frame(width: 300, height: 300)
-                            .shadow(radius: 5)
-                        Form().environment(\.managedObjectContext, persistenceController.container.viewContext)
+        GeometryReader{geometry in
+            NavigationView{
+                ZStack{
+                    Color("Background").edgesIgnoringSafeArea(.all)
+                    VStack{
+                        Image("Image-login")
+                            .resizable()
+                            .frame(width: geometry.size.width * 0.8, height: geometry.size.height * 0.3)
+                            .padding(.top,-60)
+                        Spacer()
                     }
-                    Image("Login")
-                        .resizable()
-                        .edgesIgnoringSafeArea(.all)
-                        .padding(.top,30)
-                }.padding(.top, 220)
+                    VStack{
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(.white)
+                                .frame(width: geometry.size.width * 0.8, height: geometry.size.height * 0.4)
+                                .shadow(radius: 5)
+                            Form().environment(\.managedObjectContext, persistenceController.container.viewContext)
+                        }
+                        Image("Login")
+                            .resizable()
+                            .edgesIgnoringSafeArea(.all)
+                            .padding(.top,30)
+                    }.padding(.top, 190)
+                }
             }
         }
     }
@@ -48,12 +50,12 @@ struct Login_Previews: PreviewProvider {
 }
 
 struct Form: View {
-    @State var email: String = ""
-    @State var password: String = ""
-    @State var toDashboard: Bool = false
-    @State var toRegister: Bool = false
-    @State var showAlert: Bool = false
-    @State var isLinkActive: Bool = false
+    @State private var email: String = ""
+    @State private var password: String = ""
+    @State private var toDashboard: Bool = false
+    @State private var toRegister: Bool = false
+    @State private var showAlert: Bool = false
+    @State private var isLinkActive: Bool = false
     @State private var loginFailed = false
     
     // set up environment
