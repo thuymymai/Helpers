@@ -13,7 +13,7 @@ struct VolunteerProfile: View {
     var body: some View {
         NavigationView {
             ZStack{
-                Color("Background").edgesIgnoringSafeArea(.all)
+                Color("Background").edgesIgnoringSafeArea(.top)
                 VStack{
                     ZStack{
                         Image("BG Mask").edgesIgnoringSafeArea(.all)
@@ -36,7 +36,6 @@ struct VolunteerProfile: View {
                             NavigationLink(destination: AvailableTasksView()) {
                                 SettingsView(name:"Task History")
                             }
-                            
                         }.font(.system(size: 16))
                         Section(header: Text("Preferences")) {
                             Toggle("Push Notification", isOn: $pushNoti)
@@ -47,9 +46,9 @@ struct VolunteerProfile: View {
                             SettingsView(name: "Update availability")
                         }.font(.system(size: 16))
                     }
-                }
+                }.padding(.top, -30)
+                    .padding(.bottom,5)
             }
-            .navigationBarTitle("")
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
         }
