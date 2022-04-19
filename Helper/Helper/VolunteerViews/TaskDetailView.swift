@@ -11,28 +11,35 @@ import SwiftUI
 struct TaskDetailView: View {
     
     var body: some View {
-        ZStack{
-            Color("Background")
-                .edgesIgnoringSafeArea(.all)
-            ZStack {
-                VStack{
-                    ContactInfo()
-                    Divider()
-                    DisabilityInformation()
-                }.frame(width: 330, height: 300)
-                    .background(.white)
-                    .cornerRadius(10)
-                    .shadow(radius: 5)
-            }.position(x: 195, y: 180)
-            VStack(alignment: .leading, spacing: 8){
-                TaskTitle()
-                Address()
-                TimeNeeded()
-                TaskDescription()
-                Attachment()
-            }.padding(.horizontal)
-                .position(x: 200, y: 560)
+        GeometryReader {geometry in
+            ZStack{
+                Color("Background")
+                    .edgesIgnoringSafeArea(.all)
+                ScrollView{
+                    VStack{
+                        ZStack {
+                            VStack{
+                                ContactInfo()
+                                Divider()
+                                DisabilityInformation()
+                            }.frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.5)
+                                .background(.white)
+                                .cornerRadius(10)
+                                .shadow(radius: 5)
+                        }
+                        VStack(alignment: .leading, spacing: 8){
+                            TaskTitle()
+                            Address()
+                            TimeNeeded()
+                            TaskDescription()
+                            Attachment()
+                        }.padding(.horizontal)
+                    }
+                }
+                    
+            }
         }
+        
     }
 }
 

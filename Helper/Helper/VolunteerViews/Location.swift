@@ -15,7 +15,7 @@ struct Location: View {
         NavigationView {
             ZStack{
                 Color("Background")
-                    .edgesIgnoringSafeArea(.all)
+                    .edgesIgnoringSafeArea(.top)
                 VStack {
                     Image("location")
                         .resizable()
@@ -45,7 +45,7 @@ struct Location: View {
                             .frame(width: 280, height: 60, alignment: .center)
                             .background(Color("Primary"))
                             .cornerRadius(5)
-                        }).padding(.top, 30)
+                        }).padding(.top, 10)
                     
                  
                     
