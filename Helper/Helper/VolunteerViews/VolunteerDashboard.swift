@@ -73,19 +73,19 @@ struct VolunteerDashboard: View {
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Menu {
-                            Button(action:{
-                                
-                                self.isLinkActive = true
-                                self.isLogoutMenuClicked = true
-                            }, label: {
-                                Label(title: {Text("Log Out")}, icon: {Image(systemName: "rectangle.portrait.and.arrow.right")})
-                            })
                             Button(action: {
                                 
                                 self.isLinkActive = true
                                 self.isFirstAidClicked = true
                             }, label: {
                                 Label(title: {Text("First Aid Manual")}, icon: {Image(systemName: "info")})
+                            })
+                            Button(action:{
+                                
+                                self.isLinkActive = true
+                                self.isLogoutMenuClicked = true
+                            }, label: {
+                                Label(title: {Text("Log Out")}, icon: {Image(systemName: "rectangle.portrait.and.arrow.right")})
                             })
                             
                         }
