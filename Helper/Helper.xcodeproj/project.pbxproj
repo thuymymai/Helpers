@@ -188,8 +188,8 @@
 				66E4DA3427F65FD700538B74 /* Preview Content */,
 				1157C5CD2800B82500EDAC8D /* Login.swift */,
 				1157C5C928008DD200EDAC8D /* LandingPage.swift */,
-				115E8DB52805143900C1995D /* VolunteerViews */,
 				115E8DAD2805135900C1995D /* ContentView.swift */,
+				115E8DB52805143900C1995D /* VolunteerViews */,
 				20D2459F27FDD5E9006FA73B /* HelpSeekerViews */,
 			);
 			path = Helper;
