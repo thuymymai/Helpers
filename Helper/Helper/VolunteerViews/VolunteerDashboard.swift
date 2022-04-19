@@ -9,6 +9,21 @@ import SwiftUI
 
 
 struct VolunteerDashboard: View {
+    @State private var isLogoutMenuClicked = false
+    @State private var isFirstAidClicked = false
+    @State private var isLinkActive: Bool = false
+    
+    @ViewBuilder
+    func chooseDestination()-> some View {
+        if (isFirstAidClicked) { FirstAid().navigationBarHidden(true)
+            
+        }else if (isLogoutMenuClicked){
+            LandingPage().navigationBarHidden(true)
+        }else {
+            VolunteerProfile().navigationBarHidden(true)
+        }
+    }
+    
     var body: some View {
         
         GeometryReader { geometry in
@@ -49,24 +64,34 @@ struct VolunteerDashboard: View {
                 }
                 .navigationBarTitle("")
                 .navigationBarTitleDisplayMode(.inline)
-                .toolbar{
-                    ToolbarItem(placement: .navigationBarTrailing){
-                        Menu{
-                            Button(action: {}, label: {
-                                Label(title: {Text("Update Locations")}, icon: {Image(systemName: "location")})
-                            })
-                            Button(action: {}, label: {
-                                Label(title: {Text("First Aid Manual")}, icon: {Image(systemName: "info")})
-                            })
-                            Button(action: {}, label: {
+                .background(
+                    NavigationLink(destination: chooseDestination(), isActive: $isLinkActive) {
+                        EmptyView()
+                    }
+                    
+                )
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Menu {
+                            Button(action:{
+                                
+                                self.isLinkActive = true
+                                self.isLogoutMenuClicked = true
+                            }, label: {
                                 Label(title: {Text("Log Out")}, icon: {Image(systemName: "rectangle.portrait.and.arrow.right")})
                             })
-                        } label: {
-                            Label(title: {Text("Menu")}, icon: {Image("menu")
-                                    .resizable()
-                                    .frame(width: 30, height: 30)
-                                .padding()})
+                            Button(action: {
+                                
+                                self.isLinkActive = true
+                                self.isFirstAidClicked = true
+                            }, label: {
+                                Label(title: {Text("First Aid Manual")}, icon: {Image(systemName: "info")})
+                            })
+                            
                         }
+                    label: {
+                        Label("Menu", systemImage: "line.horizontal.3")
+                    }
                     }
                 }
             }
@@ -202,7 +227,6 @@ struct OngoingTaskCard: View {
                                     .foregroundColor(.white)
                                     .cornerRadius(6)
                             }
-                            
                         }
                     }
                 }
