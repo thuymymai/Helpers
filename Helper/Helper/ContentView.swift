@@ -9,11 +9,14 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
+    let persistenceController = PersistenceController.shared
+    
     @StateObject var userModel = UserViewModel()
     @Environment(\.managedObjectContext) var context
     
     // fetching data from core data
     @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.user_id, ascending: true)]) var results: FetchedResults<User>
+    
     
     func clearData(entityName: String) {
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: entityName)
@@ -31,26 +34,22 @@ struct ContentView: View {
     
     var body: some View {
 //        VStack{
-//            // clear core data in the beginning of the app
+            // clear core data in the beginning of the app
 //            if !results.isEmpty {
 //                ProgressView().onAppear(perform: {clearData(entityName: "User")})
 //            }
-//
-//            // checking if core data exists
-//            if results.isEmpty {
-//                if userModel.users.isEmpty {
-//                    ProgressView().onAppear(perform: {userModel.fetchData(context: context)})
-//                } else {
-//                    List(userModel.users, id: \.self) {user in
-//                        Text(user.username!)
-//                    }
-//                }
-//            } else {
-//                let _ = print("read from core \(results[1].age)")
-//            }
+
+            // checking if core data exists
+            if results.isEmpty {
+                if userModel.users.isEmpty {
+                    ProgressView().onAppear(perform: {userModel.fetchData(context: context)})
+                }
+            } else {
+                let _ = print("read from core \(results)")
+            }
 //
 //        }
-        LandingPage()
+        LandingPage().environment(\.managedObjectContext, persistenceController.container.viewContext)
     }
 }
 

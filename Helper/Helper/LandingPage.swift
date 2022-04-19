@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct LandingPage: View {
+    let persistenceController = PersistenceController.shared
+    
     var body: some View {
         NavigationView{
             ZStack(alignment: .top){
@@ -42,7 +44,9 @@ struct LandingPage: View {
                     HStack{
                         DropDownMenu()
                         Spacer()
-                        NavigationLink(destination: Login().navigationBarHidden(true), label: {
+                        NavigationLink(destination: Login()
+                                        .navigationBarHidden(true)
+                                        .environment(\.managedObjectContext, persistenceController.container.viewContext), label: {
                             Text("Login")
                                 .bold()
                                 .padding(12)
