@@ -14,7 +14,7 @@ struct LandingPage: View {
     var body: some View {
         NavigationView{
             ZStack(alignment: .top){
-                VStack(spacing:20){
+                VStack{
                     VStack{
                         Text("Join the community.")
                             .fontWeight(.semibold)
@@ -23,8 +23,9 @@ struct LandingPage: View {
                             .fontWeight(.semibold)
                             .font(.system(size: 18))
                         ImageView()
-                    }.frame(maxHeight: .infinity, alignment: .leading)
-                        .padding(.top)
+                    }
+                    .frame(maxHeight: .infinity, alignment: .leading)
+                    .padding(.top)
                     HStack(spacing: 100){
                         VStack{
                             Text("100,000")
