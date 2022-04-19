@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct LandingPage: View {
+    @State var showAlert: Bool = false
     let persistenceController = PersistenceController.shared
     
     var body: some View {
         NavigationView{
             ZStack(alignment: .top){
-                VStack{
+                VStack(spacing:20){
                     VStack{
                         Text("Join the community.")
                             .fontWeight(.semibold)
@@ -23,6 +24,7 @@ struct LandingPage: View {
                             .font(.system(size: 18))
                         ImageView()
                     }.frame(maxHeight: .infinity, alignment: .leading)
+                        .padding(.top)
                     HStack(spacing: 100){
                         VStack{
                             Text("100,000")
@@ -45,23 +47,31 @@ struct LandingPage: View {
                         DropDownMenu()
                         Spacer()
                         NavigationLink(destination: Login()
-                                        .navigationBarHidden(true)
-                                        .environment(\.managedObjectContext, persistenceController.container.viewContext), label: {
-                            Text("Login")
-                                .bold()
-                                .padding(12)
-                                .background(Color("Background"))
-                                .foregroundColor(Color("Primary"))
-                                .cornerRadius(10)
-                        }).padding(.bottom, 20)
+                            .navigationBarHidden(true)
+                            .environment(\.managedObjectContext, persistenceController.container.viewContext), label: {
+                                Text("Login")
+                                    .bold()
+                                    .padding(12)
+                                    .background(Color("Background"))
+                                    .foregroundColor(Color("Primary"))
+                                    .cornerRadius(10)
+                            }).padding(.bottom, 20)
                         
                     }.padding(.horizontal, 40)
                     
                 }
                 
             }
-            .navigationBarTitle("")
-            .navigationBarHidden(true)
+            .offset(y:-20)
+            .toolbar{
+                Button(action: {
+                    showAlert.toggle()
+                }) {
+                    Label("Refresh", systemImage: "arrow.clockwise")
+                }.alert(isPresented: $showAlert, content: {
+                    Alert(title: Text("Refresh data"), dismissButton: .default(Text("OK")))
+                })
+            }
         }
     }
 }
