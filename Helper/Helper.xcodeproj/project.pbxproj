@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		110C5D7F280484320056EEFC /* MedicalInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110C5D7E280484320056EEFC /* MedicalInfo.swift */; };
+		1112DA7C2810184300E0D6F2 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1112DA7B2810184300E0D6F2 /* TaskViewModel.swift */; };
+		1112DA7E281018EC00E0D6F2 /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1112DA7D281018EC00E0D6F2 /* TaskModel.swift */; };
 		1114DF7A280D4D3800A2BED8 /* HelpSeekerNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1114DF79280D4D3800A2BED8 /* HelpSeekerNavBar.swift */; };
 		1157C5CA28008DD200EDAC8D /* LandingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1157C5C928008DD200EDAC8D /* LandingPage.swift */; };
 		1157C5CC28009D0D00EDAC8D /* Signup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1157C5CB28009D0D00EDAC8D /* Signup.swift */; };
@@ -65,6 +67,8 @@
 
 /* Begin PBXFileReference section */
 		110C5D7E280484320056EEFC /* MedicalInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalInfo.swift; sourceTree = "<group>"; };
+		1112DA7B2810184300E0D6F2 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
+		1112DA7D281018EC00E0D6F2 /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 		1114DF79280D4D3800A2BED8 /* HelpSeekerNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpSeekerNavBar.swift; sourceTree = "<group>"; };
 		1157C5C928008DD200EDAC8D /* LandingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPage.swift; sourceTree = "<group>"; };
 		1157C5CB28009D0D00EDAC8D /* Signup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signup.swift; sourceTree = "<group>"; };
@@ -235,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				66E89E19280CAC9B00A82085 /* UserModel.swift */,
+				1112DA7D281018EC00E0D6F2 /* TaskModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -243,6 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				66E89E1E280CAD1B00A82085 /* UserViewModel.swift */,
+				1112DA7B2810184300E0D6F2 /* TaskViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -378,6 +384,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				11B24F13280B1BE50029786D /* TaskList.swift in Sources */,
+				1112DA7C2810184300E0D6F2 /* TaskViewModel.swift in Sources */,
 				66E89E15280CABF200A82085 /* UserData.xcdatamodeld in Sources */,
 				66E89E1F280CAD1B00A82085 /* UserViewModel.swift in Sources */,
 				20F5572627FF643A00B0B638 /* TaskDetailView.swift in Sources */,
@@ -390,6 +397,7 @@
 				1157C5CE2800B82500EDAC8D /* Login.swift in Sources */,
 				117419DD280DA2D7001B9739 /* HelpSeekerMapView.swift in Sources */,
 				110C5D7F280484320056EEFC /* MedicalInfo.swift in Sources */,
+				1112DA7E281018EC00E0D6F2 /* TaskModel.swift in Sources */,
 				1114DF7A280D4D3800A2BED8 /* HelpSeekerNavBar.swift in Sources */,
 				11B24F11280532D50029786D /* FirstAid.swift in Sources */,
 				115E8DB4280513D700C1995D /* Profile.swift in Sources */,
