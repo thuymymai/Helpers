@@ -142,7 +142,7 @@ struct Form: View {
             if  (checkUserExists && userInfo[0].type == "v") {
                 VolunteersNavBar().navigationBarHidden(true)
             } else if (checkUserExists && userInfo[0].type == "h") {
-                FrontScreen().navigationBarHidden(true)
+                HelpSeekerNavBar().navigationBarHidden(true)
             } else {
                 EmptyView()
             }
