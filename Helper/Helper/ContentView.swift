@@ -10,10 +10,15 @@ import CoreData
 
 struct ContentView: View {
     @StateObject var userModel = UserViewModel()
+    @StateObject var taskModel = TaskViewModel()
+
     @Environment(\.managedObjectContext) var context
     
-    // fetching data from core data
+    // fetching user data from core data
     @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.user_id, ascending: true)]) var results: FetchedResults<User>
+    
+    // fetching task data from core data
+    @FetchRequest(entity: Task.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Task.title, ascending: true)]) var taskResults: FetchedResults<Task>
     
     func clearData(entityName: String) {
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: entityName)
@@ -32,21 +37,21 @@ struct ContentView: View {
     var body: some View {
 //        VStack{
 //            // clear core data in the beginning of the app
-//            if !results.isEmpty {
-//                ProgressView().onAppear(perform: {clearData(entityName: "User")})
-//            }
+////            if !taskResults.isEmpty {
+////                ProgressView().onAppear(perform: {clearData(entityName: "Task")})
+////            }
 //
 //            // checking if core data exists
-//            if results.isEmpty {
-//                if userModel.users.isEmpty {
-//                    ProgressView().onAppear(perform: {userModel.fetchData(context: context)})
+//            if taskResults.isEmpty {
+//                if taskModel.tasks.isEmpty {
+//                    ProgressView().onAppear(perform: {taskModel.fetchData(context: context)})
 //                } else {
-//                    List(userModel.users, id: \.self) {user in
-//                        Text(user.username!)
+//                    List(taskModel.tasks, id: \.self) {task in
+//                        Text(task.title!)
 //                    }
 //                }
 //            } else {
-//                let _ = print("read from core \(results[1].age)")
+//                let _ = print("read from core \(taskResults)")
 //            }
 //
 //        }
