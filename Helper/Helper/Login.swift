@@ -97,14 +97,13 @@ struct Form: View {
             // navigation to sign up page
             NavigationLink(destination: LandingPage().navigationBarHidden(true), isActive: self.$toRegister) { EmptyView() }
             Button(action: {
-                
+                let userInfo = results.filter{$0.email == email.lowercased()}
                 let emails = results.map{$0.email}
-                let passwords = results.map{$0.password}
-                let userExists = emails.contains(email.lowercased()) && passwords.contains(password)
+                let emailExists = emails.contains(email.lowercased())
                 
                 // reset to to the initial stage
                 self.loginFailed = false
-                if (!userExists){
+                if ( !emailExists || userInfo[0].password != password){
                     self.loginFailed.toggle()
                 }
                 self.showAlert.toggle()
@@ -121,10 +120,10 @@ struct Form: View {
                 .alert(isPresented: $showAlert, content: {
                     // alert when login is failed
                     if self.loginFailed {
-                        return  Alert(title: Text("Failed to login"), message: Text("Check your credentials and try again or Sign Up now"), primaryButton: .default(Text("Sign Up"), action: {
+                        return  Alert(title: Text("Failed to login"), message: Text("Email or Password incorrect. Try again or Sign Up now"), primaryButton: .default(Text("Sign Up"), action: {
                             self.toRegister = true
                         }), secondaryButton: .default(Text("Try again")))
-                    // when log in successfully
+                        // when log in successfully
                     } else {
                         return  Alert(title: Text("Welcome"), message: Text("You have now logged in"), dismissButton: .default(Text("OK"), action: {self.isLinkActive = true}))
                     }
@@ -135,7 +134,7 @@ struct Form: View {
     @ViewBuilder
     func chooseDestination() -> some View {
         let userInfo = results.filter{$0.email == email.lowercased()}
-    
+        
         if (userInfo.count > 0)  {
             if  ( userInfo[0].type == "v") {
                 VolunteersNavBar().navigationBarHidden(true)
@@ -147,11 +146,5 @@ struct Form: View {
         }
         
     }
-    // reset form fields when email or password is incorrect
-    func resetForm(){
-        email = ""
-        password = ""
-    }
-    
 }
 
