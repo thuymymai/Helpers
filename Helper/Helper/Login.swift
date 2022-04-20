@@ -97,6 +97,7 @@ struct Form: View {
             // navigation to sign up page
             NavigationLink(destination: LandingPage().navigationBarHidden(true), isActive: self.$toRegister) { EmptyView() }
             Button(action: {
+                
                 let emails = results.map{$0.email}
                 let passwords = results.map{$0.password}
                 let userExists = emails.contains(email.lowercased()) && passwords.contains(password)
@@ -122,7 +123,7 @@ struct Form: View {
                     if self.loginFailed {
                         return  Alert(title: Text("Failed to login"), message: Text("Check your credentials and try again or Sign Up now"), primaryButton: .default(Text("Sign Up"), action: {
                             self.toRegister = true
-                        }), secondaryButton: .default(Text("Try again"), action: {resetForm()}))
+                        }), secondaryButton: .default(Text("Try again")))
                     // when log in successfully
                     } else {
                         return  Alert(title: Text("Welcome"), message: Text("You have now logged in"), dismissButton: .default(Text("OK"), action: {self.isLinkActive = true}))
@@ -133,15 +134,12 @@ struct Form: View {
     // function choose destination conditionally
     @ViewBuilder
     func chooseDestination() -> some View {
-        let emails = results.map{$0.email}
-        let passwords = results.map{$0.password}
         let userInfo = results.filter{$0.email == email.lowercased()}
-        let checkUserExists = emails.contains(email.lowercased()) && passwords.contains(password)
-        
+    
         if (userInfo.count > 0)  {
-            if  (checkUserExists && userInfo[0].type == "v") {
+            if  ( userInfo[0].type == "v") {
                 VolunteersNavBar().navigationBarHidden(true)
-            } else if (checkUserExists && userInfo[0].type == "h") {
+            } else if (userInfo[0].type == "h") {
                 HelpSeekerNavBar().navigationBarHidden(true)
             } else {
                 EmptyView()
