@@ -118,7 +118,7 @@ struct FormView: View {
             .frame(width: 250)
             .padding(.top, 50)
             NavigationLink(
-                destination: MedicalInfo().navigationBarHidden(true), isActive: $isLinkActive) {EmptyView()}
+                destination: MedicalInfo(fullname: $fullname, email: $email, phone: $phone, password: $password).navigationBarHidden(true), isActive: $isLinkActive) {EmptyView()}
             Button(action: {
                 let emails = results.map{$0.email}
                 let userExists = emails.contains(email.lowercased())
@@ -174,7 +174,6 @@ struct FormView: View {
                     return  Alert(title: Text("Success!"), message: Text("You have set up your basic information!"), dismissButton: .default(Text("OK"), action: {self.isLinkActive = true}))
                 }
             })
-            
         }
     }
 }

@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct MedicalInfo: View {
+    @Binding var fullname: String
+    @Binding var email: String
+    @Binding var phone: String
+    @Binding var password: String
+    
     var body: some View {
         NavigationView {
             ZStack{
@@ -36,6 +41,7 @@ struct MedicalInfo: View {
                         .frame(width: 300, height: 500)
                         .shadow(radius: 5)
                     FormMedical()
+                    Text("\(fullname)")
                 }
             }
             .navigationBarTitle("")
@@ -47,16 +53,16 @@ struct MedicalInfo: View {
 
 struct MedicalInfo_Previews: PreviewProvider {
     static var previews: some View {
-        MedicalInfo()
+        MedicalInfo(fullname: .constant(""), email: .constant(""), phone: .constant(""), password: .constant(""))
     }
 }
 
 struct SpecialNeed: View {
-    @State private var selection = "Immobilized"
-    let specialNeeds = ["Autism", "Down syndrome", "Blindness", "Deafness", "Immobilized", "ADHD"]
+    @State private var disabilitySelection = "None"
+    let specialNeeds = ["None", "Autism", "Down syndrome", "Blindness", "Deafness", "Immobilized", "ADHD"]
     
     var body: some View {
-        Picker("Select need", selection: $selection) {
+        Picker("Select need", selection: $disabilitySelection) {
             ForEach(specialNeeds, id: \.self) {
                 Text($0)
                     .frame(width: 110, height: 110)
@@ -68,11 +74,11 @@ struct SpecialNeed: View {
 }
 
 struct ChronicDiseases: View {
-    @State private var selection = "Heart disease"
-    let diseases = ["Heart disease", "Stroke", "Cancer", "Depression", "Diabetes", "Arthritis", "Asthma", "Oral disease"]
+    @State private var diseaseSelection = "None"
+    let diseases = ["None", "Heart disease", "Stroke", "Cancer", "Depression", "Diabetes", "Arthritis", "Asthma", "Oral disease"]
     
     var body: some View {
-        Picker("Select disease", selection: $selection) {
+        Picker("Select disease", selection: $diseaseSelection) {
             ForEach(diseases, id: \.self) {
                 Text($0)
                     .frame(width: 110, height: 110)
@@ -82,12 +88,13 @@ struct ChronicDiseases: View {
     }
 }
 
+
 struct Allergies: View {
-    @State private var selection = "Pollen"
-    let diseases = ["Grass", "Pollen", "Dust mites", "Animal dander", "Nuts", "Gluten", "Lactose", "Mould"]
+    @State private var allergySelection = "None"
+    let diseases = ["None", "Grass", "Pollen", "Dust mites", "Animal dander", "Nuts", "Gluten", "Lactose", "Mould"]
     
     var body: some View {
-        Picker("Select disease", selection: $selection) {
+        Picker("Select disease", selection: $allergySelection) {
             ForEach(diseases, id: \.self) {
                 Text($0)
                     .frame(width: 110, height: 110)
@@ -150,7 +157,7 @@ struct FormMedical: View {
                 }.alert(isPresented: $showAlert, content: {
                     Alert(title: Text("Register successfully!"),  dismissButton: .default(Text("Got it!"), action: {self.isLinkActive = true}))
                 })
-                .padding(.top, 40)
+                    .padding(.top, 40)
             }
             
         }
