@@ -10,26 +10,11 @@ import SwiftUI
 
 struct VolunteerDashboard: View {
     @Binding var volunteerName: String
-    
-    @State private var isLogoutMenuClicked = false
-    @State private var isFirstAidClicked = false
-    @State private var isLinkActive: Bool = false
-    
-    @ViewBuilder
-    func chooseDestination()-> some View {
-        if (isFirstAidClicked) {
-            FirstAid().offset(y:-60)
-        }else if (isLogoutMenuClicked){
-            LandingPage().navigationBarHidden(true)
-        }else {
-            VolunteerProfile().navigationBarHidden(true)
-        }
-    }
-    
+  
     var body: some View {
         
         GeometryReader { geometry in
-            NavigationView{
+            
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing:20) {
                         HStack {
@@ -81,39 +66,12 @@ struct VolunteerDashboard: View {
                     }.padding(.horizontal) // close big Vstack
                     
                 } // close Scrollview
-                .padding(.bottom, 10)
-                .background(Color("Background"))
-                .navigationBarTitle("Dashboard")
-                .navigationBarTitleDisplayMode(.inline)
-                .background(
-                    NavigationLink(destination: chooseDestination(), isActive: $isLinkActive) {
-                        EmptyView()
-                    }
-                )
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Menu {
-                            Button(action: {
-                                self.isLinkActive = true
-                                self.isFirstAidClicked = true
-                            }, label: {
-                                Label(title: {Text("First Aid Manual")}, icon: {Image(systemName: "info")})
-                            })
-                            Button(action:{
-                                self.isLinkActive = true
-                                self.isLogoutMenuClicked = true
-                            }, label: {
-                                Label(title: {Text("Log Out")}, icon: {Image(systemName: "rectangle.portrait.and.arrow.right")})
-                            })
-                        }
-                    label: {
-                        Image("menu").resizable().frame(width:30, height:30).foregroundColor(.black)
-                    }
-                    }
-                    
-                }// close toolbar
-            }// close navigationview
+                
         }// close geometryreader
+        .padding(.bottom, 10)
+        .background(Color("Background"))
+       
+
     }
 }
 
