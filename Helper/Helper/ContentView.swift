@@ -9,7 +9,6 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
-    let persistenceController = PersistenceController.shared
     
     @StateObject var userModel = UserViewModel()
     @StateObject var taskModel = TaskViewModel()
@@ -49,11 +48,11 @@ struct ContentView: View {
                     ProgressView().onAppear(perform: {userModel.fetchData(context: context)})
                 }
             } else {
-                let _ = print("read from core \(results)")
+                let _ = print("read from core \(results.count) \(results[results.count-1].email) \(results[results.count-1].password)")
             }
 //
 //        }
-        LandingPage().environment(\.managedObjectContext, persistenceController.container.viewContext)
+        LandingPage()
     }
 }
 
