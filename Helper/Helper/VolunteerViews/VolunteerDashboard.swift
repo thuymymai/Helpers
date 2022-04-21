@@ -12,11 +12,11 @@ struct VolunteerDashboard: View {
     @State private var isLogoutMenuClicked = false
     @State private var isFirstAidClicked = false
     @State private var isLinkActive: Bool = false
-    
+    @State var hero = false
     @ViewBuilder
     func chooseDestination()-> some View {
-        if (isFirstAidClicked) { FirstAid().navigationBarHidden(true)
-            
+        if (isFirstAidClicked) {
+            FirstAid()
         }else if (isLogoutMenuClicked){
             LandingPage().navigationBarHidden(true)
         }else {
@@ -28,76 +28,80 @@ struct VolunteerDashboard: View {
         
         GeometryReader { geometry in
             NavigationView{
-                ZStack{
-                    Color("Background")
-                        .edgesIgnoringSafeArea(.all)
-                    ScrollView{
-                        VStack (alignment: .leading){
-                            TagLineView().padding(.top)
-                            SearchAndFilter()
-                            VStack(alignment: .leading, spacing: 5){
-                                Text("Available Tasks")
-                                    .font(.system(size: 24))
-                                Text("10 tasks waiting to be accepted")
-                                    .font(.system(size: 16))
-                                    .foregroundColor(Color("Primary"))
-                                    .fontWeight(.medium)
-                            }.padding(.top, 55)
-                            HStack(alignment:.center, spacing: 10) {
-                                NavigationLink(destination: AvailableTasksView()) {
-                                    CategoriesView(categoryName: "Grocery", numberOfTasks: "3 Tasks", ImageName: "groceries image")
-                                }
-                                NavigationLink(destination: AvailableTasksView()) {
-                                    CategoriesView(categoryName: "Delivery", numberOfTasks: "3 Tasks", ImageName: "delivery image")
-                                }
-                                NavigationLink(destination: AvailableTasksView()) {
-                                    CategoriesView(categoryName: "Others", numberOfTasks: "4 Tasks", ImageName: "helping image")
-                                }
-                            }
-                            
-                            Text("Ongoing Tasks")
+                
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack(spacing:20) {
+                        TagLineView()
+                        SearchAndFilter()
+                        VStack(alignment: .leading, spacing: 5){
+                            Text("Available Tasks")
                                 .font(.system(size: 24))
-                            OngoingTaskCard().padding(.top,-20)
-                        }.padding(.horizontal)
-                        
-                    } .padding(.horizontal)
-                }
+                            Text("10 tasks waiting to be accepted")
+                                .font(.system(size: 16))
+                                .foregroundColor(Color("Primary"))
+                                .fontWeight(.medium)
+                        }.padding(.top,50)
+                            .offset(x: -55)
+                        HStack(spacing: 10) {
+                            NavigationLink(destination: AvailableTasksView()) {
+                                CategoriesView(categoryName: "Grocery", numberOfTasks: "3 Tasks", ImageName: "groceries image")
+                            }
+                            NavigationLink(destination: AvailableTasksView()) {
+                                CategoriesView(categoryName: "Delivery", numberOfTasks: "3 Tasks", ImageName: "delivery image")
+                            }
+                            NavigationLink(destination: AvailableTasksView()) {
+                                CategoriesView(categoryName: "Others", numberOfTasks: "4 Tasks", ImageName: "helping image")
+                            }
+                        } // close HSTack
+                        Text("Ongoing Tasks")
+                            .font(.system(size: 24))
+                            .padding(.top, -10)
+                            .offset(x: -95)
+                        VStack(spacing: 160) {
+                            OngoingTaskCard()
+                            OngoingTaskCard()
+                            OngoingTaskCard()
+                        }.padding(.top, -20)
+                    }.padding(.horizontal) // close big Vstack
+                    
+                } // close Scrollview
+                .padding(.bottom, 10)
+                .background(Color("Background"))
                 .navigationBarTitle("")
                 .navigationBarTitleDisplayMode(.inline)
                 .background(
                     NavigationLink(destination: chooseDestination(), isActive: $isLinkActive) {
                         EmptyView()
                     }
-                    
                 )
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Menu {
                             Button(action: {
-                                
                                 self.isLinkActive = true
                                 self.isFirstAidClicked = true
                             }, label: {
                                 Label(title: {Text("First Aid Manual")}, icon: {Image(systemName: "info")})
                             })
                             Button(action:{
-                                
                                 self.isLinkActive = true
                                 self.isLogoutMenuClicked = true
                             }, label: {
                                 Label(title: {Text("Log Out")}, icon: {Image(systemName: "rectangle.portrait.and.arrow.right")})
                             })
-                            
                         }
                     label: {
                         Label("Menu", systemImage: "line.horizontal.3")
                     }
                     }
-                }
-            }
-        }
+                    
+                }// close toolbar
+            }// close navigationview
+        }// close geometryreader
     }
 }
+
+
 
 
 struct VolunteerDashboard_Previews: PreviewProvider {
