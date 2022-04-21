@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct Login: View {
+    let persistenceController = PersistenceController.shared
+    
     var body: some View {
         ZStack{
             Color("Background").edgesIgnoringSafeArea(.all)
@@ -24,7 +27,8 @@ struct Login: View {
                         .fill(.white)
                         .frame(width: 300, height: 300)
                         .shadow(radius: 5)
-                    Form()
+                    Form().environment(\.managedObjectContext, persistenceController.container.viewContext)
+                    
                 }
                 Image("Login")
             }.padding(.top, 280)
@@ -41,6 +45,33 @@ struct Login_Previews: PreviewProvider {
 struct Form: View {
     @State var email: String = ""
     @State var password: String = ""
+    @State var toDashboard: Bool = false
+    
+    // set up environment
+    @StateObject var userModel = UserViewModel()
+    @Environment(\.managedObjectContext) var context
+
+    // fetching data from core data
+    @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.user_id, ascending: true)]) var results: FetchedResults<User>
+  
+    func submit() {
+        let emails = results.map{$0.email}
+//        let passwords = results.map{$0.password}
+//        print("count \(results.count)")
+//        print("result \(results)")
+        print("email \(emails)")
+//        print("password \(passwords)")
+//        if (emails.contains(email) && passwords.contains(password)) {
+//            self.toDashboard = true
+//        } else {
+//            print("wrong information")
+//        }
+        if (emails.contains(email.lowercased())) {
+            print("user contain true")
+        } else {
+            print("user contain false")
+        }
+    }
     
     var body: some View {
         ZStack{
@@ -65,7 +96,8 @@ struct Form: View {
             }
             .frame(width: 250)
             .padding(.top, -50)
-            Button(action: {}) {
+            NavigationLink(destination: VolunteersNavBar().navigationBarBackButtonHidden(true), isActive: self.$toDashboard) { EmptyView() }
+            Button(action: {submit()}) {
                 Text("LOG IN")
                     .fontWeight(.bold)
                     .font(.system(size: 14))
