@@ -16,7 +16,7 @@ struct VolunteerDashboard: View {
     @ViewBuilder
     func chooseDestination()-> some View {
         if (isFirstAidClicked) {
-            FirstAid()
+            FirstAid().offset(y:-60)
         }else if (isLogoutMenuClicked){
             LandingPage().navigationBarHidden(true)
         }else {
