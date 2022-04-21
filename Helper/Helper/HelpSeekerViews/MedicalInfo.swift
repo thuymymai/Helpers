@@ -233,7 +233,7 @@ struct FormMedical: View {
                     if self.signupFailed {
                         return Alert(title: Text("Register successfully!"),  dismissButton: .default(Text("Got it!"), action: {self.isLinkActive = false}))
                     } else {
-                        updateUser(username: fullname, password: password, email: email, phone: phone, type: "h", driving: "", coordinating: "", coaching: "", programing: "", often: "", age: 25, weight: 50, height: 170, need: disabilitySelection, cronic: disabilitySelection, allergies: allergySelection)
+                        updateUser(username: fullname, password: password, email: email, phone: phone, type: "h", driving: "", coordinating: "", coaching: "", programing: "", often: "", age: 25, weight: 50, height: 170, need: disabilitySelection, cronic: diseaseSelection, allergies: allergySelection)
                         return Alert(title: Text("Register successfully!"),  dismissButton: .default(Text("Got it!"), action: {self.isLinkActive = true}))
                     }
                 })

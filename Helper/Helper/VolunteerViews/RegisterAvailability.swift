@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct RegisterAvailability: View {
+    @Binding var fullname: String
+    @Binding var email: String
+    @Binding var phone: String
+    @Binding var password: String
+    
     var body: some View {
         GeometryReader { geometry in
             NavigationView{
@@ -37,10 +42,9 @@ struct RegisterAvailability: View {
                             .frame(width: geometry.size.width * 0.8, height: geometry.size.height * 0.7)
                             .shadow(radius: 5)
                             .padding(.top, 60)
-                        AvailabilityForm().padding(.top, 80)
+                        AvailabilityForm(fullname: $fullname, email: $email, phone: $phone, password: $password).padding(.top, 80)
+                        Text("\(fullname)")
                     }
-                    
-                    
                 }
             }
         }
@@ -49,17 +53,31 @@ struct RegisterAvailability: View {
 
 struct RegisterAvailability_Previews: PreviewProvider {
     static var previews: some View {
-        RegisterAvailability()
+        RegisterAvailability(fullname: .constant(""), email: .constant(""), phone: .constant(""), password: .constant(""))
     }
 }
 
 struct AvailabilityForm: View {
+    @Binding var fullname: String
+    @Binding var email: String
+    @Binding var phone: String
+    @Binding var password: String
+    
     @State var toDashboard: Bool = false
     @State var showAlert: Bool = false
     @State var isManyTimesChecked: Bool = false
     @State var isDailyChecked: Bool = false
     @State var isWeeklyChecked: Bool = false
     @State var isMonthlyChecked: Bool = false
+    @State var signupFailed = false
+    
+    // set up environment
+    @StateObject var userModel = UserViewModel()
+    @Environment(\.managedObjectContext) var context
+    
+    // fetching data from core data
+    @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.user_id, ascending: true)]) var results: FetchedResults<User>
+    
     func toggle(){
         isManyTimesChecked = !isManyTimesChecked
     }
@@ -72,6 +90,33 @@ struct AvailabilityForm: View {
     func toggleMonthly(){
         isMonthlyChecked = !isMonthlyChecked
     }
+    
+    func updateUser(username: String, password: String, email: String, phone: String, type: String, driving: String, coordinating: String, coaching: String, programing: String, often: String, age: Int, weight: Int, height: Int, need: String, cronic: String, allergies: String) {
+        let user = User(context: context)
+        user.user_id = (Int16) (results.count + 1)
+        user.username = username.lowercased()
+        user.password = password
+        user.email = email.lowercased()
+        user.phone = phone
+        user.type = type.lowercased()
+        user.driving = driving.lowercased()
+        user.coordinating = coordinating.lowercased()
+        user.coaching = coaching.lowercased()
+        user.programing = programing.lowercased()
+        user.often = often.lowercased()
+        user.age = (Int16) (age)
+        user.weight = (Int16) (weight)
+        user.height = (Int16) (height)
+        user.need = need.lowercased()
+        user.cronic = cronic.lowercased()
+        user.allergies = allergies.lowercased()
+        do {
+            try context.save()
+        } catch {
+            print(error)
+        }
+    }
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 40) {
             VStack(alignment: .leading) {
@@ -146,7 +191,12 @@ struct AvailabilityForm: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }.alert(isPresented: $showAlert, content: {
-                Alert(title: Text("Register successfully"), message: Text("Register successfully. Go to Dashboard"), dismissButton: .default(Text("Got it!"), action: {self.toDashboard = true}))
+                if self.signupFailed {
+                    return Alert(title: Text("Register successfully!"),  dismissButton: .default(Text("Got it!"), action: {self.toDashboard = false}))
+                } else {
+                    updateUser(username: fullname, password: password, email: email, phone: phone, type: "h", driving: "", coordinating: "", coaching: "", programing: "", often: "", age: 25, weight: 50, height: 170, need: "", cronic: "", allergies: "")
+                    return Alert(title: Text("Register successfully!"),  dismissButton: .default(Text("Got it!"), action: {self.toDashboard = true}))
+                }
             })
             .padding(.top, 20)
             .padding(.leading, 70)
