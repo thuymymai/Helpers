@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct VolunteersNavBar: View {
-    @Binding var fullname: String
+    @Binding var volunteerName: String
    
     var body: some View {
         NavigationView{
             TabView{
-                VolunteerDashboard(fullname: $fullname)
+                VolunteerDashboard(volunteerName: $volunteerName)
                     .tabItem(){
                         Image(systemName: "house")
                         Text("Home")
@@ -40,6 +40,6 @@ struct VolunteersNavBar: View {
 
 struct VolunteersNavBar_Previews: PreviewProvider {
     static var previews: some View {
-        VolunteersNavBar(fullname: .constant(""))
+        VolunteersNavBar(volunteerName: .constant(""))
     }
 }

@@ -22,21 +22,22 @@ struct TaskDetailView: View {
                                 ContactInfo()
                                 Divider()
                                 DisabilityInformation()
-                            }.frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.5)
+                            }.frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.45)
                                 .background(.white)
                                 .cornerRadius(10)
                                 .shadow(radius: 5)
+                                .padding(.top,30)
                         }
-                        VStack(alignment: .leading, spacing: 8){
+                        VStack(alignment: .leading, spacing: 10){
                             TaskTitle()
                             Address()
                             TimeNeeded()
                             TaskDescription()
-                            Attachment()
                         }.padding(.horizontal)
+                            .offset(y:20)
                     }
                 }
-                    
+                
             }
         }
         
@@ -57,7 +58,7 @@ struct DisabilityInformation: View {
                     .font(.body)
                     .bold()
                     .foregroundColor(.black)
-                
+                    .padding(.leading, 10)
                 
                 Text("wheelchair")
                     .font(.body)
@@ -71,6 +72,7 @@ struct DisabilityInformation: View {
                     .font(.body)
                     .bold()
                     .foregroundColor(.black)
+                    .padding(.leading, 10)
                 Text("heart disease")
                     .font(.body)
                     .foregroundColor(.black)
@@ -81,6 +83,7 @@ struct DisabilityInformation: View {
                 Text("Allergies :")
                     .font(.body)
                     .bold()
+                    .padding(.leading, 10)
                     .foregroundColor(.black)
                 Text("Pollen, animal fur")
                     .font(.body)
@@ -100,9 +103,8 @@ struct ContactInfo: View {
         VStack(spacing:0) {
             Image("avatar")
                 .resizable()
-                .frame(width: 70, height: 70)
+                .frame(width: 80, height: 80)
                 .cornerRadius(50)
-                .padding(.top, 20)
             
             Text("Help seeker name")
                 .bold()
@@ -169,19 +171,7 @@ struct TaskDescription: View {
             .font(.title2)
             .foregroundColor(Color("Primary"))
         Text("I need help picking up some items at the store while my personal assistant is on sick leave.\nLeave at front door. Entrance code B1234.")
-        Divider()
     }
 }
 
-struct Attachment: View {
-    var body: some View {
-        Text("Attached file")
-            .bold()
-            .font(.title2)
-            .foregroundColor(Color("Primary"))
-        Label("1 attached file", systemImage: "paperclip")
-        Text("See image or file sent by help seeker")
-            .bold()
-            .foregroundColor(Color("Primary"))
-    }
-}
+

@@ -64,7 +64,7 @@ struct Form: View {
     @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
     @State private var userInfo: [User] = []
     @State private var emails: [String?] = []
-    @State var fullname: String = ""
+    @State var volunteerName: String = ""
    
     
     var body: some View {
@@ -111,7 +111,7 @@ struct Form: View {
                         self.loginFailed.toggle()
                     }
                 }
-                if(userInfo.count > 0 ) {fullname = userInfo[0].fullname!}
+                if(userInfo.count > 0 ) {volunteerName = userInfo[0].fullname!}
                 self.showAlert.toggle()
             }) {
                 Text("LOG IN")
@@ -143,7 +143,7 @@ struct Form: View {
         
         if (userInfo.count > 0)  {
             if  ( userInfo[0].type == "v") {
-                VolunteersNavBar(fullname: $fullname).navigationBarHidden(true)
+                VolunteersNavBar(volunteerName: $volunteerName).navigationBarHidden(true)
             } else if (userInfo[0].type == "h") {
                 HelpSeekerNavBar().navigationBarHidden(true)
             } else {

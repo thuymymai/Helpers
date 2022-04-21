@@ -9,7 +9,7 @@ import SwiftUI
 
 
 struct VolunteerDashboard: View {
-    @Binding var fullname: String
+    @Binding var volunteerName: String
     
     @State private var isLogoutMenuClicked = false
     @State private var isFirstAidClicked = false
@@ -33,7 +33,7 @@ struct VolunteerDashboard: View {
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing:20) {
                         HStack {
-                            Text("Hi \(fullname)\nManage Your Tasks")
+                            Text("Hi \(volunteerName)\nManage Your Tasks")
                                 .font(.system(size: 28))
                                 .fontWeight(.semibold)
                                 .foregroundColor(Color("Primary"))
@@ -122,7 +122,7 @@ struct VolunteerDashboard: View {
 
 struct VolunteerDashboard_Previews: PreviewProvider {
     static var previews: some View {
-        VolunteerDashboard(fullname: .constant(""))
+        VolunteerDashboard(volunteerName: .constant(""))
     }
 }
 
