@@ -70,6 +70,7 @@ struct AvailabilityForm: View {
     @State var isWeeklyChecked: Bool = false
     @State var isMonthlyChecked: Bool = false
     @State var signupFailed = false
+    @State var availability: String = ""
     
     // set up environment
     @StateObject var userModel = UserViewModel()
@@ -191,7 +192,16 @@ struct AvailabilityForm: View {
                 if self.signupFailed {
                     return Alert(title: Text("Register successfully!"),  dismissButton: .default(Text("Got it!"), action: {self.toDashboard = false}))
                 } else {
-                    updateUser(fullname: fullname, password: password, email: email, phone: phone, type: "v", availability: "", note: "", location: "", long: 0.0, lat: 0.0, need: "", chronic: "", allergies: "")
+                    if(isManyTimesChecked == true) {
+                        availability = "1"
+                    } else if(isDailyChecked == true) {
+                        availability = "2"
+                    } else if(isWeeklyChecked == true) {
+                        availability = "3"
+                    } else {
+                        availability = "4"
+                    }
+                    updateUser(fullname: fullname, password: password, email: email, phone: phone, type: "v", availability: availability, note: "", location: "", long: 0.0, lat: 0.0, need: "", chronic: "", allergies: "")
                     return Alert(title: Text("Register successfully!"),  dismissButton: .default(Text("Got it!"), action: {self.toDashboard = true}))
                 }
             })
