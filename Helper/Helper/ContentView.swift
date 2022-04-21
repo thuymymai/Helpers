@@ -18,11 +18,8 @@ struct ContentView: View {
     // fetching user data from core data
     @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.user_id, ascending: true)]) var results: FetchedResults<User>
     
-<<<<<<< HEAD
     // fetching task data from core data
     @FetchRequest(entity: Task.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Task.title, ascending: true)]) var taskResults: FetchedResults<Task>
-=======
->>>>>>> dad746226875acde3e4b14b85a3d3cd7f91a915c
     
     func clearData(entityName: String) {
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: entityName)
@@ -39,11 +36,7 @@ struct ContentView: View {
     }
     
     var body: some View {
-<<<<<<< HEAD
         VStack{
-=======
-//        VStack{
->>>>>>> dad746226875acde3e4b14b85a3d3cd7f91a915c
             // clear core data in the beginning of the app
 //            if !results.isEmpty {
 //                ProgressView().onAppear(perform: {clearData(entityName: "User")})
@@ -58,7 +51,7 @@ struct ContentView: View {
                 let _ = print("read from core \(results.count) \(results[results.count-1].email) \(results[results.count-1].password)")
             }
 //
-//        }
+        }
         LandingPage()
     }
 }
