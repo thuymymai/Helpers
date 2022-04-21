@@ -12,6 +12,8 @@ struct TaskModel: Decodable, Hashable {
     // define variables
     let title: String?
     let location: String?
+    let long: Double?
+    let lat: Double?
     let time: String?
     let category: String?
     let description: String?
@@ -20,13 +22,15 @@ struct TaskModel: Decodable, Hashable {
 
     // define the coding keys
     enum CodingKeys: String, CodingKey {
-        case title = "Title"
-        case location = "Location"
-        case time = "Time"
-        case category = "Category"
-        case description = "Description"
-        case volunteer = "Volunteer"
-        case helpseeker = "Help seeker"
+        case title = "title"
+        case location = "location"
+        case long = "long"
+        case lat = "lat"
+        case time = "time"
+        case category = "category"
+        case description = "description"
+        case volunteer = "volunteer"
+        case helpseeker = "help seeker"
     }
         
     // initialize all values
@@ -37,6 +41,8 @@ struct TaskModel: Decodable, Hashable {
         // get the values
         title = try container.decodeIfPresent(String.self, forKey: .title)
         location = try container.decodeIfPresent(String.self, forKey: .location)
+        long = try container.decodeIfPresent(Double.self, forKey: .long)
+        lat = try container.decodeIfPresent(Double.self, forKey: .lat)
         time = try container.decodeIfPresent(String.self, forKey: .time)
         category = try container.decodeIfPresent(String.self, forKey: .category)
         description = try container.decodeIfPresent(String.self, forKey: .description)

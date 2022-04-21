@@ -16,30 +16,41 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) var context
     
     // fetching user data from core data
-    @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.user_id, ascending: true)]) var results: FetchedResults<User>
+    @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
     
     // fetching task data from core data
     @FetchRequest(entity: Task.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Task.title, ascending: true)]) var taskResults: FetchedResults<Task>
     
-    func clearData(entityName: String) {
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: entityName)
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-        deleteRequest.resultType = .resultTypeObjectIDs
+    func resetUser() {
+//        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: entityName)
+//        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+//        deleteRequest.resultType = .resultTypeObjectIDs
+//        do {
+//            let result = try context.execute(deleteRequest) as? NSBatchDeleteResult
+//            let objectIDArray = result?.result as? [NSManagedObjectID]
+//            let changes: [AnyHashable : Any] = [NSDeletedObjectsKey : objectIDArray as Any]
+//            NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [context])
+//        } catch {
+//            print(error)
+//        }
         do {
-            let result = try context.execute(deleteRequest) as? NSBatchDeleteResult
-            let objectIDArray = result?.result as? [NSManagedObjectID]
-            let changes: [AnyHashable : Any] = [NSDeletedObjectsKey : objectIDArray as Any]
-            NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [context])
+            results.forEach{ (user) in
+                context.delete(user)
+            }
+            try context.save()
         } catch {
             print(error)
         }
+        
+        
     }
     
     var body: some View {
         VStack{
             // clear core data in the beginning of the app
 //            if !results.isEmpty {
-//                ProgressView().onAppear(perform: {clearData(entityName: "User")})
+//                ProgressView().onAppear(perform: {resetUser()})
+////                ProgressView().onAppear(perform: {userModel.fetchData(context: context)})
 //            }
 
             // checking if core data exists
