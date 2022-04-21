@@ -15,22 +15,19 @@ class UserViewModel: ObservableObject {
     func saveData(context: NSManagedObjectContext) {
         users.forEach{ (data) in
             let entity = User(context: context)
-            entity.user_id = (Int16) (data.user_id!)
-            entity.username = data.username
+            entity.userId = (Int16) (data.userId!)
+            entity.fullname = data.fullname
             entity.password = data.password
             entity.email = data.email
             entity.phone = data.phone
             entity.type = data.type
-            entity.driving = data.driving
-            entity.coordinating = data.coordinating
-            entity.coaching = data.coaching
-            entity.programing = data.programing
-            entity.often = data.often
-            entity.age = (Int16) (data.age!)
-            entity.weight = (Int16) (data.weight!)
-            entity.height = (Int16) (data.height!)
+            entity.availability = data.availability
+            entity.note = data.note
+            entity.location = data.location
+            entity.long = (Double) (data.long!)
+            entity.lat = (Double) (data.lat!)
             entity.need = data.need
-            entity.cronic = data.cronic
+            entity.chronic = data.chronic
             entity.allergies = data.allergies
         }
         
