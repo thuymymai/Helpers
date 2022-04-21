@@ -123,7 +123,7 @@ struct FormMedical: View {
     @Environment(\.managedObjectContext) var context
     
     // fetching data from core data
-    @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.user_id, ascending: true)]) var results: FetchedResults<User>
+    @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
     
     // set up medical info
     @State private var disabilitySelection = "None"
@@ -135,24 +135,21 @@ struct FormMedical: View {
     @State private var allergySelection = "None"
     let allergies = ["None", "Grass", "Pollen", "Dust mites", "Animal dander", "Nuts", "Gluten", "Lactose", "Mould"]
     
-    func updateUser(username: String, password: String, email: String, phone: String, type: String, driving: String, coordinating: String, coaching: String, programing: String, often: String, age: Int, weight: Int, height: Int, need: String, cronic: String, allergies: String) {
+    func updateUser(fullname: String, password: String, email: String, phone: String, type: String, availability: String, note: String, location: String, long: Double, lat: Double, need: String, chronic: String, allergies: String) {
         let user = User(context: context)
-        user.user_id = (Int16) (results.count + 1)
-        user.username = username.lowercased()
+        user.userId = (Int16) (results.count + 1)
+        user.fullname = fullname.lowercased()
         user.password = password
         user.email = email.lowercased()
         user.phone = phone
         user.type = type.lowercased()
-        user.driving = driving.lowercased()
-        user.coordinating = coordinating.lowercased()
-        user.coaching = coaching.lowercased()
-        user.programing = programing.lowercased()
-        user.often = often.lowercased()
-        user.age = (Int16) (age)
-        user.weight = (Int16) (weight)
-        user.height = (Int16) (height)
+        user.availability = availability.lowercased()
+        user.note = note.lowercased()
+        user.location = location.lowercased()
+        user.long = (Double) (long)
+        user.lat = (Double) (lat)
         user.need = need.lowercased()
-        user.cronic = cronic.lowercased()
+        user.chronic = chronic.lowercased()
         user.allergies = allergies.lowercased()
         do {
             try context.save()
@@ -233,7 +230,7 @@ struct FormMedical: View {
                     if self.signupFailed {
                         return Alert(title: Text("Register successfully!"),  dismissButton: .default(Text("Got it!"), action: {self.isLinkActive = false}))
                     } else {
-                        updateUser(username: fullname, password: password, email: email, phone: phone, type: "h", driving: "", coordinating: "", coaching: "", programing: "", often: "", age: 25, weight: 50, height: 170, need: disabilitySelection, cronic: diseaseSelection, allergies: allergySelection)
+                        updateUser(fullname: fullname, password: password, email: email, phone: phone, type: "h", availability: "", note: "", location: "", long: 0.0, lat: 0.0, need: disabilitySelection, chronic: diseaseSelection, allergies: allergySelection)
                         return Alert(title: Text("Register successfully!"),  dismissButton: .default(Text("Got it!"), action: {self.isLinkActive = true}))
                     }
                 })

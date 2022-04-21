@@ -65,7 +65,7 @@ struct VolunteerSignUpForm: View {
     @Environment(\.managedObjectContext) var context
     
     // fetching data from core data
-    @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.user_id, ascending: true)]) var results: FetchedResults<User>
+    @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
     
     var body: some View {
         
