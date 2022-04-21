@@ -9,7 +9,6 @@ import SwiftUI
 
 struct LandingPage: View {
     @State var showAlert: Bool = false
-    let persistenceController = PersistenceController.shared
     
     var body: some View {
         NavigationView{
@@ -48,8 +47,7 @@ struct LandingPage: View {
                         DropDownMenu()
                         Spacer()
                         NavigationLink(destination: Login()
-                            .navigationBarHidden(true)
-                            .environment(\.managedObjectContext, persistenceController.container.viewContext), label: {
+                            .navigationBarHidden(true), label: {
                                 Text("Login")
                                     .bold()
                                     .padding(12)

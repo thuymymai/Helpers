@@ -9,14 +9,17 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
-    let persistenceController = PersistenceController.shared
     
     @StateObject var userModel = UserViewModel()
+    @StateObject var taskModel = TaskViewModel()
+
     @Environment(\.managedObjectContext) var context
     
-    // fetching data from core data
+    // fetching user data from core data
     @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.user_id, ascending: true)]) var results: FetchedResults<User>
     
+    // fetching task data from core data
+    @FetchRequest(entity: Task.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Task.title, ascending: true)]) var taskResults: FetchedResults<Task>
     
     func clearData(entityName: String) {
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: entityName)
@@ -33,7 +36,7 @@ struct ContentView: View {
     }
     
     var body: some View {
-//        VStack{
+        VStack{
             // clear core data in the beginning of the app
 //            if !results.isEmpty {
 //                ProgressView().onAppear(perform: {clearData(entityName: "User")})
@@ -45,11 +48,11 @@ struct ContentView: View {
                     ProgressView().onAppear(perform: {userModel.fetchData(context: context)})
                 }
             } else {
-                let _ = print("read from core \(results)")
+                let _ = print("read from core \(results.count) \(results[results.count-1].email) \(results[results.count-1].password)")
             }
 //
-//        }
-        LandingPage().environment(\.managedObjectContext, persistenceController.container.viewContext)
+        }
+        LandingPage()
     }
 }
 
