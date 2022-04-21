@@ -62,6 +62,10 @@ struct Form: View {
     
     // fetching data from core data
     @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
+    @State private var userInfo: [User] = []
+    @State private var emails: [String?] = []
+    @State var fullname: String = ""
+   
     
     var body: some View {
         ZStack{
@@ -95,10 +99,11 @@ struct Form: View {
             // navigation to sign up page
             NavigationLink(destination: LandingPage().navigationBarHidden(true), isActive: self.$toRegister) { EmptyView() }
             Button(action: {
-                let userInfo = results.filter{$0.email?.lowercased() == email.lowercased()}
-                let emails = results.map{$0.email?.lowercased()}
-                let emailExists = emails.contains(email.lowercased())
+                self.userInfo = results.filter{$0.email?.lowercased() == email.lowercased()}
+                self.emails = results.map{$0.email?.lowercased()}
                 
+                let emailExists = self.emails.contains(email.lowercased())
+               
                 // reset to to the initial stage
                 self.loginFailed = false
                 if (userInfo.count > 0) {
@@ -106,6 +111,7 @@ struct Form: View {
                         self.loginFailed.toggle()
                     }
                 }
+                if(userInfo.count > 0 ) {fullname = userInfo[0].fullname!}
                 self.showAlert.toggle()
             }) {
                 Text("LOG IN")
@@ -133,11 +139,11 @@ struct Form: View {
     // function choose destination conditionally
     @ViewBuilder
     func chooseDestination() -> some View {
-        let userInfo = results.filter{$0.email?.lowercased() == email.lowercased()}
+       
         
         if (userInfo.count > 0)  {
             if  ( userInfo[0].type == "v") {
-                VolunteersNavBar().navigationBarHidden(true)
+                VolunteersNavBar(fullname: $fullname).navigationBarHidden(true)
             } else if (userInfo[0].type == "h") {
                 HelpSeekerNavBar().navigationBarHidden(true)
             } else {

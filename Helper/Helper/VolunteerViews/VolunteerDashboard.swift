@@ -9,10 +9,12 @@ import SwiftUI
 
 
 struct VolunteerDashboard: View {
+    @Binding var fullname: String
+    
     @State private var isLogoutMenuClicked = false
     @State private var isFirstAidClicked = false
     @State private var isLinkActive: Bool = false
-    @State var hero = false
+    
     @ViewBuilder
     func chooseDestination()-> some View {
         if (isFirstAidClicked) {
@@ -28,10 +30,24 @@ struct VolunteerDashboard: View {
         
         GeometryReader { geometry in
             NavigationView{
-                
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing:20) {
-                        TagLineView()
+                        HStack {
+                            Text("Hi \(fullname)\nManage Your Tasks")
+                                .font(.system(size: 28))
+                                .fontWeight(.semibold)
+                                .foregroundColor(Color("Primary"))
+                            Spacer()
+                            NavigationLink(destination: VolunteerProfile()
+                                           
+                            ) {
+                                Image("Avatar-1")
+                                    .resizable()
+                                    .padding()
+                                    .frame(width: 85, height: 85)
+                                    .shadow(radius: 5)
+                            }
+                        }
                         SearchAndFilter()
                         VStack(alignment: .leading, spacing: 5){
                             Text("Available Tasks")
@@ -67,7 +83,7 @@ struct VolunteerDashboard: View {
                 } // close Scrollview
                 .padding(.bottom, 10)
                 .background(Color("Background"))
-                .navigationBarTitle("")
+                .navigationBarTitle("Dashboard")
                 .navigationBarTitleDisplayMode(.inline)
                 .background(
                     NavigationLink(destination: chooseDestination(), isActive: $isLinkActive) {
@@ -91,7 +107,7 @@ struct VolunteerDashboard: View {
                             })
                         }
                     label: {
-                        Label("Menu", systemImage: "line.horizontal.3")
+                        Image("menu").resizable().frame(width:30, height:30).foregroundColor(.black)
                     }
                     }
                     
@@ -106,31 +122,10 @@ struct VolunteerDashboard: View {
 
 struct VolunteerDashboard_Previews: PreviewProvider {
     static var previews: some View {
-        VolunteerDashboard()
+        VolunteerDashboard(fullname: .constant(""))
     }
 }
 
-struct TagLineView: View {
-    var body: some View {
-        
-        HStack {
-            Text("Hi User\nManage Your Tasks")
-                .font(.system(size: 28))
-                .fontWeight(.semibold)
-                .foregroundColor(Color("Primary"))
-            Spacer()
-            NavigationLink(destination: VolunteerProfile()
-                           
-            ) {
-                Image("Avatar-1")
-                    .resizable()
-                    .padding()
-                    .frame(width: 85, height: 85)
-                    .shadow(radius: 5)
-            }
-        }
-    }
-}
 
 struct SearchAndFilter: View {
     @State private var search: String = ""
@@ -194,7 +189,6 @@ struct CategoriesView: View {
 struct OngoingTaskCard: View {
     var body: some View {
         GeometryReader { geometry in
-            
             VStack{
                 ZStack{
                     RoundedRectangle(cornerRadius: 10)
