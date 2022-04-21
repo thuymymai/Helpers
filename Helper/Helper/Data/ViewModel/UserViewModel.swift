@@ -24,8 +24,8 @@ class UserViewModel: ObservableObject {
             entity.availability = data.availability
             entity.note = data.note
             entity.location = data.location
-            entity.long = (Double) (data.long!)
-            entity.lat = (Double) (data.lat!)
+            entity.long = (data.long! as NSString).doubleValue
+            entity.lat = (data.lat! as NSString).doubleValue
             entity.need = data.need
             entity.chronic = data.chronic
             entity.allergies = data.allergies
