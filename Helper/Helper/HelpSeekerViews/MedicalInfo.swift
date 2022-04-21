@@ -138,22 +138,22 @@ struct FormMedical: View {
     func updateUser(username: String, password: String, email: String, phone: String, type: String, driving: String, coordinating: String, coaching: String, programing: String, often: String, age: Int, weight: Int, height: Int, need: String, cronic: String, allergies: String) {
         let user = User(context: context)
         user.user_id = (Int16) (results.count + 1)
-        user.username = username
+        user.username = username.lowercased()
         user.password = password
-        user.email = email
+        user.email = email.lowercased()
         user.phone = phone
-        user.type = type
-        user.driving = driving
-        user.coordinating = coordinating
-        user.coaching = coaching
-        user.programing = programing
-        user.often = often
+        user.type = type.lowercased()
+        user.driving = driving.lowercased()
+        user.coordinating = coordinating.lowercased()
+        user.coaching = coaching.lowercased()
+        user.programing = programing.lowercased()
+        user.often = often.lowercased()
         user.age = (Int16) (age)
         user.weight = (Int16) (weight)
         user.height = (Int16) (height)
-        user.need = need
-        user.cronic = cronic
-        user.allergies = allergies
+        user.need = need.lowercased()
+        user.cronic = cronic.lowercased()
+        user.allergies = allergies.lowercased()
         do {
             try context.save()
         } catch {
