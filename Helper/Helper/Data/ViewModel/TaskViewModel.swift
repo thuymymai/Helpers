@@ -1,34 +1,29 @@
 //
-//  UserViewModel.swift
+//  TaskViewModel.swift
 //  Helper
 //
-//  Created by Dang Son on 17.4.2022.
+//  Created by Mai Thuỳ My on 20.4.2022.
 //
 
 import Foundation
 import CoreData
 
-class UserViewModel: ObservableObject {
-    @Published var users: [UserModel] = []
+class TaskViewModel: ObservableObject {
+    @Published var tasks: [TaskModel] = []
     
     // saving Json to CoreData
     func saveData(context: NSManagedObjectContext) {
-        users.forEach{ (data) in
-            let entity = User(context: context)
-            entity.userId = (Int16) (data.userId!)
-            entity.fullname = data.fullname
-            entity.password = data.password
-            entity.email = data.email
-            entity.phone = data.phone
-            entity.type = data.type
-            entity.availability = data.availability
-            entity.note = data.note
+        tasks.forEach{ (data) in
+            let entity = Task(context: context)
+            entity.title = data.title
             entity.location = data.location
             entity.long = (Double) (data.long!)
             entity.lat = (Double) (data.lat!)
-            entity.need = data.need
-            entity.chronic = data.chronic
-            entity.allergies = data.allergies
+            entity.time = DateFormatter().date(from: data.time!)
+            entity.category = data.category
+            entity.desc = data.description
+            entity.volunteer = (Int16) (data.volunteer!)
+            entity.helpseeker = (Int16) (data.helpseeker!)
         }
         
         // saving all pending data at once
@@ -41,10 +36,10 @@ class UserViewModel: ObservableObject {
     }
     
     func fetchData(context: NSManagedObjectContext) {
-        let url = "https://users.metropolia.fi/~sond/Swift%20Project/user.json"
+        let url = "https://users.metropolia.fi/~sond/Swift%20Project/task.json"
         
         var request = URLRequest(url: URL(string: url)!)
-        request.addValue("swiftUI", forHTTPHeaderField: "field")
+        request.addValue("swiftUI-task", forHTTPHeaderField: "field")
         
         let session = URLSession(configuration: .default)
         session.dataTask(with: request) { (data, res, _) in
@@ -61,9 +56,9 @@ class UserViewModel: ObservableObject {
             
             // fetching JSON data
             do {
-                let users = try JSONDecoder().decode([UserModel].self, from: jsonData)
+                let tasks = try JSONDecoder().decode([TaskModel].self, from: jsonData)
                 DispatchQueue.main.async {
-                    self.users = users
+                    self.tasks = tasks
                     self.saveData(context: context)
                 }
             } catch {

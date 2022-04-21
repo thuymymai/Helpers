@@ -9,11 +9,17 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
+    
     @StateObject var userModel = UserViewModel()
+    @StateObject var taskModel = TaskViewModel()
+
     @Environment(\.managedObjectContext) var context
     
-    // fetching data from core data
-    @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.user_id, ascending: true)]) var results: FetchedResults<User>
+    // fetching user data from core data
+    @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
+    
+    // fetching task data from core data
+    @FetchRequest(entity: Task.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Task.title, ascending: true)]) var taskResults: FetchedResults<Task>
     
     func resetUser() {
 //        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: entityName)
@@ -51,15 +57,11 @@ struct ContentView: View {
             if results.isEmpty {
                 if userModel.users.isEmpty {
                     ProgressView().onAppear(perform: {userModel.fetchData(context: context)})
-//                } else {
-//                    List(userModel.users, id: \.self) {user in
-//                        Text(user.username!)
-//                    }
                 }
             } else {
-                let _ = print("read from core \(results[results.count-1].username)")
+                let _ = print("read from core \(results.count) \(results[results.count-1].email) \(results[results.count-1].password)")
             }
-
+//
         }
         LandingPage()
     }
