@@ -48,24 +48,29 @@ struct Login_Previews: PreviewProvider {
 }
 
 struct Form: View {
-    @State private var email: String = ""
-    @State private var password: String = ""
+    // navigation
     @State private var toDashboard: Bool = false
     @State private var toRegister: Bool = false
     @State private var showAlert: Bool = false
     @State private var isLinkActive: Bool = false
     @State private var loginFailed = false
     
+    
+    // user related details
+    @State private var userInfo: [User] = []
+    @State private var email: String = ""
+    @State private var password: String = ""
+    @State private var emails: [String?] = []
+    @State private var volunteerName: String = ""
+   
     // set up environment
     @StateObject var userModel = UserViewModel()
     @Environment(\.managedObjectContext) var context
     
     // fetching data from core data
     @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
-    @State private var userInfo: [User] = []
-    @State private var emails: [String?] = []
-    @State var volunteerName: String = ""
-   
+       
+    @FetchRequest(entity: Task.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Task.title, ascending: true)]) var taskResults: FetchedResults<Task>
     
     var body: some View {
         ZStack{
@@ -107,11 +112,14 @@ struct Form: View {
                 // reset to to the initial stage
                 self.loginFailed = false
                 if (userInfo.count > 0) {
+                    // credentials check
                     if ( !emailExists || userInfo[0].password != password){
                         self.loginFailed.toggle()
                     }
+                    // passing data
+                    volunteerName = userInfo[0].fullname!
                 }
-                if(userInfo.count > 0 ) {volunteerName = userInfo[0].fullname!}
+                       
                 self.showAlert.toggle()
             }) {
                 Text("LOG IN")
