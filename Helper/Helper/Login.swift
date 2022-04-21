@@ -10,8 +10,6 @@ import SwiftUI
 import CoreData
 
 struct Login: View {
-    let persistenceController = PersistenceController.shared
-    
     var body: some View {
         GeometryReader{geometry in
             NavigationView{
@@ -30,7 +28,7 @@ struct Login: View {
                                 .fill(.white)
                                 .frame(width: geometry.size.width * 0.8, height: geometry.size.height * 0.4)
                                 .shadow(radius: 5)
-                            Form().environment(\.managedObjectContext, persistenceController.container.viewContext)
+                            Form()
                         }
                         Image("Login")
                             .resizable()
@@ -97,14 +95,16 @@ struct Form: View {
             // navigation to sign up page
             NavigationLink(destination: LandingPage().navigationBarHidden(true), isActive: self.$toRegister) { EmptyView() }
             Button(action: {
-                let userInfo = results.filter{$0.email == email.lowercased()}
-                let emails = results.map{$0.email}
+                let userInfo = results.filter{$0.email?.lowercased() == email.lowercased()}
+                let emails = results.map{$0.email?.lowercased()}
                 let emailExists = emails.contains(email.lowercased())
                 
                 // reset to to the initial stage
                 self.loginFailed = false
-                if ( !emailExists || userInfo[0].password != password){
-                    self.loginFailed.toggle()
+                if (userInfo.count > 0) {
+                    if ( !emailExists || userInfo[0].password != password){
+                        self.loginFailed.toggle()
+                    }
                 }
                 self.showAlert.toggle()
             }) {
@@ -133,7 +133,7 @@ struct Form: View {
     // function choose destination conditionally
     @ViewBuilder
     func chooseDestination() -> some View {
-        let userInfo = results.filter{$0.email == email.lowercased()}
+        let userInfo = results.filter{$0.email?.lowercased() == email.lowercased()}
         
         if (userInfo.count > 0)  {
             if  ( userInfo[0].type == "v") {
