@@ -9,17 +9,31 @@ import SwiftUI
 
 
 struct VolunteerDashboard: View {
-    //    let categories: [TaskCategories]
+    @State private var isLogoutMenuClicked = false
+    @State private var isFirstAidClicked = false
+    @State private var isLinkActive: Bool = false
+    
+    @ViewBuilder
+    func chooseDestination()-> some View {
+        if (isFirstAidClicked) { FirstAid().navigationBarHidden(true)
+            
+        }else if (isLogoutMenuClicked){
+            LandingPage().navigationBarHidden(true)
+        }else {
+            VolunteerProfile().navigationBarHidden(true)
+        }
+    }
+    
     var body: some View {
         
         GeometryReader { geometry in
             NavigationView{
                 ZStack{
                     Color("Background")
-                        .edgesIgnoringSafeArea(.top)
+                        .edgesIgnoringSafeArea(.all)
                     ScrollView{
                         VStack (alignment: .leading){
-                            TagLineView()
+                            TagLineView().padding(.top)
                             SearchAndFilter()
                             VStack(alignment: .leading, spacing: 5){
                                 Text("Available Tasks")
@@ -50,24 +64,34 @@ struct VolunteerDashboard: View {
                 }
                 .navigationBarTitle("")
                 .navigationBarTitleDisplayMode(.inline)
-                .toolbar{
-                    ToolbarItem(placement: .navigationBarTrailing){
-                        Menu{
-                            Button(action: {}, label: {
-                                Label(title: {Text("Update Locations")}, icon: {Image(systemName: "location")})
-                            })
-                            Button(action: {}, label: {
+                .background(
+                    NavigationLink(destination: chooseDestination(), isActive: $isLinkActive) {
+                        EmptyView()
+                    }
+                    
+                )
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Menu {
+                            Button(action: {
+                                
+                                self.isLinkActive = true
+                                self.isFirstAidClicked = true
+                            }, label: {
                                 Label(title: {Text("First Aid Manual")}, icon: {Image(systemName: "info")})
                             })
-                            Button(action: {}, label: {
+                            Button(action:{
+                                
+                                self.isLinkActive = true
+                                self.isLogoutMenuClicked = true
+                            }, label: {
                                 Label(title: {Text("Log Out")}, icon: {Image(systemName: "rectangle.portrait.and.arrow.right")})
                             })
-                        } label: {
-                            Label(title: {Text("Menu")}, icon: {Image("menu")
-                                    .resizable()
-                                    .frame(width: 30, height: 30)
-                                .padding()})
+                            
                         }
+                    label: {
+                        Label("Menu", systemImage: "line.horizontal.3")
+                    }
                     }
                 }
             }
@@ -82,7 +106,6 @@ struct VolunteerDashboard_Previews: PreviewProvider {
     }
 }
 
-
 struct TagLineView: View {
     var body: some View {
         
@@ -92,13 +115,15 @@ struct TagLineView: View {
                 .fontWeight(.semibold)
                 .foregroundColor(Color("Primary"))
             Spacer()
-            NavigationLink(destination: VolunteerProfile()) {
+            NavigationLink(destination: VolunteerProfile()
+                           
+            ) {
                 Image("Avatar-1")
                     .resizable()
                     .padding()
                     .frame(width: 85, height: 85)
                     .shadow(radius: 5)
-            }         
+            }
         }
     }
 }
@@ -129,9 +154,7 @@ struct SearchAndFilter: View {
                         .cornerRadius(10)
                 }
             }
-            //            .padding(.horizontal, 30)
         }
-        
     }
 }
 
@@ -141,13 +164,11 @@ struct CategoriesView: View {
     var ImageName: String
     var body: some View {
         
-        
         ZStack{
             RoundedRectangle(cornerRadius: 10)
                 .fill(.white)
                 .frame(width: 110, height: 140)
                 .shadow(radius: 5)
-            
             VStack(alignment: .leading){
                 Text(categoryName)
                     .font(.headline)
@@ -163,8 +184,6 @@ struct CategoriesView: View {
                     .padding(.bottom,20)
             }
         }
-        
-        
     }
 }
 
@@ -177,7 +196,7 @@ struct OngoingTaskCard: View {
                     RoundedRectangle(cornerRadius: 10)
                         .fill(.white)
                         .shadow(radius: 5)
-                        .frame(width: geometry.size.width * 1.04, height: geometry.size.height * 15, alignment: .center)
+                        .frame(width: geometry.size.width * 0.98, height: geometry.size.height * 15, alignment: .center)
                     VStack(alignment: .leading, spacing: 10){
                         HStack(spacing: 130){
                             Text("Grocery Shopping")
@@ -201,23 +220,18 @@ struct OngoingTaskCard: View {
                                 .font(.system(size: 14))
                                 .foregroundColor(.secondary)
                             NavigationLink(destination: TaskDetailView()){
-                                //                                Button(action: {}) {
                                 Text("View Task")
                                     .font(.subheadline)
                                     .frame(width: geometry.size.width * 0.3, height: geometry.size.height * 3)
                                     .background(Color("Primary"))
                                     .foregroundColor(.white)
                                     .cornerRadius(6)
-                                //}
                             }
-                            
                         }
                     }
-                    
                 }
-            }
-            
-        }.padding()
+            }.padding(.vertical, 30)
+        }
     }
 }
 
