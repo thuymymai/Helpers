@@ -12,8 +12,8 @@ struct TaskModel: Decodable, Hashable {
     // define variables
     let title: String?
     let location: String?
-    let long: Double?
-    let lat: Double?
+    let long: String?
+    let lat: String?
     let time: String?
     let category: String?
     let description: String?
@@ -41,8 +41,8 @@ struct TaskModel: Decodable, Hashable {
         // get the values
         title = try container.decodeIfPresent(String.self, forKey: .title)
         location = try container.decodeIfPresent(String.self, forKey: .location)
-        long = try container.decodeIfPresent(Double.self, forKey: .long)
-        lat = try container.decodeIfPresent(Double.self, forKey: .lat)
+        long = try container.decodeIfPresent(String.self, forKey: .long)
+        lat = try container.decodeIfPresent(String.self, forKey: .lat)
         time = try container.decodeIfPresent(String.self, forKey: .time)
         category = try container.decodeIfPresent(String.self, forKey: .category)
         description = try container.decodeIfPresent(String.self, forKey: .description)

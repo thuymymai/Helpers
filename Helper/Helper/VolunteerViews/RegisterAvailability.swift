@@ -190,7 +190,7 @@ struct AvailabilityForm: View {
                     .cornerRadius(10)
             }.alert(isPresented: $showAlert, content: {
                 if self.signupFailed {
-                    return Alert(title: Text("Register successfully!"),  dismissButton: .default(Text("Got it!"), action: {self.toDashboard = false}))
+                    return Alert(title: Text("Register failed!"),  dismissButton: .default(Text("Try again!"), action: {self.toDashboard = false}))
                 } else {
                     if(isManyTimesChecked == true) {
                         availability = "1"

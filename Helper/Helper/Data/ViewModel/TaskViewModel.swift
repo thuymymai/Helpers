@@ -17,8 +17,8 @@ class TaskViewModel: ObservableObject {
             let entity = Task(context: context)
             entity.title = data.title
             entity.location = data.location
-            entity.long = (Double) (data.long!)
-            entity.lat = (Double) (data.lat!)
+            entity.long = (data.long! as NSString).doubleValue
+            entity.lat = (data.lat! as NSString).doubleValue
             entity.time = DateFormatter().date(from: data.time!)
             entity.category = data.category
             entity.desc = data.description

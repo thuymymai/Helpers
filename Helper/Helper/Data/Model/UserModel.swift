@@ -19,8 +19,8 @@ struct UserModel: Decodable, Hashable {
     let availability: String?
     let note: String?
     let location: String?
-    let long: Double?
-    let lat: Double?
+    let long: String?
+    let lat: String?
     let need: String?
     let chronic: String?
     let allergies: String?
@@ -60,8 +60,8 @@ struct UserModel: Decodable, Hashable {
         availability = try container.decodeIfPresent(String.self, forKey: .availability)
         note = try container.decodeIfPresent(String.self, forKey: .note)
         location = try container.decodeIfPresent(String.self, forKey: .location)
-        long = try container.decodeIfPresent(Double.self, forKey: .long)
-        lat = try container.decodeIfPresent(Double.self, forKey: .lat)
+        long = try container.decodeIfPresent(String.self, forKey: .long)
+        lat = try container.decodeIfPresent(String.self, forKey: .lat)
         need = try container.decodeIfPresent(String.self, forKey: .need)
         chronic = try container.decodeIfPresent(String.self, forKey: .chronic)
         allergies = try container.decodeIfPresent(String.self, forKey: .allergies)

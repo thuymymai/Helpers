@@ -50,20 +50,20 @@ struct ContentView: View {
             // clear core data in the beginning of the app
 //            if !results.isEmpty {
 //                ProgressView().onAppear(perform: {resetUser()})
-////                ProgressView().onAppear(perform: {userModel.fetchData(context: context)})
+//                ProgressView().onAppear(perform: {userModel.fetchData(context: context)})
 //            }
 
             // checking if core data exists
-            if results.isEmpty {
-                if userModel.users.isEmpty {
-                    ProgressView().onAppear(perform: {userModel.fetchData(context: context)})
+            if taskResults.isEmpty {
+                if taskModel.tasks.isEmpty {
+                    ProgressView().onAppear(perform: {taskModel.fetchData(context: context)})
                 }
             } else {
-                let _ = print("read from core \(results.count) \(results[results.count-1].email) \(results[results.count-1].password)")
+                let _ = print("read from core \(taskResults.count) \(taskResults[taskResults.count-1].title) \(taskResults[taskResults.count-1].time)")
             }
-//
+
         }
-        LandingPage()
+//        LandingPage()
     }
 }
 
