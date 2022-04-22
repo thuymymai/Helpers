@@ -61,6 +61,13 @@ struct ContentView: View {
             } else {
                 let _ = print("read from core \(results.count) \(results[results.count-1].email) \(results[results.count-1].password)")
             }
+            if taskResults.isEmpty {
+                if taskModel.tasks.isEmpty {
+                    ProgressView().onAppear(perform: {taskModel.fetchData(context: context)})
+                }
+            } else {
+                let _ = print("read from core \(taskResults.count)")
+            }
 //
         }
         LandingPage()
