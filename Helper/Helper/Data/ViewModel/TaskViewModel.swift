@@ -24,11 +24,7 @@ class TaskViewModel: ObservableObject {
             entity.location = data.location
             entity.long = (data.long! as NSString).doubleValue
             entity.lat = (data.lat! as NSString).doubleValue
-<<<<<<< HEAD
-            entity.time = DateFormatter().date(from: data.time!)
-=======
             entity.time = RFC3339DateFormatter.date(from: data.time!)
->>>>>>> develop-sprint-5
             entity.category = data.category
             entity.desc = data.description
             entity.status = (Int16) (data.status!)

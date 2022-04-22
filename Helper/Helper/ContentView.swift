@@ -48,14 +48,14 @@ struct ContentView: View {
     var body: some View {
         VStack{
             // clear core data in the beginning of the app
-            if !results.isEmpty {
-                ProgressView().onAppear(perform: {clearData(entityName: "User")})
-//                ProgressView().onAppear(perform: {userModel.fetchData(context: context)})
-            }
-            if !taskResults.isEmpty {
-                ProgressView().onAppear(perform: {clearData(entityName: "Task")})
-//                ProgressView().onAppear(perform: {taskModel.fetchData(context: context)})
-            }
+//            if !results.isEmpty {
+//                ProgressView().onAppear(perform: {clearData(entityName: "User")})
+////                ProgressView().onAppear(perform: {userModel.fetchData(context: context)})
+//            }
+//            if !taskResults.isEmpty {
+//                ProgressView().onAppear(perform: {clearData(entityName: "Task")})
+////                ProgressView().onAppear(perform: {taskModel.fetchData(context: context)})
+//            }
 
             // checking if core data exists
             if results.isEmpty {
