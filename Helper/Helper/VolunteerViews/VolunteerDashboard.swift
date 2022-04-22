@@ -10,71 +10,101 @@ import SwiftUI
 
 struct VolunteerDashboard: View {
     @Binding var volunteerName: String
-  
+    
+    // fetch data from core
+    @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
+    
+    @FetchRequest(entity: Task.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Task.title, ascending: true)]) var taskResults: FetchedResults<Task>
+    
+    // task related details
+    @State private var userInfo: [User]  = []
+    @State private var taskInfo: [Task] = []
+ 
+    
+    func getTaskInfo() {
+        self.userInfo = results.filter{$0.fullname == volunteerName }
+        
+        if(userInfo.count > 0){
+            self.taskInfo = taskResults.filter{$0.volunteer == userInfo[0].userId}
+        }
+        //
+        //        print("taskresult \(taskResults.count)")
+        //        print("taskInfo \(taskInfo)")
+        
+    }
     var body: some View {
         
         GeometryReader { geometry in
             
-                ScrollView(.vertical, showsIndicators: false) {
-                    VStack(spacing:20) {
-                        HStack {
-                            Text("Hi \(volunteerName)\nManage Your Tasks")
-                                .font(.system(size: 28))
-                                .fontWeight(.semibold)
-                                .foregroundColor(Color("Primary"))
-                            Spacer()
-                            NavigationLink(destination: VolunteerProfile()
-                                           
-                            ) {
-                                Image("Avatar-1")
-                                    .resizable()
-                                    .padding()
-                                    .frame(width: 85, height: 85)
-                                    .shadow(radius: 5)
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(spacing:20) {
+                    HStack {
+                        
+                        Text("Hi \(volunteerName)\n")
+                            .font(.system(size: 28))
+                            .fontWeight(.semibold)
+                            .foregroundColor(Color("Primary"))
+                        + Text("Manage Your Tasks")
+                            .font(.system(size: 28))
+                            .fontWeight(.regular)
+                            .foregroundColor(Color("Primary"))
+                        Spacer()
+                        NavigationLink(destination: VolunteerProfile()
+                                       
+                        ) {
+                            Image("Avatar-1")
+                                .resizable()
+                                .padding()
+                                .frame(width: 85, height: 85)
+                                .shadow(radius: 5)
+                        }
+                    }
+                    SearchAndFilter()
+                    VStack(alignment: .leading, spacing: 5){
+                        Text("Available Tasks")
+                            .font(.system(size: 24))
+                        Text("\(taskResults.count) tasks waiting to be accepted")
+                            .font(.system(size: 16))
+                            .foregroundColor(Color("Primary"))
+                            .fontWeight(.medium)
+                    }.padding(.top,50)
+                        .offset(x: -55)
+                    HStack(spacing: 10) {
+                        NavigationLink(destination: AvailableTasksView()) {
+                            CategoriesView(categoryName: "Grocery", numberOfTasks: "3 Tasks", ImageName: "groceries image")
+                        }
+                        NavigationLink(destination: AvailableTasksView()) {
+                            CategoriesView(categoryName: "Delivery", numberOfTasks: "3 Tasks", ImageName: "delivery image")
+                        }
+                        NavigationLink(destination: AvailableTasksView()) {
+                            CategoriesView(categoryName: "Others", numberOfTasks: "4 Tasks", ImageName: "helping image")
+                        }
+                    } // close HSTack
+                    Text("Ongoing Tasks")
+                        .font(.system(size: 24))
+                        .padding(.top, -10)
+                        .offset(x: -95)
+                    VStack(spacing: 160) {
+                        
+                        let _ = getTaskInfo()
+                        if(taskInfo.count > 0) {
+                            ForEach(taskInfo) { task in
+                                OngoingTaskCard(taskTitle: task.title!, helpseeker: "task.helpseeker", location: task.location!, time: "2:30PM")
                             }
                         }
-                        SearchAndFilter()
-                        VStack(alignment: .leading, spacing: 5){
-                            Text("Available Tasks")
-                                .font(.system(size: 24))
-                            Text("10 tasks waiting to be accepted")
-                                .font(.system(size: 16))
-                                .foregroundColor(Color("Primary"))
-                                .fontWeight(.medium)
-                        }.padding(.top,50)
-                            .offset(x: -55)
-                        HStack(spacing: 10) {
-                            NavigationLink(destination: AvailableTasksView()) {
-                                CategoriesView(categoryName: "Grocery", numberOfTasks: "3 Tasks", ImageName: "groceries image")
-                            }
-                            NavigationLink(destination: AvailableTasksView()) {
-                                CategoriesView(categoryName: "Delivery", numberOfTasks: "3 Tasks", ImageName: "delivery image")
-                            }
-                            NavigationLink(destination: AvailableTasksView()) {
-                                CategoriesView(categoryName: "Others", numberOfTasks: "4 Tasks", ImageName: "helping image")
-                            }
-                        } // close HSTack
-                        Text("Ongoing Tasks")
-                            .font(.system(size: 24))
-                            .padding(.top, -10)
-                            .offset(x: -95)
-                        VStack(spacing: 160) {
-                            OngoingTaskCard()
-                            OngoingTaskCard()
-                            OngoingTaskCard()
                         }.padding(.top, -20)
                     }.padding(.horizontal) // close big Vstack
                     
                 } // close Scrollview
                 
-        }// close geometryreader
-        .padding(.bottom, 10)
-        .background(Color("Background"))
-       
-
+            }// close geometryreader
+            .padding(.bottom, 10)
+            .background(Color("Background").edgesIgnoringSafeArea(.top))
+            
+            
+        }
     }
-}
-
+    
 
 
 
@@ -145,6 +175,10 @@ struct CategoriesView: View {
 }
 
 struct OngoingTaskCard: View {
+    var taskTitle: String
+    var helpseeker: String
+    var location: String
+    var time: String
     var body: some View {
         GeometryReader { geometry in
             VStack{
@@ -155,7 +189,7 @@ struct OngoingTaskCard: View {
                         .frame(width: geometry.size.width * 0.98, height: geometry.size.height * 15, alignment: .center)
                     VStack(alignment: .leading, spacing: 10){
                         HStack(spacing: 130){
-                            Text("Grocery Shopping")
+                            Text(taskTitle)
                                 .font(.headline)
                                 .fontWeight(.medium)
                             Text("Today")
@@ -164,15 +198,15 @@ struct OngoingTaskCard: View {
                                 .foregroundColor(Color("Primary"))
                         }
                         HStack(spacing: 100){
-                            Label("Mr. John Doe", systemImage: "person")
-                            Label("Helsinki", systemImage: "mappin")
+                            Label(helpseeker, systemImage: "person")
+                            Label(location, systemImage: "mappin")
                         }
                         Text("Instructions: leave at door")
                             .font(.system(size: 16))
                             .fontWeight(.semibold)
                         HStack(spacing:80){
                             
-                            Label("2:30PM - 3:00PM", systemImage: "clock")
+                            Label(time, systemImage: "clock")
                                 .font(.system(size: 14))
                                 .foregroundColor(.secondary)
                             NavigationLink(destination: TaskDetailView()){

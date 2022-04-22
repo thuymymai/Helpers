@@ -62,7 +62,7 @@ struct Form: View {
     @State private var password: String = ""
     @State private var emails: [String?] = []
     @State private var volunteerName: String = ""
-   
+    
     // set up environment
     @StateObject var userModel = UserViewModel()
     @Environment(\.managedObjectContext) var context
@@ -70,8 +70,6 @@ struct Form: View {
     // fetching data from core data
     @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
        
-    @FetchRequest(entity: Task.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Task.title, ascending: true)]) var taskResults: FetchedResults<Task>
-    
     var body: some View {
         ZStack{
             VStack {
@@ -106,7 +104,7 @@ struct Form: View {
             Button(action: {
                 self.userInfo = results.filter{$0.email?.lowercased() == email.lowercased()}
                 self.emails = results.map{$0.email?.lowercased()}
-                
+     
                 let emailExists = self.emails.contains(email.lowercased())
                
                 // reset to to the initial stage
@@ -119,7 +117,6 @@ struct Form: View {
                     // passing data
                     volunteerName = userInfo[0].fullname!
                 }
-                       
                 self.showAlert.toggle()
             }) {
                 Text("LOG IN")
