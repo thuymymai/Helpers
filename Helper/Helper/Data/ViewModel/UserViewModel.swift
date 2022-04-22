@@ -34,7 +34,7 @@ class UserViewModel: ObservableObject {
         // saving all pending data at once
         do {
             try context.save()
-            print("success saving to core data")
+            print("success saving users to core data")
         } catch {
             print(error)
         }

@@ -13,15 +13,21 @@ class TaskViewModel: ObservableObject {
     
     // saving Json to CoreData
     func saveData(context: NSManagedObjectContext) {
+        let RFC3339DateFormatter = DateFormatter()
+        RFC3339DateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        RFC3339DateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+        RFC3339DateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
         tasks.forEach{ (data) in
             let entity = Task(context: context)
+            entity.id = (Int16) (data.id!)
             entity.title = data.title
             entity.location = data.location
             entity.long = (data.long! as NSString).doubleValue
             entity.lat = (data.lat! as NSString).doubleValue
-            entity.time = DateFormatter().date(from: data.time!)
+            entity.time = RFC3339DateFormatter.date(from: data.time!)
             entity.category = data.category
             entity.desc = data.description
+            entity.status = (Int16) (data.status!)
             entity.volunteer = (Int16) (data.volunteer!)
             entity.helpseeker = (Int16) (data.helpseeker!)
         }
@@ -29,7 +35,7 @@ class TaskViewModel: ObservableObject {
         // saving all pending data at once
         do {
             try context.save()
-            print("success saving to core data")
+            print("success saving tasks to core data")
         } catch {
             print(error)
         }
