@@ -21,20 +21,21 @@ struct VolunteerDashboard: View {
     @State private var taskSender: [User]  = []
     @State private var taskInfo: [Task] = []
     
-    
     func getTaskInfo() {
         // current user
+        var user: [User] = []
         self.userInfo = results.filter{$0.fullname == volunteerName }
         
         if(userInfo.count > 0){
             self.taskInfo = taskResults.filter{$0.volunteer == userInfo[0].userId}
-            //            taskInfo.forEach(<#T##body: (Task) throws -> Void##(Task) throws -> Void#>)
         }
-        
-        
-        //
+        for task in taskInfo {
+            user = results.filter{$0.userId == task.helpseeker}
+            print("test \(user[0].fullname)")
+        }
+     print("all users \(taskResults)")
         //        print("taskresult \(taskResults.count)")
-        //        print("taskInfo \(taskInfo)")
+                //print("tasks info \(taskInfo)")
         
     }
     var body: some View {
