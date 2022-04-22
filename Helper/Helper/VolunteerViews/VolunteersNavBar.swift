@@ -7,11 +7,23 @@
 
 import SwiftUI
 
+enum Tabs: String {
+    case Dashboard
+    case Location
+    case Map
+    case Profile
+}
+
 struct VolunteersNavBar: View {
+    
     @Binding var volunteerName: String
+    
+    @State var selectedTab: Tabs = .Dashboard
+    
     @State private var isLogoutMenuClicked = false
     @State private var isFirstAidClicked = false
     @State private var isLinkActive: Bool = false
+    
     @ViewBuilder
     func chooseDestination()-> some View {
         if (isFirstAidClicked) {
@@ -24,31 +36,35 @@ struct VolunteersNavBar: View {
     }
     var body: some View {
         NavigationView{
-            TabView{
-                VolunteerDashboard(volunteerName: $volunteerName)
+            TabView(selection: $selectedTab){
+                VolunteerDashboard( volunteerName: $volunteerName)
                     .tabItem(){
                         Image(systemName: "house")
                         Text("Home")
                     }
-                    .navigationBarTitle("Dashboard")
-                    .navigationBarTitleDisplayMode(.inline)
-            
+                    .tag(Tabs.Dashboard)
                 Location()
                     .tabItem(){
                         Image(systemName: "map")
                         Text("Location")
                     }
+                    .tag(Tabs.Location)
                 AvailableTasksView()
                     .tabItem(){
                         Image(systemName: "list.bullet.rectangle.portrait")
                         Text("Available Tasks")
                     }
+                    .tag(Tabs.Map)
                 VolunteerProfile()
                     .tabItem(){
                         Image(systemName: "person")
                         Text("Profile")
                     }
+                    .tag(Tabs.Profile)
+                    .accentColor(.white)
             }
+            .navigationTitle(selectedTab.rawValue)
+            .navigationBarTitleDisplayMode(.inline)
             .background(
                 NavigationLink(destination: chooseDestination(), isActive: $isLinkActive) {
                     EmptyView()
