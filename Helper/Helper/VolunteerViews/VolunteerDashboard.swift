@@ -20,7 +20,7 @@ struct VolunteerDashboard: View {
     @State private var userInfo: [User]  = []
     @State private var taskSender: [User]  = []
     @State private var taskInfo: [Task] = []
- 
+    
     
     func getTaskInfo() {
         // current user
@@ -28,7 +28,7 @@ struct VolunteerDashboard: View {
         
         if(userInfo.count > 0){
             self.taskInfo = taskResults.filter{$0.volunteer == userInfo[0].userId}
-//            taskInfo.forEach(<#T##body: (Task) throws -> Void##(Task) throws -> Void#>)
+            //            taskInfo.forEach(<#T##body: (Task) throws -> Void##(Task) throws -> Void#>)
         }
         
         
@@ -89,28 +89,24 @@ struct VolunteerDashboard: View {
                         .font(.system(size: 24))
                         .padding(.top, -10)
                         .offset(x: -95)
-                    VStack(spacing: 160) {
+                        .padding(.bottom,30)
+                    VStack(spacing: 30) {
                         
                         let _ = getTaskInfo()
                         if(taskInfo.count > 0) {
-                            
                             ForEach(taskInfo) { task in
                                 OngoingTaskCard(taskTitle: task.title!, helpseeker: "task.helpseeker", location: task.location!, time: task.time!, date: task.time!)
                             }
                         }
-                        }.padding(.top, -20)
-                    }.padding(.horizontal) // close big Vstack
-                    
-                } // close Scrollview
-                
-            }// close geometryreader
-            .padding(.bottom, 10)
-            .background(Color("Background").edgesIgnoringSafeArea(.top))
-            
-            
-        }
+                    }.padding(.top, -20)
+                }.padding(.horizontal) // close big Vstack
+            } // close Scrollview
+        }// close geometryreader
+        .padding(.bottom, 10)
+        .background(Color("Background").edgesIgnoringSafeArea(.top))
     }
-    
+}
+
 
 
 
@@ -188,49 +184,44 @@ struct OngoingTaskCard: View {
     var date: Date?
     
     var body: some View {
-        GeometryReader { geometry in
-            VStack{
-                ZStack{
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(.white)
-                        .shadow(radius: 5)
-                        .frame(width: geometry.size.width * 0.98, height: geometry.size.height * 15, alignment: .center)
-                    VStack(alignment: .leading, spacing: 10){
-                        HStack(spacing: 160){
-                            Text(taskTitle)
-                                .font(.headline)
-                                .fontWeight(.medium)
-                            Text(date!.formatted(date: .numeric, time: .omitted))
-                                .font(.subheadline)
-                                .fontWeight(.semibold)
-                                .foregroundColor(Color("Primary"))
-                        }
-                        HStack(spacing: 100){
-                            Label(helpseeker, systemImage: "person")
-//                            Label(location, systemImage: "mappin")
-                        }
-                        Text("Address: \(location)")
-                            .font(.system(size: 16))
-                            .fontWeight(.semibold)
-                        HStack(spacing:80){
-                           
-                            Label(time!.formatted(date: .omitted, time: .complete), systemImage: "clock")
-                                
-                                .font(.system(size: 14))
-                                
-                                .foregroundColor(.secondary)
-                            NavigationLink(destination: TaskDetailView()){
-                                Text("View Task")
-                                    .font(.subheadline)
-                                    .frame(width: geometry.size.width * 0.3, height: geometry.size.height * 3)
-                                    .background(Color("Primary"))
-                                    .foregroundColor(.white)
-                                    .cornerRadius(6)
-                            }
-                        }
+        
+        ZStack{
+            RoundedRectangle(cornerRadius: 10)
+                .fill(.white)
+                .shadow(radius: 5)
+                .frame(width: 340, height: 150)
+            
+            VStack(alignment:.leading,spacing:10){
+                HStack{
+                    Text(taskTitle)
+                        .font(.headline)
+                        .fontWeight(.semibold)
+                    Spacer()
+                    Text(time!.formatted(date: .numeric, time: .omitted))
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(Color("Primary"))
+                }.padding(.horizontal)
+                
+                Label("helpseeker", systemImage: "person").padding(.horizontal)
+                Label("Address: \(location)", systemImage: "mappin").padding(.horizontal)
+                
+                HStack{
+                    
+                    Label(time!.formatted(date: .omitted, time: .complete), systemImage: "clock")
+                        .font(.system(size: 14))
+                        .foregroundColor(.secondary)
+                    Spacer()
+                    NavigationLink(destination: TaskDetailView()){
+                        Text("View Task")
+                            .font(.subheadline)
+                            .frame(width: 90, height: 30)
+                            .background(Color("Primary"))
+                            .foregroundColor(.white)
+                            .cornerRadius(6)
                     }
-                }
-            }.padding(.vertical, 30)
+                }.padding(.horizontal)
+            }
         }
     }
 }
