@@ -228,7 +228,7 @@ struct FormMedical: View {
                         .cornerRadius(10)
                 }.alert(isPresented: $showAlert, content: {
                     if self.signupFailed {
-                        return Alert(title: Text("Register successfully!"),  dismissButton: .default(Text("Got it!"), action: {self.isLinkActive = false}))
+                        return Alert(title: Text("Register failed!"),  dismissButton: .default(Text("Try again!"), action: {self.isLinkActive = false}))
                     } else {
                         updateUser(fullname: fullname, password: password, email: email, phone: phone, type: "h", availability: "", note: "", location: "", long: 0.0, lat: 0.0, need: disabilitySelection, chronic: diseaseSelection, allergies: allergySelection)
                         return Alert(title: Text("Register successfully!"),  dismissButton: .default(Text("Got it!"), action: {self.isLinkActive = true}))
