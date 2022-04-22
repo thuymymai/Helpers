@@ -18,15 +18,20 @@ struct VolunteerDashboard: View {
     
     // task related details
     @State private var userInfo: [User]  = []
+    @State private var taskSender: [User]  = []
     @State private var taskInfo: [Task] = []
  
     
     func getTaskInfo() {
+        // current user
         self.userInfo = results.filter{$0.fullname == volunteerName }
         
         if(userInfo.count > 0){
             self.taskInfo = taskResults.filter{$0.volunteer == userInfo[0].userId}
+//            taskInfo.forEach(<#T##body: (Task) throws -> Void##(Task) throws -> Void#>)
         }
+        
+        
         //
         //        print("taskresult \(taskResults.count)")
         //        print("taskInfo \(taskInfo)")
@@ -88,8 +93,9 @@ struct VolunteerDashboard: View {
                         
                         let _ = getTaskInfo()
                         if(taskInfo.count > 0) {
+                            
                             ForEach(taskInfo) { task in
-                                OngoingTaskCard(taskTitle: task.title!, helpseeker: "task.helpseeker", location: task.location!, time: "2:30PM")
+                                OngoingTaskCard(taskTitle: task.title!, helpseeker: "task.helpseeker", location: task.location!, time: task.time!, date: task.time!)
                             }
                         }
                         }.padding(.top, -20)
@@ -178,7 +184,9 @@ struct OngoingTaskCard: View {
     var taskTitle: String
     var helpseeker: String
     var location: String
-    var time: String
+    var time: Date?
+    var date: Date?
+    
     var body: some View {
         GeometryReader { geometry in
             VStack{
@@ -188,26 +196,28 @@ struct OngoingTaskCard: View {
                         .shadow(radius: 5)
                         .frame(width: geometry.size.width * 0.98, height: geometry.size.height * 15, alignment: .center)
                     VStack(alignment: .leading, spacing: 10){
-                        HStack(spacing: 130){
+                        HStack(spacing: 160){
                             Text(taskTitle)
                                 .font(.headline)
                                 .fontWeight(.medium)
-                            Text("Today")
+                            Text(date!.formatted(date: .numeric, time: .omitted))
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
                                 .foregroundColor(Color("Primary"))
                         }
                         HStack(spacing: 100){
                             Label(helpseeker, systemImage: "person")
-                            Label(location, systemImage: "mappin")
+//                            Label(location, systemImage: "mappin")
                         }
-                        Text("Instructions: leave at door")
+                        Text("Address: \(location)")
                             .font(.system(size: 16))
                             .fontWeight(.semibold)
                         HStack(spacing:80){
-                            
-                            Label(time, systemImage: "clock")
+                           
+                            Label(time!.formatted(date: .omitted, time: .complete), systemImage: "clock")
+                                
                                 .font(.system(size: 14))
+                                
                                 .foregroundColor(.secondary)
                             NavigationLink(destination: TaskDetailView()){
                                 Text("View Task")
