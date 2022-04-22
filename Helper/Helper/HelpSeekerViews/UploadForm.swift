@@ -53,48 +53,47 @@ struct UploadForm_Previews: PreviewProvider {
     }
 }
 
-struct LocationForm: View {
-    var body: some View{
-        NavigationLink(
-            destination: HelpSeekerMapView(),
-            label: {
-                HStack {
-                    Text("Choose on map")
-                        .font(.system(size: 16))
-                        .foregroundColor(.black)
-                        .frame(maxWidth: 200, alignment: .leading)
-                    Image(systemName: "map")
-                        .foregroundColor(.black)
-                }
-                .frame(width: 230, height: 25)
-                .padding(10)
-                .background(Color("Background"))
-                .cornerRadius(5)
-            })
-    }
-}
-
-struct CategoriesPicker: View {
-    @State private var selection = "Groceries"
-    let categories = ["Groceries", "Delivery", "Personal assistant", "Transportation", "Housework", "Others"]
-    
-    var body: some View {
-            Picker("Select category", selection: $selection) {
-                ForEach(categories, id: \.self) {
-                    Text($0)
-                        .frame(width: 110, height: 110)
-                        .background(.blue)
-                }
-            }
-            .pickerStyle(.menu)
-    }
-}
-
-
 struct FormTask: View {
     @State var description: String = ""
     @State var title: String = ""
     @State private var currentDate = Date()
+    @State private var categorySelection = "Others"
+    @State var location: String = ""
+    @State var isUpload: Bool = false
+    @State var showAlert: Bool = false
+    
+    let categories = ["Groceries", "Delivery", "Personal assistant", "Transportation", "Housework", "Others"]
+    
+    // set up environment
+    @StateObject var taskModel = TaskViewModel()
+    @Environment(\.managedObjectContext) var context
+    
+    // fetching data from core data
+    @FetchRequest(entity: Task.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Task.title, ascending: true)]) var taskResults: FetchedResults<Task>
+    
+    func uploadTask(title: String, location: String, long: Double, lat: Double, time: Date, category: String, description: String) {
+        let task = Task(context: context)
+        task.title = title.lowercased()
+        task.location = location.lowercased()
+        task.long = (Double) (long)
+        task.lat = (Double) (lat)
+        task.time = time
+        task.category = category.lowercased()
+        task.desc = description.lowercased()
+        do {
+            try context.save()
+        } catch {
+            print(error)
+        }
+    }
+    
+    func resetForm() {
+        title = ""
+        location = ""
+        currentDate = Date()
+        categorySelection = "Others"
+        description = ""
+    }
     
     var body: some View {
         ZStack{
@@ -113,7 +112,22 @@ struct FormTask: View {
                         .frame(maxWidth: 300, alignment: .leading)
                         .font(.system(size: 16))
                         .padding(.top, 10)
-                    LocationForm()
+                    NavigationLink(
+                        destination: HelpSeekerMapView(),
+                        label: {
+                            HStack {
+                                Text("Choose on map")
+                                    .font(.system(size: 16))
+                                    .foregroundColor(.black)
+                                    .frame(maxWidth: 200, alignment: .leading)
+                                Image(systemName: "map")
+                                    .foregroundColor(.black)
+                            }
+                            .frame(width: 230, height: 25)
+                            .padding(10)
+                            .background(Color("Background"))
+                            .cornerRadius(5)
+                        })
                     Text("Time")
                         .fontWeight(.medium)
                         .frame(maxWidth: 300, alignment: .leading)
@@ -126,7 +140,14 @@ struct FormTask: View {
                         .frame(maxWidth: 300, alignment: .leading)
                         .font(.system(size: 16))
                         .padding(.top, 10)
-                    CategoriesPicker()
+                    Picker("Select category", selection: $categorySelection) {
+                        ForEach(categories, id: \.self) {
+                            Text($0)
+                                .frame(width: 110, height: 110)
+                                .background(.blue)
+                        }
+                    }
+                    .pickerStyle(.menu)
                     Text("Description")
                         .fontWeight(.medium)
                         .frame(maxWidth: 300, alignment: .leading)
@@ -139,32 +160,27 @@ struct FormTask: View {
                 }
                 .frame(width: 250)
                 .padding(.top, 30)
-                HStack{
-                    Button(action: {}) {
-                        Text("ATTACHMENT")
-                            .fontWeight(.bold)
-                            .font(.system(size: 14))
-                            .frame(width: 120, height: 35)
-                            .background(Color("Primary"))
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
+                Button(action: { showAlert.toggle() }) {
+                    Text("SUBMIT")
+                        .fontWeight(.bold)
+                        .font(.system(size: 14))
+                        .frame(width: 100, height: 35)
+                        .background(Color("Primary"))
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }.alert(isPresented: $showAlert, content: {
+                    if self.isUpload {
+                        return Alert(title: Text("Submit task failed!"),  dismissButton: .default(Text("Try again!"), action: {}))
+                    } else {
+                        uploadTask(title: title, location: location, long: 0.0, lat: 0.0, time: currentDate, category: categorySelection, description: description)
+                        return Alert(title: Text("Submit task successfully!"),  dismissButton: .default(Text("Got it!"), action: {resetForm()}))
                     }
-                    Button(action: {}) {
-                        Text("SUBMIT")
-                            .fontWeight(.bold)
-                            .font(.system(size: 14))
-                            .frame(width: 100, height: 35)
-                            .background(Color("Primary"))
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }
-                }.padding(.top, 30)
-                
+                })
+                .padding(.top, 30)
             }
             
         }
         
     }
 }
-
 
