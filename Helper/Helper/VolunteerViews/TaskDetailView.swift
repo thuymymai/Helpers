@@ -9,7 +9,8 @@
 import SwiftUI
 
 struct TaskDetailView: View {
-    
+//    @Binding var userInfo: [User]  = []
+//    @Binding var taskInfo: [Task] = []
     var body: some View {
         GeometryReader {geometry in
             ZStack{

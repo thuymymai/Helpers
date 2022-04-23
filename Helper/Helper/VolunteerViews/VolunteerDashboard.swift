@@ -20,30 +20,17 @@ struct VolunteerDashboard: View {
     @State private var userInfo: [User]  = []
     @State private var taskInfo: [Task] = []
     
-    func getTaskInfo() -> [User] {
-        var taskSenders: [User] = []
-        
+    func getTaskInfo() {
         // current user
         self.userInfo = results.filter{$0.fullname == volunteerName }
         
         if(userInfo.count > 0){
             self.taskInfo = taskResults.filter{$0.volunteer == userInfo[0].userId}
         }
-        // get task sender's name
-        for task in taskInfo {
-            taskSenders.append(contentsOf:(results.filter{$0.userId == task.helpseeker}))
-//            for user in results {
-//                if (user.userId == task.helpseeker) {
-//                    taskSenders1.append(user)
-//                }
-//            }
-            
-       }
-        return taskSenders
     }
     
-    func getHelpseeker(helpseekers: [User], task: Task) -> User {
-        for user in helpseekers {
+    func getHelpseeker(task: Task) -> User {
+        for user in results {
             if (user.userId == task.helpseeker) {
                 return user
             }
@@ -107,10 +94,10 @@ struct VolunteerDashboard: View {
                         .padding(.bottom,30)
                     VStack(spacing: 30) {
                         
-                        let helpseekers = getTaskInfo()
+                        let _ = getTaskInfo()
                         if(taskInfo.count > 0) {
                             ForEach(taskInfo) { task in
-                               let helpseeker  = getHelpseeker(helpseekers: helpseekers, task: task)
+                               let helpseeker  = getHelpseeker(task: task)
                                 OngoingTaskCard(taskTitle: task.title!, helpseeker: helpseeker.fullname!, location: task.location!, time: task.time!, date: task.time!)
                             }
                         }
