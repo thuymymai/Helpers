@@ -43,13 +43,12 @@ struct VolunteerDashboard: View {
     }
     
     func getHelpseeker(helpseekers: [User], task: Task) -> User {
-        var helpseeker = User()
         for user in helpseekers {
             if (user.userId == task.helpseeker) {
-                helpseeker = user
+                return user
             }
         }
-        return helpseeker
+        return User()
     }
     
   
@@ -112,11 +111,6 @@ struct VolunteerDashboard: View {
                         if(taskInfo.count > 0) {
                             ForEach(taskInfo) { task in
                                let helpseeker  = getHelpseeker(helpseekers: helpseekers, task: task)
-                               // for user in helpseekers {
-//                                    if (user.userId == task.helpseeker) {
-//                                        helpseeker = user
-//                                    }
-                                //}
                                 OngoingTaskCard(taskTitle: task.title!, helpseeker: helpseeker.fullname!, location: task.location!, time: task.time!, date: task.time!)
                             }
                         }
