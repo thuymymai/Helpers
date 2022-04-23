@@ -18,26 +18,38 @@ struct VolunteerDashboard: View {
     
     // task related details
     @State private var userInfo: [User]  = []
-    @State private var taskSender: [User]  = []
+    @State private var taskSenders: [User]  = []
     @State private var taskInfo: [Task] = []
     
     func getTaskInfo() {
         // current user
-        var user: [User] = []
+        var taskSenders1: [User] = []
+        //var user1: User
+        
         self.userInfo = results.filter{$0.fullname == volunteerName }
         
         if(userInfo.count > 0){
             self.taskInfo = taskResults.filter{$0.volunteer == userInfo[0].userId}
         }
+
         for task in taskInfo {
-            user = results.filter{$0.userId == task.helpseeker}
-            print("test \(user[0].fullname)")
+            
+            taskSenders1.append(contentsOf:(results.filter{$0.userId == task.helpseeker})) 
+//            for user in results {
+//                if (user.userId == task.helpseeker) {
+//                    taskSenders1.append(user)
+//                }
+//            }
+            
+       }
+
+//        print("countt: \(taskSenders1.count)")
+        for sender in taskSenders1 {
+            print("sender \(sender.fullname!)")
         }
-     print("all users \(taskResults)")
-        //        print("taskresult \(taskResults.count)")
-                //print("tasks info \(taskInfo)")
-        
+     
     }
+  
     var body: some View {
         
         GeometryReader { geometry in
@@ -96,7 +108,7 @@ struct VolunteerDashboard: View {
                         let _ = getTaskInfo()
                         if(taskInfo.count > 0) {
                             ForEach(taskInfo) { task in
-                                OngoingTaskCard(taskTitle: task.title!, helpseeker: "task.helpseeker", location: task.location!, time: task.time!, date: task.time!)
+                                OngoingTaskCard(taskTitle: task.title!, helpseeker: "hi", location: task.location!, time: task.time!, date: task.time!)
                             }
                         }
                     }.padding(.top, -20)
