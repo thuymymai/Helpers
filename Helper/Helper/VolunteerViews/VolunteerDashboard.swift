@@ -18,23 +18,20 @@ struct VolunteerDashboard: View {
     
     // task related details
     @State private var userInfo: [User]  = []
-    @State private var taskSenders: [User]  = []
     @State private var taskInfo: [Task] = []
     
-    func getTaskInfo() {
-        // current user
-        var taskSenders1: [User] = []
-        //var user1: User
+    func getTaskInfo() -> [User] {
+        var taskSenders: [User] = []
         
+        // current user
         self.userInfo = results.filter{$0.fullname == volunteerName }
         
         if(userInfo.count > 0){
             self.taskInfo = taskResults.filter{$0.volunteer == userInfo[0].userId}
         }
-
+        // get task sender's name
         for task in taskInfo {
-            
-            taskSenders1.append(contentsOf:(results.filter{$0.userId == task.helpseeker})) 
+            taskSenders.append(contentsOf:(results.filter{$0.userId == task.helpseeker}))
 //            for user in results {
 //                if (user.userId == task.helpseeker) {
 //                    taskSenders1.append(user)
@@ -42,13 +39,19 @@ struct VolunteerDashboard: View {
 //            }
             
        }
-
-//        print("countt: \(taskSenders1.count)")
-        for sender in taskSenders1 {
-            print("sender \(sender.fullname!)")
-        }
-     
+        return taskSenders
     }
+    
+    func getHelpseeker(helpseekers: [User], task: Task) -> User {
+        var helpseeker = User()
+        for user in helpseekers {
+            if (user.userId == task.helpseeker) {
+                helpseeker = user
+            }
+        }
+        return helpseeker
+    }
+    
   
     var body: some View {
         
@@ -105,10 +108,16 @@ struct VolunteerDashboard: View {
                         .padding(.bottom,30)
                     VStack(spacing: 30) {
                         
-                        let _ = getTaskInfo()
+                        let helpseekers = getTaskInfo()
                         if(taskInfo.count > 0) {
                             ForEach(taskInfo) { task in
-                                OngoingTaskCard(taskTitle: task.title!, helpseeker: "hi", location: task.location!, time: task.time!, date: task.time!)
+                               let helpseeker  = getHelpseeker(helpseekers: helpseekers, task: task)
+                               // for user in helpseekers {
+//                                    if (user.userId == task.helpseeker) {
+//                                        helpseeker = user
+//                                    }
+                                //}
+                                OngoingTaskCard(taskTitle: task.title!, helpseeker: helpseeker.fullname!, location: task.location!, time: task.time!, date: task.time!)
                             }
                         }
                     }.padding(.top, -20)
@@ -216,7 +225,7 @@ struct OngoingTaskCard: View {
                         .foregroundColor(Color("Primary"))
                 }.padding(.horizontal)
                 
-                Label("helpseeker", systemImage: "person").padding(.horizontal)
+                Label("Sender: \(helpseeker)", systemImage: "person").padding(.horizontal)
                 Label("Address: \(location)", systemImage: "mappin").padding(.horizontal)
                 
                 HStack{
