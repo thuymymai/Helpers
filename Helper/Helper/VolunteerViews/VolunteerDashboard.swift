@@ -17,8 +17,8 @@ struct VolunteerDashboard: View {
     @FetchRequest(entity: Task.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Task.title, ascending: true)]) var taskResults: FetchedResults<Task>
     
     // task related details
-    @State private var userInfo: [User]  = []
-    @State private var taskInfo: [Task] = []
+    @State  var userInfo: [User]  = []
+    @State  var taskInfo: [Task] = []
     
     func getTaskInfo() {
         // current user
@@ -38,7 +38,7 @@ struct VolunteerDashboard: View {
         return User()
     }
     
-  
+    
     var body: some View {
         
         GeometryReader { geometry in
@@ -78,13 +78,13 @@ struct VolunteerDashboard: View {
                         .offset(x: -55)
                     HStack(spacing: 10) {
                         NavigationLink(destination: AvailableTasksView()) {
-                            CategoriesView(categoryName: "Grocery", numberOfTasks: "3 Tasks", ImageName: "groceries image")
+                            CategoriesView(categoryName: "Assistance", numberOfTasks: "3 Tasks", ImageName: "helping image")
                         }
                         NavigationLink(destination: AvailableTasksView()) {
-                            CategoriesView(categoryName: "Delivery", numberOfTasks: "3 Tasks", ImageName: "delivery image")
+                            CategoriesView(categoryName: "Transport", numberOfTasks: "3 Tasks", ImageName: "delivery image")
                         }
                         NavigationLink(destination: AvailableTasksView()) {
-                            CategoriesView(categoryName: "Others", numberOfTasks: "4 Tasks", ImageName: "helping image")
+                            CategoriesView(categoryName: "Others", numberOfTasks: "4 Tasks", ImageName: "groceries image")
                         }
                     } // close HSTack
                     Text("Ongoing Tasks")
@@ -97,8 +97,10 @@ struct VolunteerDashboard: View {
                         let _ = getTaskInfo()
                         if(taskInfo.count > 0) {
                             ForEach(taskInfo) { task in
-                               let helpseeker  = getHelpseeker(task: task)
-                                OngoingTaskCard(taskTitle: task.title!, helpseeker: helpseeker.fullname!, location: task.location!, time: task.time!, date: task.time!)
+                                let helpseeker  = getHelpseeker(task: task)
+                                OngoingTaskCard(taskTitle: task.title!, helpseeker: helpseeker.fullname! , location: task.location!,
+                                                time: task.time!, date: task.time!, desc: task.desc!,
+                                                need: helpseeker.need!, chronic: helpseeker.chronic!, allergies: helpseeker.allergies!)
                             }
                         }
                     }.padding(.top, -20)
@@ -180,11 +182,16 @@ struct CategoriesView: View {
 }
 
 struct OngoingTaskCard: View {
-    var taskTitle: String
-    var helpseeker: String
-    var location: String
-    var time: Date?
-    var date: Date?
+    @State var taskTitle: String
+    @State var helpseeker: String
+    @State var location: String
+    @State var time: Date?
+    @State var date: Date?
+    @State var desc: String
+    @State var need: String
+    @State var chronic: String
+    @State var allergies: String
+    
     
     var body: some View {
         
@@ -215,7 +222,9 @@ struct OngoingTaskCard: View {
                         .font(.system(size: 14))
                         .foregroundColor(.secondary)
                     Spacer()
-                    NavigationLink(destination: TaskDetailView()){
+                    NavigationLink(destination: TaskDetailView(taskTitle: $taskTitle, helpseeker: $helpseeker, location: $location,
+                                                               time: $time, desc: $desc, need: $need,
+                                                               chronic: $chronic, allergies: $allergies)){
                         Text("View Task")
                             .font(.subheadline)
                             .frame(width: 90, height: 30)
