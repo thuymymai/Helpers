@@ -9,124 +9,118 @@ import SwiftUI
 
 
 struct VolunteerDashboard: View {
-    @State private var isLogoutMenuClicked = false
-    @State private var isFirstAidClicked = false
-    @State private var isLinkActive: Bool = false
+    @Binding var volunteerName: String
     
-    @ViewBuilder
-    func chooseDestination()-> some View {
-        if (isFirstAidClicked) { FirstAid().navigationBarHidden(true)
-            
-        }else if (isLogoutMenuClicked){
-            LandingPage().navigationBarHidden(true)
-        }else {
-            VolunteerProfile().navigationBarHidden(true)
+    // fetch data from core
+    @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
+    
+    @FetchRequest(entity: Task.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Task.title, ascending: true)]) var taskResults: FetchedResults<Task>
+    
+    // task related details
+    @State  var userInfo: [User]  = []
+    @State  var taskInfo: [Task] = []
+    
+    func getTaskInfo() {
+        // current user
+        self.userInfo = results.filter{$0.fullname == volunteerName }
+        
+        if(userInfo.count > 0){
+            self.taskInfo = taskResults.filter{$0.volunteer == userInfo[0].userId}
         }
     }
+    
+    func getHelpseeker(task: Task) -> User {
+        for user in results {
+            if (user.userId == task.helpseeker) {
+                return user
+            }
+        }
+        return User()
+    }
+    
     
     var body: some View {
         
         GeometryReader { geometry in
-            NavigationView{
-                ZStack{
-                    Color("Background")
-                        .edgesIgnoringSafeArea(.all)
-                    ScrollView{
-                        VStack (alignment: .leading){
-                            TagLineView().padding(.top)
-                            SearchAndFilter()
-                            VStack(alignment: .leading, spacing: 5){
-                                Text("Available Tasks")
-                                    .font(.system(size: 24))
-                                Text("10 tasks waiting to be accepted")
-                                    .font(.system(size: 16))
-                                    .foregroundColor(Color("Primary"))
-                                    .fontWeight(.medium)
-                            }.padding(.top, 55)
-                            HStack(alignment:.center, spacing: 10) {
-                                NavigationLink(destination: AvailableTasksView()) {
-                                    CategoriesView(categoryName: "Grocery", numberOfTasks: "3 Tasks", ImageName: "groceries image")
-                                }
-                                NavigationLink(destination: AvailableTasksView()) {
-                                    CategoriesView(categoryName: "Delivery", numberOfTasks: "3 Tasks", ImageName: "delivery image")
-                                }
-                                NavigationLink(destination: AvailableTasksView()) {
-                                    CategoriesView(categoryName: "Others", numberOfTasks: "4 Tasks", ImageName: "helping image")
-                                }
-                            }
-                            
-                            Text("Ongoing Tasks")
-                                .font(.system(size: 24))
-                            OngoingTaskCard().padding(.top,-20)
-                        }.padding(.horizontal)
+            
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(spacing:20) {
+                    HStack {
                         
-                    } .padding(.horizontal)
-                }
-                .navigationBarTitle("")
-                .navigationBarTitleDisplayMode(.inline)
-                .background(
-                    NavigationLink(destination: chooseDestination(), isActive: $isLinkActive) {
-                        EmptyView()
-                    }
-                    
-                )
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Menu {
-                            Button(action: {
-                                
-                                self.isLinkActive = true
-                                self.isFirstAidClicked = true
-                            }, label: {
-                                Label(title: {Text("First Aid Manual")}, icon: {Image(systemName: "info")})
-                            })
-                            Button(action:{
-                                
-                                self.isLinkActive = true
-                                self.isLogoutMenuClicked = true
-                            }, label: {
-                                Label(title: {Text("Log Out")}, icon: {Image(systemName: "rectangle.portrait.and.arrow.right")})
-                            })
-                            
+                        Text("Hi \(volunteerName)\n")
+                            .font(.system(size: 28))
+                            .fontWeight(.semibold)
+                            .foregroundColor(Color("Primary"))
+                        + Text("Manage Your Tasks")
+                            .font(.system(size: 28))
+                            .fontWeight(.regular)
+                            .foregroundColor(Color("Primary"))
+                        Spacer()
+                        NavigationLink(destination: VolunteerProfile()
+                                       
+                        ) {
+                            Image("Avatar-1")
+                                .resizable()
+                                .padding()
+                                .frame(width: 85, height: 85)
+                                .shadow(radius: 5)
                         }
-                    label: {
-                        Label("Menu", systemImage: "line.horizontal.3")
                     }
-                    }
-                }
-            }
-        }
+                    SearchAndFilter()
+                    VStack(alignment: .leading, spacing: 5){
+                        Text("Available Tasks")
+                            .font(.system(size: 24))
+                        Text("\(taskResults.count) tasks waiting to be accepted")
+                            .font(.system(size: 16))
+                            .foregroundColor(Color("Primary"))
+                            .fontWeight(.medium)
+                    }.padding(.top,50)
+                        .offset(x: -55)
+                    HStack(spacing: 10) {
+                        NavigationLink(destination: AvailableTasksView()) {
+                            CategoriesView(categoryName: "Assistance", numberOfTasks: "3 Tasks", ImageName: "helping image")
+                        }
+                        NavigationLink(destination: AvailableTasksView()) {
+                            CategoriesView(categoryName: "Transport", numberOfTasks: "3 Tasks", ImageName: "delivery image")
+                        }
+                        NavigationLink(destination: AvailableTasksView()) {
+                            CategoriesView(categoryName: "Others", numberOfTasks: "4 Tasks", ImageName: "groceries image")
+                        }
+                    } // close HSTack
+                    Text("Ongoing Tasks")
+                        .font(.system(size: 24))
+                        .padding(.top, -10)
+                        .offset(x: -95)
+                        .padding(.bottom,30)
+                    VStack(spacing: 30) {
+                        
+                        let _ = getTaskInfo()
+                        if(taskInfo.count > 0) {
+                            ForEach(taskInfo) { task in
+                                let helpseeker  = getHelpseeker(task: task)
+                                OngoingTaskCard(taskTitle: task.title!, helpseeker: helpseeker.fullname! , location: task.location!,
+                                                time: task.time!, date: task.time!, desc: task.desc!,
+                                                need: helpseeker.need!, chronic: helpseeker.chronic!, allergies: helpseeker.allergies!)
+                            }
+                        }
+                    }.padding(.top, -20)
+                }.padding(.horizontal) // close big Vstack
+            } // close Scrollview
+        }// close geometryreader
+        .padding(.bottom, 10)
+        .background(Color("Background").edgesIgnoringSafeArea(.top))
     }
 }
+
+
 
 
 struct VolunteerDashboard_Previews: PreviewProvider {
     static var previews: some View {
-        VolunteerDashboard()
+        VolunteerDashboard(volunteerName: .constant(""))
     }
 }
 
-struct TagLineView: View {
-    var body: some View {
-        
-        HStack {
-            Text("Hi User\nManage Your Tasks")
-                .font(.system(size: 28))
-                .fontWeight(.semibold)
-                .foregroundColor(Color("Primary"))
-            Spacer()
-            NavigationLink(destination: VolunteerProfile()
-                           
-            ) {
-                Image("Avatar-1")
-                    .resizable()
-                    .padding()
-                    .frame(width: 85, height: 85)
-                    .shadow(radius: 5)
-            }
-        }
-    }
-}
 
 struct SearchAndFilter: View {
     @State private var search: String = ""
@@ -188,49 +182,58 @@ struct CategoriesView: View {
 }
 
 struct OngoingTaskCard: View {
+    @State var taskTitle: String
+    @State var helpseeker: String
+    @State var location: String
+    @State var time: Date?
+    @State var date: Date?
+    @State var desc: String
+    @State var need: String
+    @State var chronic: String
+    @State var allergies: String
+    
+    
     var body: some View {
-        GeometryReader { geometry in
+        
+        ZStack{
+            RoundedRectangle(cornerRadius: 10)
+                .fill(.white)
+                .shadow(radius: 5)
+                .frame(width: 340, height: 150)
             
-            VStack{
-                ZStack{
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(.white)
-                        .shadow(radius: 5)
-                        .frame(width: geometry.size.width * 0.98, height: geometry.size.height * 15, alignment: .center)
-                    VStack(alignment: .leading, spacing: 10){
-                        HStack(spacing: 130){
-                            Text("Grocery Shopping")
-                                .font(.headline)
-                                .fontWeight(.medium)
-                            Text("Today")
-                                .font(.subheadline)
-                                .fontWeight(.semibold)
-                                .foregroundColor(Color("Primary"))
-                        }
-                        HStack(spacing: 100){
-                            Label("Mr. John Doe", systemImage: "person")
-                            Label("Helsinki", systemImage: "mappin")
-                        }
-                        Text("Instructions: leave at door")
-                            .font(.system(size: 16))
-                            .fontWeight(.semibold)
-                        HStack(spacing:80){
-                            
-                            Label("2:30PM - 3:00PM", systemImage: "clock")
-                                .font(.system(size: 14))
-                                .foregroundColor(.secondary)
-                            NavigationLink(destination: TaskDetailView()){
-                                Text("View Task")
-                                    .font(.subheadline)
-                                    .frame(width: geometry.size.width * 0.3, height: geometry.size.height * 3)
-                                    .background(Color("Primary"))
-                                    .foregroundColor(.white)
-                                    .cornerRadius(6)
-                            }
-                        }
+            VStack(alignment:.leading,spacing:10){
+                HStack{
+                    Text(taskTitle)
+                        .font(.headline)
+                        .fontWeight(.semibold)
+                    Spacer()
+                    Text(time!.formatted(date: .numeric, time: .omitted))
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(Color("Primary"))
+                }.padding(.horizontal)
+                
+                Label("Sender: \(helpseeker)", systemImage: "person").padding(.horizontal)
+                Label("Address: \(location)", systemImage: "mappin").padding(.horizontal)
+                
+                HStack{
+                    
+                    Label(time!.formatted(date: .omitted, time: .complete), systemImage: "clock")
+                        .font(.system(size: 14))
+                        .foregroundColor(.secondary)
+                    Spacer()
+                    NavigationLink(destination: TaskDetailView(taskTitle: $taskTitle, helpseeker: $helpseeker, location: $location,
+                                                               time: $time, desc: $desc, need: $need,
+                                                               chronic: $chronic, allergies: $allergies)){
+                        Text("View Task")
+                            .font(.subheadline)
+                            .frame(width: 90, height: 30)
+                            .background(Color("Primary"))
+                            .foregroundColor(.white)
+                            .cornerRadius(6)
                     }
-                }
-            }.padding(.vertical, 30)
+                }.padding(.horizontal)
+            }
         }
     }
 }

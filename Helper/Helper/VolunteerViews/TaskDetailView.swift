@@ -10,6 +10,16 @@ import SwiftUI
 
 struct TaskDetailView: View {
     
+    // passing helpseeker data  
+    @Binding var taskTitle: String
+    @Binding var helpseeker: String
+    @Binding var location: String
+    @Binding var time: Date?
+    @Binding var desc: String
+    @Binding var need: String
+    @Binding var chronic: String
+    @Binding var allergies: String
+    
     var body: some View {
         GeometryReader {geometry in
             ZStack{
@@ -19,24 +29,25 @@ struct TaskDetailView: View {
                     VStack{
                         ZStack {
                             VStack{
-                                ContactInfo()
+                                ContactInfo(helpseeker: helpseeker)
                                 Divider()
-                                DisabilityInformation()
-                            }.frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.5)
+                                DisabilityInformation(need: need, chronic: chronic, allergies: allergies)
+                            }.frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.45)
                                 .background(.white)
                                 .cornerRadius(10)
                                 .shadow(radius: 5)
+                                .padding(.top,30)
                         }
-                        VStack(alignment: .leading, spacing: 8){
-                            TaskTitle()
-                            Address()
-                            TimeNeeded()
-                            TaskDescription()
-                            Attachment()
+                        VStack(alignment: .leading, spacing: 10){
+                            TaskTitle(taskTitle: taskTitle)
+                            Address(location: location)
+                            TimeNeeded(time:time)
+                            TaskDescription(desc: desc)
                         }.padding(.horizontal)
+                            .offset(y:20)
                     }
                 }
-                    
+                
             }
         }
         
@@ -45,11 +56,17 @@ struct TaskDetailView: View {
 
 struct TaskDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskDetailView()
+        TaskDetailView(taskTitle: .constant(""), helpseeker: .constant(""), location: .constant(""),
+                       time: .constant(Date()), desc: .constant(""), need: .constant(""),
+                       chronic: .constant(""), allergies: .constant(""))
     }
 }
 
 struct DisabilityInformation: View {
+    var need: String
+    var chronic: String
+    var allergies: String
+    
     var body: some View {
         VStack(spacing:10){
             HStack(spacing:-10) {
@@ -57,9 +74,9 @@ struct DisabilityInformation: View {
                     .font(.body)
                     .bold()
                     .foregroundColor(.black)
+                    .padding(.leading, 10)
                 
-                
-                Text("wheelchair")
+                Text(need.isEmpty ? "wheelchair" : need)
                     .font(.body)
                     .foregroundColor(.black)
                     .padding(.leading, 20)
@@ -67,11 +84,12 @@ struct DisabilityInformation: View {
             }
             
             HStack(spacing:-10) {
-                Text("Chornic disease :")
+                Text("Chronic disease :")
                     .font(.body)
                     .bold()
                     .foregroundColor(.black)
-                Text("heart disease")
+                    .padding(.leading, 10)
+                Text(chronic.isEmpty ? "None" : chronic)
                     .font(.body)
                     .foregroundColor(.black)
                     .padding(.leading, 20)
@@ -81,8 +99,9 @@ struct DisabilityInformation: View {
                 Text("Allergies :")
                     .font(.body)
                     .bold()
+                    .padding(.leading, 10)
                     .foregroundColor(.black)
-                Text("Pollen, animal fur")
+                Text(allergies.isEmpty ? "None" : allergies)
                     .font(.body)
                     .foregroundColor(.black)
                     .padding(.leading, 20)
@@ -96,15 +115,16 @@ struct DisabilityInformation: View {
 }
 
 struct ContactInfo: View {
+    
+    var helpseeker: String
     var body: some View {
         VStack(spacing:0) {
             Image("avatar")
                 .resizable()
-                .frame(width: 70, height: 70)
+                .frame(width: 80, height: 80)
                 .cornerRadius(50)
-                .padding(.top, 20)
             
-            Text("Help seeker name")
+            Text(helpseeker)
                 .bold()
                 .padding(.all, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
             HStack(spacing:30) {
@@ -129,59 +149,51 @@ struct ContactInfo: View {
 }
 
 struct TaskTitle: View {
+    var taskTitle: String
     var body: some View {
         Text("Title")
             .bold()
             .font(.title2)
             .foregroundColor(Color("Primary"))
-        Text("Grocery Shopping")
+        Text(taskTitle)
         
         Divider()
     }
 }
 
 struct Address: View {
+    var location: String
     var body: some View {
         Text("Address")
             .bold()
             .font(.title2)
             .foregroundColor(Color("Primary"))
-        Text("Runeberginkatu 55, 00260 Helsinki")
+        Text(location)
         Divider()
     }
 }
 
 struct TimeNeeded: View {
+    var time: Date?
     var body: some View {
-        Text("Time Needed")
+        Text("Time")
             .bold()
             .font(.title2)
             .foregroundColor(Color("Primary"))
-        Text("Runeberginkatu 55, 00260 Helsinki")
+        Text("time")
         Divider()
     }
 }
 
 struct TaskDescription: View {
+    var desc: String
     var body: some View {
         Text("Description")
             .bold()
             .font(.title2)
             .foregroundColor(Color("Primary"))
-        Text("I need help picking up some items at the store while my personal assistant is on sick leave.\nLeave at front door. Entrance code B1234.")
-        Divider()
+        Text(desc)
     }
 }
 
-struct Attachment: View {
-    var body: some View {
-        Text("Attached file")
-            .bold()
-            .font(.title2)
-            .foregroundColor(Color("Primary"))
-        Label("1 attached file", systemImage: "paperclip")
-        Text("See image or file sent by help seeker")
-            .bold()
-            .foregroundColor(Color("Primary"))
-    }
-}
+

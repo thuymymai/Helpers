@@ -10,22 +10,19 @@ import SwiftUI
 struct AvailableTasksView: View {
     
     var body: some View {
-        ZStack{
-            Color("White")
-                .edgesIgnoringSafeArea(.top)
-            VStack {
+        GeometryReader{geometry in
+            ZStack{
+                Color("Background")
+                    .edgesIgnoringSafeArea(.top)
                 TaskCard()
-                
-            }
-            .cornerRadius(10)
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color(.sRGB, red: 150/255, green: 150/255, blue: 150/255, opacity: 0.3), lineWidth: 1)
+                    .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.25)
+                    .background(.white)
+                    .cornerRadius(10)
                     .shadow(radius: 5)
-            )
-            .padding([.top, .horizontal])
+                    .padding(.horizontal)
+            }
+            
         }
-     
     }
 }
 
@@ -38,39 +35,41 @@ struct AvailableTasksView_Previews: PreviewProvider {
 
 struct TaskCard: View {
     @State var showAlert: Bool = false
-
+    
     var body: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 20) {
-                
-                HStack {
-                    Text("Dog Walking")
-                        .font(.headline)
-                        .foregroundColor(.black)
-                        .multilineTextAlignment(.leading)
-                }
-                Text("John Doe")
-                    .font(.subheadline)
-                    .fontWeight(.regular)
-                
-                HStack {
-                    Label("Time", systemImage: "clock")
-                        .foregroundColor(.secondary)
-                    Text("|")
-                        .foregroundColor(.secondary)
-                    Label("Location", systemImage: "mappin")
-                        .foregroundColor(.secondary)
-                }
-                Label("Disability: wheelchair", systemImage: "figure.roll")
-                    .foregroundColor(.primary)
-            }
-            .layoutPriority(100)
-            
-            VStack(alignment: .center) {
+        
+        VStack{
+            HStack{
+                Text("Dog Walking")
+                    .font(.headline)
+                    .foregroundColor(.black)
+                    .multilineTextAlignment(.leading)
+                Spacer()
                 Text("Time")
                     .font(.headline)
                     .foregroundColor(Color("Primary"))
                     .fontWeight(.semibold)
+            }.padding(.horizontal,15)
+            HStack {
+                VStack(alignment: .leading, spacing: 20) {
+                    
+                    Text("John Doe")
+                        .font(.subheadline)
+                        .fontWeight(.regular)
+                    
+                    HStack {
+                        Label("Time", systemImage: "clock")
+                            .foregroundColor(.secondary)
+                        Text("|")
+                            .foregroundColor(.secondary)
+                        Label("Location", systemImage: "mappin")
+                            .foregroundColor(.secondary)
+                    }
+                    Label("Disability: wheelchair", systemImage: "figure.roll")
+                        .foregroundColor(.primary)
+                }
+                .layoutPriority(100)
+                Spacer()
                 Button(action: {
                     showAlert.toggle()
                 })
@@ -89,8 +88,8 @@ struct TaskCard: View {
                     }), secondaryButton: .cancel())
                 })
             }
+            .padding(.horizontal)
         }
-        .padding() 
     }
 }
 
