@@ -35,7 +35,7 @@ struct AvailableTasksView_Previews: PreviewProvider {
 
 struct TaskCard: View {
     @State var showAlert: Bool = false
-    
+   
     var body: some View {
         
         VStack{

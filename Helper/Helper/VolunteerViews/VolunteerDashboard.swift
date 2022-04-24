@@ -19,6 +19,9 @@ struct VolunteerDashboard: View {
     // task related details
     @State  var userInfo: [User]  = []
     @State  var taskInfo: [Task] = []
+//    @State  var assistance : [Task] = []
+//    @State var transport: [Task] = []
+//    @State var others : [Task] = []
     
     func getTaskInfo() {
         // current user
@@ -27,6 +30,10 @@ struct VolunteerDashboard: View {
         if(userInfo.count > 0){
             self.taskInfo = taskResults.filter{$0.volunteer == userInfo[0].userId}
         }
+        
+        
+
+        print("taskResults \(taskResults)")
     }
     
     func getHelpseeker(task: Task) -> User {
@@ -38,7 +45,21 @@ struct VolunteerDashboard: View {
         return User()
     }
     
-    
+    func sortCategory(category: String) -> [Task] {
+        var taskSorted: [Task] = []
+        if (category == "Assistance"){
+            taskSorted.append(contentsOf: taskResults.filter{$0.category == "Personal assistant"})
+            taskSorted.append(contentsOf: taskResults.filter{$0.category == "Housework"})
+        }else if (category == "Transport"){
+            taskSorted.append(contentsOf: taskResults.filter{$0.category == "Transportation"})
+            taskSorted.append(contentsOf: taskResults.filter{$0.category == "Delivery"})
+        }else {
+            taskSorted  = taskResults.filter{$0.category != "Personal assistant" && $0.category != "Transportation"
+                && $0.category != "Delivery" && $0.category != "Housework"
+            }
+        }
+        return taskSorted
+    }
     var body: some View {
         
         GeometryReader { geometry in
@@ -77,15 +98,19 @@ struct VolunteerDashboard: View {
                     }.padding(.top,50)
                         .offset(x: -55)
                     HStack(spacing: 10) {
-                        NavigationLink(destination: AvailableTasksView()) {
-                            CategoriesView(categoryName: "Assistance", numberOfTasks: "3 Tasks", ImageName: "helping image")
+                        
+                        let assitance = sortCategory(category: "Assistance")
+                        let transport = sortCategory(category: "Transport")
+                        let others = sortCategory(category: "Others")
+                        NavigationLink(destination: AvailableTasksView(assistance: assitance)) {
+                            CategoriesView(categoryName: "Assistance", numberOfTasks: "\(assitance.count)tasks", ImageName: "helping image")
                         }
-                        NavigationLink(destination: AvailableTasksView()) {
-                            CategoriesView(categoryName: "Transport", numberOfTasks: "3 Tasks", ImageName: "delivery image")
-                        }
-                        NavigationLink(destination: AvailableTasksView()) {
-                            CategoriesView(categoryName: "Others", numberOfTasks: "4 Tasks", ImageName: "groceries image")
-                        }
+//                        NavigationLink(destination: AvailableTasksView()) {
+//                            CategoriesView(categoryName: "Transport", numberOfTasks: "\(transport.count) tasks", ImageName: "delivery image")
+//                        }
+//                        NavigationLink(destination: AvailableTasksView()) {
+//                            CategoriesView(categoryName: "Others", numberOfTasks: "\(others.count)tasks", ImageName: "groceries image")
+//                        }
                     } // close HSTack
                     Text("Ongoing Tasks")
                         .font(.system(size: 24))
@@ -93,7 +118,7 @@ struct VolunteerDashboard: View {
                         .offset(x: -95)
                         .padding(.bottom,30)
                     VStack(spacing: 30) {
-                        
+                       
                         let _ = getTaskInfo()
                         if(taskInfo.count > 0) {
                             ForEach(taskInfo) { task in
@@ -153,6 +178,7 @@ struct SearchAndFilter: View {
 }
 
 struct CategoriesView: View {
+    
     var categoryName: String
     var numberOfTasks: String
     var ImageName: String
