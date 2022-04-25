@@ -180,7 +180,7 @@ struct TimeNeeded: View {
             .bold()
             .font(.title2)
             .foregroundColor(Color("Primary"))
-        Text("time")
+        Text(time!.formatted())
         Divider()
     }
 }

@@ -19,9 +19,9 @@ struct VolunteerDashboard: View {
     // task related details
     @State  var userInfo: [User]  = []
     @State  var taskInfo: [Task] = []
-    //    @State  var assistance : [Task] = []
-    //    @State var transport: [Task] = []
-    //    @State var others : [Task] = []
+    @State var assistance: [Task] = []
+    @State var transport: [Task] = []
+    @State var others: [Task] = []
     
     func getTaskInfo() {
         // current user
@@ -41,13 +41,13 @@ struct VolunteerDashboard: View {
         return User()
     }
     
-    func sortCategory(category: String) -> [Task] {
+    func sortCategory(category: String) {
         if (category == "Assistance"){
-            return taskResults.filter{$0.category == "Personal assistant" || $0.category == "Housework"}
+            self.assistance = taskResults.filter{$0.category == "Personal assistant" || $0.category == "Housework"}
         }else if (category == "Transport"){
-            return taskResults.filter{$0.category == "Transportation" || $0.category == "Delivery" }
+            self.transport = taskResults.filter{$0.category == "Transportation" || $0.category == "Delivery" }
         }else {
-            return taskResults.filter{$0.category != "Personal assistant" && $0.category != "Transportation"
+            self.others = taskResults.filter{$0.category != "Personal assistant" && $0.category != "Transportation"
                 && $0.category != "Delivery" && $0.category != "Housework"
             }
         }
@@ -91,17 +91,17 @@ struct VolunteerDashboard: View {
                         .offset(x: -55)
                     HStack(spacing: 10) {
                         
-                        let assitance = sortCategory(category: "Assistance")
-                        let transport = sortCategory(category: "Transport")
-                        let others = sortCategory(category: "Others")
-                        NavigationLink(destination: AvailableTasksView()) {
-                            CategoriesView(categoryName: "Assistance", numberOfTasks: "\(assitance.count)tasks", ImageName: "helping image")
+                        let _ = sortCategory(category: "Assistance")
+                        let _ = sortCategory(category: "Transport")
+                        let _ = sortCategory(category: "Others")
+                        NavigationLink(destination: AssistanceTasksView(assistance: $assistance)) {
+                            CategoriesView(categoryName: "Assistance", numberOfTasks: "\(assistance.count) Tasks", ImageName: "helping image")
                         }
-                        NavigationLink(destination: AvailableTasksView()) {
-                            CategoriesView(categoryName: "Transport", numberOfTasks: "\(transport.count) tasks", ImageName: "delivery image")
+                        NavigationLink(destination: TransportTasksView(transport: $transport)) {
+                            CategoriesView(categoryName: "Transport", numberOfTasks: "\(transport.count) Tasks", ImageName: "delivery image")
                         }
-                        NavigationLink(destination: AvailableTasksView()) {
-                            CategoriesView(categoryName: "Others", numberOfTasks: "\(others.count)tasks", ImageName: "groceries image")
+                        NavigationLink(destination: OthersTasksView(others: $others)) {
+                            CategoriesView(categoryName: "Others", numberOfTasks: "\(others.count) Tasks", ImageName: "groceries image")
                         }
                     } // close HSTack
                     Text("Ongoing Tasks")

@@ -10,7 +10,7 @@ import SwiftUI
 enum Tabs: String {
     case Dashboard
     case Location
-    case Map
+    case Tasks
     case Profile
 }
 
@@ -49,12 +49,12 @@ struct VolunteersNavBar: View {
                         Text("Location")
                     }
                     .tag(Tabs.Location)
-                AvailableTasksView()
+                AllTasksView()
                     .tabItem(){
                         Image(systemName: "list.bullet.rectangle.portrait")
                         Text("Available Tasks")
                     }
-                    .tag(Tabs.Map)
+                    .tag(Tabs.Tasks)
                 VolunteerProfile()
                     .tabItem(){
                         Image(systemName: "person")

@@ -33,7 +33,7 @@ struct VolunteerProfile: View {
                             
                             SettingsView(name: "Edit Profile")
                             SettingsView(name:"Change Passwords")
-                            NavigationLink(destination: AvailableTasksView()) {
+                            NavigationLink(destination: LandingPage()) {
                                 SettingsView(name:"Task History")
                             }
                         }.font(.system(size: 16))
