@@ -12,10 +12,11 @@ struct VolunteerDashboard: View {
     @State private var isLogoutMenuClicked = false
     @State private var isFirstAidClicked = false
     @State private var isLinkActive: Bool = false
+    @State var id: Int = 0
     
     @ViewBuilder
     func chooseDestination()-> some View {
-        if (isFirstAidClicked) { FirstAid().navigationBarHidden(true)
+        if (isFirstAidClicked) { Profile().navigationBarHidden(true)
             
         }else if (isLogoutMenuClicked){
             LandingPage().navigationBarHidden(true)

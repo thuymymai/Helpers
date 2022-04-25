@@ -9,7 +9,7 @@ import SwiftUI
 
 struct UploadForm: View {
     var body: some View {
-        NavigationView{
+//        NavigationView{
             ZStack {
                 Color("Background").edgesIgnoringSafeArea(.top)
                 VStack{
@@ -43,7 +43,7 @@ struct UploadForm: View {
             .navigationBarTitle("")
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
-        }
+//        }
     }
 }
 

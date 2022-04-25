@@ -136,6 +136,7 @@ struct Form: View {
         let userInfo = results.filter{$0.email?.lowercased() == email.lowercased()}
         
         if (userInfo.count > 0)  {
+            let _ = print("type of user login \(userInfo[0].type)")
             if  ( userInfo[0].type == "v") {
                 VolunteersNavBar().navigationBarHidden(true)
             } else if (userInfo[0].type == "h") {
