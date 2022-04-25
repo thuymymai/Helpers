@@ -28,6 +28,18 @@ struct AllTasksView: View {
                     
                     VStack(spacing: 30){
                         ForEach(taskResults){task in
+//                            if(task.volunteer != 0){
+//                             Text("All tasks taken! Check back later")
+//                            } else {
+//                                let _ = print("all tasks \(taskResults)")
+//                                let helpseeker = getHelpseeker(task: task)
+//                                TaskCard(title: task.title!, helpseeker: helpseeker.fullname!, location: task.location!, time: task.time!, need: helpseeker.need!)
+//                                    .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.25)
+//                                    .background(.white)
+//                                    .cornerRadius(10)
+//                                    .shadow(radius: 5)
+//                                    .padding(.horizontal)
+//                            }
                             let helpseeker = getHelpseeker(task: task)
                             TaskCard(title: task.title!, helpseeker: helpseeker.fullname!, location: task.location!, time: task.time!, need: helpseeker.need!)
                                 .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.25)

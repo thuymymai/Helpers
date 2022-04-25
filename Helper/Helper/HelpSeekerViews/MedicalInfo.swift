@@ -28,7 +28,7 @@ struct MedicalInfo: View {
                             .multilineTextAlignment(.center)
                             .font(.system(size: 20))
                             .padding(.top, 50)
-                    }
+                    }.offset(y:-60)
                     Spacer()
                     Text("By signup and login, I confirm I am at least  17 years old, and I agree to and accept  Helpers Terms & Privacy Policy")
                         .frame(maxWidth: 280)
@@ -42,7 +42,7 @@ struct MedicalInfo: View {
                         .frame(width: 300, height: 500)
                         .shadow(radius: 5)
                     FormMedical(fullname: $fullname, email: $email, phone: $phone, password: $password)
-                }
+                }.offset(y:-30)
             }
             .navigationBarTitle("")
             .navigationBarHidden(true)

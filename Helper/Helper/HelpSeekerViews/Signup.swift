@@ -21,15 +21,14 @@ struct Signup: View {
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                         .padding(.top, 50)
-                }
+                }.offset(y:-60)
                 Spacer()
                 ZStack{
                     RoundedRectangle(cornerRadius: 10)
                         .fill(.white)
                         .frame(width: 300, height: 550)
                         .shadow(radius: 5)
-                        .padding(.top, 100)
-                    FormView()
+                    FormView().offset(y:-50)
                 }.padding(.top, 50)
             }
             .navigationBarTitle("")
@@ -120,28 +119,28 @@ struct FormView: View {
             NavigationLink(
                 destination: MedicalInfo(fullname: $fullname, email: $email, phone: $phone, password: $password).navigationBarHidden(true), isActive: $isLinkActive) {EmptyView()}
             Button(action: {
-                let emails = results.map{$0.email}
-                let userExists = emails.contains(email.lowercased())
-                self.signupFailed = false
-                if (userExists){
-                    self.signupFailed.toggle()
-                }
-                self.emptyField = false
-                if(fullname == "" || email == "" || phone == ""  || password == "" || confirm == "") {
-                    self.emptyField.toggle()
-                }
-                self.emailCheck = false
-                if(email.isValidEmail == false) {
-                    self.emailCheck.toggle()
-                }
-                self.phoneCheck = false
-                if(phone.isNumber == false) {
-                    self.phoneCheck.toggle()
-                }
-                self.passwordFailed = false
-                if(confirm != password){
-                    self.passwordFailed.toggle()
-                }
+//                let emails = results.map{$0.email}
+//                let userExists = emails.contains(email.lowercased())
+//                self.signupFailed = false
+//                if (userExists){
+//                    self.signupFailed.toggle()
+//                }
+//                self.emptyField = false
+//                if(fullname == "" || email == "" || phone == ""  || password == "" || confirm == "") {
+//                    self.emptyField.toggle()
+//                }
+//                self.emailCheck = false
+//                if(email.isValidEmail == false) {
+//                    self.emailCheck.toggle()
+//                }
+//                self.phoneCheck = false
+//                if(phone.isNumber == false) {
+//                    self.phoneCheck.toggle()
+//                }
+//                self.passwordFailed = false
+//                if(confirm != password){
+//                    self.passwordFailed.toggle()
+//                }
                 self.showAlert.toggle()
             }) {
                 Text("NEXT")
@@ -159,20 +158,20 @@ struct FormView: View {
             .frame(alignment: .trailing)
             .alert(isPresented: $showAlert, content: {
                 // alert when email taken
-                if self.signupFailed {
-                    return Alert(title: Text("Sign up failed"), message: Text("Email already taken!"), dismissButton: .default(Text("Try again")))
-                    //alert when password not match
-                } else if self.emptyField {
-                    return Alert(title: Text("Sign up failed"), message: Text("All fields are required!"), dismissButton: .default(Text("Try again")))
-                } else if self.emailCheck {
-                    return Alert(title: Text("Sign up failed"), message: Text("Please enter valid email!"), dismissButton: .default(Text("Try again")))
-                } else if self.phoneCheck {
-                    return Alert(title: Text("Sign up failed"), message: Text("Phone must be number!"), dismissButton: .default(Text("Try again")))
-                } else if self.passwordFailed {
-                    return Alert(title: Text("Sign up failed"), message: Text("Passwords do not match!"), dismissButton: .default(Text("Try again")))
-                } else {
+//                if self.signupFailed {
+//                    return Alert(title: Text("Sign up failed"), message: Text("Email already taken!"), dismissButton: .default(Text("Try again")))
+//                    //alert when password not match
+//                } else if self.emptyField {
+//                    return Alert(title: Text("Sign up failed"), message: Text("All fields are required!"), dismissButton: .default(Text("Try again")))
+//                } else if self.emailCheck {
+//                    return Alert(title: Text("Sign up failed"), message: Text("Please enter valid email!"), dismissButton: .default(Text("Try again")))
+//                } else if self.phoneCheck {
+//                    return Alert(title: Text("Sign up failed"), message: Text("Phone must be number!"), dismissButton: .default(Text("Try again")))
+//                } else if self.passwordFailed {
+//                    return Alert(title: Text("Sign up failed"), message: Text("Passwords do not match!"), dismissButton: .default(Text("Try again")))
+//                } else {
                     return  Alert(title: Text("Success!"), message: Text("You have set up your basic information!"), dismissButton: .default(Text("OK"), action: {self.isLinkActive = true}))
-                }
+                //}
             })
         }
     }
