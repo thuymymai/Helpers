@@ -177,7 +177,7 @@ struct AvailabilityForm: View {
                 
                 
             }
-            NavigationLink(destination: VolunteersNavBar().navigationBarBackButtonHidden(true), isActive: self.$toDashboard) { EmptyView() }
+            NavigationLink(destination: VolunteersNavBar(volunteerName: $fullname).navigationBarBackButtonHidden(true), isActive: self.$toDashboard) { EmptyView() }
             Button(action: {
                 showAlert.toggle()
             }) {
