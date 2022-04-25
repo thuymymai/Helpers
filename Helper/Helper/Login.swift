@@ -8,6 +8,8 @@
 
 import SwiftUI
 import CoreData
+import CoreLocationUI
+import MapKit
 
 struct Login: View {
     var body: some View {
@@ -67,9 +69,11 @@ struct Form: View {
     @StateObject var userModel = UserViewModel()
     @Environment(\.managedObjectContext) var context
     
+    private let shared = ContentView.shared
+    
     // fetching data from core data
     @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
-       
+    
     var body: some View {
         ZStack{
             VStack {
@@ -136,7 +140,29 @@ struct Form: View {
                         }), secondaryButton: .default(Text("Try again")))
                         // when log in successfully
                     } else {
-                        return  Alert(title: Text("Welcome"), message: Text("You have now logged in"), dismissButton: .default(Text("OK"), action: {self.isLinkActive = true}))
+                        // get current location
+//                        let _ = DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        let sharedLocation = shared.locationManager
+                            let _ = print("address is \(sharedLocation.address)")
+                            let _ = print("lat is \(sharedLocation.lat)")
+                            let _ = print("long is \(sharedLocation.long)")
+                            
+                            // update location of current user
+                            if (sharedLocation.address != "") {
+                                let _ = print("start updating core data")
+                                if let index = results.firstIndex(where: {$0.email == userInfo[0].email}) {
+                                    results[index].location = sharedLocation.address
+                                    results[index].lat = sharedLocation.lat
+                                    results[index].long = sharedLocation.long
+                                }
+                                do {
+                                    try context.save()
+                                } catch {
+                                    print(error)
+                                }
+                            }
+//                        }
+                        return Alert(title: Text("Welcome"), message: Text("You have now logged in"), dismissButton: .default(Text("OK"), action: {self.isLinkActive = true}))
                     }
                 })
         }

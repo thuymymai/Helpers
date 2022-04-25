@@ -30,6 +30,7 @@
 		20DCAE1327FA2E9F00CBD253 /* VolunteerDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DCAE1227FA2E9F00CBD253 /* VolunteerDashboard.swift */; };
 		20EA35A127FC91FE00E1995B /* VolunteerProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EA35A027FC91FE00E1995B /* VolunteerProfile.swift */; };
 		20F5572627FF643A00B0B638 /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F5572527FF643A00B0B638 /* TaskDetailView.swift */; };
+		66C16AE1281608B7006E504D /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C16AE0281608B7006E504D /* LocationManager.swift */; };
 		66E4DA2F27F65FD600538B74 /* HelperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66E4DA2E27F65FD600538B74 /* HelperApp.swift */; };
 		66E4DA3327F65FD700538B74 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66E4DA3227F65FD700538B74 /* Assets.xcassets */; };
 		66E4DA3627F65FD700538B74 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66E4DA3527F65FD700538B74 /* Preview Assets.xcassets */; };
@@ -90,6 +91,8 @@
 		20DCAE1227FA2E9F00CBD253 /* VolunteerDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerDashboard.swift; sourceTree = "<group>"; };
 		20EA35A027FC91FE00E1995B /* VolunteerProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerProfile.swift; sourceTree = "<group>"; };
 		20F5572527FF643A00B0B638 /* TaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
+		66C16AE0281608B7006E504D /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		66C16AE228161B8C006E504D /* Location_Kirkkonummi.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Location_Kirkkonummi.gpx; sourceTree = "<group>"; };
 		66E4DA2B27F65FD600538B74 /* Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Helper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66E4DA2E27F65FD600538B74 /* HelperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperApp.swift; sourceTree = "<group>"; };
 		66E4DA3227F65FD700538B74 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -162,9 +165,18 @@
 			path = HelpSeekerViews;
 			sourceTree = "<group>";
 		};
+		66C16ADF281608A2006E504D /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				66C16AE0281608B7006E504D /* LocationManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		66E4DA2227F65FD600538B74 = {
 			isa = PBXGroup;
 			children = (
+				66C16AE228161B8C006E504D /* Location_Kirkkonummi.gpx */,
 				66E4DA2D27F65FD600538B74 /* Helper */,
 				66E4DA3E27F65FD700538B74 /* HelperTests */,
 				66E4DA4827F65FD800538B74 /* HelperUITests */,
@@ -185,6 +197,7 @@
 		66E4DA2D27F65FD600538B74 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				66C16ADF281608A2006E504D /* Manager */,
 				66E89E0C280CAB7000A82085 /* Data */,
 				20DCAE1127FA1C0600CBD253 /* Info.plist */,
 				66E4DA2E27F65FD600538B74 /* HelperApp.swift */,
@@ -385,6 +398,7 @@
 			files = (
 				11B24F13280B1BE50029786D /* TaskList.swift in Sources */,
 				1112DA7C2810184300E0D6F2 /* TaskViewModel.swift in Sources */,
+				66C16AE1281608B7006E504D /* LocationManager.swift in Sources */,
 				66E89E15280CABF200A82085 /* UserData.xcdatamodeld in Sources */,
 				66E89E1F280CAD1B00A82085 /* UserViewModel.swift in Sources */,
 				20F5572627FF643A00B0B638 /* TaskDetailView.swift in Sources */,
