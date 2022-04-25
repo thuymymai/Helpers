@@ -18,7 +18,7 @@ struct Profile: View {
                     ZStack{
                         Image("BG Mask").edgesIgnoringSafeArea(.all)
                         VStack{
-                            Image("Avatar-1")
+                            Image("avatar")
                                 .resizable()
                                 .frame(width: 80, height: 80)
                                 .shadow(color: .black, radius: 3)

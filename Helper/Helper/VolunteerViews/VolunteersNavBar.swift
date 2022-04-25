@@ -10,7 +10,7 @@ import SwiftUI
 enum Tabs: String {
     case Dashboard
     case Location
-    case Map
+    case Tasks
     case Profile
 }
 
@@ -26,12 +26,10 @@ struct VolunteersNavBar: View {
     
     @ViewBuilder
     func chooseDestination()-> some View {
-        if (isFirstAidClicked) {
-            FirstAid().offset(y:-60)
-        }else if (isLogoutMenuClicked){
+      if (isLogoutMenuClicked){
             LandingPage().navigationBarHidden(true)
         }else {
-            VolunteerProfile().navigationBarHidden(true)
+            EmptyView()
         }
     }
     var body: some View {
@@ -49,13 +47,14 @@ struct VolunteersNavBar: View {
                         Text("Location")
                     }
                     .tag(Tabs.Location)
-                AvailableTasksView()
+//                EditProfileView(volunteerName: $volunteerName)
+                AllTasksView()
                     .tabItem(){
                         Image(systemName: "list.bullet.rectangle.portrait")
                         Text("Available Tasks")
                     }
-                    .tag(Tabs.Map)
-                VolunteerProfile()
+                    .tag(Tabs.Tasks)
+                VolunteerProfile(volunteerName: $volunteerName)
                     .tabItem(){
                         Image(systemName: "person")
                         Text("Profile")
@@ -89,8 +88,7 @@ struct VolunteersNavBar: View {
                 label: {
                     Image("menu").resizable().frame(width:30, height:30).foregroundColor(.black).padding()
                 }
-                }
-                
+                }           
             }// close toolbar
         }.navigationBarHidden(true)
     }
