@@ -9,9 +9,10 @@ import SwiftUI
 
 struct UploadForm: View {
     var body: some View {
-//        NavigationView{
-            ZStack {
+
+        ZStack {
                 Color("Background").edgesIgnoringSafeArea(.top)
+        
                 VStack{
                     ZStack(alignment: .top) {
                         Image("BG Mask").edgesIgnoringSafeArea(.all)
@@ -26,7 +27,7 @@ struct UploadForm: View {
                                 .fontWeight(.medium)
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.center)
-                        }.padding(.top, 30)
+                        }.padding(.top, -20)
                     }
                     Spacer()
                 }
@@ -37,13 +38,11 @@ struct UploadForm: View {
                         .shadow(radius: 5)
                         .padding(.top, 50)
                     FormTask()
-                }.padding(.top, 30)
+                }
+                .padding(.bottom,10)
                 
-            }
-            .navigationBarTitle("")
-            .navigationBarHidden(true)
-            .navigationBarBackButtonHidden(true)
-//        }
+            }.offset(y:-10)
+
     }
 }
 

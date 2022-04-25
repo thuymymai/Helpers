@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FrontScreen: View {
     var body: some View {
-        NavigationView {
+//        NavigationView {
             ZStack(alignment: .top){
                 Color("White")
                     .edgesIgnoringSafeArea(.top)
@@ -51,11 +51,11 @@ struct FrontScreen: View {
                         .font(.system(size: 20))
                     FirstAidManual()
                 }
-            }
-            .navigationBarTitle("")
-            .navigationBarHidden(true)
-            .navigationBarBackButtonHidden(true)
-        }
+            }.offset(y:-40)
+//            .navigationBarTitle("")
+//            .navigationBarHidden(true)
+//            .navigationBarBackButtonHidden(true)
+//        }
     }
 }
 
