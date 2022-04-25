@@ -285,4 +285,3 @@ struct OngoingTaskCard: View {
         }
     }
 }
-

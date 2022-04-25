@@ -26,9 +26,7 @@ struct VolunteersNavBar: View {
     
     @ViewBuilder
     func chooseDestination()-> some View {
-        if (isFirstAidClicked) {
-            FirstAid().offset(y:-60)
-        }else if (isLogoutMenuClicked){
+      if (isLogoutMenuClicked){
             LandingPage().navigationBarHidden(true)
         }else {
             EmptyView()
