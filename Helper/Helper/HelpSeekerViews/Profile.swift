@@ -11,7 +11,7 @@ struct Profile: View {
     @State private var pushNoti = true
     
     var body: some View {
-        NavigationView {
+//        NavigationView {
             ZStack{
                 Color("Background").edgesIgnoringSafeArea(.top)
                 VStack{
@@ -50,7 +50,7 @@ struct Profile: View {
             .navigationBarTitle("")
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
-        }
+//        }
     }
 }
 

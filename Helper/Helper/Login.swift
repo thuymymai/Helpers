@@ -147,6 +147,7 @@ struct Form: View {
        
         
         if (userInfo.count > 0)  {
+            let _ = print("type of user login \(userInfo[0].type)")
             if  ( userInfo[0].type == "v") {
                 VolunteersNavBar(volunteerName: $volunteerName).navigationBarHidden(true)
             } else if (userInfo[0].type == "h") {
