@@ -9,7 +9,7 @@ import SwiftUI
 
 struct VolunteerProfile: View {
     @State private var pushNoti = true
-    
+    @Binding var volunteerName: String
     var body: some View {
         NavigationView {
             ZStack{
@@ -23,14 +23,13 @@ struct VolunteerProfile: View {
                                 .frame(width: 80, height: 80)
                                 .shadow(color: .black, radius: 3)
                             
-                            Label("Profile", systemImage: "person")
+                            Text("\(volunteerName)")
                                 .font(.title)
                                 .foregroundColor(.white)
                         }.padding(.top, -100)
                     }
                     List {
                         Section(header: Text("Account Settings")) {
-                            
                             SettingsView(name: "Edit Profile")
                             SettingsView(name:"Change Passwords")
                             NavigationLink(destination: LandingPage()) {
@@ -57,7 +56,7 @@ struct VolunteerProfile: View {
 
 struct VolunteerProfile_Previews: PreviewProvider {
     static var previews: some View {
-        VolunteerProfile()
+        VolunteerProfile(volunteerName: .constant(""))
     }
 }
 

@@ -31,7 +31,7 @@ struct VolunteersNavBar: View {
         }else if (isLogoutMenuClicked){
             LandingPage().navigationBarHidden(true)
         }else {
-            VolunteerProfile().navigationBarHidden(true)
+            EmptyView()
         }
     }
     var body: some View {
@@ -55,7 +55,7 @@ struct VolunteersNavBar: View {
                         Text("Available Tasks")
                     }
                     .tag(Tabs.Tasks)
-                VolunteerProfile()
+                VolunteerProfile(volunteerName: $volunteerName)
                     .tabItem(){
                         Image(systemName: "person")
                         Text("Profile")
@@ -89,8 +89,7 @@ struct VolunteersNavBar: View {
                 label: {
                     Image("menu").resizable().frame(width:30, height:30).foregroundColor(.black).padding()
                 }
-                }
-                
+                }           
             }// close toolbar
         }.navigationBarHidden(true)
     }
