@@ -8,21 +8,37 @@
 import SwiftUI
 
 struct FirstAid: View {
-    @Binding var stt: Int
-    let array = [Firstaid.Choking, Firstaid.BrokenBone, Firstaid.Allergy, Firstaid.BeeStings, Firstaid.Bleeding, Firstaid.Burns, Firstaid.Drowning, Firstaid.ElectricShock, Firstaid.HeartAttack, Firstaid.Hypothermia, Firstaid.NoseBleeds, Firstaid.Posoning, Firstaid.Sprains, Firstaid.Stroke]
+    var stt: Firstaid
+    let array = [Firstaid.Choking, Firstaid.BrokenBone, Firstaid.Allergy, Firstaid.BeeStings, Firstaid.Bleeding, Firstaid.Burns, Firstaid.Drowning, Firstaid.ElectricShock, Firstaid.HeartAttack, Firstaid.Hypothermia, Firstaid.NoseBleeds, Firstaid.Poisoning, Firstaid.Sprains, Firstaid.Stroke]
     
     var body: some View {
-        switch(stt) {
-        case 1: Text("\(array[0].rawValue)")
-        case 2: Text("\(array[1].rawValue)")
-        default:
-            Text("Choke")
+        ZStack(alignment: .top) {
+            Color("White")
+                .edgesIgnoringSafeArea(.top)
+            ForEach(array, id: \.self) { value in
+                if (value == stt) {
+                    ScrollView {
+                    VStack {
+                        Text("\(String(describing: value))")
+                            .bold()
+                            .font(.system(size: 22))
+                            .foregroundColor(Color("Primary"))
+                        Text("\(value.rawValue)")
+                            .font(.system(size: 18))
+                            .padding(.top, 20)
+                            .padding()
+                    }
+                    .frame(maxHeight: .infinity, alignment: .top)
+                    .padding(10)
+                    }
+                }
+            }
         }
     }
 }
 
 struct FirstAid_Previews: PreviewProvider {
     static var previews: some View {
-        FirstAid(stt: .constant(0))
+        FirstAid(stt: Firstaid.Choking)
     }
 }
