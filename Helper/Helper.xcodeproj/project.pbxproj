@@ -25,6 +25,7 @@
 		208C4BF728167643004A3051 /* TransportTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208C4BF628167643004A3051 /* TransportTasksView.swift */; };
 		208C4BF92816771F004A3051 /* OthersTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208C4BF82816771F004A3051 /* OthersTasksView.swift */; };
 		208C4BFD28168F6E004A3051 /* AllTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208C4BFC28168F6E004A3051 /* AllTasksView.swift */; };
+		208C4BFF2816F51C004A3051 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208C4BFE2816F51B004A3051 /* EditProfileView.swift */; };
 		20926D81280D68C5000186E3 /* VolunteerSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20926D80280D68C5000186E3 /* VolunteerSignUp.swift */; };
 		20926D83280D6FC6000186E3 /* RegisterAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20926D82280D6FC6000186E3 /* RegisterAvailability.swift */; };
 		20B435D8280D557400B9D5D0 /* VolunteersNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B435D7280D557400B9D5D0 /* VolunteersNavBar.swift */; };
@@ -87,6 +88,7 @@
 		208C4BF628167643004A3051 /* TransportTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportTasksView.swift; sourceTree = "<group>"; };
 		208C4BF82816771F004A3051 /* OthersTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OthersTasksView.swift; sourceTree = "<group>"; };
 		208C4BFC28168F6E004A3051 /* AllTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTasksView.swift; sourceTree = "<group>"; };
+		208C4BFE2816F51B004A3051 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		20926D80280D68C5000186E3 /* VolunteerSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerSignUp.swift; sourceTree = "<group>"; };
 		20926D82280D6FC6000186E3 /* RegisterAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterAvailability.swift; sourceTree = "<group>"; };
 		20B435D7280D557400B9D5D0 /* VolunteersNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteersNavBar.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				20B435D7280D557400B9D5D0 /* VolunteersNavBar.swift */,
 				20926D80280D68C5000186E3 /* VolunteerSignUp.swift */,
 				208C4BFC28168F6E004A3051 /* AllTasksView.swift */,
+				208C4BFE2816F51B004A3051 /* EditProfileView.swift */,
 			);
 			path = VolunteerViews;
 			sourceTree = "<group>";
@@ -395,6 +398,7 @@
 				11B24F13280B1BE50029786D /* TaskList.swift in Sources */,
 				1112DA7C2810184300E0D6F2 /* TaskViewModel.swift in Sources */,
 				66E89E15280CABF200A82085 /* UserData.xcdatamodeld in Sources */,
+				208C4BFF2816F51C004A3051 /* EditProfileView.swift in Sources */,
 				66E89E1F280CAD1B00A82085 /* UserViewModel.swift in Sources */,
 				20F5572627FF643A00B0B638 /* TaskDetailView.swift in Sources */,
 				205CB54727FC5AF3004DBA8B /* AssistanceTasksView.swift in Sources */,

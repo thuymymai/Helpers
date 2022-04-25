@@ -67,7 +67,7 @@ struct VolunteerDashboard: View {
                         Spacer()
                         NavigationLink(destination: VolunteerProfile(volunteerName: $volunteerName)
                         ) {
-                            Image("Avatar-1")
+                            Image("volunteer")
                                 .resizable()
                                 .padding()
                                 .frame(width: 85, height: 85)

@@ -49,6 +49,7 @@ struct VolunteersNavBar: View {
                         Text("Location")
                     }
                     .tag(Tabs.Location)
+//                EditProfileView(volunteerName: $volunteerName)
                 AllTasksView()
                     .tabItem(){
                         Image(systemName: "list.bullet.rectangle.portrait")

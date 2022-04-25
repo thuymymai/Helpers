@@ -9,6 +9,8 @@ import SwiftUI
 
 struct VolunteerProfile: View {
     @State private var pushNoti = true
+    @State private var showingSheet = false
+
     @Binding var volunteerName: String
     var body: some View {
         NavigationView {
@@ -18,19 +20,21 @@ struct VolunteerProfile: View {
                     ZStack{
                         Image("BG Mask").edgesIgnoringSafeArea(.all)
                         VStack{
-                            Image("Avatar-1")
+                            Image("volunteer")
                                 .resizable()
                                 .frame(width: 80, height: 80)
                                 .shadow(color: .black, radius: 3)
+                                
                             
                             Text("\(volunteerName)")
                                 .font(.title)
                                 .foregroundColor(.white)
-                        }.padding(.top, -100)
+                        }.offset(y: -20)
                     }
                     List {
                         Section(header: Text("Account Settings")) {
                             SettingsView(name: "Edit Profile")
+                               
                             SettingsView(name:"Change Passwords")
                             NavigationLink(destination: LandingPage()) {
                                 SettingsView(name:"Task History")
