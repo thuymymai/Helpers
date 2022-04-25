@@ -215,7 +215,7 @@ struct FormMedical: View {
                         .cornerRadius(5)
                 }
                 .frame(width: 250)
-                NavigationLink(destination: HelpSeekerNavBar().navigationBarHidden(true), isActive: self.$isLinkActive) { }
+                NavigationLink(destination: HelpSeekerNavBar(helpseekerName: $fullname).navigationBarHidden(true), isActive: self.$isLinkActive) { }
                 Button(action: {
                     showAlert.toggle()
                 }) {

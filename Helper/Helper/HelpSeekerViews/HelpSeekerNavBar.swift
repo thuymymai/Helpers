@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct HelpSeekerNavBar: View {
+    @Binding var helpseekerName: String
+    
     var body: some View {
         NavigationView {
             TabView{
@@ -26,7 +28,7 @@ struct HelpSeekerNavBar: View {
                         Image(systemName: "list.bullet.rectangle.portrait")
                         Text("New Task")
                     }
-                Profile()
+                Profile(helpseekerName: $helpseekerName)
                     .tabItem(){
                         Image(systemName: "person")
                         Text("Profile")
@@ -41,6 +43,6 @@ struct HelpSeekerNavBar: View {
 
 struct HelpSeekerNavBar_Previews: PreviewProvider {
     static var previews: some View {
-        HelpSeekerNavBar()
+        HelpSeekerNavBar(helpseekerName: .constant(""))
     }
 }
