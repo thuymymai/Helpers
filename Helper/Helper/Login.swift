@@ -104,14 +104,13 @@ struct Form: View {
             Button(action: {
                 self.userInfo = results.filter{$0.email?.lowercased() == email.lowercased()}
                 self.emails = results.map{$0.email?.lowercased()}
-     
                 let emailExists = self.emails.contains(email.lowercased())
                
                 // reset to to the initial stage
                 self.loginFailed = false
                 if (userInfo.count > 0) {
                     // credentials check
-                    if ( !emailExists || userInfo[0].password != password){
+                    if ( !emailExists || userInfo[0].password != password || email == "" || password == ""){
                         self.loginFailed.toggle()
                     }
                     // passing data

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import Combine
 
 struct VolunteerDashboard: View {
     @Binding var volunteerName: String
@@ -17,21 +17,20 @@ struct VolunteerDashboard: View {
     @FetchRequest(entity: Task.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Task.title, ascending: true)]) var taskResults: FetchedResults<Task>
     
     // task related details
-    @State  var userInfo: [User]  = []
-    @State  var taskInfo: [Task] = []
+    @State var userInfo: [User]  = []
+    @State var taskInfo: [Task] = []
     @State var assistance: [Task] = []
     @State var transport: [Task] = []
     @State var others: [Task] = []
     
+    // get task of current user
     func getTaskInfo() {
-        // current user
         self.userInfo = results.filter{$0.fullname == volunteerName }
-        
         if(userInfo.count > 0){
             self.taskInfo = taskResults.filter{$0.volunteer == userInfo[0].userId}
         }
     }
-    
+    // get helpseeker
     func getHelpseeker(task: Task) -> User {
         for user in results {
             if (user.userId == task.helpseeker) {
@@ -40,7 +39,7 @@ struct VolunteerDashboard: View {
         }
         return User()
     }
-    
+    // sort task by category
     func sortCategory(category: String) {
         if (category == "Assistance"){
             self.assistance = taskResults.filter{$0.category == "Personal assistant" || $0.category == "Housework"}
@@ -53,13 +52,10 @@ struct VolunteerDashboard: View {
         }
     }
     var body: some View {
-        
         GeometryReader { geometry in
-            
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(spacing:20) {
                     HStack {
-                        
                         Text("Hi \(volunteerName)\n")
                             .font(.system(size: 28))
                             .fontWeight(.semibold)
@@ -69,8 +65,7 @@ struct VolunteerDashboard: View {
                             .fontWeight(.regular)
                             .foregroundColor(Color("Primary"))
                         Spacer()
-                        NavigationLink(destination: VolunteerProfile()
-                                       
+                        NavigationLink(destination: VolunteerProfile(volunteerName: $volunteerName)
                         ) {
                             Image("Avatar-1")
                                 .resizable()
@@ -78,19 +73,32 @@ struct VolunteerDashboard: View {
                                 .frame(width: 85, height: 85)
                                 .shadow(radius: 5)
                         }
-                    }
-                    SearchAndFilter()
-                    VStack(alignment: .leading, spacing: 5){
-                        Text("Available Tasks")
-                            .font(.system(size: 24))
-                        Text("\(taskResults.count) tasks waiting to be accepted")
-                            .font(.system(size: 16))
-                            .foregroundColor(Color("Primary"))
-                            .fontWeight(.medium)
-                    }.padding(.top,50)
-                        .offset(x: -55)
+                    }.padding(.top,10)
+                
+                    ImageSlideShow()
+                        .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.25)
+           
+                        VStack(alignment: .leading, spacing: 5){
+                            HStack {
+                                Text("Available Tasks")
+                                    .font(.system(size: 24))
+                                Spacer()
+                                NavigationLink(destination: AllTasksView()){
+                                    Text("View All")
+                                        .underline()
+                                        .bold()
+                                        .font(.system(size: 14))
+                                        .foregroundColor(Color("Primary"))
+                                        .cornerRadius(6)
+                                }
+                            }
+                            Text("\(taskResults.count) tasks waiting to be accepted")
+                                .font(.system(size: 16))
+                                .foregroundColor(Color("Primary"))
+                                .fontWeight(.medium)
+                        }.padding(.horizontal, 5)
+
                     HStack(spacing: 10) {
-                        
                         let _ = sortCategory(category: "Assistance")
                         let _ = sortCategory(category: "Transport")
                         let _ = sortCategory(category: "Others")
@@ -130,15 +138,37 @@ struct VolunteerDashboard: View {
 }
 
 
-
-
 struct VolunteerDashboard_Previews: PreviewProvider {
     static var previews: some View {
         VolunteerDashboard(volunteerName: .constant(""))
     }
 }
 
+struct ImageSlideShow: View{
+    private let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
+    @State private var currentIndex = 0
 
+    var body: some View{
+        GeometryReader{ geometry in
+            TabView(selection: $currentIndex){
+                ForEach(0..<4){image in
+                    Image("\(image)")
+                        .resizable()
+                        .scaledToFill()
+                        .overlay(Color.black.opacity(0.08))
+                        .tag(image)
+                }
+            }.tabViewStyle(PageTabViewStyle())
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .onReceive(timer, perform: {_ in
+                    withAnimation{
+                        currentIndex = currentIndex < 4 ? currentIndex + 1 :0
+
+                    }
+                })
+        }
+    }
+}
 struct SearchAndFilter: View {
     @State private var search: String = ""
     var body: some View {
