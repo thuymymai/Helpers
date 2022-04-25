@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Profile: View {
     @State private var pushNoti = true
+    @Binding var helpseekerName: String
     
     var body: some View {
 //        NavigationView {
@@ -23,7 +24,7 @@ struct Profile: View {
                                 .frame(width: 80, height: 80)
                                 .shadow(color: .black, radius: 3)
                             
-                            Label("Profile", systemImage: "person")
+                            Label(helpseekerName, systemImage: "person")
                                 .font(.title)
                                 .foregroundColor(.white)
                         }
@@ -32,7 +33,7 @@ struct Profile: View {
                         Section(header: Text("Account Settings")) {
                             SettingsView(name: "Update Basic Information")
                             SettingsView(name: "Update Medical Information")
-                            NavigationLink(destination: TaskList()) {
+                            NavigationLink(destination: TaskList(helpseekerName: $helpseekerName)) {
                                 SettingsView(name:"Your Tasks")
                             }
                             SettingsView(name:"Change Passwords")
@@ -56,7 +57,7 @@ struct Profile: View {
 
 struct Profile_Previews: PreviewProvider {
     static var previews: some View {
-        Profile()
+        Profile(helpseekerName: .constant(""))
     }
 }
 
