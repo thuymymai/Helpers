@@ -8,6 +8,25 @@
 import SwiftUI
 
 struct UploadForm: View {
+    @Binding var helpseekerName: String
+    @State var userId: Int = 0
+
+    // fetching user data from core data
+    @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
+    
+    func getUserInfo() {
+        let userInfo = results.filter{$0.fullname == helpseekerName }
+//        print("helpseekerName: \(helpseekerName) count: \(helpseekerName.count)")
+//        print("result count: \(results.count)")
+//        print("user info \(userInfo.count)")
+        
+        if(userInfo.count > 0){
+            self.userId = Int(userInfo[0].userId)
+            print("user info id \(userInfo[0].userId)")
+            print("userid \(userId)")
+        }
+    }
+    
     var body: some View {
 //        NavigationView{
             ZStack {
@@ -36,10 +55,10 @@ struct UploadForm: View {
                         .frame(width: 300, height: 580)
                         .shadow(radius: 5)
                         .padding(.top, 50)
-                    FormTask()
+                    FormTask(userId: $userId)
                 }.padding(.top, 30)
                 
-            }
+            }.onAppear(perform: {getUserInfo()})
             .navigationBarTitle("")
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
@@ -49,7 +68,7 @@ struct UploadForm: View {
 
 struct UploadForm_Previews: PreviewProvider {
     static var previews: some View {
-        UploadForm()
+        UploadForm(helpseekerName: .constant(""))
     }
 }
 
@@ -61,6 +80,7 @@ struct FormTask: View {
     @State var location: String = ""
     @State var isUpload: Bool = false
     @State var showAlert: Bool = false
+    @Binding var userId: Int
     
     let categories = ["Groceries", "Delivery", "Personal assistant", "Transportation", "Housework", "Others"]
     
@@ -71,7 +91,7 @@ struct FormTask: View {
     // fetching data from core data
     @FetchRequest(entity: Task.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Task.title, ascending: true)]) var taskResults: FetchedResults<Task>
     
-    func uploadTask(title: String, location: String, long: Double, lat: Double, time: Date, category: String, description: String) {
+    func uploadTask(title: String, location: String, long: Double, lat: Double, time: Date, category: String, description: String, helpseeker: Int) {
         let task = Task(context: context)
         task.title = title.lowercased()
         task.location = location.lowercased()
@@ -80,6 +100,7 @@ struct FormTask: View {
         task.time = time
         task.category = category.lowercased()
         task.desc = description.lowercased()
+        task.helpseeker = Int16(helpseeker)
         do {
             try context.save()
         } catch {
@@ -172,7 +193,7 @@ struct FormTask: View {
                     if self.isUpload {
                         return Alert(title: Text("Submit task failed!"),  dismissButton: .default(Text("Try again!"), action: {}))
                     } else {
-                        uploadTask(title: title, location: location, long: 0.0, lat: 0.0, time: currentDate, category: categorySelection, description: description)
+                        uploadTask(title: title, location: location, long: 0.0, lat: 0.0, time: currentDate, category: categorySelection, description: description, helpseeker: userId)
                         return Alert(title: Text("Submit task successfully!"),  dismissButton: .default(Text("Got it!"), action: {resetForm()}))
                     }
                 })
