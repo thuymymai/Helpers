@@ -36,6 +36,9 @@ struct Profile: View {
                         }
                     }.font(.system(size: 16))
                     Section(header: Text("Preferences")) {
+                        NavigationLink(destination: LandingPage().navigationBarHidden(true)) {
+                            SettingsView(name:"Log Out")
+                        }
                         Toggle("Push Notification", isOn: $pushNoti)
                             .font(.headline)
                             .foregroundColor(Color.black.opacity(0.6))
