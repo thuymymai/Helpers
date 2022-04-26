@@ -28,6 +28,7 @@ struct TaskList: View {
         self.userInfo = results.filter{$0.fullname == helpseekerName }
         print("helpseekerName: \(helpseekerName) count: \(helpseekerName.count)")
         print("result count: \(results.count)")
+        print("task result count: \(taskResults.count)")
         print("user info \(userInfo.count)")
         
         if(userInfo.count > 0){
@@ -58,6 +59,7 @@ struct TaskList: View {
                     let _ = print("task info: \(taskInfo.count)")
                     if(taskInfo.count > 0) {
                         ForEach(taskInfo) { task in
+                            let _ = print("tasks \(task)")
                             let volunteer  = getVolunteer(task: task)
                             TaskCard1(taskTitle: task.title!, volunteer: volunteer.fullname ?? "Waiting", location: task.location!, time: task.time!, date: task.time!, status: task.status)
                                 .frame(width: 330)
