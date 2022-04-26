@@ -58,8 +58,8 @@ struct TaskCard: View {
     @State var location: String
     @State var time: Date?
     @State var need: String
+    
     var body: some View {
-        
         VStack{
             HStack{
                 Text(title)
@@ -87,14 +87,14 @@ struct TaskCard: View {
                             .font(.body)
                             .foregroundColor(.primary)
                             .padding(.leading, 20)
-                        
+
                         Text(need.isEmpty ? "wheelchair" : need)
                             .font(.body)
                             .foregroundColor(.primary)
                             .padding(.leading, 20)
                         Spacer()
                     }
-                    
+
                 }
                 .layoutPriority(100)
                 Spacer()

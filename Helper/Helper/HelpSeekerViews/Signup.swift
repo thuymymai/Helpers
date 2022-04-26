@@ -21,15 +21,14 @@ struct Signup: View {
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                         .padding(.top, 50)
-                }
+                }.offset(y:-60)
                 Spacer()
                 ZStack{
                     RoundedRectangle(cornerRadius: 10)
                         .fill(.white)
                         .frame(width: 300, height: 550)
                         .shadow(radius: 5)
-                        .padding(.top, 100)
-                    FormView()
+                    FormView().offset(y:-50)
                 }.padding(.top, 50)
             }
             .navigationBarTitle("")

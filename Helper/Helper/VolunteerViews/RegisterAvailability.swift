@@ -26,7 +26,7 @@ struct RegisterAvailability: View {
                                 .fontWeight(.medium)
                                 .frame(maxWidth: geometry.size.width * 0.7, alignment: .center)
                                 .foregroundColor(.white)
-                        }
+                        }.offset(y:-60)
                         Spacer()
                         Text("By signup and login, I confirm that I have read and agree to  Helpers Terms & Privacy Policy")
                             .bold()
@@ -42,9 +42,9 @@ struct RegisterAvailability: View {
                             .frame(width: geometry.size.width * 0.8, height: geometry.size.height * 0.7)
                             .shadow(radius: 5)
                             .padding(.top, 60)
-                        AvailabilityForm(fullname: $fullname, email: $email, phone: $phone, password: $password).padding(.top, 80)
-                        Text("\(fullname)")
-                    }
+                        AvailabilityForm(fullname: $fullname, email: $email, phone: $phone, password: $password)
+                            .padding(.top, 80)
+                    } .offset(y:-50)
                 }
             }
         }

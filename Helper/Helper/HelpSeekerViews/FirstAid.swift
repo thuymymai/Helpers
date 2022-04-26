@@ -18,16 +18,15 @@ struct FirstAid: View {
             ForEach(array, id: \.self) { value in
                 if (value == stt) {
                     ScrollView {
-                    VStack {
+                        VStack(spacing:20) {
                         Text("\(String(describing: value))")
                             .bold()
                             .font(.system(size: 22))
                             .foregroundColor(Color("Primary"))
                         Text("\(value.rawValue)")
                             .font(.system(size: 18))
-                            .padding(.top, 20)
                             .padding()
-                    }
+                    }.offset(y:-30)
                     .frame(maxHeight: .infinity, alignment: .top)
                     .padding(10)
                     }

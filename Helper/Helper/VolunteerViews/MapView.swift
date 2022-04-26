@@ -16,7 +16,7 @@ struct MapView: View {
     var body: some View {
         ZStack(alignment: .bottom){
             Map(coordinateRegion: $viewModel.region, showsUserLocation: true)
-                .ignoresSafeArea()
+                .edgesIgnoringSafeArea(.top)
                 .tint(.pink)
             LocationButton(.currentLocation) {
                 viewModel.requestAllowOnceLocationPermission()

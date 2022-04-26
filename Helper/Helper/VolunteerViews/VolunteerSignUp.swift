@@ -22,16 +22,16 @@ struct VolunteerSignUp: View {
                             .foregroundColor(.white)
                             .padding(.top, -40)
                             .multilineTextAlignment(.center)
-                    }
+                    }.offset(y:-60)
                     Spacer()
                     ZStack{
                         RoundedRectangle(cornerRadius: 10)
                             .fill(.white)
-                            .frame(width: geometry.size.width * 0.8, height: geometry.size.height * 0.7)
+                            .frame(width: geometry.size.width * 0.8, height: geometry.size.height * 0.8)
                             .shadow(radius: 5)
-                            .padding(.top, 80)
-                        VolunteerSignUpForm()
-                    }
+                           
+                        VolunteerSignUpForm().offset(y:-40)
+                    }.padding(.top,-10)
                 }
             }
         }
@@ -68,7 +68,6 @@ struct VolunteerSignUpForm: View {
     @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
     
     var body: some View {
-        
         ZStack{
             VStack(alignment: .leading) {
                 Text("Full name")
