@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FrontScreen: View {
     var body: some View {
-        NavigationView {
+//        NavigationView {
             ZStack(alignment: .top){
                 Color("White")
                     .edgesIgnoringSafeArea(.top)
@@ -49,17 +49,13 @@ struct FrontScreen: View {
                         .bold()
                         .padding(.top, 100)
                         .font(.system(size: 20))
-                    TabView{
-                        FirstAidManual()
-                        FirstAidManual()
-                        FirstAidManual()
-                    }.tabViewStyle(.page(indexDisplayMode: .never))
+                    FirstAidManual()
                 }
-            }
-            .navigationBarTitle("")
-            .navigationBarHidden(true)
-            .navigationBarBackButtonHidden(true)
-        }
+            }.offset(y:-40)
+//            .navigationBarTitle("")
+//            .navigationBarHidden(true)
+//            .navigationBarBackButtonHidden(true)
+//        }
     }
 }
 
@@ -83,53 +79,40 @@ struct EmergencyButton: View {
 }
 
 struct FirstAidManual: View {
+    let array = [Firstaid.Choking, Firstaid.BrokenBone, Firstaid.Allergy, Firstaid.BeeStings, Firstaid.Bleeding, Firstaid.Burns, Firstaid.Drowning, Firstaid.ElectricShock, Firstaid.HeartAttack, Firstaid.Hypothermia, Firstaid.NoseBleeds, Firstaid.Poisoning, Firstaid.Sprains, Firstaid.Stroke]
+    
     var body: some View {
-        HStack{
-            NavigationLink(destination: FirstAid(), label: {
-                ZStack{
-                    Rectangle()
-                        .fill(Color("Background"))
-                        .frame(width: 150, height: 120)
-                        .cornerRadius(10)
-                        .shadow(color: .gray, radius: 2, x: 0, y: 2)
-                    VStack{
-                        Text("Choke")
-                            .foregroundColor(.black)
-                            .fontWeight(.semibold)
-                            .frame(maxWidth: 120, alignment: .leading)
-                            .font(.system(size: 16))
-                        HStack{
-                            Image(systemName: "arrow.right.circle.fill")
-                                .frame(maxWidth: 60, alignment: .leading)
-                                .font(.system(size: 22))
-                                .foregroundColor(Color("Primary"))
-                                .padding(.top)
-                            Image("choke")
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack{
+                ForEach(array, id: \.self) { firstaid in
+                    NavigationLink {
+                        FirstAid(stt: firstaid) }
+                label: {
+                    ZStack{
+                        Rectangle()
+                            .fill(Color("Background"))
+                            .frame(width: 150, height: 120)
+                            .cornerRadius(10)
+                            .shadow(color: .gray, radius: 2, x: 0, y: 2)
+                        VStack{
+                            Text("\(String(describing: firstaid))")
+                                .foregroundColor(.black)
+                                .fontWeight(.semibold)
+                                .frame(maxWidth: 120, alignment: .leading)
+                                .font(.system(size: 16))
+                            HStack{
+                                Image(systemName: "arrow.right.circle.fill")
+                                    .frame(maxWidth: 60, alignment: .leading)
+                                    .font(.system(size: 22))
+                                    .foregroundColor(Color("Primary"))
+                                    .padding(.top)
+                                Image("firstaid")
+                            }
                         }
-                    }
-                }.padding()
-            })
-            ZStack{
-                Rectangle()
-                    .fill(Color("Background"))
-                    .frame(width: 150, height: 120)
-                    .cornerRadius(10)
-                    .shadow(color: .gray, radius: 2, x: 0, y: 2)
-                VStack{
-                    Text("Broken bone")
-                        .fontWeight(.semibold)
-                        .frame(maxWidth: 120, alignment: .leading)
-                        .font(.system(size: 16))
-                    HStack{
-                        Image(systemName: "arrow.right.circle.fill")
-                            .frame(maxWidth: 60, alignment: .leading)
-                            .font(.system(size: 22))
-                            .foregroundColor(Color("Primary"))
-                            .padding(.top)
-                        Image("broken-bone")
-                    }
+                    }.padding()
                 }
-            }
-        }.padding(.top, -50)
+                }
+            }.frame(height: 150)
+        }.padding()
     }
 }

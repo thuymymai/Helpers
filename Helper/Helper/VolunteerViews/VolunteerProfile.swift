@@ -9,34 +9,36 @@ import SwiftUI
 
 struct VolunteerProfile: View {
     @State private var pushNoti = true
-    
+    @State private var showingSheet = false
+
+    @Binding var volunteerName: String
     var body: some View {
         NavigationView {
             ZStack{
-                Color("Background").edgesIgnoringSafeArea(.all)
+                Color("Background").edgesIgnoringSafeArea(.top)
                 VStack{
                     ZStack{
                         Image("BG Mask").edgesIgnoringSafeArea(.all)
                         VStack{
-                            Image("Avatar-1")
+                            Image("volunteer")
                                 .resizable()
                                 .frame(width: 80, height: 80)
                                 .shadow(color: .black, radius: 3)
+                                
                             
-                            Label("Profile", systemImage: "person")
+                            Text("\(volunteerName)")
                                 .font(.title)
                                 .foregroundColor(.white)
-                        }.padding(.top, -100)
+                        }.offset(y: -20)
                     }
                     List {
                         Section(header: Text("Account Settings")) {
-                            
                             SettingsView(name: "Edit Profile")
+                               
                             SettingsView(name:"Change Passwords")
-                            NavigationLink(destination: AvailableTasksView()) {
+                            NavigationLink(destination: LandingPage()) {
                                 SettingsView(name:"Task History")
                             }
-                            
                         }.font(.system(size: 16))
                         Section(header: Text("Preferences")) {
                             Toggle("Push Notification", isOn: $pushNoti)
@@ -47,9 +49,9 @@ struct VolunteerProfile: View {
                             SettingsView(name: "Update availability")
                         }.font(.system(size: 16))
                     }
-                }
+                }.padding(.top, -30)
+                    .padding(.bottom,5)
             }
-            .navigationBarTitle("")
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
         }
@@ -58,7 +60,7 @@ struct VolunteerProfile: View {
 
 struct VolunteerProfile_Previews: PreviewProvider {
     static var previews: some View {
-        VolunteerProfile()
+        VolunteerProfile(volunteerName: .constant(""))
     }
 }
 

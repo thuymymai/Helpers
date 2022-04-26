@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct LandingPage: View {
+    @State var showAlert: Bool = false
+    
     var body: some View {
         NavigationView{
             ZStack(alignment: .top){
@@ -20,7 +22,9 @@ struct LandingPage: View {
                             .fontWeight(.semibold)
                             .font(.system(size: 18))
                         ImageView()
-                    }.frame(maxHeight: .infinity, alignment: .leading)
+                    }
+                    .frame(maxHeight: .infinity, alignment: .leading)
+                    .padding(.top)
                     HStack(spacing: 100){
                         VStack{
                             Text("100,000")
@@ -42,22 +46,31 @@ struct LandingPage: View {
                     HStack{
                         DropDownMenu()
                         Spacer()
-                        NavigationLink(destination: Login().navigationBarHidden(true), label: {
-                            Text("Login")
-                                .bold()
-                                .padding(12)
-                                .background(Color("Background"))
-                                .foregroundColor(Color("Primary"))
-                                .cornerRadius(10)
-                        }).padding(.bottom, 20)
+                        NavigationLink(destination: Login()
+                            .navigationBarHidden(true), label: {
+                                Text("Login")
+                                    .bold()
+                                    .padding(12)
+                                    .background(Color("Background"))
+                                    .foregroundColor(Color("Primary"))
+                                    .cornerRadius(10)
+                            }).padding(.bottom, 20)
                         
                     }.padding(.horizontal, 40)
                     
                 }
                 
             }
-            .navigationBarTitle("")
-            .navigationBarHidden(true)
+            .offset(y:-20)
+            .toolbar{
+                Button(action: {
+                    showAlert.toggle()
+                }) {
+                    Label("Refresh", systemImage: "arrow.clockwise")
+                }.alert(isPresented: $showAlert, content: {
+                    Alert(title: Text("Refresh data"), dismissButton: .default(Text("OK")))
+                })
+            }
         }
     }
 }
@@ -82,7 +95,7 @@ struct ButtonView: View {
     var body: some View {
         VStack{
             NavigationLink(
-                destination: Signup().navigationBarHidden(true), isActive: $isHelpSeekerActive) {
+                destination: Signup(), isActive: $isHelpSeekerActive) {
                     Button(action: {self.isHelpSeekerActive = true}) {
                         Text("I need assistant")
                             .fontWeight(.bold)
@@ -94,7 +107,7 @@ struct ButtonView: View {
                     }.padding(.bottom, 10)
                 }
             NavigationLink(
-                destination: VolunteerSignUp().navigationBarHidden(true), isActive: $isVolunteerActive) {
+                destination: VolunteerSignUp(), isActive: $isVolunteerActive) {
                     Button(action: {self.isVolunteerActive = true}) {
                         Text("I'd like to volunteer")
                             .fontWeight(.bold)

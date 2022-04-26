@@ -6,8 +6,14 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct MedicalInfo: View {
+    @Binding var fullname: String
+    @Binding var email: String
+    @Binding var phone: String
+    @Binding var password: String
+    
     var body: some View {
         NavigationView {
             ZStack{
@@ -22,7 +28,7 @@ struct MedicalInfo: View {
                             .multilineTextAlignment(.center)
                             .font(.system(size: 20))
                             .padding(.top, 50)
-                    }
+                    }.offset(y:-60)
                     Spacer()
                     Text("By signup and login, I confirm I am at least  17 years old, and I agree to and accept  Helpers Terms & Privacy Policy")
                         .frame(maxWidth: 280)
@@ -35,8 +41,8 @@ struct MedicalInfo: View {
                         .fill(.white)
                         .frame(width: 300, height: 500)
                         .shadow(radius: 5)
-                    FormMedical()
-                }
+                    FormMedical(fullname: $fullname, email: $email, phone: $phone, password: $password)
+                }.offset(y:-30)
             }
             .navigationBarTitle("")
             .navigationBarHidden(true)
@@ -47,62 +53,111 @@ struct MedicalInfo: View {
 
 struct MedicalInfo_Previews: PreviewProvider {
     static var previews: some View {
-        MedicalInfo()
+        MedicalInfo(fullname: .constant(""), email: .constant(""), phone: .constant(""), password: .constant(""))
     }
 }
 
-struct SpecialNeed: View {
-    @State private var selection = "Immobilized"
-    let specialNeeds = ["Autism", "Down syndrome", "Blindness", "Deafness", "Immobilized", "ADHD"]
-    
-    var body: some View {
-        Picker("Select need", selection: $selection) {
-            ForEach(specialNeeds, id: \.self) {
-                Text($0)
-                    .frame(width: 110, height: 110)
-                    .background(.blue)
-            }
-        }
-        .pickerStyle(.menu)
-    }
-}
-
-struct ChronicDiseases: View {
-    @State private var selection = "Heart disease"
-    let diseases = ["Heart disease", "Stroke", "Cancer", "Depression", "Diabetes", "Arthritis", "Asthma", "Oral disease"]
-    
-    var body: some View {
-        Picker("Select disease", selection: $selection) {
-            ForEach(diseases, id: \.self) {
-                Text($0)
-                    .frame(width: 110, height: 110)
-                    .background(.blue)
-            }
-        }.pickerStyle(.menu)
-    }
-}
-
-struct Allergies: View {
-    @State private var selection = "Pollen"
-    let diseases = ["Grass", "Pollen", "Dust mites", "Animal dander", "Nuts", "Gluten", "Lactose", "Mould"]
-    
-    var body: some View {
-        Picker("Select disease", selection: $selection) {
-            ForEach(diseases, id: \.self) {
-                Text($0)
-                    .frame(width: 110, height: 110)
-                    .background(.blue)
-            }
-        }
-        .pickerStyle(.menu)
-        .frame(alignment: .leading)
-    }
-}
+//struct SpecialNeed: View {
+//    @State private var disabilitySelection = "None"
+//    let specialNeeds = ["None", "Autism", "Down syndrome", "Blindness", "Deafness", "Immobilized", "ADHD"]
+//
+//    var body: some View {
+//        Picker("Select need", selection: $disabilitySelection) {
+//            ForEach(specialNeeds, id: \.self) {
+//                Text($0)
+//                    .frame(width: 110, height: 110)
+//                    .background(.blue)
+//            }
+//        }
+//        .pickerStyle(.menu)
+//    }
+//}
+//
+//struct ChronicDiseases: View {
+//    @State private var diseaseSelection = "None"
+//    let diseases = ["None", "Heart disease", "Stroke", "Cancer", "Depression", "Diabetes", "Arthritis", "Asthma", "Oral disease"]
+//
+//    var body: some View {
+//        Picker("Select disease", selection: $diseaseSelection) {
+//            ForEach(diseases, id: \.self) {
+//                Text($0)
+//                    .frame(width: 110, height: 110)
+//                    .background(.blue)
+//            }
+//        }.pickerStyle(.menu)
+//    }
+//}
+//
+//
+//struct Allergies: View {
+//    @State private var allergySelection = "None"
+//    let diseases = ["None", "Grass", "Pollen", "Dust mites", "Animal dander", "Nuts", "Gluten", "Lactose", "Mould"]
+//
+//    var body: some View {
+//        Picker("Select disease", selection: $allergySelection) {
+//            ForEach(diseases, id: \.self) {
+//                Text($0)
+//                    .frame(width: 110, height: 110)
+//                    .background(.blue)
+//            }
+//        }
+//        .pickerStyle(.menu)
+//        .frame(alignment: .leading)
+//    }
+//}
 
 struct FormMedical: View {
+    @Binding var fullname: String
+    @Binding var email: String
+    @Binding var phone: String
+    @Binding var password: String
+    
+    
     @State var info: String = ""
     @State var isLinkActive = false
     @State var showAlert: Bool = false
+    @State var signupFailed = false
+    
+    // set up environment
+    @StateObject var userModel = UserViewModel()
+    @Environment(\.managedObjectContext) var context
+    
+    // fetching data from core data
+    @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
+    
+    // set up medical info
+    @State private var disabilitySelection = "None"
+    let specialNeeds = ["None", "Autism", "Down syndrome", "Blindness", "Deafness", "Immobilized", "ADHD"]
+    
+    @State private var diseaseSelection = "None"
+    let diseases = ["None", "Heart disease", "Stroke", "Cancer", "Depression", "Diabetes", "Arthritis", "Asthma", "Oral disease"]
+    
+    @State private var allergySelection = "None"
+    let allergies = ["None", "Grass", "Pollen", "Dust mites", "Animal dander", "Nuts", "Gluten", "Lactose", "Mould"]
+    
+    func updateUser(fullname: String, password: String, email: String, phone: String, type: String, availability: String, note: String, location: String, long: Double, lat: Double, need: String, chronic: String, allergies: String) {
+        let user = User(context: context)
+        user.userId = (Int16) (results.count + 1)
+        user.fullname = fullname.lowercased()
+        user.password = password
+        user.email = email.lowercased()
+        user.phone = phone
+        user.type = type.lowercased()
+        user.availability = availability.lowercased()
+        user.note = note.lowercased()
+        user.location = location.lowercased()
+        user.long = (Double) (long)
+        user.lat = (Double) (lat)
+        user.need = need.lowercased()
+        user.chronic = chronic.lowercased()
+        user.allergies = allergies.lowercased()
+        do {
+            try context.save()
+        } catch {
+            print(error)
+        }
+    }
+    
     
     var body: some View {
         ZStack{
@@ -112,31 +167,55 @@ struct FormMedical: View {
                         .fontWeight(.medium)
                         .frame(maxWidth: 300, alignment: .leading)
                         .font(.system(size: 16))
-                    SpecialNeed()
+                    Picker("Select need", selection: $disabilitySelection) {
+                        ForEach(specialNeeds, id: \.self) {
+                            Text($0)
+                                .frame(width: 110, height: 110)
+                                .background(.blue)
+                        }
+                    }
+                    .pickerStyle(.menu)
+//                    SpecialNeed()
                     Text("Chronic diseases")
                         .fontWeight(.medium)
                         .frame(maxWidth: 300, alignment: .leading)
                         .font(.system(size: 16))
                         .padding(.top, 10)
-                    ChronicDiseases()
+                    Picker("Select disease", selection: $diseaseSelection) {
+                        ForEach(diseases, id: \.self) {
+                            Text($0)
+                                .frame(width: 110, height: 110)
+                                .background(.blue)
+                        }
+                    }.pickerStyle(.menu)
+//                    ChronicDiseases()
                     Text("Allergies")
                         .fontWeight(.medium)
                         .frame(maxWidth: 300, alignment: .leading)
                         .font(.system(size: 16))
                         .padding(.top, 10)
-                    Allergies()
+                    Picker("Select disease", selection: $allergySelection) {
+                        ForEach(allergies, id: \.self) {
+                            Text($0)
+                                .frame(width: 110, height: 110)
+                                .background(.blue)
+                        }
+                    }
+                    .pickerStyle(.menu)
+                    .frame(alignment: .leading)
+//                    Allergies()
                     Text("Others")
                         .fontWeight(.medium)
                         .frame(maxWidth: 300, alignment: .leading)
                         .font(.system(size: 16))
                         .padding(.top, 10)
-                    TextField("", text: $info)
+                    TextField("\(results.count)", text: $info)
                         .padding(.bottom, 40)
                         .background(Color("Background"))
                         .cornerRadius(5)
                 }
                 .frame(width: 250)
-                NavigationLink(destination: HelpSeekerNavBar().navigationBarHidden(true), isActive: self.$isLinkActive) { }
+                NavigationLink(destination: HelpSeekerNavBar(helpseekerName: $fullname).navigationBarHidden(true), isActive: self.$isLinkActive) { }
                 Button(action: {
                     showAlert.toggle()
                 }) {
@@ -148,9 +227,14 @@ struct FormMedical: View {
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }.alert(isPresented: $showAlert, content: {
-                    Alert(title: Text("Register successfully!"),  dismissButton: .default(Text("Got it!"), action: {self.isLinkActive = true}))
+                    if self.signupFailed {
+                        return Alert(title: Text("Register failed!"),  dismissButton: .default(Text("Try again!"), action: {self.isLinkActive = false}))
+                    } else {
+                        updateUser(fullname: fullname, password: password, email: email, phone: phone, type: "h", availability: "", note: "", location: "", long: 0.0, lat: 0.0, need: disabilitySelection, chronic: diseaseSelection, allergies: allergySelection)
+                        return Alert(title: Text("Register successfully!"),  dismissButton: .default(Text("Got it!"), action: {self.isLinkActive = true}))
+                    }
                 })
-                .padding(.top, 40)
+                    .padding(.top, 40)
             }
             
         }
