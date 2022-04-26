@@ -23,7 +23,7 @@ struct HelpSeekerNavBar: View {
                         Image(systemName: "map")
                         Text("Map")
                     }
-                UploadForm()
+                UploadForm(helpseekerName: $helpseekerName)
                     .tabItem(){
                         Image(systemName: "list.bullet.rectangle.portrait")
                         Text("New Task")
