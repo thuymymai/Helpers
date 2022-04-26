@@ -93,6 +93,7 @@ struct FormTask: View {
     
     func uploadTask(title: String, location: String, long: Double, lat: Double, time: Date, category: String, description: String, helpseeker: Int) {
         let task = Task(context: context)
+        task.id = (Int16) (taskResults.count + 1)
         task.title = title.lowercased()
         task.location = location.lowercased()
         task.long = (Double) (long)
@@ -101,6 +102,8 @@ struct FormTask: View {
         task.category = category.lowercased()
         task.desc = description.lowercased()
         task.helpseeker = Int16(helpseeker)
+        task.status = 0
+        task.volunteer = 0
         do {
             try context.save()
         } catch {
