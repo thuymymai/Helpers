@@ -10,15 +10,15 @@ import SwiftUI
 struct UploadForm: View {
     @Binding var helpseekerName: String
     @State var userId: Int = 0
-
+    
     // fetching user data from core data
     @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
     
     func getUserInfo() {
         let userInfo = results.filter{$0.fullname == helpseekerName }
-//        print("helpseekerName: \(helpseekerName) count: \(helpseekerName.count)")
-//        print("result count: \(results.count)")
-//        print("user info \(userInfo.count)")
+        //        print("helpseekerName: \(helpseekerName) count: \(helpseekerName.count)")
+        //        print("result count: \(results.count)")
+        //        print("user info \(userInfo.count)")
         
         if(userInfo.count > 0){
             self.userId = Int(userInfo[0].userId)
@@ -28,39 +28,39 @@ struct UploadForm: View {
     }
     
     var body: some View {
-
-        ZStack {
-                Color("Background").edgesIgnoringSafeArea(.top)
         
-                VStack{
-                    ZStack(alignment: .top) {
-                        Image("BG Mask").edgesIgnoringSafeArea(.all)
-                        VStack{
-                            Text("Need help?")
-                                .font(.system(size: 20))
-                                .fontWeight(.medium)
-                                .foregroundColor(.white)
-                                .multilineTextAlignment(.center)
-                            Text("Fill in the form to find volunteer")
-                                .font(.system(size: 20))
-                                .fontWeight(.medium)
-                                .foregroundColor(.white)
-                                .multilineTextAlignment(.center)
-                        }.padding(.top, -20)
-                    }
-                    Spacer()
+        ZStack {
+            Color("Background").edgesIgnoringSafeArea(.top)
+            
+            VStack{
+                ZStack(alignment: .top) {
+                    Image("BG Mask").edgesIgnoringSafeArea(.all)
+                    VStack{
+                        Text("Need help?")
+                            .font(.system(size: 20))
+                            .fontWeight(.medium)
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
+                        Text("Fill in the form to find volunteer")
+                            .font(.system(size: 20))
+                            .fontWeight(.medium)
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
+                    }.padding(.top, -20)
                 }
-                ZStack{
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(.white)
-                        .frame(width: 300, height: 580)
-                        .shadow(radius: 5)
-                        .padding(.top, 50)
-                    FormTask(userId: $userId)
-                }
-                .padding(.bottom,10)
-                
-            }.onAppear(perform: {getUserInfo()})
+                Spacer()
+            }
+            ZStack{
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(.white)
+                    .frame(width: 300, height: 580)
+                    .shadow(radius: 5)
+                    .padding(.top, 50)
+                FormTask(userId: $userId)
+            }
+            .padding(.bottom,10)
+            
+        }.onAppear(perform: {getUserInfo()})
             .offset(y:-10)
     }
 }
@@ -126,6 +126,7 @@ struct FormTask: View {
                         .fontWeight(.medium)
                         .frame(maxWidth: 300, alignment: .leading)
                         .font(.system(size: 16))
+                        .padding(.top,15)
                     TextField("", text: $title)
                         .padding(.bottom, 20)
                         .background(Color("Background"))
@@ -135,22 +136,20 @@ struct FormTask: View {
                         .frame(maxWidth: 300, alignment: .leading)
                         .font(.system(size: 16))
                         .padding(.top, 10)
-                    NavigationLink(
-                        destination: HelpSeekerMapView(),
-                        label: {
-                            HStack {
-                                Text("Choose on map")
-                                    .font(.system(size: 16))
-                                    .foregroundColor(.black)
-                                    .frame(maxWidth: 200, alignment: .leading)
-                                Image(systemName: "map")
-                                    .foregroundColor(.black)
-                            }
-                            .frame(width: 230, height: 25)
-                            .padding(10)
-                            .background(Color("Background"))
-                            .cornerRadius(5)
-                        })
+                    
+                    HStack {
+                        TextField("\(location)", text: $location)
+                            .font(.system(size: 16))
+                            .foregroundColor(.black)
+                            .frame(maxWidth: 200, alignment: .leading)
+                        Image(systemName: "map")
+                            .foregroundColor(.black)
+                    }
+                    .frame(width: 230, height: 25)
+                    .padding(10)
+                    .background(Color("Background"))
+                    .cornerRadius(5)
+                    
                     Text("Time")
                         .fontWeight(.medium)
                         .frame(maxWidth: 300, alignment: .leading)
@@ -158,6 +157,8 @@ struct FormTask: View {
                         .padding(.top, 10)
                     DatePicker("", selection: $currentDate, displayedComponents: [.date, .hourAndMinute])
                         .labelsHidden()
+                        .background(Color("Background"))
+                        .frame(alignment: .leading)
                     Text("Category")
                         .fontWeight(.medium)
                         .frame(maxWidth: 300, alignment: .leading)
@@ -169,17 +170,21 @@ struct FormTask: View {
                                 .frame(width: 110, height: 110)
                                 .background(.blue)
                         }
-                    }
+                    }.frame(width: 250)
+                        .cornerRadius(5)
+                        .background(Color("Background"))
                     .pickerStyle(.menu)
                     Text("Description")
                         .fontWeight(.medium)
                         .frame(maxWidth: 300, alignment: .leading)
                         .font(.system(size: 16))
                         .padding(.top, 10)
-                    TextField("", text: $description)
-                        .padding(.bottom, 40)
-                        .background(Color("Background"))
+                    
+                    TextEditor(text: $description)
+                        .frame(width: 250, height: 110)
+                        .colorMultiply(Color("Background"))
                         .cornerRadius(5)
+                        .padding(.bottom,-20)
                 }
                 .frame(width: 250)
                 .padding(.top, 30)
@@ -200,8 +205,7 @@ struct FormTask: View {
                     }
                 })
                 .padding(.top, 30)
-            }
-            
+            }         
         }
         
     }

@@ -47,9 +47,9 @@ struct FrontScreen: View {
                     EmergencyButton()
                     Text("First-aid manual")
                         .bold()
-                        .padding(.top, 100)
+                        .padding(.top, 70)
                         .font(.system(size: 20))
-                    FirstAidManual()
+                    FirstAidManual().offset(y:-10)
                 }
             }.offset(y:-40)
 //            .navigationBarTitle("")
