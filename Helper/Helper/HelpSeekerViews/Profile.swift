@@ -22,7 +22,7 @@ struct Profile: View {
                             .resizable()
                             .frame(width: 80, height: 80)
                             .shadow(color: .black, radius: 3)
-                        Text("Profile")
+                        Text(helpseekerName)
                             .font(.title)
                             .foregroundColor(.white)
                     }.padding(.top,-90)
@@ -31,7 +31,7 @@ struct Profile: View {
                     Section(header: Text("Account Settings")) {
                         SettingsView(name: "Update Basic Information")
                         SettingsView(name:"Update Medical Informations")
-                        NavigationLink(destination: TaskList()) {
+                        NavigationLink(destination: TaskList(helpseekerName: $helpseekerName)) {
                             SettingsView(name:"Your Tasks")
                         }
                     }.font(.system(size: 16))
