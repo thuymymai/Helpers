@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Profile: View {
     @State private var pushNoti = true
+    @Binding var helpseekerName: String
     
     var body: some View {
         ZStack{
@@ -53,7 +54,7 @@ struct Profile: View {
 
 struct Profile_Previews: PreviewProvider {
     static var previews: some View {
-        Profile()
+        Profile(helpseekerName: .constant(""))
     }
 }
 
