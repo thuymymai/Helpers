@@ -127,7 +127,7 @@ struct ContactInfo: View {
             Text(helpseeker)
                 .bold()
                
-            HStack(spacing:30) {
+            HStack(alignment: .center,spacing:40) {
                 VStack(spacing:15) {
                     Image(systemName: "phone.fill")
                         .resizable()

@@ -19,6 +19,7 @@ struct VolunteerDashboard: View {
     // task related details
     @State var userInfo: [User]  = []
     @State var taskInfo: [Task] = []
+    @State var availableTasks: [Task] = []
     @State var assistance: [Task] = []
     @State var transport: [Task] = []
     @State var others: [Task] = []
@@ -41,15 +42,17 @@ struct VolunteerDashboard: View {
     }
     // sort task by category
     func sortCategory(category: String) {
+        self.availableTasks = taskResults.filter{$0.volunteer == 0}
         if (category == "Assistance"){
-            self.assistance = taskResults.filter{$0.category == "Personal assistant" || $0.category == "Housework"}
+            self.assistance = availableTasks.filter{$0.category == "personal assistant" || $0.category == "housework"}
         }else if (category == "Transport"){
-            self.transport = taskResults.filter{$0.category == "Transportation" || $0.category == "Delivery" }
+            self.transport = availableTasks.filter{$0.category == "transportation" || $0.category == "delivery" }
         }else {
-            self.others = taskResults.filter{$0.category != "Personal assistant" && $0.category != "Transportation"
-                && $0.category != "Delivery" && $0.category != "Housework"
+            self.others = availableTasks.filter{$0.category != "personal assistant" && $0.category != "transportation"
+                && $0.category != "delivery" && $0.category != "housework"
             }
         }
+        print("available \(availableTasks)")
     }
     var body: some View {
         GeometryReader { geometry in
@@ -74,30 +77,30 @@ struct VolunteerDashboard: View {
                                 .shadow(radius: 5)
                         }
                     }.padding(.top,10)
-                
+                    
                     ImageSlideShow()
                         .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.25)
-           
-                        VStack(alignment: .leading, spacing: 5){
-                            HStack {
-                                Text("Available Tasks")
-                                    .font(.system(size: 24))
-                                Spacer()
-                                NavigationLink(destination: AllTasksView()){
-                                    Text("View All")
-                                        .underline()
-                                        .bold()
-                                        .font(.system(size: 14))
-                                        .foregroundColor(Color("Primary"))
-                                        .cornerRadius(6)
-                                }
+                    
+                    VStack(alignment: .leading, spacing: 5){
+                        HStack {
+                            Text("Available Tasks")
+                                .font(.system(size: 24))
+                            Spacer()
+                            NavigationLink(destination: AllTasksView()){
+                                Text("View All")
+                                    .underline()
+                                    .bold()
+                                    .font(.system(size: 14))
+                                    .foregroundColor(Color("Primary"))
+                                    .cornerRadius(6)
                             }
-                            Text("\(taskResults.count) tasks waiting to be accepted")
-                                .font(.system(size: 16))
-                                .foregroundColor(Color("Primary"))
-                                .fontWeight(.medium)
-                        }.padding(.horizontal, 5)
-
+                        }
+                        Text("\(availableTasks.count) tasks waiting to be accepted")
+                            .font(.system(size: 16))
+                            .foregroundColor(Color("Primary"))
+                            .fontWeight(.medium)
+                    }.padding(.horizontal, 5)
+                    
                     HStack(spacing: 10) {
                         let _ = sortCategory(category: "Assistance")
                         let _ = sortCategory(category: "Transport")
@@ -147,7 +150,7 @@ struct VolunteerDashboard_Previews: PreviewProvider {
 struct ImageSlideShow: View{
     private let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
     @State private var currentIndex = 0
-
+    
     var body: some View{
         GeometryReader{ geometry in
             TabView(selection: $currentIndex){
@@ -163,38 +166,9 @@ struct ImageSlideShow: View{
                 .onReceive(timer, perform: {_ in
                     withAnimation{
                         currentIndex = currentIndex < 4 ? currentIndex + 1 :0
-
+                        
                     }
                 })
-        }
-    }
-}
-struct SearchAndFilter: View {
-    @State private var search: String = ""
-    var body: some View {
-        GeometryReader { geometry in
-            HStack {
-                HStack{
-                    Image("Search")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                    
-                    TextField("Search Tasks", text: $search)
-                        .background(.white)
-                }
-                .padding(.all, 20)
-                .background(.white)
-                .cornerRadius(10)
-                
-                Button(action: {}) {
-                    Image("equalizer")
-                        .resizable()
-                        .frame(width: 35, height: 35)
-                        .padding()
-                        .background(.white)
-                        .cornerRadius(10)
-                }
-            }
         }
     }
 }
@@ -242,45 +216,48 @@ struct OngoingTaskCard: View {
     
     
     var body: some View {
-        
-        ZStack{
-            RoundedRectangle(cornerRadius: 10)
-                .fill(.white)
-                .shadow(radius: 5)
-                .frame(width: 340, height: 150)
-            
-            VStack(alignment:.leading,spacing:10){
-                HStack{
-                    Text(taskTitle)
-                        .font(.headline)
-                        .fontWeight(.semibold)
-                    Spacer()
-                    Text(time!.formatted(date: .numeric, time: .omitted))
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(Color("Primary"))
-                }.padding(.horizontal)
+        NavigationLink(destination: TaskDetailView(taskTitle: $taskTitle, helpseeker: $helpseeker, location: $location,
+                                                   time: $time, desc: $desc, need: $need,
+                                                   chronic: $chronic, allergies: $allergies)){
+            ZStack{
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(.white)
+                    .shadow(radius: 5)
+                    .frame(width: 340, height: 150)
                 
-                Label("Sender: \(helpseeker)", systemImage: "person").padding(.horizontal)
-                Label("Address: \(location)", systemImage: "mappin").padding(.horizontal)
-                
-                HStack{
-                    
-                    Label(time!.formatted(date: .omitted, time: .complete), systemImage: "clock")
-                        .font(.system(size: 14))
-                        .foregroundColor(.secondary)
-                    Spacer()
-                    NavigationLink(destination: TaskDetailView(taskTitle: $taskTitle, helpseeker: $helpseeker, location: $location,
-                                                               time: $time, desc: $desc, need: $need,
-                                                               chronic: $chronic, allergies: $allergies)){
-                        Text("View Task")
+                VStack(alignment:.leading,spacing:10){
+                    HStack{
+                        Text(taskTitle)
+                            .font(.headline)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.black)
+                        Spacer()
+                        Text(time!.formatted(date: .numeric, time: .omitted))
                             .font(.subheadline)
-                            .frame(width: 90, height: 30)
-                            .background(Color("Primary"))
-                            .foregroundColor(.white)
-                            .cornerRadius(6)
-                    }
-                }.padding(.horizontal)
+                            .fontWeight(.semibold)
+                            .foregroundColor(Color("Primary"))
+                    }.padding(.horizontal)
+                    Label("\(helpseeker)", systemImage: "person")
+                        .padding(.horizontal)
+                        .foregroundColor(.black)
+                    Label("\(location)", systemImage: "mappin")
+                        .padding(.horizontal)
+                        .foregroundColor(.black)
+                    HStack{
+                        Label(time!.formatted(date: .omitted, time: .complete), systemImage: "clock")
+                            .font(.system(size: 14))
+                            .foregroundColor(.secondary)
+                        Spacer()
+                        Button(action: {}){
+                            Text("Mark As Done")
+                                .font(.subheadline)
+                                .frame(width: 110, height: 30)
+                                .background(Color("Primary"))
+                                .foregroundColor(.white)
+                                .cornerRadius(6)
+                        }                    }.padding(.horizontal)
+                        .padding(.bottom,5)
+                }
             }
         }
     }
