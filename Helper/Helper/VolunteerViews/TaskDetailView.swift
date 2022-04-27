@@ -10,16 +10,16 @@ import SwiftUI
 
 struct TaskDetailView: View {
     
-    // passing helpseeker data  
-    @Binding var taskTitle: String
-    @Binding var helpseeker: String
-    @Binding var location: String
-    @Binding var time: Date?
-    @Binding var desc: String
-    @Binding var need: String
-    @Binding var chronic: String
-    @Binding var allergies: String
-    
+    // passing helpseeker data
+    @State var taskTitle: String
+    @State var helpseeker: String
+    @State var location: String
+    @State var time: Date?
+    @State var desc: String
+    @State var need: String
+    @State var chronic: String
+    @State var allergies: String
+    @State var id: Int16
     var body: some View {
         GeometryReader {geometry in
             ZStack{
@@ -56,9 +56,9 @@ struct TaskDetailView: View {
 
 struct TaskDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskDetailView(taskTitle: .constant(""), helpseeker: .constant(""), location: .constant(""),
-                       time: .constant(Date()), desc: .constant(""), need: .constant(""),
-                       chronic: .constant(""), allergies: .constant(""))
+        TaskDetailView(taskTitle: "", helpseeker: "", location: "",
+                       time: Date(), desc: "", need: "",
+                       chronic: "", allergies: "", id: 0)
     }
 }
 
@@ -126,7 +126,7 @@ struct ContactInfo: View {
                 .padding(.top, 10)
             Text(helpseeker)
                 .bold()
-               
+            
             HStack(alignment: .center,spacing:40) {
                 VStack(spacing:15) {
                     Image(systemName: "phone.fill")
@@ -195,5 +195,4 @@ struct TaskDescription: View {
         Text(desc)
     }
 }
-
 

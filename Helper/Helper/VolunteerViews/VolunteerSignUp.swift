@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct VolunteerSignUp: View {
+
     var body: some View {
         GeometryReader { geometry in
             NavigationView{
@@ -22,16 +23,19 @@ struct VolunteerSignUp: View {
                             .foregroundColor(.white)
                             .padding(.top, -40)
                             .multilineTextAlignment(.center)
-                    }.offset(y:-60)
+                    }
+                    //.offset(y:-60) use with navigation bar back btn
                     Spacer()
                     ZStack{
                         RoundedRectangle(cornerRadius: 10)
                             .fill(.white)
-                            .frame(width: geometry.size.width * 0.8, height: geometry.size.height * 0.8)
+                            .frame(width: geometry.size.width * 0.8, height: geometry.size.height * 0.7)
                             .shadow(radius: 5)
-                           
-                        VolunteerSignUpForm().offset(y:-40)
-                    }.padding(.top,-10)
+                            .offset(y:45) // remove if keep navigation
+                        VolunteerSignUpForm()
+                            //.offset(y:-40) use with navigation bar back btn
+                    }
+                    //.padding(.top,-10) use with navigation bar back btn
                 }
             }
         }
@@ -114,7 +118,8 @@ struct VolunteerSignUpForm: View {
             .frame(width: 260)
             .padding(.top, 50)
             NavigationLink(
-                destination: RegisterAvailability(fullname: $fullname, email: $email, phone: $phone, password: $password).navigationBarHidden(true), isActive: $isLinkActive) {EmptyView()}
+                destination: RegisterAvailability(fullname: $fullname, email: $email, phone: $phone, password: $password)
+                    .navigationBarHidden(true), isActive: $isLinkActive) {EmptyView()}
                     Button(action: {
                         let emails = results.map{$0.email}
                         let userExists = emails.contains(email.lowercased())

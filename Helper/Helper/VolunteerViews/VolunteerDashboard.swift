@@ -10,7 +10,7 @@ import Combine
 
 struct VolunteerDashboard: View {
     @Binding var volunteerName: String
-    
+
     // fetch data from core
     @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
     
@@ -23,12 +23,14 @@ struct VolunteerDashboard: View {
     @State var assistance: [Task] = []
     @State var transport: [Task] = []
     @State var others: [Task] = []
-    
+    // @State var taskStatus: Int16
     // get task of current user
     func getTaskInfo() {
-        self.userInfo = results.filter{$0.fullname == volunteerName }
-        if(userInfo.count > 0){
-            self.taskInfo = taskResults.filter{$0.volunteer == userInfo[0].userId}
+        DispatchQueue.main.async {
+            self.userInfo = results.filter{$0.fullname == volunteerName }
+            if(userInfo.count > 0){
+                self.taskInfo = taskResults.filter{$0.volunteer == userInfo[0].userId &&  $0.status == 0}
+            }
         }
     }
     // get helpseeker
@@ -42,17 +44,18 @@ struct VolunteerDashboard: View {
     }
     // sort task by category
     func sortCategory(category: String) {
-        self.availableTasks = taskResults.filter{$0.volunteer == 0}
-        if (category == "Assistance"){
-            self.assistance = availableTasks.filter{$0.category == "personal assistant" || $0.category == "housework"}
-        }else if (category == "Transport"){
-            self.transport = availableTasks.filter{$0.category == "transportation" || $0.category == "delivery" }
-        }else {
-            self.others = availableTasks.filter{$0.category != "personal assistant" && $0.category != "transportation"
-                && $0.category != "delivery" && $0.category != "housework"
+        DispatchQueue.main.async {
+            self.availableTasks = taskResults.filter{$0.volunteer == 0}
+            if (category == "Assistance"){
+                self.assistance = availableTasks.filter{$0.category == "personal assistant" || $0.category == "housework"}
+            }else if (category == "Transport"){
+                self.transport = availableTasks.filter{$0.category == "transportation" || $0.category == "delivery" }
+            }else {
+                self.others = availableTasks.filter{$0.category != "personal assistant" && $0.category != "transportation"
+                    && $0.category != "delivery" && $0.category != "housework"
+                }
             }
         }
-        print("available \(availableTasks)")
     }
     var body: some View {
         GeometryReader { geometry in
@@ -77,6 +80,7 @@ struct VolunteerDashboard: View {
                                 .shadow(radius: 5)
                         }
                     }.padding(.top,10)
+                        .padding(.horizontal,10)
                     
                     ImageSlideShow()
                         .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.25)
@@ -86,7 +90,7 @@ struct VolunteerDashboard: View {
                             Text("Available Tasks")
                                 .font(.system(size: 24))
                             Spacer()
-                            NavigationLink(destination: AllTasksView()){
+                            NavigationLink(destination: AllTasksView(userInfo: $userInfo, taskInfo: $taskInfo, availableTasks: $availableTasks, volunteerName: $volunteerName)){
                                 Text("View All")
                                     .underline()
                                     .bold()
@@ -105,13 +109,16 @@ struct VolunteerDashboard: View {
                         let _ = sortCategory(category: "Assistance")
                         let _ = sortCategory(category: "Transport")
                         let _ = sortCategory(category: "Others")
-                        NavigationLink(destination: AssistanceTasksView(assistance: $assistance)) {
+                        //let _ = getTaskInfo()
+                        
+                        NavigationLink(destination: AssistanceTasksView(assistance: $assistance, userInfo: $userInfo, taskInfo: $taskInfo, availableTasks: $availableTasks, volunteerName: $volunteerName)) {
                             CategoriesView(categoryName: "Assistance", numberOfTasks: "\(assistance.count) Tasks", ImageName: "helping image")
                         }
-                        NavigationLink(destination: TransportTasksView(transport: $transport)) {
+                        NavigationLink(destination: TransportTasksView(transport: $transport,userInfo: $userInfo, taskInfo: $taskInfo, availableTasks: $availableTasks,volunteerName: $volunteerName)) {
                             CategoriesView(categoryName: "Transport", numberOfTasks: "\(transport.count) Tasks", ImageName: "delivery image")
                         }
-                        NavigationLink(destination: OthersTasksView(others: $others)) {
+                        
+                        NavigationLink(destination: OthersTasksView(others: $others,userInfo: $userInfo, taskInfo: $taskInfo, availableTasks: $availableTasks,volunteerName: $volunteerName)) {
                             CategoriesView(categoryName: "Others", numberOfTasks: "\(others.count) Tasks", ImageName: "groceries image")
                         }
                     } // close HSTack
@@ -120,15 +127,17 @@ struct VolunteerDashboard: View {
                         .padding(.top, -10)
                         .offset(x: -95)
                         .padding(.bottom,30)
-                    VStack(spacing: 30) {
-                        
+                    VStack(spacing: 20) {
                         let _ = getTaskInfo()
                         if(taskInfo.count > 0) {
                             ForEach(taskInfo) { task in
                                 let helpseeker  = getHelpseeker(task: task)
                                 OngoingTaskCard(taskTitle: task.title!, helpseeker: helpseeker.fullname! , location: task.location!,
                                                 time: task.time!, date: task.time!, desc: task.desc!,
-                                                need: helpseeker.need!, chronic: helpseeker.chronic!, allergies: helpseeker.allergies!)
+                                                need: helpseeker.need!, chronic: helpseeker.chronic!, allergies: helpseeker.allergies!, id: task.id
+                                )
+                                //                                OngoingTaskCard(currentTask: task, helpseeker: helpseeker, userInfo: userInfo)
+                                .padding(.bottom,10)
                             }
                         }
                     }.padding(.top, -20)
@@ -158,7 +167,7 @@ struct ImageSlideShow: View{
                     Image("\(image)")
                         .resizable()
                         .scaledToFill()
-                        .overlay(Color.black.opacity(0.08))
+                        .overlay(Color.black.opacity(0.06))
                         .tag(image)
                 }
             }.tabViewStyle(PageTabViewStyle())
@@ -204,6 +213,9 @@ struct CategoriesView: View {
 }
 
 struct OngoingTaskCard: View {
+    @FetchRequest(entity: Task.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Task.title, ascending: true)]) var taskResults: FetchedResults<Task>
+    @Environment(\.managedObjectContext) var context
+    @State var refresh: Bool = false
     @State var taskTitle: String
     @State var helpseeker: String
     @State var location: String
@@ -213,12 +225,16 @@ struct OngoingTaskCard: View {
     @State var need: String
     @State var chronic: String
     @State var allergies: String
+    @State var id: Int16
     
     
+    @State var taskId: Int16 = 0
+    var userInfo: [User]  = []
     var body: some View {
-        NavigationLink(destination: TaskDetailView(taskTitle: $taskTitle, helpseeker: $helpseeker, location: $location,
-                                                   time: $time, desc: $desc, need: $need,
-                                                   chronic: $chronic, allergies: $allergies)){
+        NavigationLink(destination: TaskDetailView(taskTitle: taskTitle, helpseeker: helpseeker, location: location,
+                                                   time: time, desc: desc, need: need,
+                                                   chronic: chronic, allergies: allergies, id: id)){
+            
             ZStack{
                 RoundedRectangle(cornerRadius: 10)
                     .fill(.white)
@@ -248,15 +264,31 @@ struct OngoingTaskCard: View {
                             .font(.system(size: 14))
                             .foregroundColor(.secondary)
                         Spacer()
-                        Button(action: {}){
+                        
+                        Button(action: {
+                            
+                            self.taskId = id
+                            if(taskId != 0){
+                                if let index = taskResults.firstIndex(where: {$0.id == taskId}) {
+                                    taskResults[index].status = 1
+                                }
+                                do {
+                                    try context.save()
+                                } catch {
+                                    print(error)
+                                }
+                            }
+                        })
+                        {
                             Text("Mark As Done")
                                 .font(.subheadline)
                                 .frame(width: 110, height: 30)
                                 .background(Color("Primary"))
                                 .foregroundColor(.white)
                                 .cornerRadius(6)
-                        }                    }.padding(.horizontal)
-                        .padding(.bottom,5)
+                        }
+                    }
+                    .padding(.bottom,5)
                 }
             }
         }

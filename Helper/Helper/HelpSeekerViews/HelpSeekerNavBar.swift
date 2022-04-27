@@ -9,7 +9,9 @@ import SwiftUI
 
 struct HelpSeekerNavBar: View {
     @Binding var helpseekerName: String
-    
+    @State private var isLinkActive: Bool = false
+    @State private var isLogoutMenuClicked = false
+
     var body: some View {
         NavigationView {
             TabView{
@@ -37,6 +39,7 @@ struct HelpSeekerNavBar: View {
             .navigationBarTitle("")
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
+
         }
     }
 }

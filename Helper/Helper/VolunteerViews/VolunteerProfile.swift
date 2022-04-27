@@ -36,7 +36,7 @@ struct VolunteerProfile: View {
                             SettingsView(name: "Edit Profile")
                                
                             SettingsView(name:"Change Passwords")
-                            NavigationLink(destination: LandingPage()) {
+                            NavigationLink(destination: TaskList(helpseekerName: $volunteerName)) {
                                 SettingsView(name:"Task History")
                             }
                         }.font(.system(size: 16))
@@ -61,6 +61,7 @@ struct VolunteerProfile: View {
 struct VolunteerProfile_Previews: PreviewProvider {
     static var previews: some View {
         VolunteerProfile(volunteerName: .constant(""))
+            .preferredColorScheme(.dark)
     }
 }
 

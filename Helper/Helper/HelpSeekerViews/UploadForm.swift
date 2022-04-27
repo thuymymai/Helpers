@@ -15,10 +15,10 @@ struct UploadForm: View {
     @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
     
     func getUserInfo() {
-        let userInfo = results.filter{$0.fullname == helpseekerName }
-        //        print("helpseekerName: \(helpseekerName) count: \(helpseekerName.count)")
-        //        print("result count: \(results.count)")
-        //        print("user info \(userInfo.count)")
+        let userInfo = results.filter{$0.fullname?.lowercased() == helpseekerName.lowercased() }
+//                print("helpseekerName: \(helpseekerName) count: \(helpseekerName.count)")
+//                print("result count: \(results[results.count - 1].fullname)")
+//                print("user info \(userInfo.count)")
         
         if(userInfo.count > 0){
             self.userId = Int(userInfo[0].userId)
@@ -201,7 +201,7 @@ struct FormTask: View {
                         return Alert(title: Text("Submit task failed!"),  dismissButton: .default(Text("Try again!"), action: {}))
                     } else {
                         uploadTask(title: title, location: location, long: 0.0, lat: 0.0, time: currentDate, category: categorySelection, description: description, helpseeker: userId)
-                        return Alert(title: Text("Submit task successfully!"),  dismissButton: .default(Text("Got it!"), action: {resetForm()}))
+                        return Alert(title: Text("Submit task successfully!"),  dismissButton: .default(Text("OK"), action: {resetForm()}))
                     }
                 })
                 .padding(.top, 30)

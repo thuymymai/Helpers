@@ -15,18 +15,17 @@ enum Tabs: String {
 }
 
 struct VolunteersNavBar: View {
-    
+    @State private var userInfo: [User] = []
+    @State private var taskInfo: [Task] = []
+    @State private var availableTasks: [Task] = []
     @Binding var volunteerName: String
-    
     @State var selectedTab: Tabs = .Dashboard
-    
     @State private var isLogoutMenuClicked = false
-    @State private var isFirstAidClicked = false
     @State private var isLinkActive: Bool = false
     
     @ViewBuilder
     func chooseDestination()-> some View {
-      if (isLogoutMenuClicked){
+        if (isLogoutMenuClicked){
             LandingPage().navigationBarHidden(true)
         }else {
             EmptyView()
@@ -35,7 +34,7 @@ struct VolunteersNavBar: View {
     var body: some View {
         NavigationView{
             TabView(selection: $selectedTab){
-                VolunteerDashboard( volunteerName: $volunteerName)
+                VolunteerDashboard(volunteerName: $volunteerName)
                     .tabItem(){
                         Image(systemName: "house")
                         Text("Home")
@@ -47,8 +46,7 @@ struct VolunteersNavBar: View {
                         Text("Location")
                     }
                     .tag(Tabs.Location)
-//                EditProfileView(volunteerName: $volunteerName)
-                AllTasksView()
+                AllTasksView(userInfo: $userInfo, taskInfo: $taskInfo, availableTasks: $availableTasks, volunteerName: $volunteerName)
                     .tabItem(){
                         Image(systemName: "list.bullet.rectangle.portrait")
                         Text("Available Tasks")
@@ -72,12 +70,7 @@ struct VolunteersNavBar: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
-                        Button(action: {
-                            self.isLinkActive = true
-                            self.isFirstAidClicked = true
-                        }, label: {
-                            Label(title: {Text("First Aid Manual")}, icon: {Image(systemName: "info")})
-                        })
+                        
                         Button(action:{
                             self.isLinkActive = true
                             self.isLogoutMenuClicked = true
