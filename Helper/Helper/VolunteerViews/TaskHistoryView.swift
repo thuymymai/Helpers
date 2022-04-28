@@ -46,30 +46,33 @@ struct TaskHistoryView: View {
     }
     
     var body: some View {
-        GeometryReader{ geometry in
-            Color("Primary")
-            ScrollView{
-                VStack(alignment: .center) {
+        GeometryReader { geometry in
+            ZStack{
+                Color("Primary")
+                ScrollView(.vertical, showsIndicators: false) {
                     
-                    let _ = print("task info: \(taskInfo.count)")
-                    if(taskInfo.count > 0) {
-                        ForEach(taskInfo) { task in
-                            let _ = print("tasks \(task)")
-                            let helpseeker  = getHelpseeker(task: task)
-                            if(task.status == 1){
-                                TaskHistoryCard(taskTitle: task.title!, user: helpseeker.fullname, location: task.location!, time: task.time!, date: task.time!, status: task.status)
-                                    .frame(width: geometry.size.width * 0.9)
-                                    .background()
-                                    .cornerRadius(10)
-                                    .shadow(radius: 10)
-                                    .padding(.bottom,10)
-                                    .offset(y: 30)
+                    VStack(alignment: .center) {
+                        
+                        let _ = print("task info: \(taskInfo.count)")
+                        if(taskInfo.count > 0) {
+                            ForEach(taskInfo) { task in
+                                let _ = print("tasks \(task)")
+                                let helpseeker  = getHelpseeker(task: task)
+                                if(task.status == 1){
+                                    TaskHistoryCard(taskTitle: task.title!, user: helpseeker.fullname, location: task.location!, time: task.time!, date: task.time!, status: task.status)
+                                        .frame(width: geometry.size.width * 0.9)
+                                        .background()
+                                        .cornerRadius(10)
+                                        .shadow(radius: 10)
+                                        .padding(.bottom,10)
+                                        .offset(y: 30)
+                                }
                             }
                         }
                     }
-                }.padding(.leading)
-            }.frame(maxHeight: geometry.size.height * 0.9)
-            
+                    
+                }.frame(maxHeight: geometry.size.height * 0.97)
+            }
             
         }.onAppear(perform: {getTaskInfo()})
     }

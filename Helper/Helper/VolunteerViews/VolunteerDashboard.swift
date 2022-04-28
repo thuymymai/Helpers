@@ -130,7 +130,7 @@ struct VolunteerDashboard: View {
                             .padding(.top, -10)
                             .offset(x:-105)
                             .padding(.bottom,30)
-                       
+                        
                         VStack(spacing: 20) {
                             let _ = getTaskInfo()
                             if(taskInfo.count > 0) {
@@ -143,11 +143,15 @@ struct VolunteerDashboard: View {
                                         .shadow(radius: 5)
                                         .padding(.bottom,10)
                                 }
+                            } else {
+                                ZStack{
+                                    Color("Background")
+                                }.frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.23,alignment: .top)
+                                    .background(Color("Background"))
                             }
                         }
-                        
                     }.padding(.horizontal, 10)
-                }
+                }// close ZStack
             } // close Scrollview
             
         }// close geometryreader

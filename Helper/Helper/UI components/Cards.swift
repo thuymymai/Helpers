@@ -18,13 +18,13 @@ struct TaskCard: View {
     @State var isLinkActive = false
     @State var currentTask: Task
     @State var helpseeker: User
-
+    
     @State var taskId: Int16 = 0
     var userInfo: [User]  = []
     @State var volunteerName: String
-
+    
     var body: some View {
-       
+        
         NavigationLink(destination: TaskDetailView(currentTask: $currentTask, helpseeker: $helpseeker)){
             ZStack{
                 VStack(alignment:.leading,spacing:10){
@@ -40,8 +40,8 @@ struct TaskCard: View {
                             .foregroundColor(Color("Primary"))
                     }.padding(.horizontal,20)
                     Label("\(helpseeker.fullname!)", systemImage: "person")
-                                            .padding(.horizontal,20)
-                                            .foregroundColor(.black)
+                        .padding(.horizontal,20)
+                        .foregroundColor(.black)
                     Label("\(currentTask.location!)", systemImage: "mappin")
                         .padding(.horizontal,20)
                         .foregroundColor(.black)
@@ -67,7 +67,7 @@ struct TaskCard: View {
                                         print(error)
                                     }
                                     taskCompleted.toggle()
-
+                                    
                                 }
                             })
                             {
@@ -116,10 +116,10 @@ struct TaskCard: View {
                                 }), secondaryButton: .cancel())
                             })
                         }
-
+                        
                     }
                     .padding(.horizontal,20)
-                        
+                    
                 }
             }.padding(.vertical,20)
         }// close navigationview
