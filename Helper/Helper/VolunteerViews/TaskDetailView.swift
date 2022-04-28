@@ -156,7 +156,6 @@ struct TaskTitle: View {
             .font(.title2)
             .foregroundColor(Color("Primary"))
         Text(taskTitle)
-        
         Divider()
     }
 }

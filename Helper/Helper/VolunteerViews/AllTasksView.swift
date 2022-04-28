@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AllTasksView: View {
+    // all available tasks info
     @Binding var userInfo: [User]
     @Binding var taskInfo: [Task]
     @Binding var availableTasks: [Task]
@@ -20,7 +21,6 @@ struct AllTasksView: View {
             ScrollView{
                 ZStack{
                     VStack(spacing: 20){
-                        
                         TaskCard(userInfo: userInfo, taskInfo:taskInfo, availableTasks:availableTasks, categoryTask: availableTasks,volunteerName: volunteerName)
                             .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.25,alignment: .top)
                             .background(.white)

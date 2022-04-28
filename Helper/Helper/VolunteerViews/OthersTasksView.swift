@@ -9,13 +9,13 @@ import SwiftUI
 
 struct OthersTasksView: View {
     
+    // tasks information that belongs to others categories
     @Binding var others: [Task]
     @Binding var userInfo: [User]
     @Binding var taskInfo: [Task]
     @Binding var availableTasks: [Task]
     @Binding var volunteerName: String
-//    @Binding var currentTask: Task
-//    @Binding var helpseeker: User
+
     var body: some View {
         GeometryReader{geometry in
             Color("Background")
@@ -24,13 +24,11 @@ struct OthersTasksView: View {
                 ZStack{
                     VStack(spacing: 20){
                        TaskCard(userInfo: userInfo, taskInfo:taskInfo, availableTasks:availableTasks,categoryTask: others,volunteerName: volunteerName)
-                        
                             .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.25,alignment: .top)
                             .background(.white)
                             .cornerRadius(10)
                             .shadow(radius: 5)
                             .padding(.horizontal)
-                       
                     }
                 }
             }

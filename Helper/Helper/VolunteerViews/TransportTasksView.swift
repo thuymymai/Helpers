@@ -8,40 +8,14 @@
 import SwiftUI
 
 struct TransportTasksView: View {
-    @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
-    @FetchRequest(entity: Task.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Task.title, ascending: true)]) var taskResults: FetchedResults<Task>
     
-    //@Binding var volunteerName: String
-    
+    // task information based on category transportation
     @Binding var transport: [Task]
     @Binding var userInfo: [User]
     @Binding var taskInfo: [Task]
     @Binding var availableTasks: [Task]
     @Binding var volunteerName: String
-//    @Binding var currentTask: Task
-//    @Binding var helpseeker: User
-//    @State var showAlert: Bool = false
-//    @State var isLinkActive = false
-  
-//
-//        @State var taskTitle: String
-//        @State var helpseeker: String
-//        @State var location: String
-//        @State var time: Date?
-//        @State var need: String
-//        @State var desc: String
-//        @State var chronic: String
-//        @State var allergies: String
-//  
-    
-    func getHelpseeker(task: Task) -> User {
-        for user in results {
-            if (user.userId == task.helpseeker) {
-                return user
-            }
-        }
-        return User()
-    }
+
     var body: some View {
         GeometryReader{geometry in
             Color("Background")
@@ -55,7 +29,6 @@ struct TransportTasksView: View {
                             .cornerRadius(10)
                             .shadow(radius: 5)
                             .padding(.horizontal)
-                       
                     }
                 }
             }

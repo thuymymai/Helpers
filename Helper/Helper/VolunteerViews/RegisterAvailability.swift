@@ -36,7 +36,6 @@ struct RegisterAvailability: View {
                             .font(.system(size: 14))
                             .padding(.bottom, 10)
                     }
-                    
                     ZStack{
                         RoundedRectangle(cornerRadius: 10)
                             .fill(.white)
@@ -177,9 +176,6 @@ struct AvailabilityForm: View {
                     }
                 }
                 Divider().frame(width: 250, height:1).background(Color("Primary"))
-                
-                
-                
             }
             NavigationLink(destination: VolunteersNavBar( volunteerName: $fullname)
                 .navigationBarHidden(true), isActive: self.$toDashboard) { EmptyView() }

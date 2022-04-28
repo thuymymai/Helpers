@@ -50,26 +50,20 @@ struct Location: View {
                         .multilineTextAlignment(.center)
                         .foregroundColor(Color("Primary"))
                         .padding(.all, 20)
-
                     NavigationLink(
                         destination: MapView(volunteerName: $volunteerName).navigationBarBackButtonHidden(true),
                         label: {
                             HStack {
                                 Image(systemName: "location.fill")
                                     .foregroundColor(.white)
-
                                 Text("Go To Map")
                                     .bold()
                                     .foregroundColor(.white)
-
                             }
                             .frame(width: 280, height: 60, alignment: .center)
                             .background(Color("Primary"))
                             .cornerRadius(5)
                         }).padding(.top, 10)
-
-
-
                 }
             }
         }

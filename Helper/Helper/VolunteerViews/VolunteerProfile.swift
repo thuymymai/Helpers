@@ -34,9 +34,7 @@ struct VolunteerProfile: View {
                     List {
                         Section(header: Text("Account Settings")) {
                             SettingsView(name: "Edit Profile")
-                               
                             SettingsView(name:"Change Passwords")
-                           
                         }.font(.system(size: 16))
                         Section(header: Text("Preferences")) {
                             Toggle("Push Notification", isOn: $pushNoti)
