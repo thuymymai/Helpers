@@ -40,7 +40,7 @@ struct LandingPage: View {
                             Text("volunteers")
                                 .font(.system(size: 16))
                         }
-                    }.padding(.bottom, 100)
+                    }.padding(.bottom, 80)
                     Spacer()
                     ButtonView()
                     HStack{
@@ -107,7 +107,7 @@ struct ButtonView: View {
                     }.padding(.bottom, 10)
                 }
             NavigationLink(
-                destination: VolunteerSignUp(), isActive: $isVolunteerActive) {
+                destination: VolunteerSignUp().navigationBarHidden(true), isActive: $isVolunteerActive) {
                     Button(action: {self.isVolunteerActive = true}) {
                         Text("I'd like to volunteer")
                             .fontWeight(.bold)

@@ -12,6 +12,7 @@ struct RegisterAvailability: View {
     @Binding var email: String
     @Binding var phone: String
     @Binding var password: String
+ 
     
     var body: some View {
         GeometryReader { geometry in
@@ -62,7 +63,9 @@ struct AvailabilityForm: View {
     @Binding var email: String
     @Binding var phone: String
     @Binding var password: String
-    
+    @State private var userInfo: [User] = []
+    @State private var taskInfo: [Task] = []
+    @State private var availableTasks: [Task] = []
     @State var toDashboard: Bool = false
     @State var showAlert: Bool = false
     @State var isManyTimesChecked: Bool = false
@@ -116,6 +119,7 @@ struct AvailabilityForm: View {
     }
     
     var body: some View {
+        
         VStack(alignment: .leading, spacing: 40) {
             VStack(alignment: .leading) {
                 Button(action: toggle){
@@ -177,7 +181,8 @@ struct AvailabilityForm: View {
                 
                 
             }
-            NavigationLink(destination: VolunteersNavBar(volunteerName: $fullname), isActive: self.$toDashboard) { EmptyView() }
+            NavigationLink(destination: VolunteersNavBar( volunteerName: $fullname)
+                .navigationBarHidden(true), isActive: self.$toDashboard) { EmptyView() }
             Button(action: {
                 showAlert.toggle()
             }) {

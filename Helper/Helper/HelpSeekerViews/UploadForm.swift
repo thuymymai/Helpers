@@ -15,10 +15,10 @@ struct UploadForm: View {
     @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
     
     func getUserInfo() {
-        let userInfo = results.filter{$0.fullname == helpseekerName }
-        //        print("helpseekerName: \(helpseekerName) count: \(helpseekerName.count)")
-        //        print("result count: \(results.count)")
-        //        print("user info \(userInfo.count)")
+        let userInfo = results.filter{$0.fullname?.lowercased() == helpseekerName.lowercased() }
+//                print("helpseekerName: \(helpseekerName) count: \(helpseekerName.count)")
+//                print("result count: \(results[results.count - 1].fullname)")
+//                print("user info \(userInfo.count)")
         
         if(userInfo.count > 0){
             self.userId = Int(userInfo[0].userId)
@@ -91,22 +91,24 @@ struct FormTask: View {
     @FetchRequest(entity: Task.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Task.title, ascending: true)]) var taskResults: FetchedResults<Task>
     
     func uploadTask(title: String, location: String, long: Double, lat: Double, time: Date, category: String, description: String, helpseeker: Int) {
-        let task = Task(context: context)
-        task.id = (Int16) (taskResults.count + 1)
-        task.title = title.lowercased()
-        task.location = location.lowercased()
-        task.long = (Double) (long)
-        task.lat = (Double) (lat)
-        task.time = time
-        task.category = category.lowercased()
-        task.desc = description.lowercased()
-        task.helpseeker = Int16(helpseeker)
-        task.status = 0
-        task.volunteer = 0
-        do {
-            try context.save()
-        } catch {
-            print(error)
+        DispatchQueue.main.async {
+            let task = Task(context: context)
+            task.id = (Int16) (taskResults.count + 1)
+            task.title = title.lowercased()
+            task.location = location.lowercased()
+            task.long = (Double) (long)
+            task.lat = (Double) (lat)
+            task.time = time
+            task.category = category.lowercased()
+            task.desc = description.lowercased()
+            task.helpseeker = Int16(helpseeker)
+            task.status = 0
+            task.volunteer = 0
+            do {
+                try context.save()
+            } catch {
+                print(error)
+            }
         }
     }
     
@@ -201,7 +203,7 @@ struct FormTask: View {
                         return Alert(title: Text("Submit task failed!"),  dismissButton: .default(Text("Try again!"), action: {}))
                     } else {
                         uploadTask(title: title, location: location, long: 0.0, lat: 0.0, time: currentDate, category: categorySelection, description: description, helpseeker: userId)
-                        return Alert(title: Text("Submit task successfully!"),  dismissButton: .default(Text("Got it!"), action: {resetForm()}))
+                        return Alert(title: Text("Submit task successfully!"),  dismissButton: .default(Text("OK"), action: {resetForm()}))
                     }
                 })
                 .padding(.top, 30)

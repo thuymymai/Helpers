@@ -36,9 +36,7 @@ struct VolunteerProfile: View {
                             SettingsView(name: "Edit Profile")
                                
                             SettingsView(name:"Change Passwords")
-                            NavigationLink(destination: LandingPage()) {
-                                SettingsView(name:"Task History")
-                            }
+                           
                         }.font(.system(size: 16))
                         Section(header: Text("Preferences")) {
                             Toggle("Push Notification", isOn: $pushNoti)
@@ -61,6 +59,7 @@ struct VolunteerProfile: View {
 struct VolunteerProfile_Previews: PreviewProvider {
     static var previews: some View {
         VolunteerProfile(volunteerName: .constant(""))
+            .preferredColorScheme(.dark)
     }
 }
 

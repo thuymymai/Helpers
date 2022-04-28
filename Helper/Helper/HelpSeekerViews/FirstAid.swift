@@ -14,7 +14,7 @@ struct FirstAid: View {
     var body: some View {
         ZStack(alignment: .top) {
             Color("White")
-                .edgesIgnoringSafeArea(.top)
+                .edgesIgnoringSafeArea(.all)
             ForEach(array, id: \.self) { value in
                 if (value == stt) {
                     ScrollView {

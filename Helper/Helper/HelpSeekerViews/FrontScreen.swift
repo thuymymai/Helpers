@@ -16,7 +16,7 @@ struct FrontScreen: View {
                 VStack{
                     HStack(alignment: .top){
                         Spacer()
-                        VStack{
+                        VStack(alignment: .leading){
                             Text("Karaportti 2, Espoo")
                                 .font(.system(size: 16))
                                 .padding(.bottom, 2)
@@ -32,10 +32,10 @@ struct FrontScreen: View {
                                             .foregroundColor(.red)
                                     }
                                 })
-                        }.padding(.top, 30)
-                    }
+                        }
+                    }.padding(.top,30)
                     .padding(.bottom, 50)
-                    .padding(.trailing, 10)
+                    .padding(.trailing,10)
                     
                     Text("Emergency help needed?")
                         .bold()
@@ -44,17 +44,17 @@ struct FrontScreen: View {
                     Text("Press button to call the nearest volunteer")
                         .padding(.bottom, 20)
                         .font(.system(size: 18))
-                    EmergencyButton()
+                    EmergencyButton().offset(y:20)
                     Text("First-aid manual")
                         .bold()
-                        .padding(.top, 70)
+                        .padding(.top, 90)
                         .font(.system(size: 20))
-                    FirstAidManual().offset(y:-10)
+                    FirstAidManual().offset(y:-20)
                 }
-            }.offset(y:-40)
-//            .navigationBarTitle("")
-//            .navigationBarHidden(true)
-//            .navigationBarBackButtonHidden(true)
+            }
+            .navigationBarTitle("")
+            .navigationBarHidden(true)
+            .navigationBarBackButtonHidden(true)
 //        }
     }
 }
