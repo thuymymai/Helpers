@@ -54,7 +54,7 @@ struct ContentView: View {
     
     var body: some View {
         VStack{
-            // clear core data in the beginning of the app
+//             clear core data in the beginning of the app
 //            if !results.isEmpty {
 //                ProgressView().onAppear(perform: {clearData(entityName: "User")})
 ////                ProgressView().onAppear(perform: {userModel.fetchData(context: context)})

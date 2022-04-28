@@ -41,7 +41,7 @@ struct MapView: View {
                     PlaceAnnotationView(item: item)
                 }
             }
-            .ignoresSafeArea()
+            .edgesIgnoringSafeArea(.top)
             .tint(.pink)
             LocationButton(.currentLocation) {
                 viewModel.requestAllowOnceLocationPermission()

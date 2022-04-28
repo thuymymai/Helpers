@@ -11,6 +11,7 @@
 		1112DA7C2810184300E0D6F2 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1112DA7B2810184300E0D6F2 /* TaskViewModel.swift */; };
 		1112DA7E281018EC00E0D6F2 /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1112DA7D281018EC00E0D6F2 /* TaskModel.swift */; };
 		1114DF7A280D4D3800A2BED8 /* HelpSeekerNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1114DF79280D4D3800A2BED8 /* HelpSeekerNavBar.swift */; };
+		112E482C2814F33F00DAF81D /* FirstAidData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112E482B2814F33F00DAF81D /* FirstAidData.swift */; };
 		1157C5CA28008DD200EDAC8D /* LandingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1157C5C928008DD200EDAC8D /* LandingPage.swift */; };
 		1157C5CC28009D0D00EDAC8D /* Signup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1157C5CB28009D0D00EDAC8D /* Signup.swift */; };
 		1157C5CE2800B82500EDAC8D /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1157C5CD2800B82500EDAC8D /* Login.swift */; };
@@ -21,7 +22,11 @@
 		117419DD280DA2D7001B9739 /* HelpSeekerMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117419DC280DA2D7001B9739 /* HelpSeekerMapView.swift */; };
 		11B24F11280532D50029786D /* FirstAid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B24F10280532D50029786D /* FirstAid.swift */; };
 		11B24F13280B1BE50029786D /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B24F12280B1BE50029786D /* TaskList.swift */; };
-		205CB54727FC5AF3004DBA8B /* AvailableTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205CB54627FC5AF3004DBA8B /* AvailableTasksView.swift */; };
+		205CB54727FC5AF3004DBA8B /* AssistanceTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 205CB54627FC5AF3004DBA8B /* AssistanceTasksView.swift */; };
+		208C4BF728167643004A3051 /* TransportTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208C4BF628167643004A3051 /* TransportTasksView.swift */; };
+		208C4BF92816771F004A3051 /* OthersTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208C4BF82816771F004A3051 /* OthersTasksView.swift */; };
+		208C4BFD28168F6E004A3051 /* AllTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208C4BFC28168F6E004A3051 /* AllTasksView.swift */; };
+		208C4BFF2816F51C004A3051 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208C4BFE2816F51B004A3051 /* EditProfileView.swift */; };
 		20926D81280D68C5000186E3 /* VolunteerSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20926D80280D68C5000186E3 /* VolunteerSignUp.swift */; };
 		20926D83280D6FC6000186E3 /* RegisterAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20926D82280D6FC6000186E3 /* RegisterAvailability.swift */; };
 		20B435D8280D557400B9D5D0 /* VolunteersNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B435D7280D557400B9D5D0 /* VolunteersNavBar.swift */; };
@@ -71,6 +76,7 @@
 		1112DA7B2810184300E0D6F2 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		1112DA7D281018EC00E0D6F2 /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 		1114DF79280D4D3800A2BED8 /* HelpSeekerNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpSeekerNavBar.swift; sourceTree = "<group>"; };
+		112E482B2814F33F00DAF81D /* FirstAidData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstAidData.swift; sourceTree = "<group>"; };
 		1157C5C928008DD200EDAC8D /* LandingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPage.swift; sourceTree = "<group>"; };
 		1157C5CB28009D0D00EDAC8D /* Signup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signup.swift; sourceTree = "<group>"; };
 		1157C5CD2800B82500EDAC8D /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
@@ -81,7 +87,11 @@
 		117419DC280DA2D7001B9739 /* HelpSeekerMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpSeekerMapView.swift; sourceTree = "<group>"; };
 		11B24F10280532D50029786D /* FirstAid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstAid.swift; sourceTree = "<group>"; };
 		11B24F12280B1BE50029786D /* TaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
-		205CB54627FC5AF3004DBA8B /* AvailableTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableTasksView.swift; sourceTree = "<group>"; };
+		205CB54627FC5AF3004DBA8B /* AssistanceTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistanceTasksView.swift; sourceTree = "<group>"; };
+		208C4BF628167643004A3051 /* TransportTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportTasksView.swift; sourceTree = "<group>"; };
+		208C4BF82816771F004A3051 /* OthersTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OthersTasksView.swift; sourceTree = "<group>"; };
+		208C4BFC28168F6E004A3051 /* AllTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTasksView.swift; sourceTree = "<group>"; };
+		208C4BFE2816F51B004A3051 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		20926D80280D68C5000186E3 /* VolunteerSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerSignUp.swift; sourceTree = "<group>"; };
 		20926D82280D6FC6000186E3 /* RegisterAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterAvailability.swift; sourceTree = "<group>"; };
 		20B435D7280D557400B9D5D0 /* VolunteersNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteersNavBar.swift; sourceTree = "<group>"; };
@@ -139,12 +149,16 @@
 				20EA35A027FC91FE00E1995B /* VolunteerProfile.swift */,
 				20926D82280D6FC6000186E3 /* RegisterAvailability.swift */,
 				20F5572527FF643A00B0B638 /* TaskDetailView.swift */,
-				205CB54627FC5AF3004DBA8B /* AvailableTasksView.swift */,
+				205CB54627FC5AF3004DBA8B /* AssistanceTasksView.swift */,
+				208C4BF628167643004A3051 /* TransportTasksView.swift */,
+				208C4BF82816771F004A3051 /* OthersTasksView.swift */,
 				20DCAE1227FA2E9F00CBD253 /* VolunteerDashboard.swift */,
 				20D2459D27FDD4D5006FA73B /* Location.swift */,
 				20D245C427FE08BB006FA73B /* MapView.swift */,
 				20B435D7280D557400B9D5D0 /* VolunteersNavBar.swift */,
 				20926D80280D68C5000186E3 /* VolunteerSignUp.swift */,
+				208C4BFC28168F6E004A3051 /* AllTasksView.swift */,
+				208C4BFE2816F51B004A3051 /* EditProfileView.swift */,
 			);
 			path = VolunteerViews;
 			sourceTree = "<group>";
@@ -244,6 +258,7 @@
 				66E89E18280CAC7D00A82085 /* Model */,
 				66E89E13280CABF200A82085 /* UserData.xcdatamodeld */,
 				66E89E22280CC40A00A82085 /* Persistence.swift */,
+				112E482B2814F33F00DAF81D /* FirstAidData.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -400,18 +415,24 @@
 				1112DA7C2810184300E0D6F2 /* TaskViewModel.swift in Sources */,
 				66C16AE1281608B7006E504D /* LocationManager.swift in Sources */,
 				66E89E15280CABF200A82085 /* UserData.xcdatamodeld in Sources */,
+				208C4BFF2816F51C004A3051 /* EditProfileView.swift in Sources */,
 				66E89E1F280CAD1B00A82085 /* UserViewModel.swift in Sources */,
 				20F5572627FF643A00B0B638 /* TaskDetailView.swift in Sources */,
-				205CB54727FC5AF3004DBA8B /* AvailableTasksView.swift in Sources */,
+				205CB54727FC5AF3004DBA8B /* AssistanceTasksView.swift in Sources */,
+				208C4BF728167643004A3051 /* TransportTasksView.swift in Sources */,
+				208C4BFD28168F6E004A3051 /* AllTasksView.swift in Sources */,
 				66E4DA2F27F65FD600538B74 /* HelperApp.swift in Sources */,
 				115E8DB0280513B400C1995D /* FrontScreen.swift in Sources */,
+				208C4BF92816771F004A3051 /* OthersTasksView.swift in Sources */,
 				115E8DAE2805135900C1995D /* ContentView.swift in Sources */,
+				112E482C2814F33F00DAF81D /* FirstAidData.swift in Sources */,
 				115E8DB72805148800C1995D /* UploadForm.swift in Sources */,
 				1157C5CA28008DD200EDAC8D /* LandingPage.swift in Sources */,
 				1157C5CE2800B82500EDAC8D /* Login.swift in Sources */,
 				117419DD280DA2D7001B9739 /* HelpSeekerMapView.swift in Sources */,
 				110C5D7F280484320056EEFC /* MedicalInfo.swift in Sources */,
 				1112DA7E281018EC00E0D6F2 /* TaskModel.swift in Sources */,
+				11C9DD2428150D9100FDB6D1 /* FirstAidVolunteer.swift in Sources */,
 				1114DF7A280D4D3800A2BED8 /* HelpSeekerNavBar.swift in Sources */,
 				11B24F11280532D50029786D /* FirstAid.swift in Sources */,
 				115E8DB4280513D700C1995D /* Profile.swift in Sources */,

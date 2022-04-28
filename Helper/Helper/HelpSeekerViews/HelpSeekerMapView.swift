@@ -14,7 +14,7 @@ struct HelpSeekerMapView: View {
     
     @StateObject private var viewModel = MapViewModel1()
     var body: some View {
-        NavigationView {
+//        NavigationView {
             ZStack(alignment: .bottom){
                 Map(coordinateRegion: $viewModel.region, showsUserLocation: true)
                     .ignoresSafeArea()
@@ -28,9 +28,8 @@ struct HelpSeekerMapView: View {
                 .symbolVariant(.fill)
                 .tint(Color("Primary"))
                 .padding(.bottom,50)
-            }
-        }
-        
+            }.navigationBarHidden(true)
+//        }
     }
 }
 

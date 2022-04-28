@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import Combine
 
 struct VolunteerDashboard: View {
     @Binding var volunteerName: String
@@ -17,18 +17,21 @@ struct VolunteerDashboard: View {
     @FetchRequest(entity: Task.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Task.title, ascending: true)]) var taskResults: FetchedResults<Task>
     
     // task related details
-    @State  var userInfo: [User]  = []
-    @State  var taskInfo: [Task] = []
+    @State var userInfo: [User]  = []
+    @State var taskInfo: [Task] = []
+    @State var availableTasks: [Task] = []
+    @State var assistance: [Task] = []
+    @State var transport: [Task] = []
+    @State var others: [Task] = []
     
+    // get task of current user
     func getTaskInfo() {
-        // current user
         self.userInfo = results.filter{$0.fullname == volunteerName }
-        
         if(userInfo.count > 0){
             self.taskInfo = taskResults.filter{$0.volunteer == userInfo[0].userId}
         }
     }
-    
+    // get helpseeker
     func getHelpseeker(task: Task) -> User {
         for user in results {
             if (user.userId == task.helpseeker) {
@@ -37,16 +40,25 @@ struct VolunteerDashboard: View {
         }
         return User()
     }
-    
-    
+    // sort task by category
+    func sortCategory(category: String) {
+        self.availableTasks = taskResults.filter{$0.volunteer == 0}
+        if (category == "Assistance"){
+            self.assistance = availableTasks.filter{$0.category == "personal assistant" || $0.category == "housework"}
+        }else if (category == "Transport"){
+            self.transport = availableTasks.filter{$0.category == "transportation" || $0.category == "delivery" }
+        }else {
+            self.others = availableTasks.filter{$0.category != "personal assistant" && $0.category != "transportation"
+                && $0.category != "delivery" && $0.category != "housework"
+            }
+        }
+        print("available \(availableTasks)")
+    }
     var body: some View {
-        
         GeometryReader { geometry in
-            
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(spacing:20) {
                     HStack {
-                        
                         Text("Hi \(volunteerName)\n")
                             .font(.system(size: 28))
                             .fontWeight(.semibold)
@@ -56,35 +68,51 @@ struct VolunteerDashboard: View {
                             .fontWeight(.regular)
                             .foregroundColor(Color("Primary"))
                         Spacer()
-                        NavigationLink(destination: VolunteerProfile()
-                                       
+                        NavigationLink(destination: VolunteerProfile(volunteerName: $volunteerName)
                         ) {
-                            Image("Avatar-1")
+                            Image("volunteer")
                                 .resizable()
                                 .padding()
                                 .frame(width: 85, height: 85)
                                 .shadow(radius: 5)
                         }
-                    }
-                    SearchAndFilter()
+                    }.padding(.top,10)
+                    
+                    ImageSlideShow()
+                        .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.25)
+                    
                     VStack(alignment: .leading, spacing: 5){
-                        Text("Available Tasks")
-                            .font(.system(size: 24))
-                        Text("\(taskResults.count) tasks waiting to be accepted")
+                        HStack {
+                            Text("Available Tasks")
+                                .font(.system(size: 24))
+                            Spacer()
+                            NavigationLink(destination: AllTasksView()){
+                                Text("View All")
+                                    .underline()
+                                    .bold()
+                                    .font(.system(size: 14))
+                                    .foregroundColor(Color("Primary"))
+                                    .cornerRadius(6)
+                            }
+                        }
+                        Text("\(availableTasks.count) tasks waiting to be accepted")
                             .font(.system(size: 16))
                             .foregroundColor(Color("Primary"))
                             .fontWeight(.medium)
-                    }.padding(.top,50)
-                        .offset(x: -55)
+                    }.padding(.horizontal, 5)
+                    
                     HStack(spacing: 10) {
-                        NavigationLink(destination: AvailableTasksView()) {
-                            CategoriesView(categoryName: "Assistance", numberOfTasks: "3 Tasks", ImageName: "helping image")
+                        let _ = sortCategory(category: "Assistance")
+                        let _ = sortCategory(category: "Transport")
+                        let _ = sortCategory(category: "Others")
+                        NavigationLink(destination: AssistanceTasksView(assistance: $assistance)) {
+                            CategoriesView(categoryName: "Assistance", numberOfTasks: "\(assistance.count) Tasks", ImageName: "helping image")
                         }
-                        NavigationLink(destination: AvailableTasksView()) {
-                            CategoriesView(categoryName: "Transport", numberOfTasks: "3 Tasks", ImageName: "delivery image")
+                        NavigationLink(destination: TransportTasksView(transport: $transport)) {
+                            CategoriesView(categoryName: "Transport", numberOfTasks: "\(transport.count) Tasks", ImageName: "delivery image")
                         }
-                        NavigationLink(destination: AvailableTasksView()) {
-                            CategoriesView(categoryName: "Others", numberOfTasks: "4 Tasks", ImageName: "groceries image")
+                        NavigationLink(destination: OthersTasksView(others: $others)) {
+                            CategoriesView(categoryName: "Others", numberOfTasks: "\(others.count) Tasks", ImageName: "groceries image")
                         }
                     } // close HSTack
                     Text("Ongoing Tasks")
@@ -113,46 +141,40 @@ struct VolunteerDashboard: View {
 }
 
 
-
-
 struct VolunteerDashboard_Previews: PreviewProvider {
     static var previews: some View {
         VolunteerDashboard(volunteerName: .constant(""))
     }
 }
 
-
-struct SearchAndFilter: View {
-    @State private var search: String = ""
-    var body: some View {
-        GeometryReader { geometry in
-            HStack {
-                HStack{
-                    Image("Search")
+struct ImageSlideShow: View{
+    private let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
+    @State private var currentIndex = 0
+    
+    var body: some View{
+        GeometryReader{ geometry in
+            TabView(selection: $currentIndex){
+                ForEach(0..<4){image in
+                    Image("\(image)")
                         .resizable()
-                        .frame(width: 20, height: 20)
-                    
-                    TextField("Search Tasks", text: $search)
-                        .background(.white)
+                        .scaledToFill()
+                        .overlay(Color.black.opacity(0.08))
+                        .tag(image)
                 }
-                .padding(.all, 20)
-                .background(.white)
-                .cornerRadius(10)
-                
-                Button(action: {}) {
-                    Image("equalizer")
-                        .resizable()
-                        .frame(width: 35, height: 35)
-                        .padding()
-                        .background(.white)
-                        .cornerRadius(10)
-                }
-            }
+            }.tabViewStyle(PageTabViewStyle())
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .onReceive(timer, perform: {_ in
+                    withAnimation{
+                        currentIndex = currentIndex < 4 ? currentIndex + 1 :0
+                        
+                    }
+                })
         }
     }
 }
 
 struct CategoriesView: View {
+    
     var categoryName: String
     var numberOfTasks: String
     var ImageName: String
@@ -194,47 +216,49 @@ struct OngoingTaskCard: View {
     
     
     var body: some View {
-        
-        ZStack{
-            RoundedRectangle(cornerRadius: 10)
-                .fill(.white)
-                .shadow(radius: 5)
-                .frame(width: 340, height: 150)
-            
-            VStack(alignment:.leading,spacing:10){
-                HStack{
-                    Text(taskTitle)
-                        .font(.headline)
-                        .fontWeight(.semibold)
-                    Spacer()
-                    Text(time!.formatted(date: .numeric, time: .omitted))
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(Color("Primary"))
-                }.padding(.horizontal)
+        NavigationLink(destination: TaskDetailView(taskTitle: $taskTitle, helpseeker: $helpseeker, location: $location,
+                                                   time: $time, desc: $desc, need: $need,
+                                                   chronic: $chronic, allergies: $allergies)){
+            ZStack{
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(.white)
+                    .shadow(radius: 5)
+                    .frame(width: 340, height: 150)
                 
-                Label("Sender: \(helpseeker)", systemImage: "person").padding(.horizontal)
-                Label("Address: \(location)", systemImage: "mappin").padding(.horizontal)
-                
-                HStack{
-                    
-                    Label(time!.formatted(date: .omitted, time: .complete), systemImage: "clock")
-                        .font(.system(size: 14))
-                        .foregroundColor(.secondary)
-                    Spacer()
-                    NavigationLink(destination: TaskDetailView(taskTitle: $taskTitle, helpseeker: $helpseeker, location: $location,
-                                                               time: $time, desc: $desc, need: $need,
-                                                               chronic: $chronic, allergies: $allergies)){
-                        Text("View Task")
+                VStack(alignment:.leading,spacing:10){
+                    HStack{
+                        Text(taskTitle)
+                            .font(.headline)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.black)
+                        Spacer()
+                        Text(time!.formatted(date: .numeric, time: .omitted))
                             .font(.subheadline)
-                            .frame(width: 90, height: 30)
-                            .background(Color("Primary"))
-                            .foregroundColor(.white)
-                            .cornerRadius(6)
-                    }
-                }.padding(.horizontal)
+                            .fontWeight(.semibold)
+                            .foregroundColor(Color("Primary"))
+                    }.padding(.horizontal)
+                    Label("\(helpseeker)", systemImage: "person")
+                        .padding(.horizontal)
+                        .foregroundColor(.black)
+                    Label("\(location)", systemImage: "mappin")
+                        .padding(.horizontal)
+                        .foregroundColor(.black)
+                    HStack{
+                        Label(time!.formatted(date: .omitted, time: .complete), systemImage: "clock")
+                            .font(.system(size: 14))
+                            .foregroundColor(.secondary)
+                        Spacer()
+                        Button(action: {}){
+                            Text("Mark As Done")
+                                .font(.subheadline)
+                                .frame(width: 110, height: 30)
+                                .background(Color("Primary"))
+                                .foregroundColor(.white)
+                                .cornerRadius(6)
+                        }                    }.padding(.horizontal)
+                        .padding(.bottom,5)
+                }
             }
         }
     }
 }
-

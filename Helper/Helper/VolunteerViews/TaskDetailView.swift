@@ -32,7 +32,7 @@ struct TaskDetailView: View {
                                 ContactInfo(helpseeker: helpseeker)
                                 Divider()
                                 DisabilityInformation(need: need, chronic: chronic, allergies: allergies)
-                            }.frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.45)
+                            }.frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.4)
                                 .background(.white)
                                 .cornerRadius(10)
                                 .shadow(radius: 5)
@@ -68,7 +68,7 @@ struct DisabilityInformation: View {
     var allergies: String
     
     var body: some View {
-        VStack(spacing:10){
+        VStack(spacing:5){
             HStack(spacing:-10) {
                 Text("Diability :")
                     .font(.body)
@@ -108,7 +108,7 @@ struct DisabilityInformation: View {
                 Spacer()
             }
         }
-        .padding(.vertical)
+        .padding(.bottom,5)
         .padding(.leading, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
         .padding(.trailing, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
     }
@@ -118,16 +118,16 @@ struct ContactInfo: View {
     
     var helpseeker: String
     var body: some View {
-        VStack(spacing:0) {
+        VStack(spacing:5) {
             Image("avatar")
                 .resizable()
-                .frame(width: 80, height: 80)
-                .cornerRadius(50)
-            
+                .frame(width: 60, height: 60)
+                .shadow(radius: 3)
+                .padding(.top, 10)
             Text(helpseeker)
                 .bold()
-                .padding(.all, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-            HStack(spacing:30) {
+               
+            HStack(alignment: .center,spacing:40) {
                 VStack(spacing:15) {
                     Image(systemName: "phone.fill")
                         .resizable()
@@ -180,7 +180,7 @@ struct TimeNeeded: View {
             .bold()
             .font(.title2)
             .foregroundColor(Color("Primary"))
-        Text("time")
+        Text(time!.formatted())
         Divider()
     }
 }

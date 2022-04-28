@@ -63,7 +63,7 @@ struct Form: View {
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var emails: [String?] = []
-    @State private var volunteerName: String = ""
+    @State private var userName: String = ""
     
     // set up environment
     @StateObject var userModel = UserViewModel()
@@ -108,18 +108,17 @@ struct Form: View {
             Button(action: {
                 self.userInfo = results.filter{$0.email?.lowercased() == email.lowercased()}
                 self.emails = results.map{$0.email?.lowercased()}
-     
                 let emailExists = self.emails.contains(email.lowercased())
                
                 // reset to to the initial stage
                 self.loginFailed = false
                 if (userInfo.count > 0) {
                     // credentials check
-                    if ( !emailExists || userInfo[0].password != password){
+                    if ( !emailExists || userInfo[0].password != password || email == "" || password == ""){
                         self.loginFailed.toggle()
                     }
                     // passing data
-                    volunteerName = userInfo[0].fullname!
+                    userName = userInfo[0].fullname!
                 }
                 self.showAlert.toggle()
             }) {
@@ -173,10 +172,11 @@ struct Form: View {
        
         
         if (userInfo.count > 0)  {
+            let _ = print("type of user login \(userInfo[0].type)")
             if  ( userInfo[0].type == "v") {
-                VolunteersNavBar(volunteerName: $volunteerName).navigationBarHidden(true)
+                VolunteersNavBar(volunteerName: $userName).navigationBarHidden(true)
             } else if (userInfo[0].type == "h") {
-                HelpSeekerNavBar().navigationBarHidden(true)
+                HelpSeekerNavBar(helpseekerName: $userName).navigationBarHidden(true)
             } else {
                 EmptyView()
             }

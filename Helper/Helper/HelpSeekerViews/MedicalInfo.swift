@@ -28,13 +28,15 @@ struct MedicalInfo: View {
                             .multilineTextAlignment(.center)
                             .font(.system(size: 20))
                             .padding(.top, 50)
-                    }
+                    }.offset(y:-60)
                     Spacer()
-                    Text("By signup and login, I confirm I am at least  17 years old, and I agree to and accept  Helpers Terms & Privacy Policy")
+                    Text("By signup and login, I confirm that I am at least 17 years old and agree to  Helpers Terms & Privacy Policy")
+                        .bold()
                         .frame(maxWidth: 280)
                         .multilineTextAlignment(.center)
-                        .font(.system(size: 15))
-                        .padding(.bottom, 30)
+                        .font(.system(size: 14))
+                        .padding(.bottom, 10)
+                    
                 }
                 ZStack{
                     RoundedRectangle(cornerRadius: 10)
@@ -42,7 +44,7 @@ struct MedicalInfo: View {
                         .frame(width: 300, height: 500)
                         .shadow(radius: 5)
                     FormMedical(fullname: $fullname, email: $email, phone: $phone, password: $password)
-                }
+                }.offset(y:-30)
             }
             .navigationBarTitle("")
             .navigationBarHidden(true)
@@ -173,9 +175,11 @@ struct FormMedical: View {
                                 .frame(width: 110, height: 110)
                                 .background(.blue)
                         }
-                    }
-                    .pickerStyle(.menu)
-//                    SpecialNeed()
+                    }.frame(width: 250)
+                        .cornerRadius(5)
+                        .background(Color("Background"))
+                        .pickerStyle(.menu)
+                    //                    SpecialNeed()
                     Text("Chronic diseases")
                         .fontWeight(.medium)
                         .frame(maxWidth: 300, alignment: .leading)
@@ -187,8 +191,11 @@ struct FormMedical: View {
                                 .frame(width: 110, height: 110)
                                 .background(.blue)
                         }
-                    }.pickerStyle(.menu)
-//                    ChronicDiseases()
+                    }.frame(width: 250)
+                        .cornerRadius(5)
+                        .background(Color("Background"))
+                        .pickerStyle(.menu)
+                    //                    ChronicDiseases()
                     Text("Allergies")
                         .fontWeight(.medium)
                         .frame(maxWidth: 300, alignment: .leading)
@@ -201,21 +208,24 @@ struct FormMedical: View {
                                 .background(.blue)
                         }
                     }
+                    .frame(width: 250)
+                    .cornerRadius(5)
+                    .background(Color("Background"))
                     .pickerStyle(.menu)
-                    .frame(alignment: .leading)
-//                    Allergies()
+                    //                    Allergies()
                     Text("Others")
                         .fontWeight(.medium)
                         .frame(maxWidth: 300, alignment: .leading)
                         .font(.system(size: 16))
                         .padding(.top, 10)
-                    TextField("\(results.count)", text: $info)
-                        .padding(.bottom, 40)
-                        .background(Color("Background"))
+                    TextEditor( text: $info)
+                        .frame(width: 250, height: 110)
+                        .colorMultiply(Color("Background"))
                         .cornerRadius(5)
+                        .padding(.bottom,-20)
                 }
                 .frame(width: 250)
-                NavigationLink(destination: HelpSeekerNavBar().navigationBarHidden(true), isActive: self.$isLinkActive) { }
+                NavigationLink(destination: HelpSeekerNavBar(helpseekerName: $fullname).navigationBarHidden(true), isActive: self.$isLinkActive) { }
                 Button(action: {
                     showAlert.toggle()
                 }) {
@@ -234,7 +244,7 @@ struct FormMedical: View {
                         return Alert(title: Text("Register successfully!"),  dismissButton: .default(Text("Got it!"), action: {self.isLinkActive = true}))
                     }
                 })
-                    .padding(.top, 40)
+                .padding(.top, 40)
             }
             
         }
