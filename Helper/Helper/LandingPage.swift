@@ -95,7 +95,7 @@ struct ButtonView: View {
     var body: some View {
         VStack{
             NavigationLink(
-                destination: Signup(), isActive: $isHelpSeekerActive) {
+                destination: Signup().navigationBarHidden(true), isActive: $isHelpSeekerActive) {
                     Button(action: {self.isHelpSeekerActive = true}) {
                         Text("I need assistant")
                             .fontWeight(.bold)

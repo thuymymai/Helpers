@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct RegisterAvailability: View {
+    
     @Binding var fullname: String
     @Binding var email: String
     @Binding var phone: String
     @Binding var password: String
  
-    
     var body: some View {
         GeometryReader { geometry in
             NavigationView{
@@ -36,7 +36,6 @@ struct RegisterAvailability: View {
                             .font(.system(size: 14))
                             .padding(.bottom, 10)
                     }
-                    
                     ZStack{
                         RoundedRectangle(cornerRadius: 10)
                             .fill(.white)
@@ -59,6 +58,7 @@ struct RegisterAvailability_Previews: PreviewProvider {
 }
 
 struct AvailabilityForm: View {
+    
     @Binding var fullname: String
     @Binding var email: String
     @Binding var phone: String
@@ -177,9 +177,6 @@ struct AvailabilityForm: View {
                     }
                 }
                 Divider().frame(width: 250, height:1).background(Color("Primary"))
-                
-                
-                
             }
             NavigationLink(destination: VolunteersNavBar( volunteerName: $fullname)
                 .navigationBarHidden(true), isActive: self.$toDashboard) { EmptyView() }

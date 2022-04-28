@@ -9,8 +9,10 @@
 import SwiftUI
 
 struct TaskHistoryView: View {
+    // user name
     @Binding var volunteerName: String
     
+    // environment
     @Environment(\.managedObjectContext) var context
     
     // fetching user data from core data
@@ -23,19 +25,15 @@ struct TaskHistoryView: View {
     @State  var userInfo: [User]  = []
     @State var taskInfo: [Task] = []
     
-    
+    // get task information of current user
     func getTaskInfo() {
         self.userInfo = results.filter{$0.fullname == volunteerName }
-        print("volunteer name: \(volunteerName) count: \(volunteerName.count)")
-        print("result count: \(results.count)")
-        print("task result count: \(taskResults.count)")
-        print("user info \(userInfo.count)")
-        
         if(userInfo.count > 0){
             self.taskInfo = taskResults.filter{$0.volunteer == userInfo[0].userId}
         }
     }
     
+    // get helpseeker information
     func getHelpseeker(task: Task) -> User {
         for user in results {
             if (user.userId == task.helpseeker) {
@@ -46,30 +44,33 @@ struct TaskHistoryView: View {
     }
     
     var body: some View {
-        GeometryReader{ geometry in
-            Color("Primary")
-            ScrollView{
-                VStack(alignment: .center) {
+        GeometryReader { geometry in
+            ZStack{
+                Color("Primary")
+                ScrollView(.vertical, showsIndicators: false) {
                     
-                    let _ = print("task info: \(taskInfo.count)")
-                    if(taskInfo.count > 0) {
-                        ForEach(taskInfo) { task in
-                            let _ = print("tasks \(task)")
-                            let helpseeker  = getHelpseeker(task: task)
-                            if(task.status == 1){
-                                TaskHistoryCard(taskTitle: task.title!, user: helpseeker.fullname, location: task.location!, time: task.time!, date: task.time!, status: task.status)
-                                    .frame(width: geometry.size.width * 0.9)
-                                    .background()
-                                    .cornerRadius(10)
-                                    .shadow(radius: 10)
-                                    .padding(.bottom,10)
-                                    .offset(y: 30)
+                    VStack(alignment: .center) {
+                        
+                        let _ = print("task info: \(taskInfo.count)")
+                        if(taskInfo.count > 0) {
+                            ForEach(taskInfo) { task in
+                                let _ = print("tasks \(task)")
+                                let helpseeker  = getHelpseeker(task: task)
+                                if(task.status == 1){
+                                    TaskHistoryCard(taskTitle: task.title!, user: helpseeker.fullname, location: task.location!, time: task.time!, date: task.time!, status: task.status)
+                                        .frame(width: geometry.size.width * 0.9)
+                                        .background()
+                                        .cornerRadius(10)
+                                        .shadow(radius: 10)
+                                        .padding(.bottom,10)
+                                        .offset(y: 30)
+                                }
                             }
                         }
                     }
-                }.padding(.leading)
-            }.frame(maxHeight: geometry.size.height * 0.9)
-            
+                    
+                }.frame(maxHeight: geometry.size.height * 0.97)
+            }
             
         }.onAppear(perform: {getTaskInfo()})
     }
@@ -82,70 +83,3 @@ struct TaskHistoryView_Previews: PreviewProvider {
     }
 }
 
-struct TaskHistoryCard: View {
-    @State var taskTitle: String
-    @State var user: String?
-    @State var location: String
-    @State var time: Date?
-    @State var date: Date?
-    @State var status: Int16
-    
-    var body: some View {
-        
-        VStack(alignment: .leading, spacing: 5) {
-            HStack {
-                VStack(alignment: .leading, spacing:10) {
-                    Text(taskTitle)
-                        .font(.headline)
-                        .foregroundColor(.black)
-                        .multilineTextAlignment(.leading)
-                    Label(user ?? "No volunteer assigned", systemImage: "person")
-                        .font(.subheadline)
-                        .foregroundColor(.black)
-                }
-                Spacer()
-                if(user == "No volunteer assigned") {
-                    Text("Pending")
-                        .frame(width: 80)
-                        .font(.headline)
-                        .padding(10)
-                        .background(.orange)
-                        .cornerRadius(10)
-                        .foregroundColor(.white)
-                } else {
-                    switch(status){
-                    case 0:
-                        Text("Ongoing")
-                            .frame(width: 80)
-                            .font(.headline)
-                            .padding(10)
-                            .background(Color("Primary"))
-                            .cornerRadius(10)
-                            .foregroundColor(.white)
-                    case 1:
-                        Text("Done")
-                            .frame(width: 80)
-                            .font(.headline)
-                            .padding(10)
-                            .background(.green)
-                            .cornerRadius(10)
-                            .foregroundColor(.white)
-                    default:
-                        Text("task")
-                    }
-                }
-            }.padding(.horizontal)
-            Label(time!.formatted(date: .omitted, time: .complete), systemImage: "clock")
-                .font(.subheadline)
-                .foregroundColor(.black)
-                .padding(.horizontal)
-            Label("Location: \(location)", systemImage: "mappin")
-                .font(.subheadline)
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.leading)
-                .padding(.horizontal)
-        }
-        .padding(.vertical)
-        .layoutPriority(100)
-    }
-}

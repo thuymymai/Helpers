@@ -8,24 +8,24 @@
 import SwiftUI
 
 struct VolunteerProfile: View {
+    
     @State private var pushNoti = true
     @State private var showingSheet = false
-
+    
     @Binding var volunteerName: String
+    
     var body: some View {
         NavigationView {
             ZStack{
-                Color("Background").edgesIgnoringSafeArea(.top)
+                Color("Background")
                 VStack{
                     ZStack{
-                        Image("BG Mask").edgesIgnoringSafeArea(.all)
+                        Image("BG Mask")
                         VStack{
                             Image("volunteer")
                                 .resizable()
                                 .frame(width: 80, height: 80)
                                 .shadow(color: .black, radius: 3)
-                                
-                            
                             Text("\(volunteerName)")
                                 .font(.title)
                                 .foregroundColor(.white)
@@ -34,9 +34,7 @@ struct VolunteerProfile: View {
                     List {
                         Section(header: Text("Account Settings")) {
                             SettingsView(name: "Edit Profile")
-                               
                             SettingsView(name:"Change Passwords")
-                           
                         }.font(.system(size: 16))
                         Section(header: Text("Preferences")) {
                             Toggle("Push Notification", isOn: $pushNoti)
@@ -47,7 +45,8 @@ struct VolunteerProfile: View {
                             SettingsView(name: "Update availability")
                         }.font(.system(size: 16))
                     }
-                }.padding(.top, -30)
+                }
+                //.padding(.top, -30)
                     .padding(.bottom,5)
             }
             .navigationBarHidden(true)
