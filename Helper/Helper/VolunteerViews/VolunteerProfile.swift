@@ -15,10 +15,10 @@ struct VolunteerProfile: View {
     var body: some View {
         NavigationView {
             ZStack{
-                Color("Background").edgesIgnoringSafeArea(.top)
+                Color("Background")
                 VStack{
                     ZStack{
-                        Image("BG Mask").edgesIgnoringSafeArea(.all)
+                        Image("BG Mask")
                         VStack{
                             Image("volunteer")
                                 .resizable()
@@ -45,7 +45,8 @@ struct VolunteerProfile: View {
                             SettingsView(name: "Update availability")
                         }.font(.system(size: 16))
                     }
-                }.padding(.top, -30)
+                }
+                //.padding(.top, -30)
                     .padding(.bottom,5)
             }
             .navigationBarHidden(true)

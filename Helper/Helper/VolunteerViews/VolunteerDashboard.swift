@@ -60,6 +60,7 @@ struct VolunteerDashboard: View {
     }
     var body: some View {
         GeometryReader { geometry in
+            Color("Background")
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(spacing:20) {
                     HStack {
@@ -81,7 +82,7 @@ struct VolunteerDashboard: View {
                                 .shadow(radius: 5)
                         }
                     }.padding(.top,10)
-                        .padding(.horizontal,10)
+                        .padding(.horizontal,15)
                     
                     ImageSlideShow()
                         .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.25)
@@ -104,7 +105,7 @@ struct VolunteerDashboard: View {
                             .font(.subheadline)
                             .foregroundColor(Color("Primary"))
                             .fontWeight(.medium)
-                    }.padding(.horizontal, 10)
+                    }.padding(.horizontal, 15)
                     
                     HStack(spacing: 10) {
                         let _ = sortCategory(category: "Assistance")
@@ -147,7 +148,7 @@ struct VolunteerDashboard: View {
             } // close Scrollview
         }// close geometryreader
         .padding(.bottom, 10)
-        .background(Color("Background").edgesIgnoringSafeArea(.top))
+//        .background(Color("Background").edgesIgnoringSafeArea(.top))
     }
 }
 

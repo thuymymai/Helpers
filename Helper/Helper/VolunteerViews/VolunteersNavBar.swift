@@ -71,7 +71,6 @@ struct VolunteersNavBar: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
-                        
                         Button(action:{
                             self.isLinkActive = true
                             self.isLogoutMenuClicked = true
