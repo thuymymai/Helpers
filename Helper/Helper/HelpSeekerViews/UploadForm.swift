@@ -91,22 +91,24 @@ struct FormTask: View {
     @FetchRequest(entity: Task.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Task.title, ascending: true)]) var taskResults: FetchedResults<Task>
     
     func uploadTask(title: String, location: String, long: Double, lat: Double, time: Date, category: String, description: String, helpseeker: Int) {
-        let task = Task(context: context)
-        task.id = (Int16) (taskResults.count + 1)
-        task.title = title.lowercased()
-        task.location = location.lowercased()
-        task.long = (Double) (long)
-        task.lat = (Double) (lat)
-        task.time = time
-        task.category = category.lowercased()
-        task.desc = description.lowercased()
-        task.helpseeker = Int16(helpseeker)
-        task.status = 0
-        task.volunteer = 0
-        do {
-            try context.save()
-        } catch {
-            print(error)
+        DispatchQueue.main.async {
+            let task = Task(context: context)
+            task.id = (Int16) (taskResults.count + 1)
+            task.title = title.lowercased()
+            task.location = location.lowercased()
+            task.long = (Double) (long)
+            task.lat = (Double) (lat)
+            task.time = time
+            task.category = category.lowercased()
+            task.desc = description.lowercased()
+            task.helpseeker = Int16(helpseeker)
+            task.status = 0
+            task.volunteer = 0
+            do {
+                try context.save()
+            } catch {
+                print(error)
+            }
         }
     }
     

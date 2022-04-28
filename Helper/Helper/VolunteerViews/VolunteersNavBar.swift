@@ -10,19 +10,20 @@ import SwiftUI
 enum Tabs: String {
     case Dashboard
     case Location
-    case Tasks
+    case History
     case Profile
 }
 
 struct VolunteersNavBar: View {
-    @State private var userInfo: [User] = []
-    @State private var taskInfo: [Task] = []
-    @State private var availableTasks: [Task] = []
+    @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
+    
+    @FetchRequest(entity: Task.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Task.title, ascending: true)]) var taskResults: FetchedResults<Task>
+    
     @Binding var volunteerName: String
     @State var selectedTab: Tabs = .Dashboard
     @State private var isLogoutMenuClicked = false
     @State private var isLinkActive: Bool = false
-    
+  
     @ViewBuilder
     func chooseDestination()-> some View {
         if (isLogoutMenuClicked){
@@ -46,12 +47,12 @@ struct VolunteersNavBar: View {
                         Text("Location")
                     }
                     .tag(Tabs.Location)
-                AllTasksView(userInfo: $userInfo, taskInfo: $taskInfo, availableTasks: $availableTasks, volunteerName: $volunteerName)
+                TaskHistoryView(volunteerName: $volunteerName)
                     .tabItem(){
-                        Image(systemName: "list.bullet.rectangle.portrait")
-                        Text("Available Tasks")
+                        Image(systemName: "clock.fill")
+                        Text("Task History")
                     }
-                    .tag(Tabs.Tasks)
+                    .tag(Tabs.History)
                 VolunteerProfile(volunteerName: $volunteerName)
                     .tabItem(){
                         Image(systemName: "person")

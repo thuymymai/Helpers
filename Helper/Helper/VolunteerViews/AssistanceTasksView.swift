@@ -96,8 +96,8 @@ struct TaskCard: View {
                     HStack(alignment:.center) {
                         VStack(alignment: .leading, spacing: 10) {
                             Label(helpseeker.fullname!, systemImage: "person")
-                                .font(.subheadline)
-                                .foregroundColor(.black)
+                                                           .font(.subheadline)
+                                                           .foregroundColor(.black)
                             Label(task.location!, systemImage: "mappin")
                                 .font(.subheadline)
                                 .foregroundColor(.primary)
@@ -125,13 +125,24 @@ struct TaskCard: View {
                             
                         })
                         {
-                            Text("Accept Task")
-                                .font(.subheadline)
-                                .fontWeight(.semibold)
-                                .frame(width: 100, height: 30)
-                                .background(.green)
-                                .foregroundColor(.white)
-                                .cornerRadius(6)
+                            if(task.status == 0){
+                                Text("Accept Task")
+                                    .font(.subheadline)
+                                    .fontWeight(.semibold)
+                                    .frame(width: 100, height: 30)
+                                    .background(.green)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(6)
+                            } else {
+                                Text("Done")
+                                    .font(.subheadline)
+                                    .fontWeight(.semibold)
+                                    .frame(width: 100, height: 30)
+                                    .background(.green)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(6)
+                            }
+                            
                         }
                         .alert(isPresented: $showAlert, content: {
                             Alert(title: Text("Accept Task"), message: Text("Confirm accepting this task"), primaryButton: .default(Text("OK"), action: {

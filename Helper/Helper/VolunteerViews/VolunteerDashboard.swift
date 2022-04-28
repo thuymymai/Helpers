@@ -42,6 +42,7 @@ struct VolunteerDashboard: View {
         }
         return User()
     }
+ 
     // sort task by category
     func sortCategory(category: String) {
         DispatchQueue.main.async {

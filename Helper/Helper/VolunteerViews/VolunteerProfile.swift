@@ -36,9 +36,7 @@ struct VolunteerProfile: View {
                             SettingsView(name: "Edit Profile")
                                
                             SettingsView(name:"Change Passwords")
-                            NavigationLink(destination: TaskList(helpseekerName: $volunteerName)) {
-                                SettingsView(name:"Task History")
-                            }
+                           
                         }.font(.system(size: 16))
                         Section(header: Text("Preferences")) {
                             Toggle("Push Notification", isOn: $pushNoti)
