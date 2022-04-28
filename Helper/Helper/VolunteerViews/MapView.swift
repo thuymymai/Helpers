@@ -12,12 +12,37 @@ import MapKit
 
 struct MapView: View {
 
+    @Binding var volunteerName: String
+    
+    // fetching user data from core data
+    @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
+    
+    @State var annotation: [MyAnnotationItem] = []
+//    = [MyAnnotationItem(id: "Jennie", coordinate: CLLocationCoordinate2D(latitude: 60.157683, longitude: 24.542975), distance: 0.0, phoneNumber: "1234"), MyAnnotationItem(id: "Harry", coordinate: CLLocationCoordinate2D(latitude: 60.257, longitude: 24.642), distance: 0.0, phoneNumber: "1234")]
+    
+    func getAnnotation() {
+        if let indexOfUser = results.firstIndex(where: {$0.fullname?.lowercased() == volunteerName.lowercased()}) {
+            for user in results {
+                if (user.type != results[indexOfUser].type) {
+                    annotation.append(MyAnnotationItem(id: user.fullname!, coordinate: CLLocationCoordinate2D(latitude: user.lat, longitude: user.long), distance: CLLocation(latitude: results[indexOfUser].lat, longitude: results[indexOfUser].long).distance(from: CLLocation(latitude: user.lat, longitude: user.long))/1000, phoneNumber: user.phone!))
+                }
+            }
+        }
+
+    }
+    
     @StateObject private var viewModel = MapViewModel()
     var body: some View {
         ZStack(alignment: .bottom){
-            Map(coordinateRegion: $viewModel.region, showsUserLocation: true)
-                .ignoresSafeArea()
-                .tint(.pink)
+            let _ = print("number of annotation \(annotation.count)")
+            let _ = print("annotation \(annotation)")
+            Map(coordinateRegion: $viewModel.region, showsUserLocation: true, annotationItems: annotation) { item in
+                MapAnnotation(coordinate: item.coordinate) {
+                    PlaceAnnotationView(item: item)
+                }
+            }
+            .ignoresSafeArea()
+            .tint(.pink)
             LocationButton(.currentLocation) {
                 viewModel.requestAllowOnceLocationPermission()
             }
@@ -28,12 +53,45 @@ struct MapView: View {
             .tint(Color("Primary"))
             .padding(.bottom,50)
         }
+        .onAppear(perform: {getAnnotation()})
     }
 }
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        MapView()
+        MapView(volunteerName: .constant(""))
+    }
+}
+
+struct MyAnnotationItem: Identifiable {
+    let id: String
+    var coordinate: CLLocationCoordinate2D
+    var distance: Double
+    var phoneNumber: String
+}
+
+struct PlaceAnnotationView: View {
+    @State private var showInfo = true
+    
+    var item: MyAnnotationItem
+    
+    var body: some View {
+        VStack() {
+            Image(systemName: "mappin.circle.fill")
+                    .font(.title)
+                    .foregroundColor(.red)
+            Text(item.id)
+                .opacity(showInfo ? 0 : 1)
+            Text("Distance: \(String(format: "%.1f", item.distance)) km")
+                .opacity(showInfo ? 0 : 1)
+            Text("Phone: \(item.phoneNumber)")
+                .opacity(showInfo ? 0 : 1)
+        }
+        .onTapGesture {
+            withAnimation(.easeInOut) {
+                showInfo.toggle()
+            }
+        }
     }
 }
 
@@ -55,7 +113,7 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate{
             return
         }
         DispatchQueue.main.async {
-            self.region = MKCoordinateRegion(center: latestLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+            self.region = MKCoordinateRegion(center: latestLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1))
         }
     }
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

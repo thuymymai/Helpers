@@ -148,7 +148,7 @@ struct Form: View {
                             let _ = print("long is \(sharedLocation.long)")
                             
                             // update location of current user
-                            if (sharedLocation.address != "") {
+                        if (sharedLocation.address != "" && userInfo.count > 0) {
                                 let _ = print("start updating core data")
                                 if let index = results.firstIndex(where: {$0.email == userInfo[0].email}) {
                                     results[index].location = sharedLocation.address
