@@ -111,10 +111,10 @@ struct Form: View {
                 let emailExists = self.emails.contains(email.lowercased())
                
                 // reset to to the initial stage
-                self.loginFailed = false
+                self.loginFailed = true
                 if (userInfo.count > 0) {
                     // credentials check
-                    if ( !emailExists || userInfo[0].password != password || email == "" || password == ""){
+                    if ( emailExists && userInfo[0].password == password){
                         self.loginFailed.toggle()
                     }
                     // passing data
@@ -172,8 +172,8 @@ struct Form: View {
        
         
         if (userInfo.count > 0)  {
-            let _ = print("type of user login \(userInfo[0].type)")
-            if  ( userInfo[0].type == "v") {
+            let _ = print("type of user login \(String(describing: userInfo[0].type))")
+            if  (userInfo[0].type == "v") {
                 VolunteersNavBar(volunteerName: $userName).navigationBarHidden(true)
             } else if (userInfo[0].type == "h") {
                 HelpSeekerNavBar(helpseekerName: $userName).navigationBarHidden(true)
