@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct TaskDetailView: View {
-    
+//    @Binding var currentTask: Task
     // passing helpseeker data
     @State var taskTitle: String
     @State var helpseeker: String
@@ -39,6 +39,10 @@ struct TaskDetailView: View {
                                 .padding(.top,30)
                         }
                         VStack(alignment: .leading, spacing: 10){
+//                            TaskTitle(taskTitle: currentTask.title!)
+//                            Address(location: currentTask.location!)
+//                            TimeNeeded(time:currentTask.time!)
+//                            TaskDescription(desc: currentTask.desc!)
                             TaskTitle(taskTitle: taskTitle)
                             Address(location: location)
                             TimeNeeded(time:time)
@@ -56,6 +60,7 @@ struct TaskDetailView: View {
 
 struct TaskDetailView_Previews: PreviewProvider {
     static var previews: some View {
+//        TaskDetailView(currentTask: .constant(Task()))
         TaskDetailView(taskTitle: "", helpseeker: "", location: "",
                        time: Date(), desc: "", need: "",
                        chronic: "", allergies: "", id: 0)

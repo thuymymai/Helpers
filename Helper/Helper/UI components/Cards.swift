@@ -22,8 +22,9 @@ struct TaskCard: View {
     @State var categoryTask: [Task]
     @State var taskId: Int16 = 0
     @State var volunteerName: String
-    //    @State var currentTask: Task
-    //    @State var helpseeker: User
+    
+    
+    //@State var currentTask: Task
     func getHelpseeker(task: Task) -> User {
         for user in results {
             if (user.userId == task.helpseeker) {
@@ -41,7 +42,8 @@ struct TaskCard: View {
             NavigationLink(destination: TaskDetailView(taskTitle: task.title!, helpseeker: helpseeker.fullname!, location: task.location!,
                                                        time: task.time!, desc: task.desc!, need: helpseeker.need!,
                                                        chronic: helpseeker.chronic!, allergies: helpseeker.allergies!, id: task.id )){
-                VStack{
+//            NavigationLink(destination: TaskDetailView(currentTask: task)){
+            VStack{
                     HStack{
                         Text(task.title!)
                             .font(.headline)
@@ -58,8 +60,8 @@ struct TaskCard: View {
                     HStack(alignment:.center) {
                         VStack(alignment: .leading, spacing: 10) {
                             Label(helpseeker.fullname!, systemImage: "person")
-                                                           .font(.subheadline)
-                                                           .foregroundColor(.black)
+                                .font(.subheadline)
+                                .foregroundColor(.black)
                             Label(task.location!, systemImage: "mappin")
                                 .font(.subheadline)
                                 .foregroundColor(.primary)
@@ -87,28 +89,16 @@ struct TaskCard: View {
                             
                         })
                         {
-                            if(task.status == 0){
-                                Text("Accept Task")
-                                    .font(.subheadline)
-                                    .fontWeight(.semibold)
-                                    .frame(width: 100, height: 30)
-                                    .background(.green)
-                                    .foregroundColor(.white)
-                                    .cornerRadius(6)
-                            } else {
-                                Text("Done")
-                                    .font(.subheadline)
-                                    .fontWeight(.semibold)
-                                    .frame(width: 100, height: 30)
-                                    .background(.green)
-                                    .foregroundColor(.white)
-                                    .cornerRadius(6)
-                            }
-                            
+                            Text("Accept Task")
+                                .font(.subheadline)
+                                .fontWeight(.semibold)
+                                .frame(width: 100, height: 30)
+                                .background(.green)
+                                .foregroundColor(.white)
+                                .cornerRadius(6)
                         }
                         .alert(isPresented: $showAlert, content: {
                             Alert(title: Text("Accept Task"), message: Text("Confirm accepting this task"), primaryButton: .default(Text("OK"), action: {
-                                //removeTask(task: task)
                                 if(taskId != 0){
                                     let _ = print("modify data")
                                     if let index = taskResults.firstIndex(where: {$0.id == taskId}) {
@@ -134,8 +124,11 @@ struct TaskCard: View {
 
 struct OngoingTaskCard: View {
     @FetchRequest(entity: Task.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Task.title, ascending: true)]) var taskResults: FetchedResults<Task>
+    
     @Environment(\.managedObjectContext) var context
-    @State var refresh: Bool = false
+    
+    @State var isLinkActive = false
+
     @State var taskTitle: String
     @State var helpseeker: String
     @State var location: String
@@ -146,21 +139,20 @@ struct OngoingTaskCard: View {
     @State var chronic: String
     @State var allergies: String
     @State var id: Int16
-    
-    
     @State var taskId: Int16 = 0
+    @Binding var volunteerName: String
+
     var userInfo: [User]  = []
     var body: some View {
-        NavigationLink(destination: TaskDetailView(taskTitle: taskTitle, helpseeker: helpseeker, location: location,
-                                                   time: time, desc: desc, need: need,
-                                                   chronic: chronic, allergies: allergies, id: id)){
+//        NavigationLink(destination: TaskDetailView(taskTitle: taskTitle, helpseeker: helpseeker, location: location,
+//                                                   time: time, desc: desc, need: need,
+//                                                   chronic: chronic, allergies: allergies, id: id)){
             
             ZStack{
                 RoundedRectangle(cornerRadius: 10)
                     .fill(.white)
                     .shadow(radius: 5)
                     .frame(width: 340, height: 150)
-                
                 VStack(alignment:.leading,spacing:10){
                     HStack{
                         Text(taskTitle)
@@ -185,8 +177,10 @@ struct OngoingTaskCard: View {
                             .foregroundColor(.secondary)
                         Spacer()
                         
+                        NavigationLink(
+                            destination: VolunteersNavBar( volunteerName: $volunteerName)
+                                .navigationBarHidden(true), isActive: $isLinkActive) {EmptyView()}
                         Button(action: {
-                            
                             self.taskId = id
                             if(taskId != 0){
                                 if let index = taskResults.firstIndex(where: {$0.id == taskId}) {
@@ -198,6 +192,8 @@ struct OngoingTaskCard: View {
                                     print(error)
                                 }
                             }
+                            self.isLinkActive = true
+                            
                         })
                         {
                             Text("Mark As Done")
@@ -207,9 +203,14 @@ struct OngoingTaskCard: View {
                                 .foregroundColor(.white)
                                 .cornerRadius(6)
                         }
+                        //                        .alert(isPresented: $showAlert, content: {
+                        //                            Alert(title: Text("Completed!"), message: Text("Check your task history"), dismissButton: .default(Text("OK")))
+                        //                        })
+                        
                     }
+                    .padding(.horizontal)
                     .padding(.bottom,5)
-                }
+            //    }
             }
         }
     }

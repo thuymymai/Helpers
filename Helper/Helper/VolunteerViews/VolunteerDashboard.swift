@@ -131,15 +131,17 @@ struct VolunteerDashboard: View {
                     VStack(spacing: 20) {
                         let _ = getTaskInfo()
                         if(taskInfo.count > 0) {
+                            
                             ForEach(taskInfo) { task in
+                                
                                 let helpseeker  = getHelpseeker(task: task)
                                 OngoingTaskCard(taskTitle: task.title!, helpseeker: helpseeker.fullname! , location: task.location!,
                                                 time: task.time!, date: task.time!, desc: task.desc!,
-                                                need: helpseeker.need!, chronic: helpseeker.chronic!, allergies: helpseeker.allergies!, id: task.id
+                                                need: helpseeker.need!, chronic: helpseeker.chronic!, allergies: helpseeker.allergies!, id: task.id, volunteerName: $volunteerName
                                 )
-                                //                                OngoingTaskCard(currentTask: task, helpseeker: helpseeker, userInfo: userInfo)
                                 .padding(.bottom,10)
                             }
+                            
                         }
                     }.padding(.top, -20)
                 }.padding(.horizontal) // close big Vstack
