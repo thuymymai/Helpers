@@ -18,7 +18,7 @@ struct HelpSeekerNavBar: View {
                         Image(systemName: "house")
                         Text("Home")
                     }
-                MapView()
+                HelpSeekerMapView()
                     .tabItem(){
                         Image(systemName: "map")
                         Text("Map")

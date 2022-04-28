@@ -41,7 +41,7 @@ struct VolunteersNavBar: View {
                         Text("Home")
                     }
                     .tag(Tabs.Dashboard)
-                Location()
+                Location(volunteerName: $volunteerName)
                     .tabItem(){
                         Image(systemName: "map")
                         Text("Location")
