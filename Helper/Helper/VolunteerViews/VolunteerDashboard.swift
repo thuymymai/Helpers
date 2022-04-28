@@ -10,7 +10,7 @@ import Combine
 
 struct VolunteerDashboard: View {
     @Binding var volunteerName: String
-
+    
     // fetch data from core
     @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
     
@@ -23,7 +23,7 @@ struct VolunteerDashboard: View {
     @State var assistance: [Task] = []
     @State var transport: [Task] = []
     @State var others: [Task] = []
-
+    
     // get task of current user
     func getTaskInfo() {
         DispatchQueue.main.async {
@@ -42,7 +42,7 @@ struct VolunteerDashboard: View {
         }
         return User()
     }
- 
+    
     // sort task by category
     func sortCategory(category: String) {
         DispatchQueue.main.async {
@@ -60,95 +60,98 @@ struct VolunteerDashboard: View {
     }
     var body: some View {
         GeometryReader { geometry in
-            Color("Background")
             ScrollView(.vertical, showsIndicators: false) {
-                VStack(spacing:20) {
-                    HStack {
-                        Text("Hi \(volunteerName)\n")
-                            .font(.system(size: 28))
-                            .fontWeight(.semibold)
-                            .foregroundColor(Color("Primary"))
-                        + Text("Manage Your Tasks")
-                            .font(.system(size: 28))
-                            .fontWeight(.regular)
-                            .foregroundColor(Color("Primary"))
-                        Spacer()
-                        NavigationLink(destination: VolunteerProfile(volunteerName: $volunteerName)
-                        ) {
-                            Image("volunteer")
-                                .resizable()
-                                .padding()
-                                .frame(width: 85, height: 85)
-                                .shadow(radius: 5)
-                        }
-                    }.padding(.top,10)
-                        .padding(.horizontal,15)
-                    
-                    ImageSlideShow()
-                        .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.25)
-                    
-                    VStack(alignment: .leading, spacing: 5){
+                ZStack{
+                    Color("Background")
+                    VStack(spacing:20) {
                         HStack {
-                            Text("Available Tasks")
-                                .font(.system(size: 24))
+                            Text("Hi \(volunteerName)\n")
+                                .font(.system(size: 28))
+                                .fontWeight(.semibold)
+                                .foregroundColor(Color("Primary"))
+                            + Text("Manage Your Tasks")
+                                .font(.system(size: 28))
+                                .fontWeight(.regular)
+                                .foregroundColor(Color("Primary"))
                             Spacer()
-                            NavigationLink(destination: AllTasksView(userInfo: $userInfo, taskInfo: $taskInfo, availableTasks: $availableTasks, volunteerName: $volunteerName)){
-                                Text("View All")
-                                    .underline()
-                                    .bold()
-                                    .font(.subheadline)
-                                    .foregroundColor(Color("Primary"))
-                                    .cornerRadius(6)
+                            NavigationLink(destination: VolunteerProfile(volunteerName: $volunteerName)
+                            ) {
+                                Image("volunteer")
+                                    .resizable()
+                                    .padding()
+                                    .frame(width: 85, height: 85)
+                                    .shadow(radius: 5)
                             }
-                        }
-                        Text("\(availableTasks.count) tasks waiting to be accepted")
-                            .font(.subheadline)
-                            .foregroundColor(Color("Primary"))
-                            .fontWeight(.medium)
-                    }.padding(.horizontal, 15)
-                    
-                    HStack(spacing: 10) {
-                        let _ = sortCategory(category: "Assistance")
-                        let _ = sortCategory(category: "Transport")
-                        let _ = sortCategory(category: "Others")
+                        }.padding(.top,10)
+                            .padding(.horizontal,15)
                         
-                        NavigationLink(destination: AssistanceTasksView(assistance: $assistance, userInfo: $userInfo, taskInfo: $taskInfo, availableTasks: $availableTasks, volunteerName: $volunteerName)) {
-                            CategoriesView(categoryName: "Assistance", numberOfTasks: "\(assistance.count) Tasks", ImageName: "helping image")
-                        }
-                        NavigationLink(destination: TransportTasksView(transport: $transport,userInfo: $userInfo, taskInfo: $taskInfo, availableTasks: $availableTasks,volunteerName: $volunteerName)) {
-                            CategoriesView(categoryName: "Transport", numberOfTasks: "\(transport.count) Tasks", ImageName: "delivery image")
-                        }
-
-                        NavigationLink(destination: OthersTasksView(others: $others,userInfo: $userInfo, taskInfo: $taskInfo, availableTasks: $availableTasks,volunteerName: $volunteerName)) {
-                            CategoriesView(categoryName: "Others", numberOfTasks: "\(others.count) Tasks", ImageName: "groceries image")
-                        }
-                    } // close HSTack
-                    .padding(.horizontal)
-                    Text("Ongoing Tasks")
-                        .font(.system(size: 24))
-                        .padding(.top, -10)
-                        .offset(x:-105)
-                        .padding(.bottom,30)
-                }.padding(.horizontal, 10)
-                    VStack(spacing: 20) {
-                        let _ = getTaskInfo()
-                        if(taskInfo.count > 0) {
-                            ForEach(taskInfo) { task in
-                                let helpseeker  = getHelpseeker(task: task)
-                                TaskCard(currentTask: task, helpseeker: helpseeker, userInfo: userInfo, volunteerName: volunteerName)
-                                    .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.23,alignment: .top)
-                                                               .background(.white)
-                                                               .cornerRadius(10)
-                                                               .shadow(radius: 5)
-                                .padding(.bottom,10)
+                        ImageSlideShow()
+                            .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.25)
+                        
+                        VStack(alignment: .leading, spacing: 5){
+                            HStack {
+                                Text("Available Tasks")
+                                    .font(.system(size: 24))
+                                Spacer()
+                                NavigationLink(destination: AllTasksView(userInfo: $userInfo, taskInfo: $taskInfo, availableTasks: $availableTasks, volunteerName: $volunteerName)){
+                                    Text("View All")
+                                        .underline()
+                                        .bold()
+                                        .font(.subheadline)
+                                        .foregroundColor(Color("Primary"))
+                                        .cornerRadius(6)
+                                }
+                            }
+                            Text("\(availableTasks.count) tasks waiting to be accepted")
+                                .font(.subheadline)
+                                .foregroundColor(Color("Primary"))
+                                .fontWeight(.medium)
+                        }.padding(.horizontal, 15)
+                        
+                        HStack(spacing: 10) {
+                            let _ = sortCategory(category: "Assistance")
+                            let _ = sortCategory(category: "Transport")
+                            let _ = sortCategory(category: "Others")
+                            
+                            NavigationLink(destination: AssistanceTasksView(assistance: $assistance, userInfo: $userInfo, taskInfo: $taskInfo, availableTasks: $availableTasks, volunteerName: $volunteerName)) {
+                                CategoriesView(categoryName: "Assistance", numberOfTasks: "\(assistance.count) Tasks", ImageName: "helping image")
+                            }
+                            NavigationLink(destination: TransportTasksView(transport: $transport,userInfo: $userInfo, taskInfo: $taskInfo, availableTasks: $availableTasks,volunteerName: $volunteerName)) {
+                                CategoriesView(categoryName: "Transport", numberOfTasks: "\(transport.count) Tasks", ImageName: "delivery image")
+                            }
+                            
+                            NavigationLink(destination: OthersTasksView(others: $others,userInfo: $userInfo, taskInfo: $taskInfo, availableTasks: $availableTasks,volunteerName: $volunteerName)) {
+                                CategoriesView(categoryName: "Others", numberOfTasks: "\(others.count) Tasks", ImageName: "groceries image")
+                            }
+                        } // close HSTack
+                        .padding(.horizontal)
+                        Text("Ongoing Tasks")
+                            .font(.system(size: 24))
+                            .padding(.top, -10)
+                            .offset(x:-105)
+                            .padding(.bottom,30)
+                       
+                        VStack(spacing: 20) {
+                            let _ = getTaskInfo()
+                            if(taskInfo.count > 0) {
+                                ForEach(taskInfo) { task in
+                                    let helpseeker  = getHelpseeker(task: task)
+                                    TaskCard(currentTask: task, helpseeker: helpseeker, userInfo: userInfo, volunteerName: volunteerName)
+                                        .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.23,alignment: .top)
+                                        .background(.white)
+                                        .cornerRadius(10)
+                                        .shadow(radius: 5)
+                                        .padding(.bottom,10)
+                                }
                             }
                         }
-                    //}.padding(.top, -20)
-                }.padding(.horizontal) // close big Vstack
+                        
+                    }.padding(.horizontal, 10)
+                }
             } // close Scrollview
+            
         }// close geometryreader
-        .padding(.bottom, 10)
-//        .background(Color("Background").edgesIgnoringSafeArea(.top))
+        
     }
 }
 
