@@ -35,7 +35,7 @@ struct HelpSeekerMapView: View {
 
 struct HelpSeekerMapView_Previews: PreviewProvider {
     static var previews: some View {
-        MapView()
+        HelpSeekerMapView()
     }
 }
 

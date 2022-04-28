@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import CoreLocation
 
 class UserViewModel: ObservableObject {
     @Published var users: [UserModel] = []
@@ -15,6 +16,8 @@ class UserViewModel: ObservableObject {
     func saveData(context: NSManagedObjectContext) {
         users.forEach{ (data) in
             let entity = User(context: context)
+            var long = 0.0
+            var lat = 0.0
             entity.userId = (Int16) (data.userId!)
             entity.fullname = data.fullname
             entity.password = data.password
@@ -24,11 +27,26 @@ class UserViewModel: ObservableObject {
             entity.availability = data.availability
             entity.note = data.note
             entity.location = data.location
+//            print("long is \(String(describing: data.long))")
+//            print("long is in convert \((data.long! as NSString).doubleValue)")
             entity.long = (data.long! as NSString).doubleValue
+            print("long is after convert \(String(format: "%.2f", entity.long))")
             entity.lat = (data.lat! as NSString).doubleValue
             entity.need = data.need
             entity.chronic = data.chronic
             entity.allergies = data.allergies
+
+//            getLocation(forPlaceCalled: data.location!) { address in
+//                guard let address = address else { return }
+//
+//                lat = address.coordinate.latitude
+//                long = address.coordinate.longitude
+//                print("long is in convert \(String(format: "%.2f", long))")
+//            }
+//
+//            entity.lat = lat
+//            entity.long = long
+//            print("long is after convert \(String(format: "%.2f", entity.long))")
         }
         
         // saving all pending data at once
@@ -73,4 +91,33 @@ class UserViewModel: ObservableObject {
         .resume()
     }
     
+    func getLocation(forPlaceCalled name: String,
+                     completion: @escaping(CLLocation?) -> Void) {
+        
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(name) { placemarks, error in
+            
+            guard error == nil else {
+                print("*** Error in \(#function) with \(name): \(error!.localizedDescription)")
+                completion(nil)
+                return
+            }
+            
+            guard let placemark = placemarks?[0] else {
+                print("*** Error in \(#function): placemark is nil")
+                completion(nil)
+                return
+            }
+            
+            guard let location = placemark.location else {
+                print("*** Error in \(#function): placemark is nil")
+                completion(nil)
+                return
+            }
+
+
+            completion(location)
+        }
+    }
+
 }
