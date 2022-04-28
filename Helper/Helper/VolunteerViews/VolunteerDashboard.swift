@@ -95,22 +95,21 @@ struct VolunteerDashboard: View {
                                 Text("View All")
                                     .underline()
                                     .bold()
-                                    .font(.system(size: 14))
+                                    .font(.subheadline)
                                     .foregroundColor(Color("Primary"))
                                     .cornerRadius(6)
                             }
                         }
                         Text("\(availableTasks.count) tasks waiting to be accepted")
-                            .font(.system(size: 16))
+                            .font(.subheadline)
                             .foregroundColor(Color("Primary"))
                             .fontWeight(.medium)
-                    }.padding(.horizontal, 5)
+                    }.padding(.horizontal, 10)
                     
                     HStack(spacing: 10) {
                         let _ = sortCategory(category: "Assistance")
                         let _ = sortCategory(category: "Transport")
                         let _ = sortCategory(category: "Others")
-                        //let _ = getTaskInfo()
                         
                         NavigationLink(destination: AssistanceTasksView(assistance: $assistance, userInfo: $userInfo, taskInfo: $taskInfo, availableTasks: $availableTasks, volunteerName: $volunteerName)) {
                             CategoriesView(categoryName: "Assistance", numberOfTasks: "\(assistance.count) Tasks", ImageName: "helping image")
@@ -118,32 +117,32 @@ struct VolunteerDashboard: View {
                         NavigationLink(destination: TransportTasksView(transport: $transport,userInfo: $userInfo, taskInfo: $taskInfo, availableTasks: $availableTasks,volunteerName: $volunteerName)) {
                             CategoriesView(categoryName: "Transport", numberOfTasks: "\(transport.count) Tasks", ImageName: "delivery image")
                         }
-                        
+
                         NavigationLink(destination: OthersTasksView(others: $others,userInfo: $userInfo, taskInfo: $taskInfo, availableTasks: $availableTasks,volunteerName: $volunteerName)) {
                             CategoriesView(categoryName: "Others", numberOfTasks: "\(others.count) Tasks", ImageName: "groceries image")
                         }
                     } // close HSTack
+                    .padding(.horizontal)
                     Text("Ongoing Tasks")
                         .font(.system(size: 24))
                         .padding(.top, -10)
-                        .offset(x: -95)
+                        .offset(x:-105)
                         .padding(.bottom,30)
+                }.padding(.horizontal, 10)
                     VStack(spacing: 20) {
                         let _ = getTaskInfo()
                         if(taskInfo.count > 0) {
-                            
                             ForEach(taskInfo) { task in
-                                
                                 let helpseeker  = getHelpseeker(task: task)
-                                OngoingTaskCard(taskTitle: task.title!, helpseeker: helpseeker.fullname! , location: task.location!,
-                                                time: task.time!, date: task.time!, desc: task.desc!,
-                                                need: helpseeker.need!, chronic: helpseeker.chronic!, allergies: helpseeker.allergies!, id: task.id, volunteerName: $volunteerName
-                                )
+                                TaskCard(currentTask: task, helpseeker: helpseeker, userInfo: userInfo, volunteerName: volunteerName)
+                                    .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.23,alignment: .top)
+                                                               .background(.white)
+                                                               .cornerRadius(10)
+                                                               .shadow(radius: 5)
                                 .padding(.bottom,10)
                             }
-                            
                         }
-                    }.padding(.top, -20)
+                    //}.padding(.top, -20)
                 }.padding(.horizontal) // close big Vstack
             } // close Scrollview
         }// close geometryreader
