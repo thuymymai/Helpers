@@ -72,8 +72,18 @@ struct MyAnnotationItem: Identifiable {
 
 struct PlaceAnnotationView: View {
     @State private var showInfo = true
+    @State private var showAlert = false
     
     var item: MyAnnotationItem
+    
+    private func callNumber(phoneNumber:String) {
+      if let phoneCallURL = URL(string: "tel://\(phoneNumber)") {
+        let application:UIApplication = UIApplication.shared
+        if (application.canOpenURL(phoneCallURL)) {
+            application.open(phoneCallURL, options: [:], completionHandler: nil)
+        }
+      }
+    }
     
     var body: some View {
         VStack() {
@@ -86,12 +96,38 @@ struct PlaceAnnotationView: View {
                 .opacity(showInfo ? 0 : 1)
             Text("Phone: \(item.phoneNumber)")
                 .opacity(showInfo ? 0 : 1)
+            Button(action: {
+                self.showAlert.toggle()
+            }) {
+                Text("CALL")
+                    .fontWeight(.bold)
+                    .font(.system(size: 14))
+                    .frame(width: 100, height: 35)
+                    .background(Color("Primary"))
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                    .opacity(showInfo ? 0 : 1)
+            }
         }
         .onTapGesture {
             withAnimation(.easeInOut) {
                 showInfo.toggle()
             }
         }
+        .alert(isPresented: $showAlert, content: {
+            return Alert(title: Text("Call \(item.id)"),
+                         message: Text("With number \(item.phoneNumber)"),
+                         primaryButton: .default(Text("Cancel")),
+                         secondaryButton: .destructive(Text("OK"), action: {
+                            if let phoneCallURL = URL(string: "tel://\(item.phoneNumber)") {
+                                let application:UIApplication = UIApplication.shared
+                                if (application.canOpenURL(phoneCallURL)) {
+                                    application.open(phoneCallURL, options: [:], completionHandler: nil)
+                                }
+                            }
+                        })
+            )
+        })
     }
 }
 

@@ -432,7 +432,6 @@
 				117419DD280DA2D7001B9739 /* HelpSeekerMapView.swift in Sources */,
 				110C5D7F280484320056EEFC /* MedicalInfo.swift in Sources */,
 				1112DA7E281018EC00E0D6F2 /* TaskModel.swift in Sources */,
-				11C9DD2428150D9100FDB6D1 /* FirstAidVolunteer.swift in Sources */,
 				1114DF7A280D4D3800A2BED8 /* HelpSeekerNavBar.swift in Sources */,
 				11B24F11280532D50029786D /* FirstAid.swift in Sources */,
 				115E8DB4280513D700C1995D /* Profile.swift in Sources */,
@@ -613,6 +612,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Helper/Preview Content\"";
+				DEVELOPMENT_TEAM = HKZCFHB792;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Helper/Info.plist;
@@ -641,6 +641,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Helper/Preview Content\"";
+				DEVELOPMENT_TEAM = HKZCFHB792;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Helper/Info.plist;
