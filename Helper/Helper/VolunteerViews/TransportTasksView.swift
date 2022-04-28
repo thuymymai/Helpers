@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct TransportTasksView: View {
+    // user results from core
     @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
+    
     // task information based on category transportation
     @Binding var transport: [Task]
     @Binding var userInfo: [User]
@@ -16,6 +18,7 @@ struct TransportTasksView: View {
     @Binding var availableTasks: [Task]
     @Binding var volunteerName: String
     
+    // function to get helpseeker information
     func getHelpseeker(task: Task) -> User {
         for user in results {
             if (user.userId == task.helpseeker) {

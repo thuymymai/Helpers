@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// enum class defines value for navigation bar
 enum Tabs: String {
     case Dashboard
     case Location
@@ -15,6 +16,7 @@ enum Tabs: String {
 }
 
 struct VolunteersNavBar: View {
+    // user and task information from core data
     @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
     
     @FetchRequest(entity: Task.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Task.title, ascending: true)]) var taskResults: FetchedResults<Task>
@@ -24,6 +26,7 @@ struct VolunteersNavBar: View {
     @State private var isLogoutMenuClicked = false
     @State private var isLinkActive: Bool = false
   
+    // create a viewBuilder function to navigate accordingly
     @ViewBuilder
     func chooseDestination()-> some View {
         if (isLogoutMenuClicked){

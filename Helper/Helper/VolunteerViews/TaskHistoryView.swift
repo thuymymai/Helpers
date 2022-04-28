@@ -9,8 +9,10 @@
 import SwiftUI
 
 struct TaskHistoryView: View {
+    // user name
     @Binding var volunteerName: String
     
+    // environment
     @Environment(\.managedObjectContext) var context
     
     // fetching user data from core data
@@ -23,19 +25,15 @@ struct TaskHistoryView: View {
     @State  var userInfo: [User]  = []
     @State var taskInfo: [Task] = []
     
-    
+    // get task information of current user
     func getTaskInfo() {
         self.userInfo = results.filter{$0.fullname == volunteerName }
-        print("volunteer name: \(volunteerName) count: \(volunteerName.count)")
-        print("result count: \(results.count)")
-        print("task result count: \(taskResults.count)")
-        print("user info \(userInfo.count)")
-        
         if(userInfo.count > 0){
             self.taskInfo = taskResults.filter{$0.volunteer == userInfo[0].userId}
         }
     }
     
+    // get helpseeker information
     func getHelpseeker(task: Task) -> User {
         for user in results {
             if (user.userId == task.helpseeker) {

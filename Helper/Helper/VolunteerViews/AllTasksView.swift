@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct AllTasksView: View {
+    // user results from core
     @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
+    
     // all available tasks info
     @Binding var userInfo: [User]
     @Binding var taskInfo: [Task]
     @Binding var availableTasks: [Task]
     @Binding var volunteerName: String
     
+    // get helpseeker information
     func getHelpseeker(task: Task) -> User {
         for user in results {
             if (user.userId == task.helpseeker) {

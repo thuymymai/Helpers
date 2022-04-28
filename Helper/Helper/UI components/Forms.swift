@@ -1,5 +1,5 @@
 //
-//  Forms.swift
+//  Forms.swift contains the form components that are used in the two types of user signup view
 //  Helper
 //
 //  Created by Annie Huynh on 28.4.2022.

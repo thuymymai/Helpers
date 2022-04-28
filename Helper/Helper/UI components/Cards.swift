@@ -1,5 +1,5 @@
 //
-//  Cards.swift
+//  Cards.swift contains the Card components that are used for task display and task history
 //  Helper
 //
 //  Created by Annie Huynh on 28.4.2022.
@@ -9,16 +9,17 @@ import SwiftUI
 
 
 struct TaskCard: View {
-    
+    // all tasks from core
     @FetchRequest(entity: Task.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Task.title, ascending: true)]) var taskResults: FetchedResults<Task>
     
+    // environment
     @Environment(\.managedObjectContext) var context
+    
     @State var showAlert: Bool = false
     @State var taskCompleted: Bool = false
     @State var isLinkActive = false
     @State var currentTask: Task
     @State var helpseeker: User
-    
     @State var taskId: Int16 = 0
     var userInfo: [User]  = []
     @State var volunteerName: String

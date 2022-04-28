@@ -36,7 +36,6 @@ struct VolunteerSignUp: View {
                 }
             }
         }
-        
     }
 }
 

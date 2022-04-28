@@ -1,8 +1,8 @@
 //
-//  DashboardComponents.swift
+//  DashboardComponents.swift contains category items, image slideshow UI components
 //  Helper
 //
-//  category card, image slideshow UI components
+//
 //  Created by Annie Huynh on 28.4.2022.
 //
 

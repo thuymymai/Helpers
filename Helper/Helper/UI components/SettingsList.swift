@@ -1,7 +1,7 @@
 //
-//  SettingsList.swift
+//  SettingsList.swift contains setting item that is used in the two types of user profile
 //  Helper
-//  Setting item to be used in the two types of user profile
+//
 //  Created by Annie Huynh on 28.4.2022.
 //
 

@@ -9,6 +9,7 @@ import SwiftUI
 import Combine
 
 struct VolunteerDashboard: View {
+    // volunteer user name
     @Binding var volunteerName: String
     
     // fetch data from core
@@ -128,7 +129,7 @@ struct VolunteerDashboard: View {
                         Text("Ongoing Tasks")
                             .font(.system(size: 24))
                             .padding(.top, -10)
-                            .offset(x:-105)
+                            .offset(x:-110)
                             .padding(.bottom,30)
                         
                         VStack(spacing: 20) {
@@ -153,7 +154,6 @@ struct VolunteerDashboard: View {
                     }.padding(.horizontal, 10)
                 }// close ZStack
             } // close Scrollview
-            
         }// close geometryreader
         
     }

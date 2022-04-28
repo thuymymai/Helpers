@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct OthersTasksView: View {
+    // user results from core
     @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
+    
     // tasks information that belongs to others categories
     @Binding var others: [Task]
     @Binding var userInfo: [User]
@@ -16,6 +18,7 @@ struct OthersTasksView: View {
     @Binding var availableTasks: [Task]
     @Binding var volunteerName: String
     
+    // function to get helpseeker information
     func getHelpseeker(task: Task) -> User {
         for user in results {
             if (user.userId == task.helpseeker) {

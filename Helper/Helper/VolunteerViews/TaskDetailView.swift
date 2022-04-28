@@ -14,6 +14,7 @@ struct TaskDetailView: View {
     // passing helpseeker and task details
     @Binding var currentTask: Task
     @Binding var helpseeker: User
+    
     var body: some View {
         GeometryReader {geometry in
             ZStack{
@@ -33,7 +34,6 @@ struct TaskDetailView: View {
                                 .padding(.top,30)
                         }
                         VStack(alignment: .leading, spacing: 10){
-                            
                             TaskTitle(taskTitle: currentTask.title!)
                             Address(location: currentTask.location!)
                             TimeNeeded(time:currentTask.time!)

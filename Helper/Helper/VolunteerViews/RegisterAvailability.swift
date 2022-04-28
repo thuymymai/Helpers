@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct RegisterAvailability: View {
+    
     @Binding var fullname: String
     @Binding var email: String
     @Binding var phone: String
     @Binding var password: String
  
-    
     var body: some View {
         GeometryReader { geometry in
             NavigationView{
@@ -58,6 +58,7 @@ struct RegisterAvailability_Previews: PreviewProvider {
 }
 
 struct AvailabilityForm: View {
+    
     @Binding var fullname: String
     @Binding var email: String
     @Binding var phone: String

@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct VolunteerProfile: View {
+    
     @State private var pushNoti = true
     @State private var showingSheet = false
-
+    
     @Binding var volunteerName: String
+    
     var body: some View {
         NavigationView {
             ZStack{
@@ -24,8 +26,6 @@ struct VolunteerProfile: View {
                                 .resizable()
                                 .frame(width: 80, height: 80)
                                 .shadow(color: .black, radius: 3)
-                                
-                            
                             Text("\(volunteerName)")
                                 .font(.title)
                                 .foregroundColor(.white)
