@@ -16,6 +16,7 @@ struct HelpSeekerNavBar: View {
         NavigationView {
             TabView{
                 FrontScreen()
+                    
                     .tabItem(){
                         Image(systemName: "house")
                         Text("Home")
@@ -36,9 +37,9 @@ struct HelpSeekerNavBar: View {
                         Text("Profile")
                     }
             }
-            .navigationBarTitle("")
+            //.navigationBarTitle("")
             .navigationBarHidden(true)
-            .navigationBarBackButtonHidden(true)
+            //.navigationBarBackButtonHidden(true)
 
         }
     }

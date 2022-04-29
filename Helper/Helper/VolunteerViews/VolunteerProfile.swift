@@ -20,7 +20,7 @@ struct VolunteerProfile: View {
                 Color("Background")
                 VStack{
                     ZStack{
-                        Image("BG Mask")
+                        Image("BG Mask").edgesIgnoringSafeArea(.all)
                         VStack{
                             Image("volunteer")
                                 .resizable()
