@@ -6,8 +6,25 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct FrontScreen: View {
+    @Binding var helpseekerName: String
+    @State var phoneNumber: (String?, Double?) = ("", 0.0)
+    
+    // fetching user data from core data
+    @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
+    
+    func getPhoneNumber() {
+        let userInfo = results.filter{$0.fullname?.lowercased() == helpseekerName }
+        if(userInfo.count > 0){
+            let users = results.filter{$0.type != userInfo[0].type}
+            let distanceAndPhone = users.map{ ($0.phone, CLLocation(latitude: userInfo[0].lat, longitude: userInfo[0].long).distance(from: CLLocation(latitude: $0.lat, longitude: $0.long))/1000) }
+            let distance = distanceAndPhone.map {$0.1}
+            self.phoneNumber = distanceAndPhone.first(where: {$0.1 == distance.min()})!
+        }
+    }
+    
     var body: some View {
 //        NavigationView {
             ZStack(alignment: .top){
@@ -44,14 +61,16 @@ struct FrontScreen: View {
                     Text("Press button to call the nearest volunteer")
                         .padding(.bottom, 20)
                         .font(.system(size: 18))
-                    EmergencyButton()
+                    EmergencyButton(phoneNumber: phoneNumber.0!)
                     Text("First-aid manual")
                         .bold()
                         .padding(.top, 70)
                         .font(.system(size: 20))
                     FirstAidManual().offset(y:-10)
                 }
-            }.offset(y:-40)
+            }
+            .onAppear(perform: {getPhoneNumber()})
+            .offset(y:-40)
 //            .navigationBarTitle("")
 //            .navigationBarHidden(true)
 //            .navigationBarBackButtonHidden(true)
@@ -61,19 +80,41 @@ struct FrontScreen: View {
 
 struct FrontScreen_Previews: PreviewProvider {
     static var previews: some View {
-        FrontScreen()
+        FrontScreen(helpseekerName: .constant(""))
     }
 }
 
 struct EmergencyButton: View {
+    var phoneNumber: String
     var body: some View {
         ZStack{
             Circle()
                 .fill(Color("Background"))
                 .frame(width: 300, height: 170)
                 .shadow(color: .gray, radius: 5, x: 0, y: 5)
-            Image("emergency-button")
+//            Image("emergency-button")
+            Button(action: {
+                let _ = print("phone number is : \(phoneNumber)")
+                if let phoneCallURL = URL(string: "tel://\(phoneNumber)") {
+                    let application:UIApplication = UIApplication.shared
+                    if (application.canOpenURL(phoneCallURL)) {
+                        application.open(phoneCallURL, options: [:], completionHandler: nil)
+                    }
+                }
+            }) {
+                Image("emergency-button")
+            }
         }
+        
+//        .onTapGesture {
+//            let _ = print("phone number is : \(phoneNumber)")
+//            if let phoneCallURL = URL(string: "tel://\(phoneNumber)") {
+//                let application:UIApplication = UIApplication.shared
+//                if (application.canOpenURL(phoneCallURL)) {
+//                    application.open(phoneCallURL, options: [:], completionHandler: nil)
+//                }
+//            }
+//        }
         
     }
 }

@@ -72,7 +72,6 @@ struct MyAnnotationItem: Identifiable {
 
 struct PlaceAnnotationView: View {
     @State private var showInfo = true
-    @State private var showAlert = false
     
     var item: MyAnnotationItem
     
@@ -97,7 +96,12 @@ struct PlaceAnnotationView: View {
             Text("Phone: \(item.phoneNumber)")
                 .opacity(showInfo ? 0 : 1)
             Button(action: {
-                self.showAlert.toggle()
+                if let phoneCallURL = URL(string: "tel://\(item.phoneNumber)") {
+                    let application:UIApplication = UIApplication.shared
+                    if (application.canOpenURL(phoneCallURL)) {
+                        application.open(phoneCallURL, options: [:], completionHandler: nil)
+                    }
+                }
             }) {
                 Text("CALL")
                     .fontWeight(.bold)
@@ -114,20 +118,6 @@ struct PlaceAnnotationView: View {
                 showInfo.toggle()
             }
         }
-        .alert(isPresented: $showAlert, content: {
-            return Alert(title: Text("Call \(item.id)"),
-                         message: Text("With number \(item.phoneNumber)"),
-                         primaryButton: .default(Text("Cancel")),
-                         secondaryButton: .destructive(Text("OK"), action: {
-                            if let phoneCallURL = URL(string: "tel://\(item.phoneNumber)") {
-                                let application:UIApplication = UIApplication.shared
-                                if (application.canOpenURL(phoneCallURL)) {
-                                    application.open(phoneCallURL, options: [:], completionHandler: nil)
-                                }
-                            }
-                        })
-            )
-        })
     }
 }
 

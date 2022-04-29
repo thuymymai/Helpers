@@ -13,7 +13,7 @@ struct HelpSeekerNavBar: View {
     var body: some View {
         NavigationView {
             TabView{
-                FrontScreen()
+                FrontScreen(helpseekerName: $helpseekerName)
                     .tabItem(){
                         Image(systemName: "house")
                         Text("Home")
