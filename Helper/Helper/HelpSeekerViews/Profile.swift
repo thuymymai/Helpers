@@ -43,7 +43,7 @@ struct Profile: View {
                             .font(.headline)
                             .foregroundColor(Color.black.opacity(0.6))
                             .padding()
-                        SettingsView(name:"Change language")
+                        //SettingsView(name:"Change language")
                         
                     }.font(.system(size: 16))
                 }.padding(.top,-60)

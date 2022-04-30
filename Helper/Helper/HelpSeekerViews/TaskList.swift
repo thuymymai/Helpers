@@ -96,9 +96,15 @@ struct TaskCard1: View {
                         .font(.headline)
                         .foregroundColor(.black)
                         .multilineTextAlignment(.leading)
-                    Text("Helper: \(volunteer ?? "Waiting")")
-                        .font(.subheadline)
-                        .fontWeight(.regular)
+                    if (Locale.preferredLanguages[0] == "fi") {
+                        Text("Auttaja: \(volunteer ?? "Waiting")")
+                            .font(.subheadline)
+                            .fontWeight(.regular)
+                    } else {
+                        Text("Helper: \(volunteer ?? "Waiting")")
+                            .font(.subheadline)
+                            .fontWeight(.regular)
+                    }
                 }
                 Spacer()
                 if(volunteer == "Waiting") {

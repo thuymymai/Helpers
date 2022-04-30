@@ -37,14 +37,14 @@ struct FrontScreen: View {
                     HStack(alignment: .top){
                         Spacer()
                         VStack{
-                            Text("Karaportti 2, Espoo")
-                                .font(.system(size: 16))
-                                .padding(.bottom, 2)
+//                            Text("Karaportti 2, Espoo")
+//                                .font(.system(size: 16))
+//                                .padding(.bottom, 2)
                             NavigationLink(
-                                destination: HelpSeekerMapView(),
+                                destination: Location(volunteerName: $helpseekerName),
                                 label: {
                                     HStack {
-                                        Text("See your location")
+                                        Text("See the map")
                                             .bold()
                                             .font(.system(size: 16))
                                             .foregroundColor(Color("Primary"))
@@ -65,7 +65,7 @@ struct FrontScreen: View {
                         .padding(.bottom, 20)
                         .font(.system(size: 18))
                     EmergencyButton(phoneNumber: phoneNumber.0!)
-                    Text("First-aid manual")
+                    Text("First Aid Manual")
                         .bold()
                         .padding(.top, 70)
                         .font(.system(size: 20))

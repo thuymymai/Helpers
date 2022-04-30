@@ -117,7 +117,7 @@ struct TaskCard: View {
                             .foregroundColor(.primary)
                         HStack(spacing:-10) {
                             Image(systemName: "figure.roll").foregroundColor(.primary)
-                            Text("Diability :")
+                            Text("Diability:")
                                 .font(.body)
                                 .foregroundColor(.primary)
                                 .padding(.leading, 20)

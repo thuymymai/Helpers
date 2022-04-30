@@ -82,10 +82,18 @@ struct PlaceAnnotationView: View {
                     .foregroundColor(.red)
             Text(item.id)
                 .opacity(showInfo ? 0 : 1)
-            Text("Distance: \(String(format: "%.1f", item.distance)) km")
+            if (Locale.preferredLanguages[0] == "fi") {
+                Text("Etäisyys: \(String(format: "%.1f", item.distance)) km")
                 .opacity(showInfo ? 0 : 1)
-            Text("Phone: \(item.phoneNumber)")
-                .opacity(showInfo ? 0 : 1)
+                Text("Puhelinnumero: \(item.phoneNumber)")
+                    .opacity(showInfo ? 0 : 1)
+            } else {
+                Text("Distance: \(String(format: "%.1f", item.distance)) km")
+                    .opacity(showInfo ? 0 : 1)
+                Text("Phone: \(item.phoneNumber)")
+                    .opacity(showInfo ? 0 : 1)
+            }
+            
             Button(action: {
                 if let phoneCallURL = URL(string: "tel://\(item.phoneNumber)") {
                     let application:UIApplication = UIApplication.shared
@@ -94,14 +102,25 @@ struct PlaceAnnotationView: View {
                     }
                 }
             }) {
-                Text("CALL")
-                    .fontWeight(.bold)
-                    .font(.system(size: 14))
-                    .frame(width: 100, height: 35)
-                    .background(Color("Primary"))
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                    .opacity(showInfo ? 0 : 1)
+                if (Locale.preferredLanguages[0] == "fi") {
+                    Text("SOITTAA")
+                        .fontWeight(.bold)
+                        .font(.system(size: 14))
+                        .frame(width: 100, height: 35)
+                        .background(Color("Primary"))
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                        .opacity(showInfo ? 0 : 1)
+                } else {
+                    Text("CALL")
+                        .fontWeight(.bold)
+                        .font(.system(size: 14))
+                        .frame(width: 100, height: 35)
+                        .background(Color("Primary"))
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                        .opacity(showInfo ? 0 : 1)
+                }
             }
         }
         .onTapGesture {
