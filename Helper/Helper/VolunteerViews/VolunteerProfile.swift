@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct VolunteerProfile: View {
-    @State private var pushNoti = true
+    @State var pushNoti = false
     @State private var showingSheet = false
-
     @Binding var volunteerName: String
+    
+    static let shared = VolunteerProfile(volunteerName: .constant(""))
+    
     var body: some View {
         NavigationView {
             ZStack{

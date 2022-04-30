@@ -10,6 +10,7 @@ import UserNotifications
 
 @main
 struct HelperApp: App {
+    
     @Environment(\.scenePhase) var scenePhase
     
     let persistenceController = PersistenceController.shared
@@ -68,6 +69,8 @@ func application(
 
 
 func requestNotification() {
+    let shared = VolunteerProfile.shared
+    
     let content = UNMutableNotificationContent()
     content.title = NSString.localizedUserNotificationString(forKey: "Someone needs you right now!", arguments: nil)
     content.body = NSString.localizedUserNotificationString(forKey: "Open the app to see new tasks.", arguments: nil)
@@ -76,8 +79,6 @@ func requestNotification() {
     
     let identifier = UIDevice.current.identifierForVendor?.uuidString ?? "D03FFB27-BD42-42E6-B711-9CEC16F2B6BF" + "SonDang-MyMai-AnHuynh.Helper"
     print("device identifier: \(identifier)")
-    //Receive notification after 5 sec
-    //let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
     
     //Receive with date
     var datComp = DateComponents()
@@ -87,13 +88,18 @@ func requestNotification() {
     
     let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
     let center = UNUserNotificationCenter.current()
-    print(identifier)
+    print("toggle for notification: \(shared.pushNoti)")
+    print("volunteer name: \(shared.volunteerName)")
+    
     center.add(request) { (error) in
         if let error = error {
             print("Error \(error.localizedDescription)")
         }else{
-            print("send!!")
+            print("Notification sent!")
         }
     }
+    
+    
+    
 }
 

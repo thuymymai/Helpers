@@ -16,9 +16,9 @@ struct UploadForm: View {
     
     func getUserInfo() {
         let userInfo = results.filter{$0.fullname == helpseekerName }
-//        print("helpseekerName: \(helpseekerName) count: \(helpseekerName.count)")
-//        print("result count: \(results.count)")
-//        print("user info \(userInfo.count)")
+        print("helpseekerName: \(helpseekerName) count: \(helpseekerName.count)")
+        print("result count: \(results.count)")
+        print("user info \(userInfo.count)")
         
         if(userInfo.count > 0){
             self.userId = Int(userInfo[0].userId)
