@@ -25,7 +25,7 @@ struct Profile: View {
                         Text(helpseekerName)
                             .font(.title)
                             .foregroundColor(.white)
-                    }.padding(.top,-90)
+                    }.padding(.top,-70)
                 }
                 List {
                     Section(header: Text("Account Settings")) {
@@ -60,20 +60,3 @@ struct Profile_Previews: PreviewProvider {
         Profile(helpseekerName: .constant(""))
     }
 }
-
-struct SettingsView: View {
-    var name: String
-    var body: some View {
-        Button(action: {
-            
-        }){
-            HStack {
-                Text(name)
-                Spacer(minLength: 15)
-            }.padding()
-                .font(.headline)
-                .foregroundColor(Color.black.opacity(0.6))
-        }
-    }
-}
-

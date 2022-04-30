@@ -40,12 +40,12 @@ struct LandingPage: View {
                             Text("volunteers")
                                 .font(.system(size: 16))
                         }
-                    }.padding(.bottom, 100)
+                    }.padding(.bottom, 80)
                     Spacer()
                     ButtonView()
                     HStack{
-//                        DropDownMenu()
-//                        Spacer()
+                        // DropDownMenu()
+                        Spacer()
                         NavigationLink(destination: Login()
                             .navigationBarHidden(true), label: {
                                 Text("Login")
@@ -95,7 +95,7 @@ struct ButtonView: View {
     var body: some View {
         VStack{
             NavigationLink(
-                destination: Signup(), isActive: $isHelpSeekerActive) {
+                destination: Signup().navigationBarHidden(true), isActive: $isHelpSeekerActive) {
                     Button(action: {self.isHelpSeekerActive = true}) {
                         Text("I need assistant")
                             .fontWeight(.bold)
@@ -107,7 +107,7 @@ struct ButtonView: View {
                     }.padding(.bottom, 10)
                 }
             NavigationLink(
-                destination: VolunteerSignUp(), isActive: $isVolunteerActive) {
+                destination: VolunteerSignUp().navigationBarHidden(true), isActive: $isVolunteerActive) {
                     Button(action: {self.isVolunteerActive = true}) {
                         Text("I'd like to volunteer")
                             .fontWeight(.bold)

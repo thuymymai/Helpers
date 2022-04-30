@@ -12,6 +12,7 @@ import CoreLocationUI
 import MapKit
 
 struct Login: View {
+ 
     var body: some View {
         GeometryReader{geometry in
             NavigationView{
@@ -50,6 +51,7 @@ struct Login_Previews: PreviewProvider {
 }
 
 struct Form: View {
+    
     // navigation
     @State private var toDashboard: Bool = false
     @State private var toRegister: Bool = false
@@ -60,6 +62,8 @@ struct Form: View {
     
     // user related details
     @State private var userInfo: [User] = []
+    @State private var taskInfo: [Task] = []
+    @State private var availableTasks: [Task] = []
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var emails: [String?] = []
@@ -172,9 +176,10 @@ struct Form: View {
        
         
         if (userInfo.count > 0)  {
-            let _ = print("type of user login \(String(describing: userInfo[0].type))")
-            if  (userInfo[0].type == "v") {
-                VolunteersNavBar(volunteerName: $userName).navigationBarHidden(true)
+//            let _ = print("type of user login \(userInfo[0].type)")
+            if  ( userInfo[0].type == "v") {
+                VolunteersNavBar(volunteerName: $userName)
+                    .navigationBarHidden(true)
             } else if (userInfo[0].type == "h") {
                 HelpSeekerNavBar(helpseekerName: $userName).navigationBarHidden(true)
             } else {

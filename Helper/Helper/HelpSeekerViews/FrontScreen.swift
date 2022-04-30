@@ -67,17 +67,12 @@ struct FrontScreen: View {
                     EmergencyButton(phoneNumber: phoneNumber.0!)
                     Text("First Aid Manual")
                         .bold()
-                        .padding(.top, 70)
+                        .padding(.top, 100)
                         .font(.system(size: 20))
-                    FirstAidManual().offset(y:-10)
-                }
+                    FirstAidManual().padding(.top,-20)
+                }.offset(y:-10)
             }
-            .onAppear(perform: {getPhoneNumber()})
-            .offset(y:-40)
-//            .navigationBarTitle("")
-//            .navigationBarHidden(true)
-//            .navigationBarBackButtonHidden(true)
-//        }
+          .navigationBarHidden(true)
     }
 }
 

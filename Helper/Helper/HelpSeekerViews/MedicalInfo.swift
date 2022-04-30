@@ -15,40 +15,40 @@ struct MedicalInfo: View {
     @Binding var password: String
     
     var body: some View {
-        NavigationView {
-            ZStack{
-                Color("Background").edgesIgnoringSafeArea(.all)
-                VStack{
-                    ZStack(alignment: .top) {
-                        Image("BG Mask").edgesIgnoringSafeArea(.all)
-                        Text("Medical information")
-                            .fontWeight(.medium)
-                            .frame(maxWidth: 300, alignment: .center)
-                            .foregroundColor(.white)
-                            .multilineTextAlignment(.center)
-                            .font(.system(size: 20))
-                            .padding(.top, 50)
-                    }.offset(y:-60)
-                    Spacer()
-                    Text("By signup and login, I confirm that I am at least 17 years old and agree to  Helpers Terms & Privacy Policy")
-                        .bold()
-                        .frame(maxWidth: 280)
-                        .multilineTextAlignment(.center)
-                        .font(.system(size: 14))
-                        .padding(.bottom, 10)
-                    
-                }
+        GeometryReader { geometry in
+            NavigationView {
                 ZStack{
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(.white)
-                        .frame(width: 300, height: 500)
-                        .shadow(radius: 5)
-                    FormMedical(fullname: $fullname, email: $email, phone: $phone, password: $password)
-                }.offset(y:-30)
+                    Color("Background").edgesIgnoringSafeArea(.all)
+                    VStack{
+                        ZStack(alignment: .top) {
+                            Image("BG Mask").edgesIgnoringSafeArea(.all)
+                            Text("Medical information")
+                                .fontWeight(.medium)
+                                .frame(maxWidth: geometry.size.width * 0.7, alignment: .center)
+                                .foregroundColor(.white)
+                                .multilineTextAlignment(.center)
+                                .font(.system(size: 20))
+                                .padding(.top, 50)
+                        }.offset(y:-60)
+                        Spacer()
+                        Text("By signup and login, I confirm that I am at least 17 years old and agree to  Helpers Terms & Privacy Policy")
+                            .bold()
+                            .frame(maxWidth: 280)
+                            .multilineTextAlignment(.center)
+                            .font(.system(size: 14))
+                            .padding(.bottom, 25)
+                        
+                    }
+                    ZStack{
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(.white)
+                            .frame(width: geometry.size.width * 0.75, height: geometry.size.height * 0.65)
+                            .shadow(radius: 5)
+                        FormMedical(fullname: $fullname, email: $email, phone: $phone, password: $password)
+                    }.offset(y:-30)
+                }
+                
             }
-            .navigationBarTitle("")
-            .navigationBarHidden(true)
-            .navigationBarBackButtonHidden(true)
         }
     }
 }
@@ -164,7 +164,7 @@ struct FormMedical: View {
     var body: some View {
         ZStack{
             VStack{
-                VStack {
+                VStack(spacing:15) {
                     Text("Special needs")
                         .fontWeight(.medium)
                         .frame(maxWidth: 300, alignment: .leading)
@@ -179,7 +179,6 @@ struct FormMedical: View {
                         .cornerRadius(5)
                         .background(Color("Background"))
                         .pickerStyle(.menu)
-                    //                    SpecialNeed()
                     Text("Chronic diseases")
                         .fontWeight(.medium)
                         .frame(maxWidth: 300, alignment: .leading)
@@ -195,7 +194,6 @@ struct FormMedical: View {
                         .cornerRadius(5)
                         .background(Color("Background"))
                         .pickerStyle(.menu)
-                    //                    ChronicDiseases()
                     Text("Allergies")
                         .fontWeight(.medium)
                         .frame(maxWidth: 300, alignment: .leading)
@@ -212,7 +210,6 @@ struct FormMedical: View {
                     .cornerRadius(5)
                     .background(Color("Background"))
                     .pickerStyle(.menu)
-                    //                    Allergies()
                     Text("Others")
                         .fontWeight(.medium)
                         .frame(maxWidth: 300, alignment: .leading)
@@ -236,6 +233,7 @@ struct FormMedical: View {
                         .background(Color("Primary"))
                         .foregroundColor(.white)
                         .cornerRadius(10)
+                        .padding(.top, 10)
                 }.alert(isPresented: $showAlert, content: {
                     if self.signupFailed {
                         return Alert(title: Text("Register failed!"),  dismissButton: .default(Text("Try again!"), action: {self.isLinkActive = false}))

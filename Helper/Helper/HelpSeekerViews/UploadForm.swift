@@ -15,10 +15,10 @@ struct UploadForm: View {
     @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
     
     func getUserInfo() {
-        let userInfo = results.filter{$0.fullname?.lowercased() == helpseekerName }
-        //        print("helpseekerName: \(helpseekerName) count: \(helpseekerName.count)")
-        //        print("result count: \(results.count)")
-        //        print("user info \(userInfo.count)")
+        let userInfo = results.filter{$0.fullname?.lowercased() == helpseekerName.lowercased() }
+//                print("helpseekerName: \(helpseekerName) count: \(helpseekerName.count)")
+//                print("result count: \(results[results.count - 1].fullname)")
+//                print("user info \(userInfo.count)")
         
         if(userInfo.count > 0){
             self.userId = Int(userInfo[0].userId)
@@ -29,39 +29,41 @@ struct UploadForm: View {
     
     var body: some View {
         
-        ZStack {
-            Color("Background").edgesIgnoringSafeArea(.top)
-            
-            VStack{
-                ZStack(alignment: .top) {
-                    Image("BG Mask").edgesIgnoringSafeArea(.all)
-                    VStack{
-                        Text("Need help?")
-                            .font(.system(size: 20))
-                            .fontWeight(.medium)
-                            .foregroundColor(.white)
-                            .multilineTextAlignment(.center)
-                        Text("Fill in the form to find volunteer")
-                            .font(.system(size: 20))
-                            .fontWeight(.medium)
-                            .foregroundColor(.white)
-                            .multilineTextAlignment(.center)
-                    }.padding(.top, -20)
+        GeometryReader{ geometry in
+            ZStack {
+                Color("Background").edgesIgnoringSafeArea(.top)
+                
+                VStack{
+                    ZStack(alignment: .top) {
+                        Image("BG Mask").edgesIgnoringSafeArea(.all)
+                        VStack{
+                            Text("Need help?")
+                                .font(.system(size: 20))
+                                .fontWeight(.medium)
+                                .foregroundColor(.white)
+                                .multilineTextAlignment(.center)
+                            Text("Fill in the form to find volunteer")
+                                .font(.system(size: 20))
+                                .fontWeight(.medium)
+                                .foregroundColor(.white)
+                                .multilineTextAlignment(.center)
+                        }.padding(.top, -20)
+                    }
+                    Spacer()
                 }
-                Spacer()
-            }
-            ZStack{
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(.white)
-                    .frame(width: 300, height: 580)
-                    .shadow(radius: 5)
-                    .padding(.top, 50)
-                FormTask(userId: $userId)
-            }
-            .padding(.bottom,10)
-            
-        }.onAppear(perform: {getUserInfo()})
-            .offset(y:-10)
+                ZStack{
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(.white)
+                        .frame(width: geometry.size.width * 0.8, height: geometry.size.height * 0.9)
+                        .shadow(radius: 5)
+                        .padding(.top, 50)
+                    FormTask(userId: $userId)
+                }
+                .padding(.bottom,10)
+                
+            }.onAppear(perform: {getUserInfo()})
+                //.offset(y:-10)
+        }
     }
 }
 
@@ -91,22 +93,24 @@ struct FormTask: View {
     @FetchRequest(entity: Task.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Task.title, ascending: true)]) var taskResults: FetchedResults<Task>
     
     func uploadTask(title: String, location: String, long: Double, lat: Double, time: Date, category: String, description: String, helpseeker: Int) {
-        let task = Task(context: context)
-        task.id = (Int16) (taskResults.count + 1)
-        task.title = title.lowercased()
-        task.location = location.lowercased()
-        task.long = (Double) (long)
-        task.lat = (Double) (lat)
-        task.time = time
-        task.category = category.lowercased()
-        task.desc = description.lowercased()
-        task.helpseeker = Int16(helpseeker)
-        task.status = 0
-        task.volunteer = 0
-        do {
-            try context.save()
-        } catch {
-            print(error)
+        DispatchQueue.main.async {
+            let task = Task(context: context)
+            task.id = (Int16) (taskResults.count + 1)
+            task.title = title.lowercased()
+            task.location = location.lowercased()
+            task.long = (Double) (long)
+            task.lat = (Double) (lat)
+            task.time = time
+            task.category = category.lowercased()
+            task.desc = description.lowercased()
+            task.helpseeker = Int16(helpseeker)
+            task.status = 0
+            task.volunteer = 0
+            do {
+                try context.save()
+            } catch {
+                print(error)
+            }
         }
     }
     
@@ -119,95 +123,94 @@ struct FormTask: View {
     }
     
     var body: some View {
-        ZStack{
-            VStack{
-                VStack {
-                    Text("Title")
-                        .fontWeight(.medium)
-                        .frame(maxWidth: 300, alignment: .leading)
-                        .font(.system(size: 16))
-                        .padding(.top,15)
-                    TextField("", text: $title)
-                        .padding(.bottom, 20)
-                        .background(Color("Background"))
-                        .cornerRadius(5)
-                    Text("Location")
-                        .fontWeight(.medium)
-                        .frame(maxWidth: 300, alignment: .leading)
-                        .font(.system(size: 16))
-                        .padding(.top, 10)
-                    
-                    HStack {
-                        TextField("\(location)", text: $location)
-                            .font(.system(size: 16))
-                            .foregroundColor(.black)
-                            .frame(maxWidth: 200, alignment: .leading)
-                        Image(systemName: "map")
-                            .foregroundColor(.black)
-                    }
-                    .frame(width: 230, height: 25)
-                    .padding(10)
-                    .background(Color("Background"))
-                    .cornerRadius(5)
-                    
-                    Text("Time")
-                        .fontWeight(.medium)
-                        .frame(maxWidth: 300, alignment: .leading)
-                        .font(.system(size: 16))
-                        .padding(.top, 10)
-                    DatePicker("", selection: $currentDate, displayedComponents: [.date, .hourAndMinute])
-                        .labelsHidden()
-                        .background(Color("Background"))
-                        .frame(alignment: .leading)
-                    Text("Category")
-                        .fontWeight(.medium)
-                        .frame(maxWidth: 300, alignment: .leading)
-                        .font(.system(size: 16))
-                        .padding(.top, 10)
-                    Picker("Select category", selection: $categorySelection) {
-                        ForEach(categories, id: \.self) {
-                            Text($0)
-                                .frame(width: 110, height: 110)
-                                .background(.blue)
-                        }
-                    }.frame(width: 250)
-                        .cornerRadius(5)
-                        .background(Color("Background"))
-                    .pickerStyle(.menu)
-                    Text("Description")
-                        .fontWeight(.medium)
-                        .frame(maxWidth: 300, alignment: .leading)
-                        .font(.system(size: 16))
-                        .padding(.top, 10)
-                    
-                    TextEditor(text: $description)
-                        .frame(width: 250, height: 110)
-                        .colorMultiply(Color("Background"))
-                        .cornerRadius(5)
-                        .padding(.bottom,-20)
-                }
-                .frame(width: 250)
-                .padding(.top, 30)
-                Button(action: { showAlert.toggle() }) {
-                    Text("SUBMIT")
-                        .fontWeight(.bold)
-                        .font(.system(size: 14))
-                        .frame(width: 100, height: 35)
-                        .background(Color("Primary"))
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }.alert(isPresented: $showAlert, content: {
-                    if self.isUpload {
-                        return Alert(title: Text("Submit task failed!"),  dismissButton: .default(Text("Try again!"), action: {}))
-                    } else {
-                        uploadTask(title: title, location: location, long: 0.0, lat: 0.0, time: currentDate, category: categorySelection, description: description, helpseeker: userId)
-                        return Alert(title: Text("Submit task successfully!"),  dismissButton: .default(Text("Got it!"), action: {resetForm()}))
-                    }
-                })
-                .padding(.top, 30)
-            }         
-        }
-        
-    }
-}
-
+           ZStack{
+               VStack{
+                   VStack {
+                       Text("Title")
+                           .fontWeight(.medium)
+                           .frame(maxWidth: 300, alignment: .leading)
+                           .font(.system(size: 16))
+                           .padding(.top,15)
+                       TextField("", text: $title)
+                           .padding(.bottom, 20)
+                           .background(Color("Background"))
+                           .cornerRadius(5)
+                       Text("Location")
+                           .fontWeight(.medium)
+                           .frame(maxWidth: 300, alignment: .leading)
+                           .font(.system(size: 16))
+                           .padding(.top, 10)
+                       
+                       HStack {
+                           TextField("\(location)", text: $location)
+                               .font(.system(size: 16))
+                               .foregroundColor(.black)
+                               .frame(maxWidth: 200, alignment: .leading)
+                           Image(systemName: "map")
+                               .foregroundColor(.black)
+                       }
+                       .frame(width: 230, height: 25)
+                       .padding(10)
+                       .background(Color("Background"))
+                       .cornerRadius(5)
+                       
+                       Text("Time")
+                           .fontWeight(.medium)
+                           .frame(maxWidth: 300, alignment: .leading)
+                           .font(.system(size: 16))
+                           .padding(.top, 10)
+                       DatePicker("", selection: $currentDate, displayedComponents: [.date, .hourAndMinute])
+                           .labelsHidden()
+                           .background(Color("Background"))
+                           .frame(alignment: .leading)
+                       Text("Category")
+                           .fontWeight(.medium)
+                           .frame(maxWidth: 300, alignment: .leading)
+                           .font(.system(size: 16))
+                           .padding(.top, 10)
+                       Picker("Select category", selection: $categorySelection) {
+                           ForEach(categories, id: \.self) {
+                               Text($0)
+                                   .frame(width: 110, height: 110)
+                                   .background(.blue)
+                           }
+                       }.frame(width: 250)
+                           .cornerRadius(5)
+                           .background(Color("Background"))
+                       .pickerStyle(.menu)
+                       Text("Description")
+                           .fontWeight(.medium)
+                           .frame(maxWidth: 300, alignment: .leading)
+                           .font(.system(size: 16))
+                           .padding(.top, 10)
+                       
+                       TextEditor(text: $description)
+                           .frame(width: 250, height: 110)
+                           .colorMultiply(Color("Background"))
+                           .cornerRadius(5)
+                           .padding(.bottom,-20)
+                   }
+                   .frame(width: 250)
+                   .padding(.top, 30)
+                   Button(action: { showAlert.toggle() }) {
+                       Text("SUBMIT")
+                           .fontWeight(.bold)
+                           .font(.system(size: 14))
+                           .frame(width: 100, height: 35)
+                           .background(Color("Primary"))
+                           .foregroundColor(.white)
+                           .cornerRadius(10)
+                   }.alert(isPresented: $showAlert, content: {
+                       if self.isUpload {
+                           return Alert(title: Text("Submit task failed!"),  dismissButton: .default(Text("Try again!"), action: {}))
+                       } else {
+                           uploadTask(title: title, location: location, long: 0.0, lat: 0.0, time: currentDate, category: categorySelection, description: description, helpseeker: userId)
+                           return Alert(title: Text("Submit task successfully!"),  dismissButton: .default(Text("OK"), action: {resetForm()}))
+                       }
+                   })
+                   .padding(.top, 30)
+               }
+           }
+           
+       }
+   }
