@@ -66,14 +66,25 @@ struct VolunteerDashboard: View {
                     Color("Background")
                     VStack(spacing:20) {
                         HStack {
-                            Text("Hi \(volunteerName)\n")
-                                .font(.system(size: 28))
-                                .fontWeight(.semibold)
-                                .foregroundColor(Color("Primary"))
-                            + Text("Manage Your Tasks")
-                                .font(.system(size: 28))
-                                .fontWeight(.regular)
-                                .foregroundColor(Color("Primary"))
+                            if (Locale.preferredLanguages[0] == "fi") {
+                                Text("Hei \(volunteerName)\n")
+                                    .font(.system(size: 28))
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(Color("Primary"))
+                                + Text("Manage Your Tasks")
+                                    .font(.system(size: 28))
+                                    .fontWeight(.regular)
+                                    .foregroundColor(Color("Primary"))
+                            } else {
+                                Text("Hi \(volunteerName)\n")
+                                    .font(.system(size: 28))
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(Color("Primary"))
+                                + Text("Manage Your Tasks")
+                                    .font(.system(size: 28))
+                                    .fontWeight(.regular)
+                                    .foregroundColor(Color("Primary"))
+                            }
                             Spacer()
                             NavigationLink(destination: VolunteerProfile(volunteerName: $volunteerName)
                             ) {
@@ -103,10 +114,17 @@ struct VolunteerDashboard: View {
                                         .cornerRadius(6)
                                 }
                             }
-                            Text("\(availableTasks.count) tasks waiting to be accepted")
-                                .font(.subheadline)
+                            if (Locale.preferredLanguages[0] == "fi") {
+                            Text("\(availableTasks.count) hyväksymistä odottavia tehtäviä")
+                                .font(.system(size: 16))
                                 .foregroundColor(Color("Primary"))
                                 .fontWeight(.medium)
+                        } else {
+                            Text("\(availableTasks.count) tasks waiting to be accepted")
+                                .font(.system(size: 16))
+                                .foregroundColor(Color("Primary"))
+                                .fontWeight(.medium)
+                        }
                         }.padding(.horizontal, 15)
                         
                         HStack(spacing: 10) {
@@ -115,14 +133,26 @@ struct VolunteerDashboard: View {
                             let _ = sortCategory(category: "Others")
                             
                             NavigationLink(destination: AssistanceTasksView(assistance: $assistance, userInfo: $userInfo, taskInfo: $taskInfo, availableTasks: $availableTasks, volunteerName: $volunteerName)) {
-                                CategoriesView(categoryName: "Assistance", numberOfTasks: "\(assistance.count) Tasks", ImageName: "helping image")
+                                if (Locale.preferredLanguages[0] == "fi") {
+                                    CategoriesView(categoryName: "Apu", numberOfTasks: "\(assistance.count) Tehtävät", ImageName: "helping image")
+                                } else {
+                                    CategoriesView(categoryName: "Assistance", numberOfTasks: "\(assistance.count) Tasks", ImageName: "helping image")
+                                }
                             }
                             NavigationLink(destination: TransportTasksView(transport: $transport,userInfo: $userInfo, taskInfo: $taskInfo, availableTasks: $availableTasks,volunteerName: $volunteerName)) {
-                                CategoriesView(categoryName: "Transport", numberOfTasks: "\(transport.count) Tasks", ImageName: "delivery image")
+                                if (Locale.preferredLanguages[0] == "fi") {
+                                    CategoriesView(categoryName: "Kuljetus", numberOfTasks: "\(assistance.count) Tehtävät", ImageName: "delivery image")
+                                } else {
+                                    CategoriesView(categoryName: "Transport", numberOfTasks: "\(transport.count) Tasks", ImageName: "delivery image")
+                                }
                             }
                             
                             NavigationLink(destination: OthersTasksView(others: $others,userInfo: $userInfo, taskInfo: $taskInfo, availableTasks: $availableTasks,volunteerName: $volunteerName)) {
-                                CategoriesView(categoryName: "Others", numberOfTasks: "\(others.count) Tasks", ImageName: "groceries image")
+                                if (Locale.preferredLanguages[0] == "fi") {
+                                    CategoriesView(categoryName: "Muut", numberOfTasks: "\(assistance.count) Tehtävät", ImageName: "groceries image")
+                                } else {
+                                    CategoriesView(categoryName: "Others", numberOfTasks: "\(others.count) Tasks", ImageName: "groceries image")
+                                }
                             }
                         } // close HSTack
                         .padding(.horizontal)

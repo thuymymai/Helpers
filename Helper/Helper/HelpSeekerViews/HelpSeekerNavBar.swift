@@ -15,16 +15,15 @@ struct HelpSeekerNavBar: View {
     var body: some View {
         NavigationView {
             TabView{
-                FrontScreen()
-                    
+                FrontScreen(helpseekerName: $helpseekerName)
                     .tabItem(){
                         Image(systemName: "house")
                         Text("Home")
                     }
-                HelpSeekerMapView()
+                Location(volunteerName: $helpseekerName)
                     .tabItem(){
                         Image(systemName: "map")
-                        Text("Map")
+                        Text("Location")
                     }
                 UploadForm(helpseekerName: $helpseekerName)
                     .tabItem(){

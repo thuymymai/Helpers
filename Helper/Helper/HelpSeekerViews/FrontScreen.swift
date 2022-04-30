@@ -6,25 +6,45 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct FrontScreen: View {
+    @Binding var helpseekerName: String
+    @State var phoneNumber: (String?, Double?) = ("", 0.0)
+    
+    // fetching user data from core data
+    @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
+    
+    func getPhoneNumber() {
+        let userInfo = results.filter{$0.fullname?.lowercased() == helpseekerName.lowercased() }
+        if(userInfo.count > 0){
+            //get volunteer is the closest with current user
+            let users = results.filter{$0.type != userInfo[0].type}
+            let distanceAndPhone = users.map{ ($0.phone, CLLocation(latitude: userInfo[0].lat, longitude: userInfo[0].long).distance(from: CLLocation(latitude: $0.lat, longitude: $0.long))/1000) }
+            let distance = distanceAndPhone.map {(Int($0.1))}
+            self.phoneNumber = distanceAndPhone.first(where: {Int($0.1) == distance.min()})!
+            print("phone number is \(String(describing: self.phoneNumber.0))")
+        }
+    }
+    
     var body: some View {
 //        NavigationView {
             ZStack(alignment: .top){
                 Color("White")
                     .edgesIgnoringSafeArea(.top)
                 VStack{
+                    let _ = print("helpseeker string is \(helpseekerName)")
                     HStack(alignment: .top){
                         Spacer()
                         VStack{
-                            Text("Karaportti 2, Espoo")
-                                .font(.system(size: 16))
-                                .padding(.bottom, 2)
+//                            Text("Karaportti 2, Espoo")
+//                                .font(.system(size: 16))
+//                                .padding(.bottom, 2)
                             NavigationLink(
-                                destination: HelpSeekerMapView(),
+                                destination: Location(volunteerName: $helpseekerName),
                                 label: {
                                     HStack {
-                                        Text("See your location")
+                                        Text("See the map")
                                             .bold()
                                             .font(.system(size: 16))
                                             .foregroundColor(Color("Primary"))
@@ -44,8 +64,8 @@ struct FrontScreen: View {
                     Text("Press button to call the nearest volunteer")
                         .padding(.bottom, 20)
                         .font(.system(size: 18))
-                    EmergencyButton()
-                    Text("First-aid manual")
+                    EmergencyButton(phoneNumber: phoneNumber.0!)
+                    Text("First Aid Manual")
                         .bold()
                         .padding(.top, 100)
                         .font(.system(size: 20))
@@ -58,19 +78,43 @@ struct FrontScreen: View {
 
 struct FrontScreen_Previews: PreviewProvider {
     static var previews: some View {
-        FrontScreen()
+        FrontScreen(helpseekerName: .constant(""))
     }
 }
 
 struct EmergencyButton: View {
+    var phoneNumber: String
     var body: some View {
         ZStack{
             Circle()
                 .fill(Color("Background"))
                 .frame(width: 300, height: 170)
                 .shadow(color: .gray, radius: 5, x: 0, y: 5)
-            Image("emergency-button")
+//            Image("emergency-button")
+            Button(action: {
+                if (phoneNumber != "") {
+                    let _ = print("phone number is : \(phoneNumber)")
+                    if let phoneCallURL = URL(string: "tel://\(phoneNumber)") {
+                        let application:UIApplication = UIApplication.shared
+                        if (application.canOpenURL(phoneCallURL)) {
+                            application.open(phoneCallURL, options: [:], completionHandler: nil)
+                        }
+                    }
+                }
+            }) {
+                Image("emergency-button")
+            }
         }
+        
+//        .onTapGesture {
+//            let _ = print("phone number is : \(phoneNumber)")
+//            if let phoneCallURL = URL(string: "tel://\(phoneNumber)") {
+//                let application:UIApplication = UIApplication.shared
+//                if (application.canOpenURL(phoneCallURL)) {
+//                    application.open(phoneCallURL, options: [:], completionHandler: nil)
+//                }
+//            }
+//        }
         
     }
 }

@@ -77,7 +77,7 @@ struct DisabilityInformation: View {
             }
             
             HStack(spacing:-10) {
-                Text("Chronic disease :")
+                Text("Chronic disease:")
                     .font(.body)
                     .bold()
                     .foregroundColor(.black)
@@ -89,7 +89,7 @@ struct DisabilityInformation: View {
                 Spacer()
             }
             HStack(spacing:-10) {
-                Text("Allergies :")
+                Text("Allergies:")
                     .font(.body)
                     .bold()
                     .padding(.leading, 10)

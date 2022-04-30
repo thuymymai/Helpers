@@ -63,7 +63,7 @@ struct ContentView: View {
 //                ProgressView().onAppear(perform: {clearData(entityName: "Task")})
 ////                ProgressView().onAppear(perform: {taskModel.fetchData(context: context)})
 //            }
-
+            let _ = print("language is: \(Locale.preferredLanguages[0])")
             // checking if core data exists
             if results.isEmpty {
                 if userModel.users.isEmpty {

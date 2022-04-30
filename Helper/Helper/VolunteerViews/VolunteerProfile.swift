@@ -41,7 +41,7 @@ struct VolunteerProfile: View {
                                 .font(.headline)
                                 .foregroundColor(Color.black.opacity(0.6))
                                 .padding()
-                            SettingsView(name:"Change language")
+                            //SettingsView(name:"Change language")
                             SettingsView(name: "Update availability")
                         }.font(.system(size: 16))
                     }
