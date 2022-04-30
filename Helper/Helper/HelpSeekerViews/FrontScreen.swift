@@ -16,12 +16,14 @@ struct FrontScreen: View {
     @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
     
     func getPhoneNumber() {
-        let userInfo = results.filter{$0.fullname?.lowercased() == helpseekerName }
+        let userInfo = results.filter{$0.fullname?.lowercased() == helpseekerName.lowercased() }
         if(userInfo.count > 0){
+            //get volunteer is the closest with current user
             let users = results.filter{$0.type != userInfo[0].type}
             let distanceAndPhone = users.map{ ($0.phone, CLLocation(latitude: userInfo[0].lat, longitude: userInfo[0].long).distance(from: CLLocation(latitude: $0.lat, longitude: $0.long))/1000) }
-            let distance = distanceAndPhone.map {$0.1}
-            self.phoneNumber = distanceAndPhone.first(where: {$0.1 == distance.min()})!
+            let distance = distanceAndPhone.map {(Int($0.1))}
+            self.phoneNumber = distanceAndPhone.first(where: {Int($0.1) == distance.min()})!
+            print("phone number is \(String(describing: self.phoneNumber.0))")
         }
     }
     
@@ -31,6 +33,7 @@ struct FrontScreen: View {
                 Color("White")
                     .edgesIgnoringSafeArea(.top)
                 VStack{
+                    let _ = print("helpseeker string is \(helpseekerName)")
                     HStack(alignment: .top){
                         Spacer()
                         VStack{
@@ -94,11 +97,13 @@ struct EmergencyButton: View {
                 .shadow(color: .gray, radius: 5, x: 0, y: 5)
 //            Image("emergency-button")
             Button(action: {
-                let _ = print("phone number is : \(phoneNumber)")
-                if let phoneCallURL = URL(string: "tel://\(phoneNumber)") {
-                    let application:UIApplication = UIApplication.shared
-                    if (application.canOpenURL(phoneCallURL)) {
-                        application.open(phoneCallURL, options: [:], completionHandler: nil)
+                if (phoneNumber != "") {
+                    let _ = print("phone number is : \(phoneNumber)")
+                    if let phoneCallURL = URL(string: "tel://\(phoneNumber)") {
+                        let application:UIApplication = UIApplication.shared
+                        if (application.canOpenURL(phoneCallURL)) {
+                            application.open(phoneCallURL, options: [:], completionHandler: nil)
+                        }
                     }
                 }
             }) {

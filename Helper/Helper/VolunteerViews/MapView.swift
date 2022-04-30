@@ -75,15 +75,6 @@ struct PlaceAnnotationView: View {
     
     var item: MyAnnotationItem
     
-    private func callNumber(phoneNumber:String) {
-      if let phoneCallURL = URL(string: "tel://\(phoneNumber)") {
-        let application:UIApplication = UIApplication.shared
-        if (application.canOpenURL(phoneCallURL)) {
-            application.open(phoneCallURL, options: [:], completionHandler: nil)
-        }
-      }
-    }
-    
     var body: some View {
         VStack() {
             Image(systemName: "mappin.circle.fill")

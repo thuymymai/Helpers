@@ -44,8 +44,8 @@ struct LandingPage: View {
                     Spacer()
                     ButtonView()
                     HStack{
-                        DropDownMenu()
-                        Spacer()
+//                        DropDownMenu()
+//                        Spacer()
                         NavigationLink(destination: Login()
                             .navigationBarHidden(true), label: {
                                 Text("Login")
@@ -123,19 +123,19 @@ struct ButtonView: View {
         
     }
 }
-
-struct DropDownMenu: View {
-    @State private var selection = "English"
-    let languages = ["English", "Finnish", "Swedish"]
-    
-    var body: some View {
-        Picker("Select language", selection: $selection) {
-            ForEach(languages, id: \.self) {
-                Text($0)
-                    .frame(width: 110, height: 110)
-                    .background(.blue)
-            }
-        }.padding(.bottom, 20)
-            .pickerStyle(.menu)
-    }
-}
+//
+//struct DropDownMenu: View {
+//    @State private var selection = "English"
+//    let languages = ["English", "Finnish", "Swedish"]
+//
+//    var body: some View {
+//        Picker("Select language", selection: $selection) {
+//            ForEach(languages, id: \.self) {
+//                Text($0)
+//                    .frame(width: 110, height: 110)
+//                    .background(.blue)
+//            }
+//        }.padding(.bottom, 20)
+//            .pickerStyle(.menu)
+//    }
+//}
