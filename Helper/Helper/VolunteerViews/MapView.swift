@@ -36,13 +36,21 @@ struct MapView: View {
         ZStack(alignment: .bottom){
             let _ = print("number of annotation \(annotation.count)")
             let _ = print("annotation \(annotation)")
-            Map(coordinateRegion: $viewModel.region, showsUserLocation: true, annotationItems: annotation) { item in
-                MapAnnotation(coordinate: item.coordinate) {
-                    PlaceAnnotationView(item: item)
+            if (annotation.count > 0) {
+                Map(coordinateRegion: $viewModel.region, showsUserLocation: true, annotationItems: annotation) { item in
+                    MapAnnotation(coordinate: item.coordinate) {
+                        PlaceAnnotationView(item: item)
+                    }
                 }
+                .edgesIgnoringSafeArea(.top)
+                .tint(.pink)
             }
-            .edgesIgnoringSafeArea(.top)
-            .tint(.pink)
+            
+            else {
+                Map(coordinateRegion: $viewModel.region, showsUserLocation: true)
+                    .edgesIgnoringSafeArea(.top)
+                    .tint(.pink)
+            }
             LocationButton(.currentLocation) {
                 viewModel.requestAllowOnceLocationPermission()
             }
