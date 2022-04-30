@@ -30,10 +30,9 @@ struct FormView: View {
     
     var body: some View {
         ZStack{
-            VStack {
+            VStack(alignment: .leading) {
                 Text("Full name")
                     .fontWeight(.medium)
-                    .frame(maxWidth: 300, alignment: .leading)
                     .font(.system(size: 14))
                 TextField("", text: $fullname)
                     .padding(.bottom, 20)
@@ -41,7 +40,6 @@ struct FormView: View {
                     .cornerRadius(5)
                 Text("Email")
                     .fontWeight(.medium)
-                    .frame(maxWidth: 300, alignment: .leading)
                     .font(.system(size: 14))
                     .padding(.top, 10)
                 TextField("", text: $email)
@@ -50,7 +48,6 @@ struct FormView: View {
                     .cornerRadius(5)
                 Text("Phone number")
                     .fontWeight(.medium)
-                    .frame(maxWidth: 300, alignment: .leading)
                     .font(.system(size: 14))
                     .padding(.top, 10)
                 TextField("", text: $phone)
@@ -59,7 +56,7 @@ struct FormView: View {
                     .cornerRadius(5)
                 Text("Password")
                     .fontWeight(.medium)
-                    .frame(maxWidth: 300, alignment: .leading)
+                    .frame(alignment: .leading)
                     .font(.system(size: 14))
                     .padding(.top, 10)
                 SecureField("", text: $password)
@@ -68,7 +65,6 @@ struct FormView: View {
                     .cornerRadius(5)
                 Text("Confirm Password")
                     .fontWeight(.medium)
-                    .frame(maxWidth: 300, alignment: .leading)
                     .font(.system(size: 14))
                     .padding(.top, 10)
                 SecureField("", text: $confirm)
@@ -76,7 +72,7 @@ struct FormView: View {
                     .background(Color("Background"))
                     .cornerRadius(5)
             }
-            .frame(width: 250)
+            .frame(width: 260)
             .padding(.top, 50)
             NavigationLink(
                 destination: MedicalInfo(fullname: $fullname, email: $email, phone: $phone, password: $password).navigationBarHidden(true), isActive: $isLinkActive) {EmptyView()}

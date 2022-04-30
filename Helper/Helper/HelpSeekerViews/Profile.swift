@@ -25,7 +25,7 @@ struct Profile: View {
                         Text(helpseekerName)
                             .font(.title)
                             .foregroundColor(.white)
-                    }.padding(.top,-90)
+                    }.padding(.top,-70)
                 }
                 List {
                     Section(header: Text("Account Settings")) {

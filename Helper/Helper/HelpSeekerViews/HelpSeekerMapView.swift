@@ -17,7 +17,7 @@ struct HelpSeekerMapView: View {
 //        NavigationView {
             ZStack(alignment: .bottom){
                 Map(coordinateRegion: $viewModel.region, showsUserLocation: true)
-                    .ignoresSafeArea()
+                    .edgesIgnoringSafeArea(.top)
                     .tint(.pink)
                 LocationButton(.currentLocation) {
                     viewModel.requestAllowOnceLocationPermission()
