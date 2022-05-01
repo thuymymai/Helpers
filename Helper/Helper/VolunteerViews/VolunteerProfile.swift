@@ -20,7 +20,7 @@ struct VolunteerProfile: View {
                 Color("Background")
                 VStack{
                     ZStack{
-                        Image("BG Mask").edgesIgnoringSafeArea(.all)
+                        Image("BG Mask")
                         VStack{
                             Image("volunteer")
                                 .resizable()
@@ -41,12 +41,10 @@ struct VolunteerProfile: View {
                                 .font(.headline)
                                 .foregroundColor(Color.black.opacity(0.6))
                                 .padding()
-                            //SettingsView(name:"Change language")
                             SettingsView(name: "Update availability")
                         }.font(.system(size: 16))
                     }
                 }
-                //.padding(.top, -30)
                     .padding(.bottom,5)
             }
             .navigationBarHidden(true)

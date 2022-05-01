@@ -44,33 +44,19 @@ struct LandingPage: View {
                     Spacer()
                     ButtonView()
                     HStack{
-                        // DropDownMenu()
-                        Spacer()
+                        Text("Already have an account?")
                         NavigationLink(destination: Login()
                             .navigationBarHidden(true), label: {
                                 Text("Login")
+                                    .underline()
                                     .bold()
-                                    .padding(12)
-                                    .background(Color("Background"))
                                     .foregroundColor(Color("Primary"))
-                                    .cornerRadius(10)
-                            }).padding(.bottom, 20)
-                        
-                    }.padding(.horizontal, 40)
-                    
+                            })
+                    }.padding(.bottom,10)
+                    .padding(.horizontal, 40)
                 }
-                
             }
             .offset(y:-20)
-            .toolbar{
-                Button(action: {
-                    showAlert.toggle()
-                }) {
-                    Label("Refresh", systemImage: "arrow.clockwise")
-                }.alert(isPresented: $showAlert, content: {
-                    Alert(title: Text("Refresh data"), dismissButton: .default(Text("OK")))
-                })
-            }
         }
     }
 }
@@ -118,24 +104,6 @@ struct ButtonView: View {
                             .cornerRadius(10)
                     }
                 }
-            
         }.padding(.bottom, 50)
-        
     }
 }
-//
-//struct DropDownMenu: View {
-//    @State private var selection = "English"
-//    let languages = ["English", "Finnish", "Swedish"]
-//
-//    var body: some View {
-//        Picker("Select language", selection: $selection) {
-//            ForEach(languages, id: \.self) {
-//                Text($0)
-//                    .frame(width: 110, height: 110)
-//                    .background(.blue)
-//            }
-//        }.padding(.bottom, 20)
-//            .pickerStyle(.menu)
-//    }
-//}

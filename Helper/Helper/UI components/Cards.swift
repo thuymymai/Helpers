@@ -74,7 +74,7 @@ struct TaskCard: View {
                             {
                                 Text("Mark As Done")
                                     .font(.subheadline)
-                                    .frame(width: 110, height: 30)
+                                    .frame(width: 135, height: 30)
                                     .background(Color("Primary"))
                                     .foregroundColor(.white)
                                     .cornerRadius(6)
