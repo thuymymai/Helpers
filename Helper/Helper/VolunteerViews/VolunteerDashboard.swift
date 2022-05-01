@@ -49,12 +49,12 @@ struct VolunteerDashboard: View {
         DispatchQueue.main.async {
             self.availableTasks = taskResults.filter{$0.volunteer == 0}
             if (category == "Assistance"){
-                self.assistance = availableTasks.filter{$0.category == "personal assistant" || $0.category == "housework"}
+                self.assistance = availableTasks.filter{$0.category?.lowercased() == "personal assistant" || $0.category?.lowercased() == "housework"}
             }else if (category == "Transport"){
-                self.transport = availableTasks.filter{$0.category == "transportation" || $0.category == "delivery" }
+                self.transport = availableTasks.filter{$0.category?.lowercased() == "transportation" || $0.category?.lowercased() == "delivery" }
             }else {
-                self.others = availableTasks.filter{$0.category != "personal assistant" && $0.category != "transportation"
-                    && $0.category != "delivery" && $0.category != "housework"
+                self.others = availableTasks.filter{$0.category?.lowercased() != "personal assistant" && $0.category?.lowercased() != "transportation"
+                    && $0.category?.lowercased() != "delivery" && $0.category?.lowercased() != "housework"
                 }
             }
         }
@@ -132,24 +132,24 @@ struct VolunteerDashboard: View {
                             let _ = sortCategory(category: "Transport")
                             let _ = sortCategory(category: "Others")
                             
-                            NavigationLink(destination: AssistanceTasksView(assistance: $assistance, userInfo: $userInfo, taskInfo: $taskInfo, availableTasks: $availableTasks, volunteerName: $volunteerName)) {
+                            NavigationLink(destination: CatagoryTaskView(catagory: $assistance, userInfo: $userInfo, volunteerName: $volunteerName)) {
                                 if (Locale.preferredLanguages[0] == "fi") {
                                     CategoriesView(categoryName: "Apu", numberOfTasks: "\(assistance.count) Tehtävät", ImageName: "helping image")
                                 } else {
                                     CategoriesView(categoryName: "Assistance", numberOfTasks: "\(assistance.count) Tasks", ImageName: "helping image")
                                 }
                             }
-                            NavigationLink(destination: TransportTasksView(transport: $transport,userInfo: $userInfo, taskInfo: $taskInfo, availableTasks: $availableTasks,volunteerName: $volunteerName)) {
+                            NavigationLink(destination: CatagoryTaskView(catagory: $transport, userInfo: $userInfo, volunteerName: $volunteerName)) {
                                 if (Locale.preferredLanguages[0] == "fi") {
-                                    CategoriesView(categoryName: "Kuljetus", numberOfTasks: "\(assistance.count) Tehtävät", ImageName: "delivery image")
+                                    CategoriesView(categoryName: "Kuljetus", numberOfTasks: "\(transport.count) Tehtävät", ImageName: "delivery image")
                                 } else {
                                     CategoriesView(categoryName: "Transport", numberOfTasks: "\(transport.count) Tasks", ImageName: "delivery image")
                                 }
                             }
                             
-                            NavigationLink(destination: OthersTasksView(others: $others,userInfo: $userInfo, taskInfo: $taskInfo, availableTasks: $availableTasks,volunteerName: $volunteerName)) {
+                            NavigationLink(destination: CatagoryTaskView(catagory: $others, userInfo: $userInfo, volunteerName: $volunteerName)) {
                                 if (Locale.preferredLanguages[0] == "fi") {
-                                    CategoriesView(categoryName: "Muut", numberOfTasks: "\(assistance.count) Tehtävät", ImageName: "groceries image")
+                                    CategoriesView(categoryName: "Muut", numberOfTasks: "\(others.count) Tehtävät", ImageName: "groceries image")
                                 } else {
                                     CategoriesView(categoryName: "Others", numberOfTasks: "\(others.count) Tasks", ImageName: "groceries image")
                                 }
