@@ -29,23 +29,24 @@ struct Profile: View {
                 }
                 List {
                     Section(header: Text("Account Settings")) {
-                        SettingsView(name: "Update Basic Information")
-                        SettingsView(name:"Update Medical Informations")
+//                        SettingsView(name: "Update Basic Information")
+//                        SettingsView(name:"Update Medical Informations")
                         NavigationLink(destination: TaskList(helpseekerName: $helpseekerName)) {
                             SettingsView(name:"Your Tasks")
                         }
-                    }.font(.system(size: 16))
-                    Section(header: Text("Preferences")) {
                         NavigationLink(destination: LandingPage().navigationBarHidden(true)) {
                             SettingsView(name:"Log Out")
                         }
-                        Toggle("Push Notification", isOn: $pushNoti)
-                            .font(.headline)
-                            .foregroundColor(Color.black.opacity(0.6))
-                            .padding()
-                        //SettingsView(name:"Change language")
-                        
                     }.font(.system(size: 16))
+//                    Section(header: Text("Preferences")) {
+//
+////                        Toggle("Push Notification", isOn: $pushNoti)
+////                            .font(.headline)
+////                            .foregroundColor(Color.black.opacity(0.6))
+////                            .padding()
+//                        //SettingsView(name:"Change language")
+//
+//                    }.font(.system(size: 16))
                 }.padding(.top,-60)
             }.padding(.top, -30)
                 .padding(.bottom,5)

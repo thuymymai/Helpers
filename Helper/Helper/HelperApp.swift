@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 @main
 struct HelperApp: App {
+    
     @Environment(\.scenePhase) var scenePhase
     
     let persistenceController = PersistenceController.shared
@@ -22,4 +24,8 @@ struct HelperApp: App {
             persistenceController.save()
         }
     }
+    
 }
+
+
+
