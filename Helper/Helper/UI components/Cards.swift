@@ -18,17 +18,18 @@ struct TaskCard: View {
     @State var showAlert: Bool = false
     @State var taskCompleted: Bool = false
     @State var isLinkActive = false
-    @State var currentTask: Task
-    @State var helpseeker: User
     @State var taskId: Int16 = 0
-    var userInfo: [User]  = []
-    @State var volunteerName: String
+    
+    @Binding var currentTask: Task
+    @Binding var helpseeker: User
+    @Binding var userInfo: [User]
+    @Binding var volunteerName: String
     
     var body: some View {
         
         NavigationLink(destination: TaskDetailView(currentTask: $currentTask, helpseeker: $helpseeker)){
             ZStack{
-                VStack(alignment:.leading,spacing:10){
+                VStack(alignment:.leading, spacing:10){
                     HStack{
                         Text(currentTask.title!)
                             .font(.headline)
@@ -39,18 +40,22 @@ struct TaskCard: View {
                             .font(.subheadline)
                             .fontWeight(.semibold)
                             .foregroundColor(Color("Primary"))
-                    }.padding(.horizontal,20)
+                    }
+                    .padding(.horizontal,20)
+                    
                     Label("\(helpseeker.fullname!)", systemImage: "person")
                         .padding(.horizontal,20)
                         .foregroundColor(.black)
                     Label("\(currentTask.location!)", systemImage: "mappin")
                         .padding(.horizontal,20)
                         .foregroundColor(.black)
+                    
                     HStack{
                         Label(currentTask.time!.formatted(date: .omitted, time: .complete), systemImage: "clock")
                             .font(.system(size: 14))
                             .foregroundColor(.secondary)
                         Spacer()
+                        
                         if(currentTask.volunteer != 0){
                             NavigationLink(
                                 destination: VolunteersNavBar( volunteerName: $volunteerName)
@@ -58,7 +63,6 @@ struct TaskCard: View {
                             Button(action: {
                                 self.taskId = currentTask.id
                                 if(taskId != 0){
-                                    let _ = print("modify status data")
                                     if let index = taskResults.firstIndex(where: {$0.id == taskId}) {
                                         taskResults[index].status = 1
                                     }
@@ -68,10 +72,8 @@ struct TaskCard: View {
                                         print(error)
                                     }
                                     taskCompleted.toggle()
-                                    
                                 }
-                            })
-                            {
+                            }) {
                                 Text("Mark As Done")
                                     .font(.subheadline)
                                     .frame(width: 135, height: 30)
@@ -89,9 +91,7 @@ struct TaskCard: View {
                             Button(action: {
                                 self.taskId = currentTask.id
                                 showAlert.toggle()
-                                
-                            })
-                            {
+                            }) {
                                 Text("Accept Task")
                                     .font(.subheadline)
                                     .fontWeight(.semibold)
@@ -117,12 +117,12 @@ struct TaskCard: View {
                                 }), secondaryButton: .cancel())
                             })
                         }
-                        
                     }
                     .padding(.horizontal,20)
                     
                 }
-            }.padding(.vertical,20)
+            }
+            .padding(.vertical,20)
         }// close navigationview
     }
 }

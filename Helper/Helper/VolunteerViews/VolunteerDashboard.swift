@@ -105,7 +105,7 @@ struct VolunteerDashboard: View {
                                 Text("Available Tasks")
                                     .font(.system(size: 24))
                                 Spacer()
-                                NavigationLink(destination: AllTasksView(userInfo: $userInfo, taskInfo: $taskInfo, availableTasks: $availableTasks, volunteerName: $volunteerName)){
+                                NavigationLink(destination: CatagoryTaskView(catagory: $availableTasks, userInfo: $userInfo, volunteerName: $volunteerName)){
                                     Text("View All")
                                         .underline()
                                         .bold()

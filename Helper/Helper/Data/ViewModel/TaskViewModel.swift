@@ -41,6 +41,7 @@ class TaskViewModel: ObservableObject {
         }
     }
     
+    // get data from Network
     func fetchData(context: NSManagedObjectContext) {
         let url = "https://users.metropolia.fi/~sond/Swift%20Project/task.json"
         

@@ -24,7 +24,6 @@ struct HelperApp: App {
             persistenceController.save()
         }
     }
-    
 }
 
 

@@ -11,6 +11,7 @@ import MapKit
 
 class LocationManager: NSObject {
     
+    // create singleton of location manager
     static let shared = LocationManager()
     
     var long: Double = 0.0
@@ -30,21 +31,21 @@ class LocationManager: NSObject {
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestLocation()
-//        self.locationManager.startUpdatingLocation()
     }
 }
 
 // Core Location Delegate
 extension LocationManager: CLLocationManagerDelegate {
     
+    // check permission for using location
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
 
         switch status {
             case .notDetermined         : print("location permission notDetermined")        // location permission not asked for yet
             case .authorizedWhenInUse   : print("location permission authorizedWhenInUse")  // location authorized
             case .authorizedAlways      : print("location permission authorizedAlways")     // location authorized
-            case .restricted            : print("location permission restricted")           // TODO: handle
-            case .denied                : print("location permission denied")               // TODO: handle
+            case .restricted            : print("location permission restricted")
+            case .denied                : print("location permission denied")
             @unknown default            : print("location permission unknown")
         }
     }
@@ -54,19 +55,18 @@ extension LocationManager: CLLocationManagerDelegate {
         print("Failed to get users location.")
     }
     
+    // get current location
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print("location update:: \(locations[0])")
         let geocoder = CLGeocoder()
         geocoder.reverseGeocodeLocation(locations[0]) { placemarks, error in
             guard error == nil else {
                 print("*** Error in \(#function): \(error!.localizedDescription)")
-//                completion(nil)
                 return
             }
             
             guard let placemark = placemarks?[0] else {
                 print("*** Error in \(#function): placemark is nil")
-//                completion(nil)
                 return
             }
 
@@ -75,27 +75,10 @@ extension LocationManager: CLLocationManagerDelegate {
                 self.lat = (placemark.location?.coordinate.latitude)!
                 self.long = (placemark.location?.coordinate.longitude)!
             }
-//            var output = "Our location is:"
-//            if let country = placemark.country {
-//                output = output + "\n\(country)"
-//            }
-//            if let state = placemark.administrativeArea {
-//                output = output + "\n\(state)"
-//            }
-//            if let town = placemark.locality {
-//                output = output + "\n\(town)"
-//            }
-//            if let street = placemark.name {
-//                output = output + "\n\(street)"
-//            }
-//            if let postCode = placemark.postalCode {
-//                output = output + "\n\(postCode)"
-//            }
-//            let _ = print("address is \(output)")
-        
         }
     }
     
+    // get location from address
     func getLocation(forPlaceCalled name: String, completion: @escaping(CLLocation?) -> Void) {
             
             let geocoder = CLGeocoder()
@@ -121,30 +104,3 @@ extension LocationManager: CLLocationManagerDelegate {
             }
         }
 }
-
-
-
-//// Get Placemark
-//extension LocationManager {
-//
-////    func getPlace(for location: CLLocation, completion: @escaping (CLPlacemark?) -> Void) {
-//    func getPlace(for location: CLLocation) {
-//        
-//        let geocoder = CLGeocoder()
-//        geocoder.reverseGeocodeLocation(location) { placemarks, error in
-//            guard error == nil else {
-//                print("*** Error in \(#function): \(error!.localizedDescription)")
-////                completion(nil)
-//                return
-//            }
-//
-//            guard let placemark = placemarks?[0] else {
-//                print("*** Error in \(#function): placemark is nil")
-////                completion(nil)
-//                return
-//            }
-//
-////            completion(placemark)
-//        }
-//    }
-//}
