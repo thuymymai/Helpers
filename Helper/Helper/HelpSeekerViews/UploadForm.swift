@@ -225,6 +225,7 @@ struct FormTask: View {
                         if(isError == 1) {
                             return Alert(title: Text("Cannot find your location!"),  dismissButton: .default(Text("Try again"), action: { self.isError = 0}))
                         } else {
+                            let _ = registerForPushNotifications()
                             return  Alert(title: Text("Submit task successfully!"),  dismissButton: .default(Text("OK"), action: {
                                     resetForm()
                                 }))
@@ -235,4 +236,77 @@ struct FormTask: View {
         }
         
     }
+}
+
+func getNotificationSettings() {
+    UNUserNotificationCenter.current().getNotificationSettings { settings in
+        print("Notification settings: \(settings)")
+        guard settings.authorizationStatus == .authorized else { return }
+        DispatchQueue.main.async {
+            UIApplication.shared.registerForRemoteNotifications()
+        }
+        
+    }
+}
+
+
+func registerForPushNotifications() {
+    //1
+    UNUserNotificationCenter.current()
+        .requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
+            print("Permission granted: \(granted)")
+            guard granted else { return }
+            getNotificationSettings()
+            requestNotification()
+        }
+}
+
+func application(
+    _ application: UIApplication,
+    didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
+) {
+    let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
+    let token = tokenParts.joined()
+    print("Device Token: \(token)")
+}
+
+func application(
+    _ application: UIApplication,
+    didFailToRegisterForRemoteNotificationsWithError error: Error
+) {
+    print("Failed to register: \(error)")
+}
+
+
+func requestNotification() {
+    let content = UNMutableNotificationContent()
+    content.title = NSString.localizedUserNotificationString(forKey: "New tasks updated!", arguments: nil)
+    content.body = NSString.localizedUserNotificationString(forKey: "Open the app to see new tasks.", arguments: nil)
+    content.sound = UNNotificationSound.default
+    content.badge = 1
+    
+    let identifier = UIDevice.current.identifierForVendor?.uuidString ?? "D03FFB27-BD42-42E6-B711-9CEC16F2B6BF" + "SonDang-MyMai-AnHuynh.Helper"
+    print("device identifier: \(identifier)")
+    
+    //Receive with date
+    var datComp = DateComponents()
+    let date = Date()
+    datComp.hour = Calendar.current.dateComponents([.hour], from: date).hour
+    datComp.minute = (Calendar.current.dateComponents([.minute], from: date).minute)! + 1
+    print("time \(datComp)")
+    let trigger = UNCalendarNotificationTrigger(dateMatching: datComp, repeats: true)
+    
+    let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+    let center = UNUserNotificationCenter.current()
+    
+    center.add(request) { (error) in
+        if let error = error {
+            print("Error \(error.localizedDescription)")
+        }else{
+            print("Notification sent!")
+        }
+    }
+    
+    
+    
 }

@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct VolunteerProfile: View {
-     @State private var showingSheet = false
+    @State var pushNoti = true
+    @State private var showingSheet = false
     @Binding var volunteerName: String
     
     var body: some View {
