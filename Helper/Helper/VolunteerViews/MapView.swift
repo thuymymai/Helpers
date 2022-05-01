@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreLocation
 import CoreLocationUI
 import MapKit
 
@@ -56,15 +57,19 @@ struct MapView: View {
                     .edgesIgnoringSafeArea(.top)
                     .tint(.pink)
             }
-            LocationButton(.currentLocation) {
+            Button {
                 viewModel.requestAllowOnceLocationPermission()
+            } label: {
+                Label("Your location", systemImage: "location.fill")
+                    .font(.system(size: 18))
+                    .padding()
+
             }
+            .background(Color("Primary"))
+            .cornerRadius(10)
             .foregroundColor(.white)
-            .cornerRadius(8)
-            .labelStyle(.titleAndIcon)
-            .symbolVariant(.fill)
-            .tint(Color("Primary"))
-            .padding(.bottom,50)
+            .padding(.bottom, 30)
+            
         }
         .onAppear(perform: {getAnnotation()})
     }
