@@ -73,17 +73,12 @@ struct VolunteersNavBar: View {
             )
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Menu {
                         Button(action:{
                             self.isLinkActive = true
                             self.isLogoutMenuClicked = true
                         }, label: {
-                            Label(title: {Text("Log Out")}, icon: {Image(systemName: "rectangle.portrait.and.arrow.right")})
+                            Text("Log Out")
                         })
-                    }
-                label: {
-                    Image("menu").resizable().frame(width:30, height:30).foregroundColor(.black).padding()
-                }
                 }           
             }// close toolbar
         }.navigationBarHidden(true)

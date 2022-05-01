@@ -37,9 +37,6 @@ struct FrontScreen: View {
                     HStack(alignment: .top){
                         Spacer()
                         VStack{
-//                            Text("Karaportti 2, Espoo")
-//                                .font(.system(size: 16))
-//                                .padding(.bottom, 2)
                             NavigationLink(
                                 destination: Location(volunteerName: $helpseekerName),
                                 label: {
