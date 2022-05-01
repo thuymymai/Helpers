@@ -10,20 +10,23 @@ import SwiftUI
 struct UploadForm: View {
     @Binding var helpseekerName: String
     @State var userId: Int = 0
+    @State var locationUser: String = ""
     
     // fetching user data from core data
     @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
     
     func getUserInfo() {
         let userInfo = results.filter{$0.fullname?.lowercased() == helpseekerName.lowercased() }
-//                print("helpseekerName: \(helpseekerName) count: \(helpseekerName.count)")
-//                print("result count: \(results[results.count - 1].fullname)")
-//                print("user info \(userInfo.count)")
+        //                print("helpseekerName: \(helpseekerName) count: \(helpseekerName.count)")
+        //                print("result count: \(results[results.count - 1].fullname)")
+        //                print("user info \(userInfo.count)")
         
         if(userInfo.count > 0){
             self.userId = Int(userInfo[0].userId)
+            self.locationUser = userInfo[0].location!
             print("user info id \(userInfo[0].userId)")
             print("userid \(userId)")
+            print("location \(locationUser)")
         }
     }
     
@@ -47,7 +50,7 @@ struct UploadForm: View {
                                 .fontWeight(.medium)
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.center)
-                        }.padding(.top, -20)
+                        }
                     }
                     Spacer()
                 }
@@ -57,12 +60,12 @@ struct UploadForm: View {
                         .frame(width: geometry.size.width * 0.8, height: geometry.size.height * 0.9)
                         .shadow(radius: 5)
                         .padding(.top, 50)
-                    FormTask(userId: $userId)
+                    FormTask(userId: $userId, locationUser: $locationUser)
                 }
-                .padding(.bottom,10)
+                .padding(.bottom, 10)
                 
             }.onAppear(perform: {getUserInfo()})
-                //.offset(y:-10)
+            //.offset(y:-10)
         }
     }
 }
@@ -74,14 +77,18 @@ struct UploadForm_Previews: PreviewProvider {
 }
 
 struct FormTask: View {
+    @Binding var userId: Int
+    @Binding var locationUser: String
+    let locationManager = LocationManager()
+    
     @State var description: String = ""
     @State var title: String = ""
     @State private var currentDate = Date()
     @State private var categorySelection = "Others"
-    @State var location: String = ""
-    @State var isUpload: Bool = false
     @State var showAlert: Bool = false
-    @Binding var userId: Int
+    @State var isError: Int = 0
+    
+    //    var isUpload: Bool = false
     
     let categories = ["Groceries", "Delivery", "Personal assistant", "Transportation", "Housework", "Others"]
     
@@ -116,101 +123,116 @@ struct FormTask: View {
     
     func resetForm() {
         title = ""
-        location = ""
         currentDate = Date()
         categorySelection = "Others"
         description = ""
     }
     
     var body: some View {
-           ZStack{
-               VStack{
-                   VStack {
-                       Text("Title")
-                           .fontWeight(.medium)
-                           .frame(maxWidth: 300, alignment: .leading)
-                           .font(.system(size: 16))
-                           .padding(.top,15)
-                       TextField("", text: $title)
-                           .padding(.bottom, 20)
-                           .background(Color("Background"))
-                           .cornerRadius(5)
-                       Text("Location")
-                           .fontWeight(.medium)
-                           .frame(maxWidth: 300, alignment: .leading)
-                           .font(.system(size: 16))
-                           .padding(.top, 10)
+        ZStack{
+            VStack{
+                VStack {
+                    Text("Title")
+                        .fontWeight(.medium)
+                        .frame(maxWidth: 300, alignment: .leading)
+                        .font(.system(size: 16))
+                        .padding(.top,15)
+                    TextField("", text: $title)
+                        .padding(.bottom, 20)
+                        .background(Color("Background"))
+                        .cornerRadius(5)
+                    Text("Location")
+                        .fontWeight(.medium)
+                        .frame(maxWidth: 300, alignment: .leading)
+                        .font(.system(size: 16))
+                        .padding(.top, 10)
+                    
+                    HStack {
+                        TextEditor(text: $locationUser)
+                            .colorMultiply(Color("Background"))
+                            .font(.system(size: 16))
+                            .foregroundColor(.black)
+                            .frame(width: 200, height: 50 ,alignment: .leading)
+                        Image(systemName: "map")
+                            .foregroundColor(.black)
+                    }
+                    .frame(width: 230, height: 50)
+                    .padding(10)
+                    .background(Color("Background"))
+                    .cornerRadius(5)
+                    
+                    Text("Time")
+                        .fontWeight(.medium)
+                        .frame(maxWidth: 300, alignment: .leading)
+                        .font(.system(size: 16))
+                        .padding(.top, 10)
+                    DatePicker("", selection: $currentDate, displayedComponents: [.date, .hourAndMinute])
+                        .labelsHidden()
+                        .background(Color("Background"))
+                        .frame(alignment: .leading)
+                    Text("Category")
+                        .fontWeight(.medium)
+                        .frame(maxWidth: 300, alignment: .leading)
+                        .font(.system(size: 16))
+                        .padding(.top, 10)
+                    Picker("Select category", selection: $categorySelection) {
+                        ForEach(categories, id: \.self) {
+                            Text($0)
+                                .frame(width: 110, height: 110)
+                                .background(.blue)
+                        }
+                    }
+                    .frame(width: 250)
+                    .background(Color("Background"))
+                    .cornerRadius(5)
+                    .pickerStyle(.menu)
+                    Text("Description")
+                        .fontWeight(.medium)
+                        .frame(maxWidth: 300, alignment: .leading)
+                        .font(.system(size: 16))
+                        .padding(.top, 10)
+                    
+                    TextEditor(text: $description)
+                        .frame(width: 250, height: 110)
+                        .colorMultiply(Color("Background"))
+                        .cornerRadius(5)
+                        .padding(.bottom,-20)
+                }
+                .frame(width: 250)
+                .padding(.top, 30)
+                Button(action: {
+                    locationManager.getLocation(forPlaceCalled: locationUser) { location in
+                        guard let location = location else {
+                            isError = 1
+                            return
+                        }
+                        uploadTask(title: title, location: locationUser, long: location.coordinate.longitude, lat: location.coordinate.latitude, time: currentDate, category: categorySelection, description: description, helpseeker: userId)
+                        print("long, lat: \(location.coordinate.latitude) \(location.coordinate.longitude)")
                        
-                       HStack {
-                           TextField("\(location)", text: $location)
-                               .font(.system(size: 16))
-                               .foregroundColor(.black)
-                               .frame(maxWidth: 200, alignment: .leading)
-                           Image(systemName: "map")
-                               .foregroundColor(.black)
-                       }
-                       .frame(width: 230, height: 25)
-                       .padding(10)
-                       .background(Color("Background"))
-                       .cornerRadius(5)
-                       
-                       Text("Time")
-                           .fontWeight(.medium)
-                           .frame(maxWidth: 300, alignment: .leading)
-                           .font(.system(size: 16))
-                           .padding(.top, 10)
-                       DatePicker("", selection: $currentDate, displayedComponents: [.date, .hourAndMinute])
-                           .labelsHidden()
-                           .background(Color("Background"))
-                           .frame(alignment: .leading)
-                       Text("Category")
-                           .fontWeight(.medium)
-                           .frame(maxWidth: 300, alignment: .leading)
-                           .font(.system(size: 16))
-                           .padding(.top, 10)
-                       Picker("Select category", selection: $categorySelection) {
-                           ForEach(categories, id: \.self) {
-                               Text($0)
-                                   .frame(width: 110, height: 110)
-                                   .background(.blue)
-                           }
-                       }.frame(width: 250)
-                           .cornerRadius(5)
-                           .background(Color("Background"))
-                       .pickerStyle(.menu)
-                       Text("Description")
-                           .fontWeight(.medium)
-                           .frame(maxWidth: 300, alignment: .leading)
-                           .font(.system(size: 16))
-                           .padding(.top, 10)
-                       
-                       TextEditor(text: $description)
-                           .frame(width: 250, height: 110)
-                           .colorMultiply(Color("Background"))
-                           .cornerRadius(5)
-                           .padding(.bottom,-20)
-                   }
-                   .frame(width: 250)
-                   .padding(.top, 30)
-                   Button(action: { showAlert.toggle() }) {
-                       Text("SUBMIT")
-                           .fontWeight(.bold)
-                           .font(.system(size: 14))
-                           .frame(width: 100, height: 35)
-                           .background(Color("Primary"))
-                           .foregroundColor(.white)
-                           .cornerRadius(10)
-                   }.alert(isPresented: $showAlert, content: {
-                       if self.isUpload {
-                           return Alert(title: Text("Submit task failed!"),  dismissButton: .default(Text("Try again!"), action: {}))
-                       } else {
-                           uploadTask(title: title, location: location, long: 0.0, lat: 0.0, time: currentDate, category: categorySelection, description: description, helpseeker: userId)
-                           return Alert(title: Text("Submit task successfully!"),  dismissButton: .default(Text("OK"), action: {resetForm()}))
-                       }
+                    }
+                    showAlert.toggle()
+                    Thread.sleep(forTimeInterval: 1)
+                     }) {
+                        Text("SUBMIT")
+                            .fontWeight(.bold)
+                            .font(.system(size: 14))
+                            .frame(width: 100, height: 35)
+                            .background(Color("Primary"))
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                     }
+                    .alert(isPresented: $showAlert, content: {
+                        if(isError == 1) {
+                            return Alert(title: Text("Cannot find your location!"),  dismissButton: .default(Text("Try again"), action: { self.isError = 0}))
+                        } else {
+                            return  Alert(title: Text("Submit task successfully!"),  dismissButton: .default(Text("OK"), action: {
+                                    resetForm()
+                                }))
+                        }
                    })
-                   .padding(.top, 30)
-               }
-           }
-           
-       }
-   }
+                    .padding(.top, 30)
+            }
+        }
+        
+    }
+}

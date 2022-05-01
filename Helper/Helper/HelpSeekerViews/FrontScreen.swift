@@ -29,7 +29,7 @@ struct FrontScreen: View {
     
     var body: some View {
 //        NavigationView {
-            ZStack(alignment: .top){
+            ZStack {
                 Color("White")
                     .edgesIgnoringSafeArea(.top)
                 VStack{
@@ -56,7 +56,6 @@ struct FrontScreen: View {
                     }
                     .padding(.bottom, 50)
                     .padding(.trailing, 10)
-                    
                     Text("Emergency help needed?")
                         .bold()
                         .font(.system(size: 24))
@@ -71,8 +70,7 @@ struct FrontScreen: View {
                         .font(.system(size: 20))
                     FirstAidManual().padding(.top,-20)
                 }.offset(y:-10)
-            }
-          .navigationBarHidden(true)
+            }.navigationBarHidden(true)
     }
 }
 
