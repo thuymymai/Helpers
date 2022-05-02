@@ -6,10 +6,9 @@ IOS application development course - Spring 2022 - Metropolia University Of Appl
 
 - Overview
 - App features
-- Libraries
-- Back-end and API service
-- Set up
-- Presentation
+- Database
+- Installation
+- Screenshots
 - License
 - Contributors
 
@@ -31,3 +30,26 @@ IOS application development course - Spring 2022 - Metropolia University Of Appl
 - Voice recognition used in helpseeker's user flow
 - Localization - language detected by the device's default setting
 - Map feature using Mapkit allows both types of users to see available users nearby their current location
+
+## Data
+
+## Installation
+Requirements to run the project:
+1. Install Xcode environment
+2. Clone the project from [Github](https://github.com/thuymymai/Helpers) and opened with Xcode.
+3. Choose simulator (at least ios 15) and build project.
+
+## Screenshots
+<img src="https://github.com/thuymymai/Helpers/blob/main/Helper/Helper/Assets.xcassets/Images/iphone1.png" width="250" height="400"><img src="https://github.com/thuymymai/Helpers/blob/main/Helper/Helper/Assets.xcassets/Images/iphone2.png" width="250" height="400">
+<img src="https://github.com/thuymymai/Helpers/blob/main/Helper/Helper/Assets.xcassets/Images/iphone3.png" width="250" height="400"><img src="https://github.com/thuymymai/Helpers/blob/main/Helper/Helper/Assets.xcassets/Images/iphone4.png" width="250" height="400">
+
+
+## License
+
+[GPL-3.0](https://github.com/Nischhal3/pre-owned/blob/readme/LICENSE.txt) license.
+## Contributors
+[Son Dang](https://github.com/minhson0506)
+
+[My Mai](https://github.com/thuymymai)
+
+[An Huynh](https://github.com/anniehuynh)
