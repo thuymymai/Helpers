@@ -696,6 +696,11 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Helper/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Do you allow this app to know your current location?";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Will you allow this app to always know your location?";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Do you allow this app to know your current location?";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Audio will be recorded";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "You can view a text transcription";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -727,6 +732,11 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Helper/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Do you allow this app to know your current location?";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Will you allow this app to always know your location?";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Do you allow this app to know your current location?";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Audio will be recorded";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "You can view a text transcription";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
