@@ -75,7 +75,6 @@ struct FrontScreen: View {
             }
             .offset(y:-10)
         }
-        .navigationBarHidden(true)
         .onAppear(perform: {getUserData()})
     }
 }
