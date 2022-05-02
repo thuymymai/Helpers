@@ -24,13 +24,16 @@ struct HelpseekerSignUpForm: View {
     @State private var emailCheck = false
     @State private var phoneCheck = false
     
+    // state of button
+    @State var btnFullName = false
+    @State var btnPhone = false
+    
     // set up environment
     @StateObject var userModel = UserViewModel()
     @Environment(\.managedObjectContext) var context
     
     // fetching data from core data
     @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
-    
     
     @State private var text: String? = ""
     //MARK: - Local Properties
@@ -69,7 +72,7 @@ struct HelpseekerSignUpForm: View {
             guard let response = response else {
                 if error != nil {
                     let _ = print(error.debugDescription)
-                }else {
+                } else {
                     let _ = print("Problem in giving the response")
                 }
                 return
@@ -77,7 +80,11 @@ struct HelpseekerSignUpForm: View {
             
             let message = response.bestTranscription.formattedString
             let _ = print("Message : \(message)")
-            self.text = message
+            if self.btnFullName {
+                self.fullname = message
+            } else if self.btnPhone {
+                self.phone = message
+            }
             let _ = print("text input is: \(String(describing: text))")
             
         })
@@ -90,7 +97,6 @@ struct HelpseekerSignUpForm: View {
         
         request.endAudio()
         audioEngine.stop()
-        //audioEngine.inputNode.removeTap(onBus: 0)
         
         //MARK: UPDATED
         if audioEngine.inputNode.numberOfInputs > 0 {
@@ -109,7 +115,16 @@ struct HelpseekerSignUpForm: View {
                         .padding(.bottom, 20)
                         .background(Color("Background"))
                         .cornerRadius(5)
-                    Button {startSpeechRecognization()} label: {
+                    Button {
+                        self.btnFullName.toggle()
+                        if (self.btnFullName) {
+                            self.text = ""
+                            startSpeechRecognization()
+                        } else {
+                            cancelSpeechRecognization()
+                            self.text = ""
+                        }
+                    } label: {
                         Label("", systemImage: "mic")
                     }
                 }
@@ -124,9 +139,6 @@ struct HelpseekerSignUpForm: View {
                         .padding(.bottom, 20)
                         .background(Color("Background"))
                         .cornerRadius(5)
-                    Button {startSpeechRecognization()} label: {
-                        Label("", systemImage: "mic")
-                    }
                 } .background(Color("Background"))
                     .cornerRadius(5)
                 
@@ -139,7 +151,16 @@ struct HelpseekerSignUpForm: View {
                         .padding(.bottom, 20)
                         .background(Color("Background"))
                         .cornerRadius(5)
-                    Button {startSpeechRecognization()} label: {
+                    Button {
+                        self.btnPhone.toggle()
+                        if (self.btnPhone) {
+                            self.text = ""
+                            startSpeechRecognization()
+                        } else {
+                            cancelSpeechRecognization()
+                            self.text = ""
+                        }
+                    } label: {
                         Label("", systemImage: "mic")
                     }
                 }.background(Color("Background"))
