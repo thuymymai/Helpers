@@ -12,7 +12,7 @@ struct CategoryTaskView: View {
     // user results from core
     @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
     
-    // task information based on category transportation
+    // task information based on category
     @Binding var category: [Task]
     @Binding var userInfo: [User]
     @Binding var volunteerName: String
