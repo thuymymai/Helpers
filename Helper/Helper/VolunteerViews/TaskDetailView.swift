@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct TaskDetailView: View {
     
@@ -114,10 +115,12 @@ struct ContactInfo: View {
     
     func getInfo() {
         self.userInfo = results.filter{$0.fullname?.lowercased() == helpseeker.lowercased()}
+        let _ = print("userInfo count is \(userInfo.count)")
     }
     
     var body: some View {
         VStack(spacing:5) {
+            let _ = print("helpseeker is \(helpseeker)")
             Image("avatar")
                 .resizable()
                 .frame(width: 60, height: 60)
@@ -132,7 +135,7 @@ struct ContactInfo: View {
                         .resizable()
                         .frame(width: 20, height: 20)
                     Button(action: {
-                        if let phoneCallURL = URL(string: "tel://\(String(describing: userInfo[0].phone))") {
+                        if let phoneCallURL = URL(string: "tel://\(userInfo[0].phone!)") {
                             let application:UIApplication = UIApplication.shared
                             if (application.canOpenURL(phoneCallURL)) {
                                 application.open(phoneCallURL, options: [:], completionHandler: nil)
@@ -149,13 +152,7 @@ struct ContactInfo: View {
                         .resizable()
                         .frame(width: 20, height: 20)
                     Button(action: {
-                        var body = ""
-                        if (Locale.preferredLanguages[0] == "fi") {
-                            body = "Hei \(helpseeker)"
-                        } else {
-                            body = "Hello \(helpseeker)"
-                        }
-                        if let phoneSMSURL = URL(string: "sms://\(String(describing: userInfo[0].phone))&body=\(body)") {
+                        if let phoneSMSURL = URL(string: "sms://\(userInfo[0].phone!)") {
                             let application:UIApplication = UIApplication.shared
                             if (application.canOpenURL(phoneSMSURL)) {
                                 application.open(phoneSMSURL, options: [:], completionHandler: nil)
