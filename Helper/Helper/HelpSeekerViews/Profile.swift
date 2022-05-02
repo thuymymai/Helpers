@@ -29,6 +29,7 @@ struct Profile: View {
                 }.offset(y:30)
                 List {
                     Section(header: Text("Account Settings")) {
+                        // manual translation since "name" field cannot be localized automatically
                         if (Locale.preferredLanguages[0] == "fi") {
                             SettingsView(name: "Päivitä perustiedot")
                             SettingsView(name:"Päivitä lääketieteelliset tiedot")

@@ -1,8 +1,8 @@
 //
-//  UploadTaskForm.swift
+//  UploadTaskForm.swift is Form component for UploadForm to upload new task
 //  Helper
 //
-//  Created by Dang Son on 2.5.2022.
+//  Created by My Mai, Dang Son, An Huynh on 2.5.2022.
 //
 
 import SwiftUI

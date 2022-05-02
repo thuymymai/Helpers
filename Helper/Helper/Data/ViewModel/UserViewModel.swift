@@ -2,7 +2,7 @@
 //  UserViewModel.swift
 //  Helper
 //
-//  Created by Dang Son on 17.4.2022.
+//  Created by Dang Son, My Mai, An Huynh on 17.4.2022.
 //
 
 import Foundation
@@ -12,7 +12,7 @@ import CoreLocation
 class UserViewModel: ObservableObject {
     @Published var users: [UserModel] = []
     
-    // saving Json to CoreData
+    // save Json to CoreData
     func saveData(context: NSManagedObjectContext) {
         users.forEach{ (data) in
             let entity = User(context: context)
@@ -32,7 +32,7 @@ class UserViewModel: ObservableObject {
             entity.allergies = data.allergies
         }
         
-        // saving all pending data at once
+        // save all pending data at once
         do {
             try context.save()
             print("success saving users to core data")
@@ -75,6 +75,7 @@ class UserViewModel: ObservableObject {
         .resume()
     }
     
+    // get location of user
     func getLocation(forPlaceCalled name: String,
                      completion: @escaping(CLLocation?) -> Void) {
         

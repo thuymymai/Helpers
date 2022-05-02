@@ -2,7 +2,7 @@
 //  Forms.swift contains the form components that are used in the two types of user signup view
 //  Helper
 //
-//  Created by Annie Huynh on 28.4.2022.
+//  Created by My Mai, Dang Son, An Huynh on 28.4.2022.
 //
 
 import SwiftUI
@@ -225,7 +225,7 @@ struct HelpseekerSignUpForm: View {
             .padding(.top, 550)
             .frame(alignment: .trailing)
             .alert(isPresented: $showAlert, content: {
-                // alert when something wrong
+                // alert when there is error
                 if self.signupFailed {
                     return Alert(title: Text("Sign up failed"), message: Text("Email already taken!"), dismissButton: .default(Text("Try again")))
                 } else if self.emptyField {
@@ -245,12 +245,14 @@ struct HelpseekerSignUpForm: View {
     }
 }
 
+// check valid email
 extension String {
     var isValidEmail: Bool {
         NSPredicate(format: "SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}").evaluate(with: self)
     }
 }
 
+//check valid phone number
 extension String {
     public var isNumber: Bool {
         return !isEmpty && rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil

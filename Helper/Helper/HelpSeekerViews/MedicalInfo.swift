@@ -2,7 +2,7 @@
 //  MedicalInfo.swift
 //  Helper
 //
-//  Created by Mai Thuỳ My on 11.4.2022.
+//  Created by Mai My, Dang Son, An Huynh on 11.4.2022.
 //
 
 import SwiftUI

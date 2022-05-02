@@ -21,6 +21,7 @@ struct MapView: View {
     // create pin for display in Map
     @State var annotation: [MyAnnotationItem] = []
     
+    // filter logged in user and get location of other users
     func getAnnotation() {
         let currentUser = results.filter{$0.fullname?.lowercased() == volunteerName.lowercased() }
         for user in results {
@@ -99,6 +100,7 @@ struct PlaceAnnotationView: View {
                     .opacity(showInfo ? 0 : 1)
             }
             
+            // call to other users when click on map
             Button(action: {
                 if let phoneCallURL = URL(string: "tel://\(item.phoneNumber)") {
                     let application:UIApplication = UIApplication.shared
@@ -126,6 +128,7 @@ struct PlaceAnnotationView: View {
     }
 }
 
+// all map functions related class
 final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate{
 
     @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 40, longitude: 120), span: MKCoordinateSpan(latitudeDelta: 100, longitudeDelta: 100))

@@ -2,7 +2,7 @@
 //  FormMedical.swift
 //  Helper
 //
-//  Created by Dang Son on 2.5.2022.
+//  Created by Mai My, Dang Son, An Huynh on 2.5.2022.
 //
 
 import SwiftUI
@@ -40,6 +40,7 @@ struct FormMedical: View {
     @State private var allergySelection = "None"
     let allergies = ["None", "Grass", "Pollen", "Dust mites", "Animal dander", "Nuts", "Gluten", "Lactose", "Mould"]
     
+    // save new user to coredata
     func updateUser(fullname: String, password: String, email: String, phone: String, type: String, availability: String, note: String, location: String, long: Double, lat: Double, need: String, chronic: String, allergies: String) {
         let user = User(context: context)
         user.userId = (Int16) (results.count + 1)

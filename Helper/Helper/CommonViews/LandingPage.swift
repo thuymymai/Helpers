@@ -2,7 +2,7 @@
 //  LandingPage.swift
 //  Helper
 //
-//  Created by Mai Thuỳ My on 5.4.2022.
+//  Created by Dang Son, My Mai, An Huynh on 5.4.2022.
 //
 
 import SwiftUI

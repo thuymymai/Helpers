@@ -2,7 +2,7 @@
 //  LoginForm.swift
 //  Helper
 //
-//  Created by Dang Son on 1.5.2022.
+//  Created by Dang Son, My Mai, An Huynh on 1.5.2022.
 //
 
 import SwiftUI
@@ -12,7 +12,7 @@ import MapKit
 
 struct Form: View {
     
-    // navigation
+    // states for navigation
     @State private var toDashboard: Bool = false
     @State private var toRegister: Bool = false
     @State private var showAlert: Bool = false

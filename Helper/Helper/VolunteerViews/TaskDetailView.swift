@@ -109,13 +109,14 @@ struct ContactInfo: View {
     
     var helpseeker: String
     
+    // fetch user data from core
     @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
     
     @State var userInfo: [User] = []
     
+    // filter logged in user
     func getInfo() {
         self.userInfo = results.filter{$0.fullname?.lowercased() == helpseeker.lowercased()}
-        let _ = print("userInfo count is \(userInfo.count)")
     }
     
     var body: some View {

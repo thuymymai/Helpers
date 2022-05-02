@@ -2,7 +2,7 @@
 //  TaskViewModel.swift
 //  Helper
 //
-//  Created by Mai Thuỳ My on 20.4.2022.
+//  Created by Mai My, Dang Son, An Huynh on 20.4.2022.
 //
 
 import Foundation
@@ -11,7 +11,7 @@ import CoreData
 class TaskViewModel: ObservableObject {
     @Published var tasks: [TaskModel] = []
     
-    // saving Json to CoreData
+    // save Json to CoreData
     func saveData(context: NSManagedObjectContext) {
         let RFC3339DateFormatter = DateFormatter()
         RFC3339DateFormatter.locale = Locale(identifier: "en_US_POSIX")
@@ -32,7 +32,7 @@ class TaskViewModel: ObservableObject {
             entity.helpseeker = (Int16) (data.helpseeker!)
         }
         
-        // saving all pending data at once
+        // save all pending data at once
         do {
             try context.save()
             print("success saving tasks to core data")

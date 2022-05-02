@@ -2,7 +2,7 @@
 //  SwiftUIView.swift
 //  Helper
 //
-//  Created by Mai Thuỳ My on 8.4.2022.
+//  Created by Mai My, Dang Son, An Huynh on 8.4.2022.
 //
 
 import SwiftUI

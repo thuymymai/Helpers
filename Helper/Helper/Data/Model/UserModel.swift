@@ -2,7 +2,7 @@
 //  UserModel.swift
 //  Helper
 //
-//  Created by Dang Son on 17.4.2022.
+//  Created by Dang Son, My Mai, An Huynh on 17.4.2022.
 //
 
 import Foundation

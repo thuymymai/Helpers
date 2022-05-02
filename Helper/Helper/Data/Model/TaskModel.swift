@@ -2,7 +2,7 @@
 //  TaskModel.swift
 //  Helper
 //
-//  Created by Mai Thuỳ My on 20.4.2022.
+//  Created by Mai My, Dang Son, An Huynh on 20.4.2022.
 //
 
 import Foundation

@@ -16,6 +16,7 @@ struct UploadForm: View {
     // fetching user data from core data
     @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
     
+    // filter logged in user and get information
     func getUserInfo() {
         let userInfo = results.filter{$0.fullname?.lowercased() == helpseekerName.lowercased() }
         

@@ -2,7 +2,7 @@
 //  FirstAid.swift
 //  Helper
 //
-//  Created by Mai Thuỳ My on 12.4.2022.
+//  Created by My Mai, Dang Son, An Huynh on 12.4.2022.
 //
 
 import SwiftUI

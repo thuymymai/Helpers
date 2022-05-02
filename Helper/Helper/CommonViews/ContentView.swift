@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  Helper
 //
-//  Created by SonDang, MyMai, AnHuynh on 1.4.2022.
+//  Created by Dang Son, My Mai, An Huynh on 1.4.2022.
 //
 
 import SwiftUI

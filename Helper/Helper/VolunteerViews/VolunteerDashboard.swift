@@ -127,6 +127,7 @@ struct VolunteerDashboard: View {
                             let _ = sortCategory()
                             
                             NavigationLink(destination: CategoryTaskView(category: $assistance, userInfo: $userInfo, volunteerName: $volunteerName)) {
+                                // manual translation since "name" field cannot be localized automatically
                                 if (Locale.preferredLanguages[0] == "fi") {
                                     CategoriesView(categoryName: "Apu", numberOfTasks: "\(assistance.count) Tehtävät", ImageName: "helping image")
                                 } else {

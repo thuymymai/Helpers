@@ -2,7 +2,7 @@
 //  VolunteerSignUpForm.swift
 //  Helper
 //
-//  Created by Dang Son on 1.5.2022.
+//  Created by My Mai, Dang Son, An Huynh on 1.5.2022.
 //
 
 import Foundation
@@ -117,7 +117,7 @@ struct VolunteerSignUpForm: View {
             }
             .padding(.top, 550)
             .alert(isPresented: $showAlert, content: {
-                // alert when something wrong
+                // alert when there is error
                 if self.signupFailed {
                     return Alert(title: Text("Sign up failed"), message: Text("Email already taken!"), dismissButton: .default(Text("Try again")))
                 } else if self.emptyField {
@@ -129,7 +129,7 @@ struct VolunteerSignUpForm: View {
                 } else if self.passwordFailed {
                     return Alert(title: Text("Sign up failed"), message: Text("Passwords do not match!"), dismissButton: .default(Text("Try again")))
                 } else {
-                    // alert when successfull and go to next page
+                    // alert when sign up succesfully and go to next page
                     return  Alert(title: Text("Success!"), message: Text("You have set up your basic information!"), dismissButton: .default(Text("OK"), action: {self.isLinkActive = true}))
                 }
             })

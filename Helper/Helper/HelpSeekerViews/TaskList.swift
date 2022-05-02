@@ -23,7 +23,7 @@ struct TaskList: View {
     @State  var userInfo: [User]  = []
     @State var taskInfo: [Task] = []
     
-    
+    // filter logged in user and get formation
     func getTaskInfo() {
         self.userInfo = results.filter{$0.fullname?.lowercased() == helpseekerName.lowercased()}
         
@@ -32,6 +32,7 @@ struct TaskList: View {
         }
     }
     
+    // get volunteer that received task
     func getVolunteer(task: Task) -> User {
         for user in results {
             if (user.userId == task.volunteer) {

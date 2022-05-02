@@ -2,7 +2,7 @@
 //  FrontScreen.swift
 //  Helper
 //
-//  Created by Mai Thuỳ My on 10.4.2022.
+//  Created by Mai My, Son Dang, An Huynh on 10.4.2022.
 //
 
 import SwiftUI
