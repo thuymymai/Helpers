@@ -139,7 +139,7 @@ struct ContactInfo: View {
                             }
                         }
                     }) {
-                        Text("CALL")
+                        Text("Call")
                             .padding(.top, -10)
                     }
                 }
