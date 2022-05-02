@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Combine
 
 struct VolunteerDashboard: View {
     // volunteer user name
@@ -28,9 +27,9 @@ struct VolunteerDashboard: View {
     // get task of current user
     func getTaskInfo() {
         DispatchQueue.main.async {
-            self.userInfo = results.filter{$0.fullname == volunteerName }
+            self.userInfo = results.filter{$0.fullname?.lowercased() == volunteerName.lowercased() }
             if(userInfo.count > 0){
-                self.taskInfo = taskResults.filter{$0.volunteer == userInfo[0].userId &&  $0.status == 0}
+                self.taskInfo = taskResults.filter{$0.volunteer == userInfo[0].userId && $0.status == 0}
             }
         }
     }
@@ -45,20 +44,15 @@ struct VolunteerDashboard: View {
     }
     
     // sort task by category
-    func sortCategory(category: String) {
+    func sortCategory() {
         DispatchQueue.main.async {
             self.availableTasks = taskResults.filter{$0.volunteer == 0}
-            if (category == "Assistance"){
-                self.assistance = availableTasks.filter{$0.category?.lowercased() == "personal assistant" || $0.category?.lowercased() == "housework"}
-            }else if (category == "Transport"){
-                self.transport = availableTasks.filter{$0.category?.lowercased() == "transportation" || $0.category?.lowercased() == "delivery" }
-            }else {
-                self.others = availableTasks.filter{$0.category?.lowercased() != "personal assistant" && $0.category?.lowercased() != "transportation"
-                    && $0.category?.lowercased() != "delivery" && $0.category?.lowercased() != "housework"
-                }
-            }
+            self.assistance = availableTasks.filter{$0.category?.lowercased() == "personal assistant" || $0.category?.lowercased() == "housework"}
+            self.transport = availableTasks.filter{$0.category?.lowercased() == "transportation" || $0.category?.lowercased() == "delivery" }
+            self.others = availableTasks.filter{$0.category?.lowercased() != "personal assistant" && $0.category?.lowercased() != "transportation" && $0.category?.lowercased() != "delivery" && $0.category?.lowercased() != "housework"}
         }
     }
+    
     var body: some View {
         GeometryReader { geometry in
             ScrollView(.vertical, showsIndicators: false) {
@@ -86,16 +80,16 @@ struct VolunteerDashboard: View {
                                     .foregroundColor(Color("Primary"))
                             }
                             Spacer()
-                            NavigationLink(destination: VolunteerProfile(volunteerName: $volunteerName)
-                            ) {
+                            NavigationLink(destination: VolunteerProfile(volunteerName: $volunteerName)) {
                                 Image("volunteer")
                                     .resizable()
                                     .padding()
                                     .frame(width: 85, height: 85)
                                     .shadow(radius: 5)
                             }
-                        }.padding(.top,10)
-                            .padding(.horizontal,15)
+                        }
+                        .padding(.top,10)
+                        .padding(.horizontal,15)
                         
                         ImageSlideShow()
                             .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.25)
@@ -105,7 +99,7 @@ struct VolunteerDashboard: View {
                                 Text("Available Tasks")
                                     .font(.system(size: 24))
                                 Spacer()
-                                NavigationLink(destination: CatagoryTaskView(catagory: $availableTasks, userInfo: $userInfo, volunteerName: $volunteerName)){
+                                NavigationLink(destination: CatagoryTaskView(catagory: $availableTasks, userInfo: $userInfo, volunteerName: $volunteerName)) {
                                     Text("View All")
                                         .underline()
                                         .bold()
@@ -115,22 +109,21 @@ struct VolunteerDashboard: View {
                                 }
                             }
                             if (Locale.preferredLanguages[0] == "fi") {
-                            Text("\(availableTasks.count) hyväksymistä odottavia tehtäviä")
-                                .font(.system(size: 16))
-                                .foregroundColor(Color("Primary"))
-                                .fontWeight(.medium)
-                        } else {
-                            Text("\(availableTasks.count) tasks waiting to be accepted")
-                                .font(.system(size: 16))
-                                .foregroundColor(Color("Primary"))
-                                .fontWeight(.medium)
+                                Text("\(availableTasks.count) hyväksymistä odottavia tehtäviä")
+                                    .font(.system(size: 16))
+                                    .foregroundColor(Color("Primary"))
+                                    .fontWeight(.medium)
+                            } else {
+                                Text("\(availableTasks.count) tasks waiting to be accepted")
+                                    .font(.system(size: 16))
+                                    .foregroundColor(Color("Primary"))
+                                    .fontWeight(.medium)
+                            }
                         }
-                        }.padding(.horizontal, 15)
+                        .padding(.horizontal, 15)
                         
                         HStack(spacing: 10) {
-                            let _ = sortCategory(category: "Assistance")
-                            let _ = sortCategory(category: "Transport")
-                            let _ = sortCategory(category: "Others")
+                            let _ = sortCategory()
                             
                             NavigationLink(destination: CatagoryTaskView(catagory: $assistance, userInfo: $userInfo, volunteerName: $volunteerName)) {
                                 if (Locale.preferredLanguages[0] == "fi") {
@@ -156,6 +149,7 @@ struct VolunteerDashboard: View {
                             }
                         } // close HSTack
                         .padding(.horizontal)
+                        
                         Text("Ongoing Tasks")
                             .font(.system(size: 24))
                             .padding(.top, -10)
@@ -164,7 +158,7 @@ struct VolunteerDashboard: View {
                         
                         VStack(spacing: 20) {
                             let _ = getTaskInfo()
-                            if(taskInfo.count > 0) {
+                            if (taskInfo.count > 0) {
                                 ForEach(taskInfo) { task in
                                     let helpseeker  = getHelpseeker(task: task)
                                     TaskCard(currentTask: task, helpseeker: helpseeker, userInfo: userInfo, volunteerName: volunteerName)
@@ -177,15 +171,15 @@ struct VolunteerDashboard: View {
                             } else {
                                 ZStack{
                                     Color("Background")
-                                }.frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.23,alignment: .top)
-                                    .background(Color("Background"))
+                                }
+                                .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.23,alignment: .top)
+                                .background(Color("Background"))
                             }
                         }
                     }.padding(.horizontal, 10)
                 }// close ZStack
             } // close Scrollview
         }// close geometryreader
-        
     }
 }
 

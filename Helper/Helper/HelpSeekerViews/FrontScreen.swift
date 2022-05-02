@@ -28,46 +28,46 @@ struct FrontScreen: View {
     }
     
     var body: some View {
-//        NavigationView {
-            ZStack {
-                Color("White")
-                    .edgesIgnoringSafeArea(.top)
-                VStack{
-                    let _ = print("helpseeker string is \(helpseekerName)")
-                    HStack(alignment: .top){
-                        Spacer()
-                        VStack{
-                            NavigationLink(
-                                destination: Location(volunteerName: $helpseekerName),
-                                label: {
-                                    HStack {
-                                        Text("See the map")
-                                            .bold()
-                                            .font(.system(size: 16))
-                                            .foregroundColor(Color("Primary"))
-                                        Image(systemName: "location.fill")
-                                            .foregroundColor(.red)
-                                    }
-                                })
-                        }.padding(.top, 30)
-                    }
-                    .padding(.bottom, 50)
-                    .padding(.trailing, 10)
-                    Text("Emergency help needed?")
-                        .bold()
-                        .font(.system(size: 24))
-                        .padding(.bottom, 5)
-                    Text("Press button to call the nearest volunteer")
-                        .padding(.bottom, 20)
-                        .font(.system(size: 18))
-                    EmergencyButton(phoneNumber: phoneNumber.0!)
-                    Text("First Aid Manual")
-                        .bold()
-                        .padding(.top, 100)
-                        .font(.system(size: 20))
-                    FirstAidManual().padding(.top,-20)
-                }.offset(y:-10)
-            }.navigationBarHidden(true)
+        ZStack {
+            Color("White")
+                .edgesIgnoringSafeArea(.top)
+            VStack{
+                HStack(alignment: .top){
+                    Spacer()
+                    VStack{
+                        NavigationLink(
+                            destination: Location(volunteerName: $helpseekerName),
+                            label: {
+                                HStack {
+                                    Text("See the map")
+                                        .bold()
+                                        .font(.system(size: 16))
+                                        .foregroundColor(Color("Primary"))
+                                    Image(systemName: "location.fill")
+                                        .foregroundColor(.red)
+                                }
+                            })
+                    }.padding(.top, 30)
+                }
+                .padding(.bottom, 50)
+                .padding(.trailing, 10)
+                Text("Emergency help needed?")
+                    .bold()
+                    .font(.system(size: 24))
+                    .padding(.bottom, 5)
+                Text("Press button to call the nearest volunteer")
+                    .padding(.bottom, 20)
+                    .font(.system(size: 18))
+                EmergencyButton(phoneNumber: phoneNumber.0!)
+                Text("First Aid Manual")
+                    .bold()
+                    .padding(.top, 100)
+                    .font(.system(size: 20))
+                FirstAidManual().padding(.top,-20)
+            }
+            .offset(y:-10)
+        }
+        .navigationBarHidden(true)
     }
 }
 
@@ -85,10 +85,8 @@ struct EmergencyButton: View {
                 .fill(Color("Background"))
                 .frame(width: 300, height: 170)
                 .shadow(color: .gray, radius: 5, x: 0, y: 5)
-//            Image("emergency-button")
             Button(action: {
                 if (phoneNumber != "") {
-                    let _ = print("phone number is : \(phoneNumber)")
                     if let phoneCallURL = URL(string: "tel://\(phoneNumber)") {
                         let application:UIApplication = UIApplication.shared
                         if (application.canOpenURL(phoneCallURL)) {
@@ -100,55 +98,6 @@ struct EmergencyButton: View {
                 Image("emergency-button")
             }
         }
-        
-//        .onTapGesture {
-//            let _ = print("phone number is : \(phoneNumber)")
-//            if let phoneCallURL = URL(string: "tel://\(phoneNumber)") {
-//                let application:UIApplication = UIApplication.shared
-//                if (application.canOpenURL(phoneCallURL)) {
-//                    application.open(phoneCallURL, options: [:], completionHandler: nil)
-//                }
-//            }
-//        }
-        
     }
 }
 
-struct FirstAidManual: View {
-    let array = [Firstaid.Choking, Firstaid.BrokenBone, Firstaid.Allergy, Firstaid.BeeStings, Firstaid.Bleeding, Firstaid.Burns, Firstaid.Drowning, Firstaid.ElectricShock, Firstaid.HeartAttack, Firstaid.Hypothermia, Firstaid.NoseBleeds, Firstaid.Poisoning, Firstaid.Sprains, Firstaid.Stroke]
-    
-    var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack{
-                ForEach(array, id: \.self) { firstaid in
-                    NavigationLink {
-                        FirstAid(stt: firstaid) }
-                label: {
-                    ZStack{
-                        Rectangle()
-                            .fill(Color("Background"))
-                            .frame(width: 150, height: 120)
-                            .cornerRadius(10)
-                            .shadow(color: .gray, radius: 2, x: 0, y: 2)
-                        VStack{
-                            Text("\(String(describing: firstaid))")
-                                .foregroundColor(.black)
-                                .fontWeight(.semibold)
-                                .frame(maxWidth: 120, alignment: .leading)
-                                .font(.system(size: 16))
-                            HStack{
-                                Image(systemName: "arrow.right.circle.fill")
-                                    .frame(maxWidth: 60, alignment: .leading)
-                                    .font(.system(size: 22))
-                                    .foregroundColor(Color("Primary"))
-                                    .padding(.top)
-                                Image("firstaid")
-                            }
-                        }
-                    }.padding()
-                }
-                }
-            }.frame(height: 150)
-        }.padding()
-    }
-}

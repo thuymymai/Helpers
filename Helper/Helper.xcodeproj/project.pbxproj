@@ -25,7 +25,7 @@
 		20680DC2281A86AB005D9E41 /* Cards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20680DC1281A86AB005D9E41 /* Cards.swift */; };
 		20680DC4281A8849005D9E41 /* DashboardComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20680DC3281A8849005D9E41 /* DashboardComponents.swift */; };
 		20680DC6281A88F6005D9E41 /* SettingsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20680DC5281A88F6005D9E41 /* SettingsList.swift */; };
-		20680DC8281A89C6005D9E41 /* Forms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20680DC7281A89C6005D9E41 /* Forms.swift */; };
+		20680DC8281A89C6005D9E41 /* HelpseekerSignUpForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20680DC7281A89C6005D9E41 /* HelpseekerSignUpForm.swift */; };
 		20926D81280D68C5000186E3 /* VolunteerSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20926D80280D68C5000186E3 /* VolunteerSignUp.swift */; };
 		20926D83280D6FC6000186E3 /* RegisterAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20926D82280D6FC6000186E3 /* RegisterAvailability.swift */; };
 		20B435D8280D557400B9D5D0 /* VolunteersNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B435D7280D557400B9D5D0 /* VolunteersNavBar.swift */; };
@@ -36,6 +36,13 @@
 		20F5572627FF643A00B0B638 /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F5572527FF643A00B0B638 /* TaskDetailView.swift */; };
 		66464B74281EF20D00849620 /* CatagoryTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66464B73281EF20D00849620 /* CatagoryTaskView.swift */; };
 		66464B78281F130600849620 /* TaskHistoryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66464B77281F130600849620 /* TaskHistoryCard.swift */; };
+		66464B7A281F1A9500849620 /* VolunteerSignUpForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66464B79281F1A9500849620 /* VolunteerSignUpForm.swift */; };
+		66464B7C281F1CBA00849620 /* LoginForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66464B7B281F1CBA00849620 /* LoginForm.swift */; };
+		66464B7F281F28A400849620 /* AvailabilityForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66464B7E281F28A400849620 /* AvailabilityForm.swift */; };
+		66464B81281FB94700849620 /* FormMedical.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66464B80281FB94700849620 /* FormMedical.swift */; };
+		66464B83281FB9D100849620 /* FirstAidManual.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66464B82281FB9D100849620 /* FirstAidManual.swift */; };
+		66464B85281FBC4600849620 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66464B84281FBC4600849620 /* Notification.swift */; };
+		66464B87281FBD2700849620 /* UploadTaskForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66464B86281FBD2700849620 /* UploadTaskForm.swift */; };
 		66C16AE1281608B7006E504D /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C16AE0281608B7006E504D /* LocationManager.swift */; };
 		66C16AE4281C0BCC006E504D /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C16AE3281C0BCC006E504D /* Localization.swift */; };
 		66C16AE7281C13BD006E504D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 66C16AE9281C13BD006E504D /* Localizable.strings */; };
@@ -94,7 +101,7 @@
 		20680DC1281A86AB005D9E41 /* Cards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cards.swift; sourceTree = "<group>"; };
 		20680DC3281A8849005D9E41 /* DashboardComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardComponents.swift; sourceTree = "<group>"; };
 		20680DC5281A88F6005D9E41 /* SettingsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsList.swift; sourceTree = "<group>"; };
-		20680DC7281A89C6005D9E41 /* Forms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forms.swift; sourceTree = "<group>"; };
+		20680DC7281A89C6005D9E41 /* HelpseekerSignUpForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpseekerSignUpForm.swift; sourceTree = "<group>"; };
 		20926D80280D68C5000186E3 /* VolunteerSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerSignUp.swift; sourceTree = "<group>"; };
 		20926D82280D6FC6000186E3 /* RegisterAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterAvailability.swift; sourceTree = "<group>"; };
 		20B435D7280D557400B9D5D0 /* VolunteersNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteersNavBar.swift; sourceTree = "<group>"; };
@@ -108,6 +115,13 @@
 		66464B75281F0E1F00849620 /* Location_Espoo_Matinkyla.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Location_Espoo_Matinkyla.gpx; sourceTree = "<group>"; };
 		66464B76281F0E5A00849620 /* Location_Espoo.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Location_Espoo.gpx; sourceTree = "<group>"; };
 		66464B77281F130600849620 /* TaskHistoryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHistoryCard.swift; sourceTree = "<group>"; };
+		66464B79281F1A9500849620 /* VolunteerSignUpForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerSignUpForm.swift; sourceTree = "<group>"; };
+		66464B7B281F1CBA00849620 /* LoginForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginForm.swift; sourceTree = "<group>"; };
+		66464B7E281F28A400849620 /* AvailabilityForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailabilityForm.swift; sourceTree = "<group>"; };
+		66464B80281FB94700849620 /* FormMedical.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormMedical.swift; sourceTree = "<group>"; };
+		66464B82281FB9D100849620 /* FirstAidManual.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstAidManual.swift; sourceTree = "<group>"; };
+		66464B84281FBC4600849620 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		66464B86281FBD2700849620 /* UploadTaskForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTaskForm.swift; sourceTree = "<group>"; };
 		66C16AE0281608B7006E504D /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		66C16AE228161B8C006E504D /* Location_Kirkkonummi.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Location_Kirkkonummi.gpx; sourceTree = "<group>"; };
 		66C16AE3281C0BCC006E504D /* Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
@@ -176,8 +190,10 @@
 				20680DC1281A86AB005D9E41 /* Cards.swift */,
 				20680DC3281A8849005D9E41 /* DashboardComponents.swift */,
 				20680DC5281A88F6005D9E41 /* SettingsList.swift */,
-				20680DC7281A89C6005D9E41 /* Forms.swift */,
 				66464B77281F130600849620 /* TaskHistoryCard.swift */,
+				20680DC7281A89C6005D9E41 /* HelpseekerSignUpForm.swift */,
+				66464B79281F1A9500849620 /* VolunteerSignUpForm.swift */,
+				66464B7E281F28A400849620 /* AvailabilityForm.swift */,
 			);
 			path = "UI components";
 			sourceTree = "<group>";
@@ -187,14 +203,28 @@
 			children = (
 				1157C5CB28009D0D00EDAC8D /* Signup.swift */,
 				110C5D7E280484320056EEFC /* MedicalInfo.swift */,
+				66464B80281FB94700849620 /* FormMedical.swift */,
 				115E8DB3280513D700C1995D /* Profile.swift */,
 				115E8DAF280513B400C1995D /* FrontScreen.swift */,
+				66464B82281FB9D100849620 /* FirstAidManual.swift */,
 				115E8DB62805148800C1995D /* UploadForm.swift */,
+				66464B86281FBD2700849620 /* UploadTaskForm.swift */,
 				11B24F10280532D50029786D /* FirstAid.swift */,
 				11B24F12280B1BE50029786D /* TaskList.swift */,
 				1114DF79280D4D3800A2BED8 /* HelpSeekerNavBar.swift */,
 			);
 			path = HelpSeekerViews;
+			sourceTree = "<group>";
+		};
+		66464B7D281F211600849620 /* CommonViews */ = {
+			isa = PBXGroup;
+			children = (
+				1157C5CD2800B82500EDAC8D /* Login.swift */,
+				66464B7B281F1CBA00849620 /* LoginForm.swift */,
+				1157C5C928008DD200EDAC8D /* LandingPage.swift */,
+				115E8DAD2805135900C1995D /* ContentView.swift */,
+			);
+			path = CommonViews;
 			sourceTree = "<group>";
 		};
 		66C16ADF281608A2006E504D /* Manager */ = {
@@ -203,6 +233,7 @@
 				66C16AE0281608B7006E504D /* LocationManager.swift */,
 				66C16AE3281C0BCC006E504D /* Localization.swift */,
 				66C16AE9281C13BD006E504D /* Localizable.strings */,
+				66464B84281FBC4600849620 /* Notification.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -233,17 +264,15 @@
 		66E4DA2D27F65FD600538B74 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				66C16ADF281608A2006E504D /* Manager */,
 				110B75702818ED5200B22BD9 /* Helper.entitlements */,
-				66E89E0C280CAB7000A82085 /* Data */,
 				20DCAE1127FA1C0600CBD253 /* Info.plist */,
 				66E4DA2E27F65FD600538B74 /* HelperApp.swift */,
-				20680DC0281A868F005D9E41 /* UI components */,
 				66E4DA3227F65FD700538B74 /* Assets.xcassets */,
 				66E4DA3427F65FD700538B74 /* Preview Content */,
-				1157C5CD2800B82500EDAC8D /* Login.swift */,
-				1157C5C928008DD200EDAC8D /* LandingPage.swift */,
-				115E8DAD2805135900C1995D /* ContentView.swift */,
+				66E89E0C280CAB7000A82085 /* Data */,
+				20680DC0281A868F005D9E41 /* UI components */,
+				66C16ADF281608A2006E504D /* Manager */,
+				66464B7D281F211600849620 /* CommonViews */,
 				115E8DB52805143900C1995D /* VolunteerViews */,
 				20D2459F27FDD5E9006FA73B /* HelpSeekerViews */,
 			);
@@ -369,7 +398,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1320;
-				LastUpgradeCheck = 1320;
+				LastUpgradeCheck = 1330;
 				TargetAttributes = {
 					66E4DA2A27F65FD600538B74 = {
 						CreatedOnToolsVersion = 13.2.1;
@@ -437,13 +466,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				20680DC8281A89C6005D9E41 /* Forms.swift in Sources */,
+				20680DC8281A89C6005D9E41 /* HelpseekerSignUpForm.swift in Sources */,
 				11B24F13280B1BE50029786D /* TaskList.swift in Sources */,
 				1112DA7C2810184300E0D6F2 /* TaskViewModel.swift in Sources */,
 				66C16AE1281608B7006E504D /* LocationManager.swift in Sources */,
 				20680DC2281A86AB005D9E41 /* Cards.swift in Sources */,
 				66E89E15280CABF200A82085 /* UserData.xcdatamodeld in Sources */,
 				66E89E1F280CAD1B00A82085 /* UserViewModel.swift in Sources */,
+				66464B7A281F1A9500849620 /* VolunteerSignUpForm.swift in Sources */,
 				20F5572627FF643A00B0B638 /* TaskDetailView.swift in Sources */,
 				66E4DA2F27F65FD600538B74 /* HelperApp.swift in Sources */,
 				20680DC4281A8849005D9E41 /* DashboardComponents.swift in Sources */,
@@ -451,6 +481,9 @@
 				115E8DAE2805135900C1995D /* ContentView.swift in Sources */,
 				66C16AE4281C0BCC006E504D /* Localization.swift in Sources */,
 				112E482C2814F33F00DAF81D /* FirstAidData.swift in Sources */,
+				66464B83281FB9D100849620 /* FirstAidManual.swift in Sources */,
+				66464B81281FB94700849620 /* FormMedical.swift in Sources */,
+				66464B7F281F28A400849620 /* AvailabilityForm.swift in Sources */,
 				115E8DB72805148800C1995D /* UploadForm.swift in Sources */,
 				2002D6EC2819D013004557B3 /* TaskHistoryView.swift in Sources */,
 				1157C5CA28008DD200EDAC8D /* LandingPage.swift in Sources */,
@@ -467,10 +500,12 @@
 				20926D81280D68C5000186E3 /* VolunteerSignUp.swift in Sources */,
 				20680DC6281A88F6005D9E41 /* SettingsList.swift in Sources */,
 				20EA35A127FC91FE00E1995B /* VolunteerProfile.swift in Sources */,
+				66464B7C281F1CBA00849620 /* LoginForm.swift in Sources */,
 				66464B74281EF20D00849620 /* CatagoryTaskView.swift in Sources */,
 				20B435D8280D557400B9D5D0 /* VolunteersNavBar.swift in Sources */,
 				20D2459E27FDD4D5006FA73B /* Location.swift in Sources */,
-				20DCAE1327FA2E9F00CBD253 /* VolunteerDashboard.swift in Sources */,
+				66464B87281FBD2700849620 /* UploadTaskForm.swift in Sources */,
+				66464B85281FBC4600849620 /* Notification.swift in Sources */,
 				66E89E23280CC40A00A82085 /* Persistence.swift in Sources */,
 				66E89E1A280CAC9B00A82085 /* UserModel.swift in Sources */,
 				20D245C527FE08BB006FA73B /* MapView.swift in Sources */,
@@ -532,6 +567,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -594,6 +630,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";

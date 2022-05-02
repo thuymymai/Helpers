@@ -7,7 +7,6 @@
 
 import SwiftUI
 import CoreLocation
-import CoreLocationUI
 import MapKit
 
 
@@ -18,17 +17,10 @@ struct MapView: View {
     // fetching user data from core data
     @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
     
+    // create pin for display in Map
     @State var annotation: [MyAnnotationItem] = []
-//    = [MyAnnotationItem(id: "Jennie", coordinate: CLLocationCoordinate2D(latitude: 60.157683, longitude: 24.542975), distance: 0.0, phoneNumber: "1234"), MyAnnotationItem(id: "Harry", coordinate: CLLocationCoordinate2D(latitude: 60.257, longitude: 24.642), distance: 0.0, phoneNumber: "1234")]
     
     func getAnnotation() {
-//        if let indexOfUser = results.firstIndex(where: {$0.fullname?.lowercased() == volunteerName.lowercased()}) {
-//            for user in results {
-//                if (user.type != results[indexOfUser].type) {
-//                    annotation.append(MyAnnotationItem(id: user.fullname ?? "", coordinate: CLLocationCoordinate2D(latitude: user.lat, longitude: user.long), distance: CLLocation(latitude: results[indexOfUser].lat, longitude: results[indexOfUser].long).distance(from: CLLocation(latitude: user.lat, longitude: user.long))/1000, phoneNumber: user.phone!))
-//                }
-//            }
-//        }
         let currentUser = results.filter{$0.fullname?.lowercased() == volunteerName.lowercased() }
         for user in results {
             if(user.type != currentUser[0].type) {
@@ -40,8 +32,6 @@ struct MapView: View {
     @StateObject private var viewModel = MapViewModel()
     var body: some View {
         ZStack(alignment: .bottom){
-            let _ = print("number of annotation \(annotation.count)")
-            let _ = print("annotation \(annotation)")
             if (annotation.count > 0) {
                 Map(coordinateRegion: $viewModel.region, showsUserLocation: true, annotationItems: annotation) { item in
                     MapAnnotation(coordinate: item.coordinate) {
@@ -50,9 +40,7 @@ struct MapView: View {
                 }
                 .edgesIgnoringSafeArea(.top)
                 .tint(.pink)
-            }
-            
-            else {
+            } else {
                 Map(coordinateRegion: $viewModel.region, showsUserLocation: true)
                     .edgesIgnoringSafeArea(.top)
                     .tint(.pink)
@@ -63,13 +51,11 @@ struct MapView: View {
                 Label("Your location", systemImage: "location.fill")
                     .font(.system(size: 18))
                     .padding()
-
             }
             .background(Color("Primary"))
             .cornerRadius(10)
             .foregroundColor(.white)
             .padding(.bottom, 30)
-            
         }
         .onAppear(perform: {getAnnotation()})
     }
@@ -120,16 +106,6 @@ struct PlaceAnnotationView: View {
                     }
                 }
             }) {
-                if (Locale.preferredLanguages[0] == "fi") {
-                    Text("SOITTAA")
-                        .fontWeight(.bold)
-                        .font(.system(size: 14))
-                        .frame(width: 100, height: 35)
-                        .background(Color("Primary"))
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                        .opacity(showInfo ? 0 : 1)
-                } else {
                     Text("CALL")
                         .fontWeight(.bold)
                         .font(.system(size: 14))
@@ -138,7 +114,7 @@ struct PlaceAnnotationView: View {
                         .foregroundColor(.white)
                         .cornerRadius(10)
                         .opacity(showInfo ? 0 : 1)
-                }
+                
             }
         }
         .onTapGesture {
@@ -159,9 +135,11 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate{
         super.init()
         locationManager.delegate = self
     }
+    
     func requestAllowOnceLocationPermission(){
         locationManager.requestLocation()
     }
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let latestLocation = locations.last else {
             return
@@ -170,6 +148,7 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate{
             self.region = MKCoordinateRegion(center: latestLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1))
         }
     }
+    
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
     }

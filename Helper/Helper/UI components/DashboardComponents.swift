@@ -9,7 +9,9 @@
 import SwiftUI
 
 struct ImageSlideShow: View{
+    
     private let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
+    
     @State private var currentIndex = 0
     
     var body: some View{
@@ -22,12 +24,11 @@ struct ImageSlideShow: View{
                         .overlay(Color.black.opacity(0.06))
                         .tag(image)
                 }
-            }.tabViewStyle(PageTabViewStyle())
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .onReceive(timer, perform: {_ in
-                    withAnimation{
-                        currentIndex = currentIndex < 4 ? currentIndex + 1 :0
-                        
+            }
+            .tabViewStyle(PageTabViewStyle())
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .onReceive(timer, perform: {_ in withAnimation{
+                currentIndex = currentIndex < 4 ? currentIndex + 1 :0
                     }
                 })
         }

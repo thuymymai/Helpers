@@ -25,6 +25,7 @@ struct LandingPage: View {
                     }
                     .frame(maxHeight: .infinity, alignment: .leading)
                     .padding(.top)
+                    
                     HStack(spacing: 100){
                         VStack{
                             Text("100,000")
@@ -40,7 +41,9 @@ struct LandingPage: View {
                             Text("volunteers")
                                 .font(.system(size: 16))
                         }
-                    }.padding(.bottom, 80)
+                    }
+                    .padding(.bottom, 80)
+                    
                     Spacer()
                     ButtonView()
                     HStack{
@@ -50,9 +53,11 @@ struct LandingPage: View {
                                 Text("Login")
                                     .underline()
                                     .bold()
-                                    .foregroundColor(Color("Primary"))
+                                    .foregroundColor(Color("Primary")
+                                    )
                             })
-                    }.padding(.bottom,10)
+                    }
+                    .padding(.bottom,10)
                     .padding(.horizontal, 40)
                 }
             }
@@ -78,32 +83,33 @@ struct ImageView: View {
 struct ButtonView: View {
     @State var isHelpSeekerActive = false
     @State var isVolunteerActive = false
+    
     var body: some View {
         VStack{
-            NavigationLink(
-                destination: Signup().navigationBarHidden(true), isActive: $isHelpSeekerActive) {
-                    Button(action: {self.isHelpSeekerActive = true}) {
-                        Text("I need assistant")
-                            .fontWeight(.bold)
-                            .font(.system(size: 18))
-                            .frame(width: 250, height: 50)
-                            .background(Color("Primary"))
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }.padding(.bottom, 10)
+            NavigationLink( destination: Signup().navigationBarHidden(true), isActive: $isHelpSeekerActive) {
+                Button(action: {self.isHelpSeekerActive = true}) {
+                    Text("I need assistant")
+                        .fontWeight(.bold)
+                        .font(.system(size: 18))
+                        .frame(width: 250, height: 50)
+                        .background(Color("Primary"))
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                 }
-            NavigationLink(
-                destination: VolunteerSignUp().navigationBarHidden(true), isActive: $isVolunteerActive) {
-                    Button(action: {self.isVolunteerActive = true}) {
-                        Text("I'd like to volunteer")
-                            .fontWeight(.bold)
-                            .font(.system(size: 18))
-                            .frame(width: 250, height: 50)
-                            .background(Color("Background"))
-                            .foregroundColor(Color("Primary"))
-                            .cornerRadius(10)
-                    }
+                .padding(.bottom, 10)
+            }
+            NavigationLink( destination: VolunteerSignUp().navigationBarHidden(true), isActive: $isVolunteerActive) {
+                Button(action: {self.isVolunteerActive = true}) {
+                    Text("I'd like to volunteer")
+                        .fontWeight(.bold)
+                        .font(.system(size: 18))
+                        .frame(width: 250, height: 50)
+                        .background(Color("Background"))
+                        .foregroundColor(Color("Primary"))
+                        .cornerRadius(10)
                 }
-        }.padding(.bottom, 50)
+            }
+        }
+        .padding(.bottom, 50)
     }
 }

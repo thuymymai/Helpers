@@ -29,7 +29,7 @@ struct Signup: View {
                             .fill(.white)
                             .frame(width: geometry.size.width * 0.8, height: geometry.size.height * 0.7)
                             .shadow(radius: 5)
-                        FormView()
+                        HelpseekerSignUpForm()
                             .offset(y:-40)
                     }
                     .padding(.top, 50)

@@ -7,7 +7,6 @@
 
 import Foundation
 import SwiftUI
-import Combine
 
 struct CatagoryTaskView: View {
     // user results from core
@@ -48,8 +47,10 @@ struct CatagoryTaskView: View {
                             }
                         } else {
                             Text("No task is avaiable")
+                                .fontWeight(.medium)
+                                .frame(maxWidth: .infinity, alignment: .center)
+                                .multilineTextAlignment(.center)
                         }
-                        
                     }
                 }
             }

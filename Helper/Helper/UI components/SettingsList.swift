@@ -10,14 +10,14 @@ import SwiftUI
 struct SettingsView: View {
     var name: String
     var body: some View {
-        Button(action: {
-        }){
+        Button(action: {}) {
             HStack {
                 Text(name)
                 Spacer(minLength: 15)
-            }.padding()
-                .font(.headline)
-                .foregroundColor(Color.black.opacity(0.6))
+            }
+            .padding()
+            .font(.headline)
+            .foregroundColor(Color.black.opacity(0.6))
         }
     }
 }

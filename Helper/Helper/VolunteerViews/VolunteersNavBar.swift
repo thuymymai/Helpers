@@ -25,7 +25,7 @@ struct VolunteersNavBar: View {
     @State var selectedTab: Tabs = .Dashboard
     @State private var isLogoutMenuClicked = false
     @State private var isLinkActive: Bool = false
-  
+    
     // create a viewBuilder function to navigate accordingly
     @ViewBuilder
     func chooseDestination()-> some View {
@@ -73,13 +73,13 @@ struct VolunteersNavBar: View {
             )
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                        Button(action:{
-                            self.isLinkActive = true
-                            self.isLogoutMenuClicked = true
-                        }, label: {
-                            Text("Log Out")
-                        })
-                }           
+                    Button(action:{
+                        self.isLinkActive = true
+                        self.isLogoutMenuClicked = true
+                    }, label: {
+                        Text("Log Out")
+                    })
+                }
             }// close toolbar
         }.navigationBarHidden(true)
     }

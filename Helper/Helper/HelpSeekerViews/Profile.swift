@@ -25,36 +25,42 @@ struct Profile: View {
                         Text(helpseekerName)
                             .font(.title)
                             .foregroundColor(.white)
-                    }.padding(.top,-70)
+                    }
+                    .padding(.top,-70)
                 }
                 List {
                     Section(header: Text("Account Settings")) {
-//                        SettingsView(name: "Update Basic Information")
-//                        SettingsView(name:"Update Medical Informations")
+                        if (Locale.preferredLanguages[0] == "fi") {
+                            SettingsView(name: "Päivitä perustiedot")
+                            SettingsView(name:"Päivitä lääketieteelliset tiedot")
+                        } else {
+                            SettingsView(name: "Update Basic Information")
+                            SettingsView(name:"Update Medical Informations")
+                        }
                         NavigationLink(destination: TaskList(helpseekerName: $helpseekerName)) {
-                            SettingsView(name:"Your Tasks")
+                            if (Locale.preferredLanguages[0] == "fi") {
+                                SettingsView(name:"Sinun tehtäväsi")
+                            } else {
+                                SettingsView(name:"Your Tasks")
+                            }
                         }
                         NavigationLink(destination: LandingPage().navigationBarHidden(true)) {
-                            SettingsView(name:"Log Out")
+                            if (Locale.preferredLanguages[0] == "fi") {
+                                SettingsView(name:"Kirjautua ulos")
+                            } else {
+                                SettingsView(name:"Log Out")
+                            }
                         }
-                    }.font(.system(size: 16))
-//                    Section(header: Text("Preferences")) {
-//
-////                        Toggle("Push Notification", isOn: $pushNoti)
-////                            .font(.headline)
-////                            .foregroundColor(Color.black.opacity(0.6))
-////                            .padding()
-//                        //SettingsView(name:"Change language")
-//
-//                    }.font(.system(size: 16))
-                }.padding(.top,-60)
-            }.padding(.top, -30)
-                .padding(.bottom,5)
+                    }
+                    .font(.system(size: 16))
+                }
+                .padding(.top,-60)
+            }
+            .padding(.top, -30)
+            .padding(.bottom,5)
         }
     }
 }
-
-
 
 struct Profile_Previews: PreviewProvider {
     static var previews: some View {

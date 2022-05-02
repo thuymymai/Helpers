@@ -27,7 +27,7 @@ struct TaskHistoryView: View {
     
     // get task information of current user
     func getTaskInfo() {
-        self.userInfo = results.filter{$0.fullname == volunteerName }
+        self.userInfo = results.filter{$0.fullname?.lowercased() == volunteerName.lowercased() }
         if(userInfo.count > 0){
             self.taskInfo = taskResults.filter{$0.volunteer == userInfo[0].userId}
         }
@@ -50,11 +50,8 @@ struct TaskHistoryView: View {
                 ScrollView(.vertical, showsIndicators: false) {
                     
                     VStack(alignment: .center) {
-                        
-                        let _ = print("task info: \(taskInfo.count)")
                         if(taskInfo.count > 0) {
                             ForEach(taskInfo) { task in
-                                let _ = print("tasks \(task)")
                                 let helpseeker  = getHelpseeker(task: task)
                                 if(task.status == 1){
                                     TaskHistoryCard(taskTitle: task.title!, user: helpseeker.fullname, location: task.location!, time: task.time!, date: task.time!, status: task.status)
@@ -66,16 +63,20 @@ struct TaskHistoryView: View {
                                         .offset(y: 30)
                                 }
                             }
+                        } else {
+                            Text("You didnot do any task")
+                                .fontWeight(.medium)
+                                .frame(maxWidth: .infinity, alignment: .center)
+                                .multilineTextAlignment(.center)
                         }
                     }
-                    
-                }.frame(maxHeight: geometry.size.height * 0.97)
+                }
+                .frame(maxHeight: geometry.size.height * 0.97)
             }
-            
-        }.onAppear(perform: {getTaskInfo()})
+        }
+        .onAppear(perform: {getTaskInfo()})
     }
 }
-
 
 struct TaskHistoryView_Previews: PreviewProvider {
     static var previews: some View {

@@ -10,6 +10,7 @@ import SwiftUI
 struct VolunteerProfile: View {
     @State var pushNoti = true
     @State private var showingSheet = false
+    
     @Binding var volunteerName: String
     
     var body: some View {
@@ -27,23 +28,36 @@ struct VolunteerProfile: View {
                             Text("\(volunteerName)")
                                 .font(.title)
                                 .foregroundColor(.white)
-                        }.offset(y: -20)
+                        }
+                        .offset(y: -20)
                     }
                     List {
                         Section(header: Text("Account Settings")) {
-                            SettingsView(name: "Edit Profile")
-                            SettingsView(name:"Change Passwords")
-                        }.font(.system(size: 16))
+                            if (Locale.preferredLanguages[0] == "fi") {
+                                SettingsView(name: "Muokkaa profiilia")
+                                SettingsView(name:"Vaihda salasanat")
+                            } else {
+                                SettingsView(name: "Edit Profile")
+                                SettingsView(name:"Change Passwords")
+                            }
+                        }
+                        .font(.system(size: 16))
+                        
                         Section(header: Text("Preferences")) {
                             Toggle("Push Notification", isOn: $pushNoti)
                                 .font(.headline)
                                 .foregroundColor(Color.black.opacity(0.6))
                                 .padding()
-                            SettingsView(name: "Update availability")
-                        }.font(.system(size: 16))
+                            if (Locale.preferredLanguages[0] == "fi") {
+                                SettingsView(name: "Päivitä saatavuus")
+                            } else {
+                                SettingsView(name: "Update availability")
+                            }
+                        }
+                        .font(.system(size: 16))
                     }
                 }
-                    .padding(.bottom,5)
+                .padding(.bottom,5)
             }
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)

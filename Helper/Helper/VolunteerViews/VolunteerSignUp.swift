@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct VolunteerSignUp: View {
-
+    
     var body: some View {
         GeometryReader { geometry in
             NavigationView{

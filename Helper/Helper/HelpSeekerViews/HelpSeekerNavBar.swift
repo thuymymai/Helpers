@@ -36,10 +36,7 @@ struct HelpSeekerNavBar: View {
                         Text("Profile")
                     }
             }
-            //.navigationBarTitle("")
             .navigationBarHidden(true)
-            //.navigationBarBackButtonHidden(true)
-
         }
     }
 }

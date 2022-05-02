@@ -24,11 +24,7 @@ struct TaskList: View {
     
     
     func getTaskInfo() {
-        self.userInfo = results.filter{$0.fullname == helpseekerName }
-        print("helpseekerName: \(helpseekerName) count: \(helpseekerName.count)")
-        print("result count: \(results.count)")
-        print("task result count: \(taskResults.count)")
-        print("user info \(userInfo.count)")
+        self.userInfo = results.filter{$0.fullname?.lowercased() == helpseekerName.lowercased()}
         
         if(userInfo.count > 0){
             self.taskInfo = taskResults.filter{$0.helpseeker == userInfo[0].userId}
@@ -50,12 +46,11 @@ struct TaskList: View {
                 .edgesIgnoringSafeArea(.all)
             ScrollView{
                 VStack(alignment: .center) {
-                    Text("Your tasks")
+                    Text("Your Tasks")
                         .font(.system(size: 24))
                         .fontWeight(.medium)
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
-                    let _ = print("task info: \(taskInfo.count)")
                     if(taskInfo.count > 0) {
                         ForEach(taskInfo) { task in
                             let volunteer  = getVolunteer(task: task)
@@ -66,10 +61,17 @@ struct TaskList: View {
                                 .shadow(radius: 10)
                                 .padding(.bottom,10)
                         }
+                    } else {
+                        Text("You don't have any task")
+                            .fontWeight(.medium)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .multilineTextAlignment(.center)
                     }
-                }.padding(.leading)
+                }
+                .padding(.leading)
             }
-        }.onAppear(perform: {getTaskInfo()})
+        }
+        .onAppear(perform: {getTaskInfo()})
     }
 }
 

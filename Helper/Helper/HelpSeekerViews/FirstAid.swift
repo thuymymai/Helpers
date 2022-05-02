@@ -26,9 +26,10 @@ struct FirstAid: View {
                         Text("\(value.rawValue)")
                             .font(.system(size: 18))
                             .padding()
-                    }.offset(y:-30)
-                    .frame(maxHeight: .infinity, alignment: .top)
-                    .padding(10)
+                        }
+                        .offset(y:-30)
+                        .frame(maxHeight: .infinity, alignment: .top)
+                        .padding(10)
                     }
                 }
             }
