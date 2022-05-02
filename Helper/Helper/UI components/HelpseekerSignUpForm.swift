@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import AVFoundation
+import Speech
 
 struct HelpseekerSignUpForm: View {
     @State var fullname: String = ""
@@ -29,16 +31,86 @@ struct HelpseekerSignUpForm: View {
     // fetching data from core data
     @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
     
+    
+    @State private var text: String? = ""
+    //MARK: - Local Properties
+    let audioEngine = AVAudioEngine()
+    let speechReconizer : SFSpeechRecognizer? = SFSpeechRecognizer()
+    let request = SFSpeechAudioBufferRecognitionRequest()
+    @State var task : SFSpeechRecognitionTask!
+    var isStart : Bool = false
+    
+    // start voice
+    func startSpeechRecognization(){
+        let node = audioEngine.inputNode
+        let recordingFormat = node.outputFormat(forBus: 0)
+        
+        node.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer, _) in
+            self.request.append(buffer)
+        }
+        
+        audioEngine.prepare()
+        do {
+            try audioEngine.start()
+        } catch let error {
+            let _ = print("Error comes here for starting the audio listner =\(error.localizedDescription)")
+        }
+        
+        guard let myRecognization = SFSpeechRecognizer() else {
+            let _ = print("Recognization is not allow on your local")
+            return
+        }
+        
+        if !myRecognization.isAvailable {
+            let _ = print("Recognization is free right now, Please try again after some time.")
+        }
+        
+        self.task = speechReconizer?.recognitionTask(with: request, resultHandler: { (response, error) in
+            guard let response = response else {
+                if error != nil {
+                    let _ = print(error.debugDescription)
+                }else {
+                    let _ = print("Problem in giving the response")
+                }
+                return
+            }
+            
+            let message = response.bestTranscription.formattedString
+            let _ = print("Message : \(message)")
+            self.text = message
+            let _ = print("text input is: \(String(describing: text))")
+            
+        })
+    }
+    // stop voice
+    func cancelSpeechRecognization() {
+        task.finish()
+        task.cancel()
+        task = nil
+        
+        request.endAudio()
+        audioEngine.stop()
+        //audioEngine.inputNode.removeTap(onBus: 0)
+        
+        //MARK: UPDATED
+        if audioEngine.inputNode.numberOfInputs > 0 {
+            audioEngine.inputNode.removeTap(onBus: 0)
+        }
+    }
+    
     var body: some View {
         ZStack{
             VStack(alignment: .leading) {
                 Text("Full name")
                     .fontWeight(.medium)
                     .font(.system(size: 14))
-                TextField("", text: $fullname)
-                    .padding(.bottom, 20)
-                    .background(Color("Background"))
-                    .cornerRadius(5)
+                HStack {
+                    TextField("", text: $fullname)
+                        .padding(.bottom, 20)
+                        .background(Color("Background"))
+                        .cornerRadius(5)
+                    Button("Speak", action: {startSpeechRecognization()})
+                }
                 Text("Email")
                     .fontWeight(.medium)
                     .font(.system(size: 14))

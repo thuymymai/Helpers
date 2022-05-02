@@ -153,7 +153,7 @@ struct FormTask: View {
                     if(isError == 1) {
                         return Alert(title: Text("Cannot find your location!"),  dismissButton: .default(Text("Try again"), action: { self.isError = 0}))
                     } else {
-                        let _ = registerForPushNotifications()
+//                        let _ = registerForPushNotifications()
                         return  Alert(title: Text("Submit task successfully!"),  dismissButton: .default(Text("OK"), action: {
                             resetForm()
                         }))
