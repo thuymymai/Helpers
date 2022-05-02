@@ -109,23 +109,40 @@ struct HelpseekerSignUpForm: View {
                         .padding(.bottom, 20)
                         .background(Color("Background"))
                         .cornerRadius(5)
-                    Button("Speak", action: {startSpeechRecognization()})
+                    Button {startSpeechRecognization()} label: {
+                        Label("", systemImage: "mic")
+                    }
                 }
+                .background(Color("Background"))
+                .cornerRadius(5)
                 Text("Email")
                     .fontWeight(.medium)
                     .font(.system(size: 14))
                     .padding(.top, 10)
-                TextField("", text: $email)
-                    .padding(.bottom, 20)
-                    .background(Color("Background"))
+                HStack {
+                    TextField("", text: $email)
+                        .padding(.bottom, 20)
+                        .background(Color("Background"))
+                        .cornerRadius(5)
+                    Button {startSpeechRecognization()} label: {
+                        Label("", systemImage: "mic")
+                    }
+                } .background(Color("Background"))
                     .cornerRadius(5)
+                
                 Text("Phone number")
                     .fontWeight(.medium)
                     .font(.system(size: 14))
                     .padding(.top, 10)
-                TextField("", text: $phone)
-                    .padding(.bottom, 20)
-                    .background(Color("Background"))
+                HStack {
+                    TextField("", text: $phone)
+                        .padding(.bottom, 20)
+                        .background(Color("Background"))
+                        .cornerRadius(5)
+                    Button {startSpeechRecognization()} label: {
+                        Label("", systemImage: "mic")
+                    }
+                }.background(Color("Background"))
                     .cornerRadius(5)
                 Text("Password")
                     .fontWeight(.medium)
@@ -178,7 +195,7 @@ struct HelpseekerSignUpForm: View {
                     .font(.system(size: 16))
                     .foregroundColor(Color("Primary"))
                     .fontWeight(.bold)
-                    .frame(width: 70, height: 50)
+                    .frame(width: 90, height: 50)
                 Image(systemName: "arrow.forward.circle.fill")
                     .resizable()
                     .frame(width: 25, height: 25)
