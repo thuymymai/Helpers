@@ -63,6 +63,8 @@ struct FrontScreen: View {
                     .font(.system(size: 24))
                     .padding(.bottom, 5)
                 Text("Press button to call the nearest volunteer")
+                    .frame(maxWidth: 350)
+                    .fixedSize(horizontal: false, vertical: true)
                     .padding(.bottom, 20)
                     .font(.system(size: 18))
                     .multilineTextAlignment(.center)

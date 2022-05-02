@@ -28,11 +28,11 @@ struct UploadForm: View {
         
         GeometryReader{ geometry in
             ZStack {
-                Color("Background").edgesIgnoringSafeArea(.top)
+                Color("Background")
                 
                 VStack{
                     ZStack(alignment: .top) {
-                        Image("BG Mask").edgesIgnoringSafeArea(.all)
+                        Image("BG Mask")
                         VStack{
                             Text("Need help?")
                                 .font(.system(size: 20))
@@ -44,16 +44,16 @@ struct UploadForm: View {
                                 .fontWeight(.medium)
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.center)
-                        }.padding(.top, -30)
+                        }.padding(.vertical, 20)
                     }
                     Spacer()
                 }
                 ZStack{
                     RoundedRectangle(cornerRadius: 10)
                         .fill(.white)
-                        .frame(width: geometry.size.width * 0.8, height: geometry.size.height * 0.9)
+                        .frame(width: geometry.size.width * 0.8, height: geometry.size.height * 0.85)
                         .shadow(radius: 5)
-                        .padding(.top, 50)
+                        .padding(.top, 60)
                     FormTask(userId: $userId, locationUser: $locationUser)
                 }
                 .padding(.bottom, 10)
