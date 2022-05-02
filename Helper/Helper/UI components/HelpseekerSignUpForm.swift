@@ -36,7 +36,7 @@ struct HelpseekerSignUpForm: View {
     @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
     
     @State private var text: String? = ""
-    //MARK: - Local Properties
+
     let audioEngine = AVAudioEngine()
     let speechReconizer : SFSpeechRecognizer? = SFSpeechRecognizer()
     let request = SFSpeechAudioBufferRecognitionRequest()
@@ -78,17 +78,16 @@ struct HelpseekerSignUpForm: View {
                 return
             }
             
+            // get transcipt
             let message = response.bestTranscription.formattedString
-            let _ = print("Message : \(message)")
             if self.btnFullName {
                 self.fullname = message
             } else if self.btnPhone {
                 self.phone = message
             }
-            let _ = print("text input is: \(String(describing: text))")
-            
         })
     }
+    
     // stop voice
     func cancelSpeechRecognization() {
         task.finish()

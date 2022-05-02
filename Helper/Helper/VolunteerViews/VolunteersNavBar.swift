@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 // enum class defines value for navigation bar
 enum Tabs: String {
@@ -31,7 +32,7 @@ struct VolunteersNavBar: View {
     func chooseDestination()-> some View {
         if (isLogoutMenuClicked){
             LandingPage().navigationBarHidden(true)
-        }else {
+        } else {
             EmptyView()
         }
     }

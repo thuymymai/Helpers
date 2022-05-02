@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct FormTask: View {
     @Binding var userId: Int

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct FormMedical: View {
     @Binding var fullname: String
