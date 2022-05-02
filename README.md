@@ -17,10 +17,10 @@ IOS application development course - Spring 2022 - Metropolia University Of Appl
 
 ## App Features
 - Helpseeker users:
-  * Emergency call to volunteer in urgent matters
+  * Emergency call to nearest volunteer in urgent matters
   * Browse first aid manual for information and instructions
   * Scan map by location for available volunteers and contact if needed
-  * Upload help form to when assistance is needed
+  * Upload help form when assistance is needed
 - Volunteer users:
   * Receive push notifications when new tasks are sent by helpseekers
   * Browse tasks by categories or view all tasks and accept at their own convenience
@@ -33,11 +33,13 @@ IOS application development course - Spring 2022 - Metropolia University Of Appl
 
 ## Data
 
+Application retrieves data from network and persists data on the device using the Core Data framework.
+
 ## Installation
 Requirements to run the project:
 1. Install Xcode environment
 2. Clone the project from [Github](https://github.com/thuymymai/Helpers) and opened with Xcode.
-3. Choose simulator (at least ios 15) and build project.
+3. Choose simulator (at least ios 15) or run the app on physical iOS devices by cable and build project.
 
 ## Screenshots
 <img src="https://github.com/thuymymai/Helpers/blob/main/Helper/Helper/Assets.xcassets/Images/iphone1.png" width="250" height="400"><img src="https://github.com/thuymymai/Helpers/blob/main/Helper/Helper/Assets.xcassets/Images/iphone2.png" width="250" height="400">
@@ -46,7 +48,12 @@ Requirements to run the project:
 
 ## License
 
-[GPL-3.0](https://github.com/Nischhal3/pre-owned/blob/readme/LICENSE.txt) license.
+[GPL-3.0](https://github.com/thuymymai/Helpers/blob/main/LICENSE) license.
+
+## References
+
+[Apple Developer](https://developer.apple.com/)
+
 ## Contributors
 [Son Dang](https://github.com/minhson0506)
 
