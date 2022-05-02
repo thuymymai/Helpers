@@ -7,36 +7,47 @@
 
 import SwiftUI
 
+enum Tab: String {
+    case Home
+    case Location
+    case Upload
+    case Profile
+}
+
 struct HelpSeekerNavBar: View {
     @Binding var helpseekerName: String
-    @State private var isLinkActive: Bool = false
-    @State private var isLogoutMenuClicked = false
-
+    @State var currentTab: Tab = .Home
+    
     var body: some View {
         NavigationView {
-            TabView{
+            TabView(selection: $currentTab){
                 FrontScreen(helpseekerName: $helpseekerName)
                     .tabItem(){
                         Image(systemName: "house")
                         Text("Home")
                     }
+                    .tag(Tab.Home)
                 Location(volunteerName: $helpseekerName)
                     .tabItem(){
                         Image(systemName: "map")
                         Text("Location")
                     }
+                    .tag(Tab.Location)
                 UploadForm(helpseekerName: $helpseekerName)
                     .tabItem(){
                         Image(systemName: "list.bullet.rectangle.portrait")
                         Text("New Task")
                     }
+                    .tag(Tab.Upload)
                 Profile(helpseekerName: $helpseekerName)
                     .tabItem(){
                         Image(systemName: "person")
                         Text("Profile")
                     }
+                    .tag(Tab.Profile)
             }
-            .navigationBarHidden(true)
+            .navigationTitle(currentTab.rawValue)
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
