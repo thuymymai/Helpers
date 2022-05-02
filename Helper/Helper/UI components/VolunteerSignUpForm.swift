@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import CoreData
 
 struct VolunteerSignUpForm: View {
     
@@ -77,6 +78,7 @@ struct VolunteerSignUpForm: View {
             }
             .frame(width: 260)
             .padding(.top, 50)
+            
             NavigationLink( destination: RegisterAvailability(fullname: $fullname, email: $email, phone: $phone, password: $password)
                 .navigationBarHidden(true), isActive: $isLinkActive) {EmptyView()}
             Button(action: {

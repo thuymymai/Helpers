@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct UploadForm: View {
     @Binding var helpseekerName: String

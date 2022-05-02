@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import CoreData
 
 struct TaskCard: View {
     // all tasks from core

@@ -174,8 +174,6 @@
 				20926D82280D6FC6000186E3 /* RegisterAvailability.swift */,
 				20F5572527FF643A00B0B638 /* TaskDetailView.swift */,
 				20DCAE1227FA2E9F00CBD253 /* VolunteerDashboard.swift */,
-				20D2459D27FDD4D5006FA73B /* Location.swift */,
-				20D245C427FE08BB006FA73B /* MapView.swift */,
 				20B435D7280D557400B9D5D0 /* VolunteersNavBar.swift */,
 				20926D80280D68C5000186E3 /* VolunteerSignUp.swift */,
 				2002D6EB2819D013004557B3 /* TaskHistoryView.swift */,
@@ -223,6 +221,8 @@
 				66464B7B281F1CBA00849620 /* LoginForm.swift */,
 				1157C5C928008DD200EDAC8D /* LandingPage.swift */,
 				115E8DAD2805135900C1995D /* ContentView.swift */,
+				20D2459D27FDD4D5006FA73B /* Location.swift */,
+				20D245C427FE08BB006FA73B /* MapView.swift */,
 			);
 			path = CommonViews;
 			sourceTree = "<group>";

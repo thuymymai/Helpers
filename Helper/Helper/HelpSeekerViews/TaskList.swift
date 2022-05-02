@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct TaskList: View {
     @Binding var helpseekerName: String
