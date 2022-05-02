@@ -11,19 +11,23 @@ import CoreLocation
 struct FrontScreen: View {
     @Binding var helpseekerName: String
     @State var phoneNumber: (String?, Double?) = ("", 0.0)
+    @State var location: String = ""
     
     // fetching user data from core data
     @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
     
-    func getPhoneNumber() {
+    func getUserData() {
         let userInfo = results.filter{$0.fullname?.lowercased() == helpseekerName.lowercased() }
         if(userInfo.count > 0){
+            //get currrent user location
+            let address = userInfo[0].location!.split(separator: ",")
+            self.location = String(address[0])
+            
             //get volunteer is the closest with current user
             let users = results.filter{$0.type != userInfo[0].type}
             let distanceAndPhone = users.map{ ($0.phone, CLLocation(latitude: userInfo[0].lat, longitude: userInfo[0].long).distance(from: CLLocation(latitude: $0.lat, longitude: $0.long))/1000) }
             let distance = distanceAndPhone.map {(Int($0.1))}
             self.phoneNumber = distanceAndPhone.first(where: {Int($0.1) == distance.min()})!
-            print("phone number is \(String(describing: self.phoneNumber.0))")
         }
     }
     
@@ -35,6 +39,9 @@ struct FrontScreen: View {
                 HStack(alignment: .top){
                     Spacer()
                     VStack{
+                        Text(location)
+                            .font(.system(size: 16))
+                            .padding(.bottom, 2)
                         NavigationLink(
                             destination: Location(volunteerName: $helpseekerName),
                             label: {
@@ -58,6 +65,7 @@ struct FrontScreen: View {
                 Text("Press button to call the nearest volunteer")
                     .padding(.bottom, 20)
                     .font(.system(size: 18))
+                    .multilineTextAlignment(.center)
                 EmergencyButton(phoneNumber: phoneNumber.0!)
                 Text("First Aid Manual")
                     .bold()
@@ -68,6 +76,7 @@ struct FrontScreen: View {
             .offset(y:-10)
         }
         .navigationBarHidden(true)
+        .onAppear(perform: {getUserData()})
     }
 }
 

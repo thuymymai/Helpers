@@ -44,7 +44,7 @@ struct UploadForm: View {
                                 .fontWeight(.medium)
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.center)
-                        }
+                        }.padding(.top, -30)
                     }
                     Spacer()
                 }

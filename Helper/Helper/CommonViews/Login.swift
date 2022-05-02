@@ -19,7 +19,7 @@ struct Login: View {
                         Image("Image-login")
                             .resizable()
                             .frame(width: geometry.size.width * 0.8, height: geometry.size.height * 0.3)
-                            .padding(.top,-60)
+                            .padding(.top,-100)
                         Spacer()
                     }
                     VStack{
@@ -34,7 +34,7 @@ struct Login: View {
                             .resizable()
                             .edgesIgnoringSafeArea(.all)
                             .padding(.top,30)
-                    }.padding(.top, 190)
+                    }.padding(.top, 150)
                 }
             }
         }

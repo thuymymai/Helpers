@@ -34,7 +34,7 @@
 		20DCAE1327FA2E9F00CBD253 /* VolunteerDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DCAE1227FA2E9F00CBD253 /* VolunteerDashboard.swift */; };
 		20EA35A127FC91FE00E1995B /* VolunteerProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EA35A027FC91FE00E1995B /* VolunteerProfile.swift */; };
 		20F5572627FF643A00B0B638 /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F5572527FF643A00B0B638 /* TaskDetailView.swift */; };
-		66464B74281EF20D00849620 /* CatagoryTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66464B73281EF20D00849620 /* CatagoryTaskView.swift */; };
+		66464B74281EF20D00849620 /* CategoryTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66464B73281EF20D00849620 /* CategoryTaskView.swift */; };
 		66464B78281F130600849620 /* TaskHistoryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66464B77281F130600849620 /* TaskHistoryCard.swift */; };
 		66464B7A281F1A9500849620 /* VolunteerSignUpForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66464B79281F1A9500849620 /* VolunteerSignUpForm.swift */; };
 		66464B7C281F1CBA00849620 /* LoginForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66464B7B281F1CBA00849620 /* LoginForm.swift */; };
@@ -111,7 +111,7 @@
 		20DCAE1227FA2E9F00CBD253 /* VolunteerDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerDashboard.swift; sourceTree = "<group>"; };
 		20EA35A027FC91FE00E1995B /* VolunteerProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolunteerProfile.swift; sourceTree = "<group>"; };
 		20F5572527FF643A00B0B638 /* TaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
-		66464B73281EF20D00849620 /* CatagoryTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatagoryTaskView.swift; sourceTree = "<group>"; };
+		66464B73281EF20D00849620 /* CategoryTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTaskView.swift; sourceTree = "<group>"; };
 		66464B75281F0E1F00849620 /* Location_Espoo_Matinkyla.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Location_Espoo_Matinkyla.gpx; sourceTree = "<group>"; };
 		66464B76281F0E5A00849620 /* Location_Espoo.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Location_Espoo.gpx; sourceTree = "<group>"; };
 		66464B77281F130600849620 /* TaskHistoryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHistoryCard.swift; sourceTree = "<group>"; };
@@ -179,7 +179,7 @@
 				20B435D7280D557400B9D5D0 /* VolunteersNavBar.swift */,
 				20926D80280D68C5000186E3 /* VolunteerSignUp.swift */,
 				2002D6EB2819D013004557B3 /* TaskHistoryView.swift */,
-				66464B73281EF20D00849620 /* CatagoryTaskView.swift */,
+				66464B73281EF20D00849620 /* CategoryTaskView.swift */,
 			);
 			path = VolunteerViews;
 			sourceTree = "<group>";
@@ -501,7 +501,7 @@
 				20680DC6281A88F6005D9E41 /* SettingsList.swift in Sources */,
 				20EA35A127FC91FE00E1995B /* VolunteerProfile.swift in Sources */,
 				66464B7C281F1CBA00849620 /* LoginForm.swift in Sources */,
-				66464B74281EF20D00849620 /* CatagoryTaskView.swift in Sources */,
+				66464B74281EF20D00849620 /* CategoryTaskView.swift in Sources */,
 				20B435D8280D557400B9D5D0 /* VolunteersNavBar.swift in Sources */,
 				20D2459E27FDD4D5006FA73B /* Location.swift in Sources */,
 				66464B87281FBD2700849620 /* UploadTaskForm.swift in Sources */,
