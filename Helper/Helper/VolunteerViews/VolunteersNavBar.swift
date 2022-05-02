@@ -6,54 +6,58 @@
 //
 
 import SwiftUI
+import CoreData
 
+// enum class defines value for navigation bar
 enum Tabs: String {
     case Dashboard
     case Location
-    case Tasks
+    case History
     case Profile
 }
 
 struct VolunteersNavBar: View {
     
+    // user fetched from core data
+    @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
+    // tasks fetched from coredata
+    @FetchRequest(entity: Task.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Task.title, ascending: true)]) var taskResults: FetchedResults<Task>
+    
     @Binding var volunteerName: String
-    
     @State var selectedTab: Tabs = .Dashboard
-    
     @State private var isLogoutMenuClicked = false
-    @State private var isFirstAidClicked = false
     @State private var isLinkActive: Bool = false
     
+    // create a viewBuilder function to navigate accordingly
     @ViewBuilder
     func chooseDestination()-> some View {
-      if (isLogoutMenuClicked){
+        if (isLogoutMenuClicked){
             LandingPage().navigationBarHidden(true)
-        }else {
+        } else {
             EmptyView()
         }
     }
     var body: some View {
         NavigationView{
             TabView(selection: $selectedTab){
-                VolunteerDashboard( volunteerName: $volunteerName)
+                VolunteerDashboard(volunteerName: $volunteerName)
                     .tabItem(){
                         Image(systemName: "house")
                         Text("Home")
                     }
                     .tag(Tabs.Dashboard)
-                Location()
+                Location(volunteerName: $volunteerName)
                     .tabItem(){
                         Image(systemName: "map")
                         Text("Location")
                     }
                     .tag(Tabs.Location)
-//                EditProfileView(volunteerName: $volunteerName)
-                AllTasksView()
+                TaskHistoryView(volunteerName: $volunteerName)
                     .tabItem(){
-                        Image(systemName: "list.bullet.rectangle.portrait")
-                        Text("Available Tasks")
+                        Image(systemName: "clock.fill")
+                        Text("Task History")
                     }
-                    .tag(Tabs.Tasks)
+                    .tag(Tabs.History)
                 VolunteerProfile(volunteerName: $volunteerName)
                     .tabItem(){
                         Image(systemName: "person")
@@ -71,24 +75,13 @@ struct VolunteersNavBar: View {
             )
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Menu {
-                        Button(action: {
-                            self.isLinkActive = true
-                            self.isFirstAidClicked = true
-                        }, label: {
-                            Label(title: {Text("First Aid Manual")}, icon: {Image(systemName: "info")})
-                        })
-                        Button(action:{
-                            self.isLinkActive = true
-                            self.isLogoutMenuClicked = true
-                        }, label: {
-                            Label(title: {Text("Log Out")}, icon: {Image(systemName: "rectangle.portrait.and.arrow.right")})
-                        })
-                    }
-                label: {
-                    Image("menu").resizable().frame(width:30, height:30).foregroundColor(.black).padding()
+                    Button(action:{
+                        self.isLinkActive = true
+                        self.isLogoutMenuClicked = true
+                    }, label: {
+                        Text("Log Out")
+                    })
                 }
-                }           
             }// close toolbar
         }.navigationBarHidden(true)
     }

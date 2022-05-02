@@ -1,3 +1,4 @@
+//Task detail
 //
 //  TaskDetailView.swift
 //  Helper
@@ -5,20 +6,14 @@
 //  Created by Annie Huynh on 7.4.2022.
 //
 
-
 import SwiftUI
+import CoreData
 
 struct TaskDetailView: View {
     
-    // passing helpseeker data  
-    @Binding var taskTitle: String
-    @Binding var helpseeker: String
-    @Binding var location: String
-    @Binding var time: Date?
-    @Binding var desc: String
-    @Binding var need: String
-    @Binding var chronic: String
-    @Binding var allergies: String
+    // passing helpseeker and task details
+    @Binding var currentTask: Task
+    @Binding var helpseeker: User
     
     var body: some View {
         GeometryReader {geometry in
@@ -29,36 +24,34 @@ struct TaskDetailView: View {
                     VStack{
                         ZStack {
                             VStack{
-                                ContactInfo(helpseeker: helpseeker)
+                                ContactInfo(helpseeker: helpseeker.fullname!)
                                 Divider()
-                                DisabilityInformation(need: need, chronic: chronic, allergies: allergies)
-                            }.frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.4)
-                                .background(.white)
-                                .cornerRadius(10)
-                                .shadow(radius: 5)
-                                .padding(.top,30)
+                                DisabilityInformation(need: helpseeker.need!, chronic: helpseeker.chronic!, allergies: helpseeker.allergies!)
+                            }
+                            .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.4)
+                            .background(.white)
+                            .cornerRadius(10)
+                            .shadow(radius: 5)
+                            .padding(.top,30)
                         }
                         VStack(alignment: .leading, spacing: 10){
-                            TaskTitle(taskTitle: taskTitle)
-                            Address(location: location)
-                            TimeNeeded(time:time)
-                            TaskDescription(desc: desc)
-                        }.padding(.horizontal)
-                            .offset(y:20)
+                            TaskTitle(taskTitle: currentTask.title!)
+                            Address(location: currentTask.location!)
+                            TimeNeeded(time:currentTask.time!)
+                            TaskDescription(desc: currentTask.desc!)
+                        }
+                        .padding(.horizontal)
+                        .offset(y:20)
                     }
                 }
-                
             }
         }
-        
     }
 }
 
 struct TaskDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskDetailView(taskTitle: .constant(""), helpseeker: .constant(""), location: .constant(""),
-                       time: .constant(Date()), desc: .constant(""), need: .constant(""),
-                       chronic: .constant(""), allergies: .constant(""))
+        TaskDetailView(currentTask: .constant(Task()), helpseeker: .constant(User()))
     }
 }
 
@@ -70,21 +63,19 @@ struct DisabilityInformation: View {
     var body: some View {
         VStack(spacing:5){
             HStack(spacing:-10) {
-                Text("Diability :")
+                Text("Diabilities:")
                     .font(.body)
                     .bold()
                     .foregroundColor(.black)
                     .padding(.leading, 10)
-                
-                Text(need.isEmpty ? "wheelchair" : need)
+                Text(need.isEmpty ? "Immobilized" : need)
                     .font(.body)
                     .foregroundColor(.black)
                     .padding(.leading, 20)
                 Spacer()
             }
-            
             HStack(spacing:-10) {
-                Text("Chronic disease :")
+                Text("Chronic disease:")
                     .font(.body)
                     .bold()
                     .foregroundColor(.black)
@@ -96,7 +87,7 @@ struct DisabilityInformation: View {
                 Spacer()
             }
             HStack(spacing:-10) {
-                Text("Allergies :")
+                Text("Allergies:")
                     .font(.body)
                     .bold()
                     .padding(.leading, 10)
@@ -117,8 +108,20 @@ struct DisabilityInformation: View {
 struct ContactInfo: View {
     
     var helpseeker: String
+    
+    // fetch user data from core
+    @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
+    
+    @State var userInfo: [User] = []
+    
+    // filter logged in user
+    func getInfo() {
+        self.userInfo = results.filter{$0.fullname?.lowercased() == helpseeker.lowercased()}
+    }
+    
     var body: some View {
         VStack(spacing:5) {
+            let _ = print("helpseeker is \(helpseeker)")
             Image("avatar")
                 .resizable()
                 .frame(width: 60, height: 60)
@@ -126,25 +129,45 @@ struct ContactInfo: View {
                 .padding(.top, 10)
             Text(helpseeker)
                 .bold()
-               
-            HStack(spacing:30) {
+            
+            HStack(alignment: .center,spacing:40) {
                 VStack(spacing:15) {
                     Image(systemName: "phone.fill")
                         .resizable()
                         .frame(width: 20, height: 20)
-                    Text("Call")
-                        .padding(.top, -10)
+                    Button(action: {
+                        if let phoneCallURL = URL(string: "tel://\(userInfo[0].phone!)") {
+                            let application:UIApplication = UIApplication.shared
+                            if (application.canOpenURL(phoneCallURL)) {
+                                application.open(phoneCallURL, options: [:], completionHandler: nil)
+                            }
+                        }
+                    }) {
+                        Text("Call")
+                            .padding(.top, -10)
+                    }
                 }
                 
                 VStack(spacing:15) {
                     Image(systemName: "message")
                         .resizable()
                         .frame(width: 20, height: 20)
-                    Text("Message")
-                        .padding(.top, -10)
+                    Button(action: {
+                        if let phoneSMSURL = URL(string: "sms://\(userInfo[0].phone!)") {
+                            let application:UIApplication = UIApplication.shared
+                            if (application.canOpenURL(phoneSMSURL)) {
+                                application.open(phoneSMSURL, options: [:], completionHandler: nil)
+                            }
+                        }
+                    }) {
+                        Text("Message")
+                            .padding(.top, -10)
+                    }
                 }
             }
-        }.padding(.top,0)
+        }
+        .onAppear(perform: {getInfo()})
+        .padding(.top,0)
     }
 }
 
@@ -195,5 +218,3 @@ struct TaskDescription: View {
         Text(desc)
     }
 }
-
-

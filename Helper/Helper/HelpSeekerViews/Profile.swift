@@ -13,10 +13,10 @@ struct Profile: View {
     
     var body: some View {
         ZStack{
-            Color("Background").edgesIgnoringSafeArea(.top)
+            Color("Background")
             VStack{
                 ZStack{
-                    Image("BG Mask").edgesIgnoringSafeArea(.all)
+                    Image("BG Mask")
                     VStack{
                         Image("avatar")
                             .resizable()
@@ -25,55 +25,44 @@ struct Profile: View {
                         Text(helpseekerName)
                             .font(.title)
                             .foregroundColor(.white)
-                    }.padding(.top,-90)
-                }
+                    }
+                }.offset(y:30)
                 List {
                     Section(header: Text("Account Settings")) {
-                        SettingsView(name: "Update Basic Information")
-                        SettingsView(name:"Update Medical Informations")
+                        // manual translation since "name" field cannot be localized automatically
+                        if (Locale.preferredLanguages[0] == "fi") {
+                            SettingsView(name: "Päivitä perustiedot")
+                            SettingsView(name:"Päivitä lääketieteelliset tiedot")
+                        } else {
+                            SettingsView(name: "Update Basic Information")
+                            SettingsView(name:"Update Medical Informations")
+                        }
                         NavigationLink(destination: TaskList(helpseekerName: $helpseekerName)) {
-                            SettingsView(name:"Your Tasks")
+                            if (Locale.preferredLanguages[0] == "fi") {
+                                SettingsView(name:"Sinun tehtäväsi")
+                            } else {
+                                SettingsView(name:"Your Tasks")
+                            }
                         }
-                    }.font(.system(size: 16))
-                    Section(header: Text("Preferences")) {
                         NavigationLink(destination: LandingPage().navigationBarHidden(true)) {
-                            SettingsView(name:"Log Out")
+                            if (Locale.preferredLanguages[0] == "fi") {
+                                SettingsView(name:"Kirjautua ulos")
+                            } else {
+                                SettingsView(name:"Log Out")
+                            }
                         }
-                        Toggle("Push Notification", isOn: $pushNoti)
-                            .font(.headline)
-                            .foregroundColor(Color.black.opacity(0.6))
-                            .padding()
-                        SettingsView(name:"Change language")
-                        
-                    }.font(.system(size: 16))
-                }.padding(.top,-60)
-            }.padding(.top, -30)
-                .padding(.bottom,5)
+                    }
+                    .font(.system(size: 16))
+                }.offset(y:50)
+            }
+            .padding(.top, -30)
+            .padding(.bottom,5)
         }
     }
 }
-
-
 
 struct Profile_Previews: PreviewProvider {
     static var previews: some View {
         Profile(helpseekerName: .constant(""))
     }
 }
-
-struct SettingsView: View {
-    var name: String
-    var body: some View {
-        Button(action: {
-            
-        }){
-            HStack {
-                Text(name)
-                Spacer(minLength: 15)
-            }.padding()
-                .font(.headline)
-                .foregroundColor(Color.black.opacity(0.6))
-        }
-    }
-}
-

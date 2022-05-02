@@ -2,16 +2,17 @@
 //  UserViewModel.swift
 //  Helper
 //
-//  Created by Dang Son on 17.4.2022.
+//  Created by Dang Son, My Mai, An Huynh on 17.4.2022.
 //
 
 import Foundation
 import CoreData
+import CoreLocation
 
 class UserViewModel: ObservableObject {
     @Published var users: [UserModel] = []
     
-    // saving Json to CoreData
+    // save Json to CoreData
     func saveData(context: NSManagedObjectContext) {
         users.forEach{ (data) in
             let entity = User(context: context)
@@ -31,7 +32,7 @@ class UserViewModel: ObservableObject {
             entity.allergies = data.allergies
         }
         
-        // saving all pending data at once
+        // save all pending data at once
         do {
             try context.save()
             print("success saving users to core data")
@@ -40,6 +41,7 @@ class UserViewModel: ObservableObject {
         }
     }
     
+    // get data from Network
     func fetchData(context: NSManagedObjectContext) {
         let url = "https://users.metropolia.fi/~sond/Swift%20Project/user.json"
         
@@ -73,4 +75,33 @@ class UserViewModel: ObservableObject {
         .resume()
     }
     
+    // get location of user
+    func getLocation(forPlaceCalled name: String,
+                     completion: @escaping(CLLocation?) -> Void) {
+        
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(name) { placemarks, error in
+            
+            guard error == nil else {
+                print("*** Error in \(#function) with \(name): \(error!.localizedDescription)")
+                completion(nil)
+                return
+            }
+            
+            guard let placemark = placemarks?[0] else {
+                print("*** Error in \(#function): placemark is nil")
+                completion(nil)
+                return
+            }
+            
+            guard let location = placemark.location else {
+                print("*** Error in \(#function): placemark is nil")
+                completion(nil)
+                return
+            }
+            
+            completion(location)
+        }
+    }
+
 }

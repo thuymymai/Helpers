@@ -2,7 +2,7 @@
 //  FirstAid.swift
 //  Helper
 //
-//  Created by Mai Thuỳ My on 12.4.2022.
+//  Created by My Mai, Dang Son, An Huynh on 12.4.2022.
 //
 
 import SwiftUI
@@ -14,7 +14,7 @@ struct FirstAid: View {
     var body: some View {
         ZStack(alignment: .top) {
             Color("White")
-                .edgesIgnoringSafeArea(.top)
+                .edgesIgnoringSafeArea(.all)
             ForEach(array, id: \.self) { value in
                 if (value == stt) {
                     ScrollView {
@@ -26,9 +26,10 @@ struct FirstAid: View {
                         Text("\(value.rawValue)")
                             .font(.system(size: 18))
                             .padding()
-                    }.offset(y:-30)
-                    .frame(maxHeight: .infinity, alignment: .top)
-                    .padding(10)
+                        }
+                        .offset(y:-30)
+                        .frame(maxHeight: .infinity, alignment: .top)
+                        .padding(10)
                     }
                 }
             }

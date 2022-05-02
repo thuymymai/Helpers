@@ -2,11 +2,13 @@
 //  ContentView.swift
 //  Helper
 //
-//  Created by SonDang, MyMai, AnHuynh on 1.4.2022.
+//  Created by Dang Son, My Mai, An Huynh on 1.4.2022.
 //
 
 import SwiftUI
 import CoreData
+import CoreLocationUI
+import MapKit
 
 struct ContentView: View {
     
@@ -14,6 +16,12 @@ struct ContentView: View {
     @StateObject var taskModel = TaskViewModel()
 
     @Environment(\.managedObjectContext) var context
+    
+    // shared for next view
+    static let shared = ContentView()
+    
+    // Constants for location for getting current location
+    var locationManager = LocationManager()
     
     // fetching user data from core data
     @FetchRequest(entity: User.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \User.userId, ascending: true)]) var results: FetchedResults<User>
@@ -33,17 +41,8 @@ struct ContentView: View {
         } catch {
             print(error)
         }
-//        do {
-//            results.forEach{ (user) in
-//                context.delete(user)
-//            }
-//            try context.save()
-//        } catch {
-//            print(error)
-//        }
-        
-        
     }
+    
     
     var body: some View {
         VStack{
@@ -56,23 +55,19 @@ struct ContentView: View {
 //                ProgressView().onAppear(perform: {clearData(entityName: "Task")})
 ////                ProgressView().onAppear(perform: {taskModel.fetchData(context: context)})
 //            }
-
-            // checking if core data exists
+            
+            // checking if core data exists, if not fetch data from Network
             if results.isEmpty {
                 if userModel.users.isEmpty {
                     ProgressView().onAppear(perform: {userModel.fetchData(context: context)})
                 }
-            } else {
-                let _ = print("read user from core \(results.count) \(String(describing: results[results.count-1].email)) \(String(describing: results[results.count-1].password))")
             }
+            
             if taskResults.isEmpty {
                 if taskModel.tasks.isEmpty {
                     ProgressView().onAppear(perform: {taskModel.fetchData(context: context)})
                 }
-            } else {
-                let _ = print("read task from core \(taskResults.count) \(String(describing: taskResults[taskResults.count-1].title)) \(String(describing: taskResults[taskResults.count-1].time))")
             }
-
         }
         LandingPage()
     }
