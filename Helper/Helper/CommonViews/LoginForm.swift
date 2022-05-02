@@ -86,10 +86,11 @@ struct Form: View {
                 Text("LOG IN")
                     .fontWeight(.bold)
                     .font(.system(size: 14))
-                    .frame(width: 130, height: 35)
+                    .frame(width: 130, height: 40)
                     .background(Color("Primary"))
                     .foregroundColor(.white)
                     .cornerRadius(10)
+                    
                 
             }
             .padding(.top, 210)

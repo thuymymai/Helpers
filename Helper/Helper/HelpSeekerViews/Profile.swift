@@ -13,10 +13,10 @@ struct Profile: View {
     
     var body: some View {
         ZStack{
-            Color("Background").edgesIgnoringSafeArea(.top)
+            Color("Background")
             VStack{
                 ZStack{
-                    Image("BG Mask").edgesIgnoringSafeArea(.all)
+                    Image("BG Mask")
                     VStack{
                         Image("avatar")
                             .resizable()
@@ -26,8 +26,7 @@ struct Profile: View {
                             .font(.title)
                             .foregroundColor(.white)
                     }
-                    .padding(.top,-70)
-                }
+                }.offset(y:30)
                 List {
                     Section(header: Text("Account Settings")) {
                         if (Locale.preferredLanguages[0] == "fi") {
@@ -53,8 +52,7 @@ struct Profile: View {
                         }
                     }
                     .font(.system(size: 16))
-                }
-                .padding(.top,-60)
+                }.offset(y:50)
             }
             .padding(.top, -30)
             .padding(.bottom,5)
