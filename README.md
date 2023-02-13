@@ -5,16 +5,12 @@ disabilities with the volunteers in the society who are willing and available to
 
 ## Table of Content
 
-- Overview
 - App features
 - Database
 - Installation
 - Screenshots
 - License
 - Contributors
-
-## Overview
-**Helpers** is an application acts as a platform connecting the ones in need of assistance, especially people with disabilities with the volunteers in the society who are willing and available to give help.
 
 ## App Features
 - Helpseeker users:
