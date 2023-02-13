@@ -1,6 +1,7 @@
-# Helpers IOS project
+# Helpers
 
-IOS application development course - Spring 2022 - Metropolia University Of Applied Sciences. The idea is to build a mobile application using Swift programming language while integrating user interface control with SwiftUI and following guidelines as well as course requirements. The project was divided into six development sprints in which a daily meeting was held among developers to update tasks, features and fix errors.
+An IOS mobile application which acts as an assistive platform connecting the ones in need of assistance, especially people with
+disabilities with the volunteers in the society who are willing and available to give help. The idea is to build a mobile application using Swift programming language while integrating user interface control with SwiftUI. The project was divided into six development sprints in which a daily meeting was held among developers to update tasks, features and fix errors.
 
 ## Table of Content
 
